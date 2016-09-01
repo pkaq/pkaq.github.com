@@ -1,0 +1,31 @@
+menu:
+  Gradle中文网: http://gradlecn.org
+  关于: /about-me/index.html
+  存档: /archives
+  #我是: /aboutme
+rss: /atom.xml
+description: 
+social:
+  weibo: 
+  github: https://github.com/pkaq
+  stack_overflow: 
+  facebook: 
+  twitter: https://twitter.com/onlymonniya
+  google_plus: 
+
+page_comment: true
+# 封面中的头像
+logo: /images/avatar.jpg
+background:
+  cover: /images/background-cover.jpg
+  color: cover-purple
+
+archive_date_format: MMM DD
+fancybox: true
+
+duoshuo_shortname: pkaq.duoshuo.com
+
+google_analytics: UA-78918255-1
+baidu_tongji: 9cdad07c755fa23f6aced510c6760e87
+favicon: /images/avatar-small.png
+
