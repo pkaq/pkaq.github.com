@@ -72,3 +72,11 @@ deploy:
   type: git
   repo: https://github.com/pkaq/pkaq.github.com.git
   branch: master
+toc:
+  maxdepth: 3
+  class: toc
+  slugify: transliteration
+  anchor:
+    position: after
+    symbol: '#'
+    style: header-anchor
