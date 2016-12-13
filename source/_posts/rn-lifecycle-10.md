@@ -1,4 +1,4 @@
-title: RN（react native）入坑指南-10,组件的生命周期
+﻿title: RN（react native）入坑指南-10,组件的生命周期
 date: 2016-04-24 12:36:07
 tags: ['React Native']
 categories: ['React Native']
@@ -6,6 +6,7 @@ author: Frank.Wu
 ---
 
 ![RN组件的声明周期](./rn-lifecycle-10/lifecycle.jpg)
+<!-- more -->
 
 **创建阶段**
 getDefaultProps : 在创建类的时候调用,处理props的默认值,getDefaultProps仅会被调用一次，这里的意思是无论你会创建多少个ReactElement，这个函数都只执行一次，之后的默认props都会直接使用改函数的返回值。

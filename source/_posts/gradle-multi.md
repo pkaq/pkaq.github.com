@@ -74,14 +74,13 @@ subprojects {
 }
 
 //为main模块定义特定行为,采用war插件并且依赖base模块
-project(':main'){	
+project(':main'){
 
 	apply plugin: 'war'
 
 	dependencies {
     	compile  project(':base')
 	}
-
 }
 ```
 

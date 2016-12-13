@@ -80,3 +80,7 @@ toc:
     position: after
     symbol: '#'
     style: header-anchor
+prism_plugin:
+  mode: 'preprocess'    # realtime/preprocess
+  theme: 'dark'
+    

@@ -1,13 +1,14 @@
-title: RN（react native）入坑指南-12,打正式签名包和发布
+﻿title: RN（react native）入坑指南-12,打正式签名包和发布
 date: 2016-04-24 12:36:07
 tags: ['React Native']
 categories: ['React Native']
 author: PKAQ
 ---
+
 **0.启动打包服务器**
 首先执行
 react-native start启动打包服务器,此时可以通过chrome打开`http://localhost:8081/index.android.bundle?platform=android`请求获取打包后的js文件,该文件是通过分析rn代码动态生成的,包含了应用中的全部逻辑.
-
+<!-- more -->
 **1.生成签名秘钥**
 用JDK自带的keytool工具生成证书：
 ```shell
