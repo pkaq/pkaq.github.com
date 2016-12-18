@@ -162,10 +162,10 @@ project:
     name: Gradle中文文档
     url: https://github.com/pkaq/gradledoc
     intro: Gralde用户手册翻译计划
-  # - type: company
-  #   name: Fexo
-  #   url: https://github.com/forsigner/fexo
-  #   intro: A minimalist design theme for hexo
+  - type: personal
+    name: 跟我学Gradle
+    url: http://www.jianshu.com/collection/9e24d4c23a84
+    intro: Gradle中文从入门到甩锅
   - type: personal
     name: GradleSide
     url: https://github.com/pkaq/gradleside

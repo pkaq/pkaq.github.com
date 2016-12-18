@@ -2,6 +2,8 @@
   <a class="avatar" href="/">
     <img src="<%= theme.avatar %>" alt="" />
   </a>
+
+
   <h1 class="name" style="font-family: <%= theme.blog_name_font_familiy || 'calligraffittiregular' %>">
     <%= theme.blog_name %>
   </h1>
@@ -19,7 +21,9 @@
         <% } else { %>
           <a href="<%= item.url %>"><%= item.name %></a>
         <% } %>
+        <!--
         <span>|</span>
+        -->
       </li>
     <% }) %>
   </ul>
