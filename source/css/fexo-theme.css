@@ -31,17 +31,47 @@ html.page-home {
     -webkit-font-smoothing: antialiased;
 }
 /** 博客背景 **/
-html.page-archives {
-    background-image: url(bg_archives.jpg) repeat;
+.page-archives {
+    background: url(bg-archives.jpg) repeat;
 }
 
 .canvas {
   position: absolute;
-  z-index: 0;
+  z-index: -1;
   top: 0px;
   left: 0px;
 }
 
 .content content-archive{
   position: absolute;
+  z-index: 1;
+}
+
+.toolbox_color_0 {
+  background-color: #
+}
+
+.toolbox_color_0 {
+    background: #1abc9c;
+  }
+.toolbox_color_1 {
+    background: #3498db;
+  }
+.toolbox_color_2 {
+    background: #9b59b6;
+  }
+.toolbox_color_3 {
+    background: #e67e22;
+  }
+.toolbox_color_4 {
+    background: #e74c3c;
+}
+.toolbox_color_5 {
+    background: #B76EF2;
+  }
+.toolbox_color_6 {
+    background: #70B4F4;
+  }
+.toolbox_color_7 {
+    background: #70F4B4;
 }
