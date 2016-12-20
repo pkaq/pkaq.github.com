@@ -147,10 +147,23 @@ about:
     icon: icon-mail
     text_key: Mail
     text_value: "pkaq@msn.com"
-  - type: location
-    icon: icon-location
-    text_value: 山东
-
+  - type: desc
+    icon: icon-tag
+    text_key: desc
+    text_value:
+    - "客从华阳山中来."
+    - "我自小庭种茶花."
+    - "你看那嗡嗡叫的虫儿."
+    - "是不是口渴贪茶吃."
+    - "莫笑村人蠢不知."
+    - "莫烦孩童摘花戴."
+    - "你看那代码埋了几个坑."
+    - "少年郎."
+    - "荷锄归."
+    - "快意飞马又如何."
+    - "倒不如学我全栈攻."
+    - "一杯咖啡码出一个站."
+    - "人生呀不过就是几个秋."
 link:
   - name: 梁工春日的忧郁
     info: 孤星独吟
