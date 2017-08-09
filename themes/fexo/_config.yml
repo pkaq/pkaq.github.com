@@ -58,7 +58,7 @@ breadcrumb:
 # 盒子
 toolbox:
   isShow: true # true|fase
-  text: Bazinga!
+  text: 　
 
 search_slogan:
   isShow: true # true|fase
