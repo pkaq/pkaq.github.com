@@ -2,7 +2,7 @@
 title: 采用Gradle快速构建基于Spring boot的MVC应用
 author: PKAQ
 date: 2016-12-13 15:01:06
-tags: ['Spring-boot']
+tags: ['Spring-boot','Gradle']
 categories: spring-boot
 ---
 
