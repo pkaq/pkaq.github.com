@@ -105,13 +105,10 @@ environments {
 }
 ```
 2.修改`build.gradle`
-
-引入ReplaceToken
 ```groovy
+//引入ReplaceToken
 import org.apache.tools.ant.filters.ReplaceTokens
-```
-处理资源文件时进行加载替换
-```groovy
+//处理资源文件时进行加载替换
 processResources {
     println "==> Load configuration for $env"
     def config =  new ConfigSlurper(env).parse(file("config.groovy").toURI().toURL()).toProperties()
@@ -123,8 +120,7 @@ processResources {
     }
     
 }
-
-```   
+```
 　　默认情况下`ReplaceTokens`会将`@attribute@`的值替换成目标值,这里我们修改占位描述符为`${attribute}`
 
 　　经过上面的操作,在执行打包命令时,`Gradle`会加载`config.groovy`文件中的配置对`src/main/resources`资源目录下的资源文件进行替换,注意这里替换的是所有资源文件(properties/xml/txt等)中的占位符,如果只想替换`properties`文件可以添加过滤限制来实现对部分文件内容的替换   
@@ -143,7 +139,7 @@ processResources {
         include '**/*.properties'       
         filter(ReplaceTokens, tokens: config, beginToken : '${', endToken : '}')
     }
-````
+```
 
 完整代码在此:   
 https://github.com/GradleCN/GradleSide/tree/master/12-env/02-configfile
