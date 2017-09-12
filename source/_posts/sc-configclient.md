@@ -1,7 +1,7 @@
 ---
 title: Spring Cloud 之创建配置中心服务 - 请求端
 author: PKAQ
-date: 2017-09-08 09:34:06
+date: 2017-07-18 09:34:06
 tags: ['Spring Cloud','微服务']
 categories: ['微服务']
 ---
@@ -71,6 +71,9 @@ spring:
 
 端口号采用配置中心相应配置文件的端口
 启动后访问 http://localhost:port/say
+
+
+** [示例代码](https://github.com/pkaq/springcloud7/tree/master/cloud-config-client  ) ** 
 
 **参考**
 - http://cloud.spring.io/spring-cloud-static/Dalston.SR3/

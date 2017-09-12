@@ -1,11 +1,10 @@
 ---
 title: Spring Cloud 之创建配置中心服务 - 发布端
 author: PKAQ
-date: 2017-09-07 11:20:07
+date: 2017-07-17 11:20:07
 tags: ['Spring Cloud','微服务']
 categories: ['微服务']
 ---
-
 
 　　在开发微服务时,各个服务有一些共同的配置,若是几十个微服务那么便需要将这些配置复制几十份.在开发过程中,对这些配置文件的编辑维护是一件十分麻烦的事情,若是可以对这些公用配置进行统一配置无疑将会极大减轻维护的难度和工作量,借助spring提供的配置中心服务可以对这些公共配置进行统一管理,具体操作如下
 <!-- more -->
@@ -164,6 +163,9 @@ security:
     name: pkaq
     password: pkaqx
 ```
+
+** [示例代码](https://github.com/pkaq/springcloud7/tree/master/cloud-config-server) ** 
+
 
 
 ** 参考 **
