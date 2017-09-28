@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+
+
+  <html class="dark page-post">
+
+
+<head>
+  <meta charset="utf-8">
+  
+  <title>Spring Cloud 之创建配置中心服务 - 请求端 | 如是我闻</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="Spring Cloud,微服务," />
+  
+
+  <meta name="description" content="Spring Cloud 之创建配置中心服务-客户端　　各个微服务想要使用配置中心服务非常简单,仅需要在bootstrap.yaml(或.properties)文件中稍作配置即可">
+<meta name="keywords" content="Spring Cloud,微服务">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Spring Cloud 之创建配置中心服务 - 请求端">
+<meta property="og:url" content="http://pkaq.org/2017/07/18/sc-configclient/index.html">
+<meta property="og:site_name" content="如是我闻">
+<meta property="og:description" content="Spring Cloud 之创建配置中心服务-客户端　　各个微服务想要使用配置中心服务非常简单,仅需要在bootstrap.yaml(或.properties)文件中稍作配置即可">
+<meta property="og:updated_time" content="2017-09-12T03:08:13.348Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Spring Cloud 之创建配置中心服务 - 请求端">
+<meta name="twitter:description" content="Spring Cloud 之创建配置中心服务-客户端　　各个微服务想要使用配置中心服务非常简单,仅需要在bootstrap.yaml(或.properties)文件中稍作配置即可">
+
+  
+
+  
+    <link rel="icon" href="/favicon.ico">
+  
+
+  <link href="/css/styles.css?v=d671a41f" rel="stylesheet">
+
+
+  
+    <link rel="stylesheet" href="/css/fexo-theme.css">
+  
+
+  
+
+  
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?cd1f06c6f057506d537ab11e9f1693be";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+  
+    <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  
+
+  
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  
+
+  <link href='//cdn.webfont.youziku.com/webfonts/nomal/97080/42410/5865c4e5f629db00cc915895.css' rel='stylesheet' type='text/css' />
+ 
+</head>
+
+<body>
+
+
+  
+    <span id="toolbox-mobile" class="toolbox-mobile">　</span>
+  
+
+  <div class="post-header CENTER">
+   
+  <div class="toolbox">
+    <a class="toolbox-entry" href="/">
+      <span class="toolbox-entry-text">　</span>
+      <i class="icon-angle-down"></i>
+      <i class="icon-home"></i>
+    </a>
+    <ul class="list-toolbox">
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE toolbox_color_0"
+            href="/archives/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            博客
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE toolbox_color_1"
+            href="/category/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            分类
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE toolbox_color_2"
+            href="/tag/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            标签
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE toolbox_color_3"
+            href="/link/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            友链
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE toolbox_color_4"
+            href="/atom.xml"
+            rel="noopener noreferrer"
+            target="_blank"
+            >
+            RSS
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE toolbox_color_5"
+            href="/search/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+</div>
+
+
+  <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-text">1.添加依赖#</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-text">2.配置上下文#</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-text">2.1 启动上下文#</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-text">2.2 应用上下文层次结构#</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-text">3.启动服务,大功告成.#</span></a></li></ol>
+  </div>
+
+
+
+<div class="content content-post CENTER">
+   <article id="post-sc-configclient" class="article article-type-post" itemprop="blogPost">
+  <header class="article-header">
+    <h1 class="post-title">Spring Cloud 之创建配置中心服务 - 请求端</h1>
+
+    <div class="article-meta">
+      <span>
+        <i class="icon-calendar"></i>
+        <span>2017.07.18</span>
+      </span>
+
+      
+        <span class="article-author">
+          <i class="icon-user"></i>
+          <span>PKAQ</span>
+        </span>
+      
+
+      
+  <span class="article-category">
+    <i class="icon-list"></i>
+    <a class="article-category-link" href="/categories/微服务/">微服务</a>
+  </span>
+
+
+
+      
+
+      
+      <i class="fa fa-eye"></i> 
+        <span id="busuanzi_container_page_pv">
+           &nbsp热度 <span id="busuanzi_value_page_pv">
+           <i class="fa fa-spinner fa-spin"></i></span>℃
+        </span>
+      
+
+      
+        <i class="icon-comment"></i> 
+        共 <a class="ds-thread-count" id="uyan_count_unit" su="Spring Cloud 之创建配置中心服务 - 请求端" href="http://pkaq.org/2017/07/18/sc-configclient/index.html"></a>
+      
+      
+    </div>
+  </header>
+
+  <div class="article-content">
+    
+      <p>Spring Cloud 之创建配置中心服务-客户端<br>　　各个微服务想要使用配置中心服务非常简单,仅需要在<code>bootstrap.yaml</code>(或<code>.properties</code>)文件中稍作配置即可</p>
+<a id="more"></a>
+<h2><span id="1-tian-jia-yi-lai">1.添加依赖</span><a href="#1-tian-jia-yi-lai" class="header-anchor">#</a></h2><figure class="highlight groovy"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">`org.springframework.<span class="string">cloud:</span>spring-cloud-starter-<span class="string">config:</span>$&#123;cloud_config&#125;`</div></pre></td></tr></table></figure>
+<h2><span id="2-pei-zhi-shang-xia-wen">2.配置上下文</span><a href="#2-pei-zhi-shang-xia-wen" class="header-anchor">#</a></h2><p><code>bootstrap.yaml</code>中添加<br><figure class="highlight yml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="attr">spring:</span></div><div class="line"><span class="attr">    application:</span></div><div class="line"><span class="attr">        name:</span> <span class="string">config-client</span></div><div class="line"><span class="attr">    cloud:</span></div><div class="line"><span class="attr">        config:</span></div><div class="line">            <span class="comment"># 配置中心地址</span></div><div class="line"><span class="attr">            uri:</span> <span class="attr">http://localhost:8888</span></div><div class="line">            <span class="comment"># 要应用的配置文件</span></div><div class="line"><span class="attr">            profile:</span> <span class="string">dev</span></div><div class="line">            <span class="comment"># 要读取的配置文件名</span></div><div class="line"><span class="attr">            name:</span> <span class="string">bravo</span></div><div class="line">            <span class="comment"># 对应服务端security设置的用户名密码</span></div><div class="line"><span class="attr">            username:</span> <span class="string">pkaq</span></div><div class="line"><span class="attr">            password:</span> <span class="string">pkaqx</span></div></pre></td></tr></table></figure></p>
+<blockquote>
+<p>注意这里是<code>bootstrap.yml</code>而不是<code>appliction.yml</code>,因为<code>bootstrap.yml</code>会在应用启动之前读取, 而<code>spring.cloud.config.uri</code>会影响应用启动,关于上下文可参见如下内容.</p>
+</blockquote>
+<h3><span id="2-1-qi-dong-shang-xia-wen">2.1 启动上下文</span><a href="#2-1-qi-dong-shang-xia-wen" class="header-anchor">#</a></h3><p>　　Spring Cloud会创建一个<code>Bootstrap Context</code>，作为Spring应用的<code>Application Context</code>的父上下文。初始化的时候，<code>Bootstrap Context</code>负责从外部源加载配置属性并解析配置。这两个上下文共享一个从外部获取的<code>Environment</code>。<code>Bootstrap</code>属性有高优先级，默认情况下，它们不会被本地配置覆盖。 <code>Bootstrap context</code>和<code>Application Context</code>有着不同的约定，所以新增了一个<code>bootstrap.yml</code>文件，而不是使用<code>application.yml</code> (或者<code>application.properties</code>)。保证<code>Bootstrap Context</code>和<code>Application Context</code>配置的分离。</p>
+<p>　　推荐在<code>bootstrap.yml</code> or <code>application.yml</code>里面配置<code>spring.application.name</code>. 你可以通过设置<code>spring.cloud.bootstrap.enabled=false</code>来禁用<code>bootstrap</code>。</p>
+<h3><span id="2-2-ying-yong-shang-xia-wen-ceng-ci-jie-gou">2.2 应用上下文层次结构</span><a href="#2-2-ying-yong-shang-xia-wen-ceng-ci-jie-gou" class="header-anchor">#</a></h3><p>　　如果你通过<code>SpringApplication</code>或者<code>SpringApplicationBuilder</code>创建一个<code>Application Context</code>,那么会为spring应用的<code>Application Context</code>创建父上下文<code>Bootstrap Context</code>。在Spring里有个特性，子上下文会继承父类的<code>property sources</code> and <code>profiles</code> ，所以<code>main application context</code> 相对于没有使用Spring Cloud Config，会新增额外的<code>property sources</code>。额外的<code>property sources</code>有：</p>
+<ul>
+<li>“bootstrap” : 如果在<code>Bootstrap Context</code>扫描到<code>PropertySourceLocator</code>并且有属性，则会添加到<code>CompositePropertySource</code>。<code>Spirng Cloud Config</code>就是通过这种方式来添加的属性的，详细看源码<code>ConfigServicePropertySourceLocator</code>。下面也也有一个例子自定义的例子。</li>
+<li>“applicationConfig: [classpath:bootstrap.yml]” ，（如果有<code>spring.profiles.active=production</code>则例如 <code>applicationConfig: [classpath:/bootstrap.yml]#production）</code>: 如果你使用<code>bootstrap.yml</code>来配置<code>Bootstrap Context</code>，他比<code>application.yml</code>优先级要低。它将添加到子上下文，作为Spring Boot应用程序的一部分。下文有介绍。<br>　　由于优先级规则，<code>Bootstrap Context</code>不包含从<code>bootstrap.yml</code>来的数据，但是可以用它作为默认设置。</li>
+</ul>
+<blockquote>
+<p><code>bootstrap.yml</code>是由<code>spring.cloud.bootstrap.name</code>（默认:”bootstrap”）或者<code>spring.cloud.bootstrap.location</code>（默认空）</p>
+</blockquote>
+<p><strong>覆盖远程属性</strong> </p>
+<p>　　<code>property sources</code>被<code>bootstrap context</code> 添加到应用通常通过远程的方式，比如”Config Server”。默认情况下，本地的配置文件不能覆盖远程配置，但是可以通过启动命令行参数来覆盖远程配置。如果需要本地文件覆盖远程文件，需要在远程配置文件里设置授权<br><code>spring.cloud.config.allowOverride=true</code>（这个配置不能在本地被设置）。一旦设置了这个权限，你可以配置更加细粒度的配置来配置覆盖的方式，</p>
+<p>比如：<br><figure class="highlight yml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="attr">spring:</span></div><div class="line"><span class="attr">    cloud:</span></div><div class="line"><span class="attr">        config:</span></div><div class="line">            <span class="comment"># 覆盖任何本地属性 </span></div><div class="line"><span class="attr">            overrideNone:</span> <span class="literal">true</span> </div><div class="line">            <span class="comment"># 仅仅系统属性和环境变量 </span></div><div class="line"><span class="attr">            overrideSystemProperties:</span> <span class="literal">false</span></div></pre></td></tr></table></figure></p>
+<p>源文件见PropertySourceBootstrapPropertie</p>
+<h2><span id="3-qi-dong-fu-wu-da-gong-gao-cheng">3.启动服务,大功告成.</span><a href="#3-qi-dong-fu-wu-da-gong-gao-cheng" class="header-anchor">#</a></h2><p>端口号采用配置中心相应配置文件的端口<br>启动后访问 <a href="http://localhost:port/say" target="_blank" rel="external">http://localhost:port/say</a></p>
+<p><strong> <a href="https://github.com/pkaq/springcloud7/tree/master/cloud-config-client" target="_blank" rel="external">示例代码</a> </strong> </p>
+<p><strong>参考</strong></p>
+<ul>
+<li><a href="http://cloud.spring.io/spring-cloud-static/Dalston.SR3/" target="_blank" rel="external">http://cloud.spring.io/spring-cloud-static/Dalston.SR3/</a></li>
+</ul>
+<link href="/css/prism-dark.css" rel="stylesheet">
+    
+  </div>
+</article>
+
+</div>
+
+
+  <div class="text-center donation">
+    <div class="inner-donation">
+      <span class="btn-donation">支持一下</span>
+      <div class="donation-body">
+        <div class="tip text-center">您得支持,是我前进的动力.</div>
+        <ul class="theme.donation.items.length">
+        
+          <li class="item">
+            <img src="/css/qr-donate.jpg" alt="">
+          </li>
+        
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+
+
+  <a id="backTop" class="back-top">
+    <i class="icon-angle-up"></i>
+  </a>
+
+
+
+
+  <div class="modal" id="modal">
+  <span id="cover" class="cover hide"></span>
+  <div id="modal-dialog" class="modal-dialog hide-dialog">
+    <div class="modal-header">
+      <span id="close" class="btn-close">关闭</span>
+    </div>
+    <hr>
+    <div class="modal-body">
+      <ul class="list-toolbox">
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/archives/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              博客
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/category/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              分类
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/tag/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              标签
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/link/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              友链
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/atom.xml"
+              rel="noopener noreferrer"
+              target="_blank"
+              >
+              RSS
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/search/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              搜索
+            </a>
+          </li>
+        
+      </ul>
+
+    </div>
+  </div>
+</div>
+
+
+
+  
+      <div class="fexo-comments comments-post">
+    
+
+    
+  <section class="duoshuo-comments">
+
+    <!-- UY BEGIN -->
+    <div id="uyan_frame"></div>
+    <script async type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid=2144561">
+    <!-- UY END -->
+  </section>
+
+  <script type="text/javascript">
+	var uyan_config = {
+	     'su':"Spring Cloud 之创建配置中心服务 - 请求端" 
+	};
+	</script>
+
+
+
+  </div>
+
+  
+
+  <script type="text/javascript">
+  function loadScript(url, callback) {
+    var script = document.createElement('script')
+    script.type = 'text/javascript';
+
+    if (script.readyState) { //IE
+      script.onreadystatechange = function() {
+        if (script.readyState == 'loaded' ||
+          script.readyState == 'complete') {
+          script.onreadystatechange = null;
+          callback();
+        }
+      };
+    } else { //Others
+      script.onload = function() {
+        callback();
+      };
+    }
+
+    script.src = url;
+    document.getElementsByTagName('head')[0].appendChild(script);
+  }
+
+  window.onload = function() {
+    loadScript('/js/bundle.js?235683', function() {
+      // load success
+    });
+  }
+</script>
+
+</body>
+</html>

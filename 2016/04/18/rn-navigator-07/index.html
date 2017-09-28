@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+
+
+  <html class="dark page-post">
+
+
+<head>
+  <meta charset="utf-8">
+  
+  <title>RN（react native）入坑指南-07,使用navigator实现页面跳转 | 如是我闻</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="React Native," />
+  
+
+  <meta name="description" content="前言　　此文完全参考React-Native中文社区的博客新手理解navigator的教程而来,建议直接跳转链接进行详细学习,为防止链接失效或不可抗力因素无法访问,个人整理简单记录如下. 开始由于前一篇文章将代码进行了分层整理,所以我们的index.android.js已经变得相对简洁">
+<meta name="keywords" content="React Native">
+<meta property="og:type" content="article">
+<meta property="og:title" content="RN（react native）入坑指南-07,使用navigator实现页面跳转">
+<meta property="og:url" content="http://pkaq.org/2016/04/18/rn-navigator-07/index.html">
+<meta property="og:site_name" content="如是我闻">
+<meta property="og:description" content="前言　　此文完全参考React-Native中文社区的博客新手理解navigator的教程而来,建议直接跳转链接进行详细学习,为防止链接失效或不可抗力因素无法访问,个人整理简单记录如下. 开始由于前一篇文章将代码进行了分层整理,所以我们的index.android.js已经变得相对简洁">
+<meta property="og:updated_time" content="2016-09-01T09:03:14.004Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="RN（react native）入坑指南-07,使用navigator实现页面跳转">
+<meta name="twitter:description" content="前言　　此文完全参考React-Native中文社区的博客新手理解navigator的教程而来,建议直接跳转链接进行详细学习,为防止链接失效或不可抗力因素无法访问,个人整理简单记录如下. 开始由于前一篇文章将代码进行了分层整理,所以我们的index.android.js已经变得相对简洁">
+
+  
+
+  
+    <link rel="icon" href="/favicon.ico">
+  
+
+  <link href="/css/styles.css?v=d671a41f" rel="stylesheet">
+
+
+  
+    <link rel="stylesheet" href="/css/fexo-theme.css">
+  
+
+  
+
+  
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?cd1f06c6f057506d537ab11e9f1693be";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+  
+    <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  
+
+  
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  
+
+  <link href='//cdn.webfont.youziku.com/webfonts/nomal/97080/42410/5865c4e5f629db00cc915895.css' rel='stylesheet' type='text/css' />
+ 
+</head>
+
+<body>
+
+
+  
+    <span id="toolbox-mobile" class="toolbox-mobile">　</span>
+  
+
+  <div class="post-header CENTER">
+   
+  <div class="toolbox">
+    <a class="toolbox-entry" href="/">
+      <span class="toolbox-entry-text">　</span>
+      <i class="icon-angle-down"></i>
+      <i class="icon-home"></i>
+    </a>
+    <ul class="list-toolbox">
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE toolbox_color_0"
+            href="/archives/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            博客
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE toolbox_color_1"
+            href="/category/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            分类
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE toolbox_color_2"
+            href="/tag/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            标签
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE toolbox_color_3"
+            href="/link/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            友链
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE toolbox_color_4"
+            href="/atom.xml"
+            rel="noopener noreferrer"
+            target="_blank"
+            >
+            RSS
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE toolbox_color_5"
+            href="/search/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+</div>
+
+
+  <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-text">前言#</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-text">开始#</span></a></li></ol>
+  </div>
+
+
+
+<div class="content content-post CENTER">
+   <article id="post-rn-navigator-07" class="article article-type-post" itemprop="blogPost">
+  <header class="article-header">
+    <h1 class="post-title">RN（react native）入坑指南-07,使用navigator实现页面跳转</h1>
+
+    <div class="article-meta">
+      <span>
+        <i class="icon-calendar"></i>
+        <span>2016.04.18</span>
+      </span>
+
+      
+        <span class="article-author">
+          <i class="icon-user"></i>
+          <span>PKAQ</span>
+        </span>
+      
+
+      
+  <span class="article-category">
+    <i class="icon-list"></i>
+    <a class="article-category-link" href="/categories/React-Native/">React Native</a>
+  </span>
+
+
+
+      
+
+      
+      <i class="fa fa-eye"></i> 
+        <span id="busuanzi_container_page_pv">
+           &nbsp热度 <span id="busuanzi_value_page_pv">
+           <i class="fa fa-spinner fa-spin"></i></span>℃
+        </span>
+      
+
+      
+        <i class="icon-comment"></i> 
+        共 <a class="ds-thread-count" id="uyan_count_unit" su="RN（react native）入坑指南-07,使用navigator实现页面跳转" href="http://pkaq.org/2016/04/18/rn-navigator-07/index.html"></a>
+      
+      
+    </div>
+  </header>
+
+  <div class="article-content">
+    
+      <h4><span id="qian-yan">前言</span><a href="#qian-yan" class="header-anchor">#</a></h4><p>　　此文完全参考React-Native中文社区的博客<a href="http://reactnative.cn/post/20" target="_blank" rel="external">新手理解navigator的教程</a>而来,建议直接跳转链接进行详细学习,为防止链接失效或不可抗力因素无法访问,个人整理简单记录如下.</p>
+<h4><span id="kai-shi">开始</span><a href="#kai-shi" class="header-anchor">#</a></h4><p>由于前一篇文章将代码进行了分层整理,所以我们的<code>index.android.js</code>已经变得相对简洁</p>
+<a id="more"></a>
+<p><code>index.android.js</code><br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line"><span class="meta">'use strict'</span>;</div><div class="line"></div><div class="line"><span class="keyword">import</span> React,&#123;Navigator,AppRegistry&#125; <span class="keyword">from</span> <span class="string">'react-native'</span>;</div><div class="line"></div><div class="line">&#123;<span class="comment">/**引入Login组件 */</span>&#125;</div><div class="line"><span class="keyword">import</span> Login <span class="keyword">from</span> <span class="string">'./src/login/Login.js'</span>;</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">TaraRn</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span> </span>&#123;</div><div class="line">    </div><div class="line">  render() &#123;</div><div class="line">    &#123;<span class="comment">/** 默认组件名称以及默认组件 */</span>&#125;</div><div class="line">    <span class="keyword">let</span> defaultName = <span class="string">"Login"</span>;</div><div class="line">    <span class="keyword">let</span> defaultComponent = Login;</div><div class="line">    </div><div class="line">    <span class="keyword">return</span> (</div><div class="line">     &lt;Navigator          </div><div class="line">          <span class="comment">//初始化组件</span></div><div class="line">          initialRoute=&#123;&#123; <span class="attr">name</span>: defaultName, <span class="attr">component</span>: defaultComponent &#125;&#125;    </div><div class="line">          <span class="comment">//页面切换效果 </span></div><div class="line">          configureScene=&#123;(route) =&gt; &#123;</div><div class="line">            <span class="keyword">return</span> Navigator.SceneConfigs.VerticalDownSwipeJump;</div><div class="line">          &#125;&#125;</div><div class="line">          renderScene=&#123;(route, navigator) =&gt; &#123;</div><div class="line">            <span class="keyword">let</span> Component = route.component;</div><div class="line">            <span class="keyword">return</span> <span class="xml"><span class="tag">&lt;<span class="name">Component</span> &#123;<span class="attr">...route.params</span>&#125; <span class="attr">navigator</span>=<span class="string">&#123;navigator&#125;</span> /&gt;</span></span></div><div class="line"><span class="xml">          &#125;&#125; /&gt;</span></div><div class="line"><span class="xml">    )</span></div><div class="line"><span class="xml">  &#125;</span></div><div class="line"><span class="xml">&#125;</span></div><div class="line"><span class="xml">  </span></div><div class="line"><span class="xml">AppRegistry.registerComponent('TaraRn', () =&gt; TaraRn);</span></div></pre></td></tr></table></figure></p>
+<p>这里来解释一下代码:</p>
+<p>第三行: 一个初始首页的component名字，比如我写了一个component叫HomeComponent，那么这个name就是这个组件的名字【HomeComponent】了。</p>
+<p>第四行: 这个组件的Class，用来一会儿实例化成 <code>&lt;Component /&gt;</code>标签</p>
+<p>第七行:<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line">	initialRoute=&#123;&#123; <span class="attr">name</span>: defaultName, <span class="attr">component</span>: defaultComponent &#125;&#125;</div><div class="line"><span class="string">``</span><span class="string">` </span></div><div class="line"><span class="string">这个指定了默认的页面，也就是启动app之后会看到界面的第一屏。 需要填写两个参数: name 跟 component。</span></div><div class="line"><span class="string"></span></div><div class="line"><span class="string">第八，九，十行: </span></div><div class="line"><span class="string">`</span><span class="string">``</span>javascript</div><div class="line">	configureScene=&#123;() =&gt; &#123;<span class="keyword">return</span> Navigator.SceneConfigs.VerticalDownSwipeJump;&#125;&#125;</div><div class="line"><span class="string">``</span><span class="string">` </span></div><div class="line"><span class="string">这个是页面之间跳转时候的动画，具体有哪些？</span></div><div class="line"><span class="string"></span></div><div class="line"><span class="string">- Navigator.SceneConfigs.PushFromRight (默认)</span></div><div class="line"><span class="string">- Navigator.SceneConfigs.FloatFromRight</span></div><div class="line"><span class="string">- Navigator.SceneConfigs.FloatFromLeft</span></div><div class="line"><span class="string">- Navigator.SceneConfigs.FloatFromBottom</span></div><div class="line"><span class="string">- Navigator.SceneConfigs.FloatFromBottomAndroid</span></div><div class="line"><span class="string">- Navigator.SceneConfigs.FadeAndroid</span></div><div class="line"><span class="string">- Navigator.SceneConfigs.HorizontalSwipeJump</span></div><div class="line"><span class="string">- Navigator.SceneConfigs.HorizontalSwipeJumpFromRight</span></div><div class="line"><span class="string">- Navigator.SceneConfigs.VerticalUpSwipeJump</span></div><div class="line"><span class="string">- Navigator.SceneConfigs.VerticalDownSwipeJump</span></div><div class="line"><span class="string"></span></div><div class="line"><span class="string">最后的几行: </span></div><div class="line"><span class="string">`</span><span class="string">``</span>javascript</div><div class="line">renderScene=&#123;(route, navigator) =&gt; &#123;</div><div class="line">        <span class="keyword">let</span> Component = route.component;</div><div class="line">        <span class="keyword">return</span> <span class="xml"><span class="tag">&lt;<span class="name">Component</span> &#123;<span class="attr">...route.params</span>&#125; <span class="attr">navigator</span>=<span class="string">&#123;navigator&#125;</span> /&gt;</span></span></div><div class="line"><span class="xml">    &#125;&#125; /&gt;</span></div><div class="line"><span class="xml">);</span></div></pre></td></tr></table></figure></p>
+<p>这里是每个人最疑惑的，我们先看到回调里的两个参数:route, navigator。通过打印我们发现route里其实就是我们传递的name,component这两个货，navigator是一个Navigator的对象，为什么呢，因为它有push pop jump…等方法，这是我们等下用来跳转页面用的那个navigator对象。<br><code>return &lt;Component {...route.params} navigator={navigator} /&gt;</code><br>这里有一个判断，也就是如果传递进来的component存在，那我们就是返回一个这个component，结合前面 initialRoute 的参数，我们就是知道，这是一个会被render出来给用户看到的component，然后navigator作为props传递给了这个component。</p>
+<ul>
+<li>getCurrentRoutes() - 获取当前栈里的路由，也就是push进来，没有pop掉的那些。</li>
+<li>jumpBack() - 跳回之前的路由，当然前提是保留现在的，还可以再跳回来，会给你保留原样。</li>
+<li>jumpForward() - 上一个方法不是调到之前的路由了么，用这个跳回来就好了。</li>
+<li>jumpTo(route) - 跳转到已有的场景并且不卸载。</li>
+<li>push(route) - 跳转到新的场景，并且将场景入栈，你可以稍后跳转过去</li>
+<li>pop() - 跳转回去并且卸载掉当前场景</li>
+<li>replace(route) - 用一个新的路由替换掉当前场景</li>
+<li>replaceAtIndex(route, index) - 替换掉指定序列的路由场景</li>
+<li>replacePrevious(route) - 替换掉之前的场景</li>
+<li>immediatelyResetRouteStack(routeStack) - 用新的路由数组来重置路由栈</li>
+<li>popToRoute(route) - pop到路由指定的场景，其他的场景将会卸载。</li>
+<li>popToTop() - pop到栈中的第一个场景，卸载掉所有的其他场景。</li>
+</ul>
+<p><code>Login.js</code></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div></pre></td><td class="code"><pre><div class="line"><span class="meta">'use strict'</span>;</div><div class="line"></div><div class="line">&#123;<span class="comment">/**引入样式文件 */</span>&#125;</div><div class="line"><span class="keyword">import</span> styles <span class="keyword">from</span> <span class="string">'./Login.style.js'</span>;</div><div class="line">&#123;<span class="comment">/**引入图标字体 */</span>&#125;</div><div class="line"><span class="keyword">import</span> Icon <span class="keyword">from</span> <span class="string">'react-native-vector-icons/FontAwesome'</span>;</div><div class="line">&#123;<span class="comment">/**引入Homepage */</span>&#125;</div><div class="line"><span class="keyword">import</span> Home <span class="keyword">from</span> <span class="string">'../home/Home.js'</span>;</div><div class="line"></div><div class="line"><span class="keyword">import</span> React, &#123;</div><div class="line">  Component, </div><div class="line">  TouchableHighlight,</div><div class="line">  Text,</div><div class="line">&#125; <span class="keyword">from</span> <span class="string">'react-native'</span>;</div><div class="line"></div><div class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="class"><span class="keyword">class</span> <span class="title">Login</span> <span class="keyword">extends</span> <span class="title">Component</span> </span>&#123;</div><div class="line">  </div><div class="line">  <span class="keyword">constructor</span>(props)&#123;</div><div class="line">    <span class="keyword">super</span>(props);</div><div class="line">    <span class="keyword">this</span>.state = &#123;</div><div class="line">      name : <span class="literal">null</span></div><div class="line">    &#125;    </div><div class="line">  &#125;</div><div class="line">  </div><div class="line">  _onLogin()&#123;   </div><div class="line">    <span class="comment">// 进行跳转并传递参数</span></div><div class="line">    <span class="keyword">this</span>.props.navigator.push(&#123;</div><div class="line">      title : <span class="string">'homepage'</span>,</div><div class="line">      component:Home,</div><div class="line">      params : &#123;</div><div class="line">        name : <span class="string">'Tom'</span></div><div class="line">      &#125;</div><div class="line">    &#125;)</div><div class="line">  &#125;</div><div class="line">  </div><div class="line">  </div><div class="line">  render() &#123;</div><div class="line">    <span class="keyword">return</span> (</div><div class="line">      &lt;View style=&#123;styles.container&#125;&gt;        </div><div class="line">        &lt;TouchableHighlight</div><div class="line">            style=&#123;styles.th&#125;</div><div class="line">            underlayColor=<span class="string">"rgb(210, 230, 255)"</span></div><div class="line">            onPress = &#123;<span class="keyword">this</span>._onLogin.bind(<span class="keyword">this</span>)&#125;&gt;</div><div class="line">            &lt;View&gt;</div><div class="line">              &lt;Text&gt;登录&lt;<span class="regexp">/Text&gt;</span></div><div class="line"><span class="regexp">            &lt;/</span>View&gt;</div><div class="line">        &lt;<span class="regexp">/TouchableHighlight&gt;      </span></div><div class="line"><span class="regexp">      &lt;/</span>View&gt;</div><div class="line">    );</div><div class="line">  &#125;</div></pre></td></tr></table></figure>
+<p><code>Home.js</code><br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div></pre></td><td class="code"><pre><div class="line"><span class="meta">'use strict'</span></div><div class="line"></div><div class="line"><span class="keyword">import</span> React,&#123;</div><div class="line">    Component,</div><div class="line">    TouchableOpacity,</div><div class="line">    View,</div><div class="line">    Text</div><div class="line">&#125; <span class="keyword">from</span> <span class="string">'react-native'</span></div><div class="line"></div><div class="line"><span class="keyword">import</span> styles <span class="keyword">from</span> <span class="string">'./Home.style.js'</span>;</div><div class="line"></div><div class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="class"><span class="keyword">class</span> <span class="title">Home</span> <span class="keyword">extends</span> <span class="title">Component</span></span>&#123;</div><div class="line">  <span class="keyword">constructor</span>(props)&#123;</div><div class="line">      <span class="keyword">super</span>(props);</div><div class="line">      <span class="keyword">this</span>.state = &#123;</div><div class="line">          name : <span class="string">'Frank'</span></div><div class="line">      &#125;;</div><div class="line">  &#125;</div><div class="line">  <span class="comment">/**接收传递过来的参数 */</span></div><div class="line">  componentDidMount()&#123;</div><div class="line">      <span class="keyword">this</span>.setState(&#123;</div><div class="line">          name : <span class="keyword">this</span>.props.name</div><div class="line">      &#125;)</div><div class="line">  &#125;</div><div class="line">  <span class="comment">/**返回事件 */</span></div><div class="line">  _onBack()&#123;</div><div class="line">    <span class="keyword">const</span> &#123; navigator &#125; = <span class="keyword">this</span>.props;</div><div class="line">    <span class="keyword">if</span>(navigator) &#123;</div><div class="line">       navigator.pop();</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">  </div><div class="line">  render()&#123;</div><div class="line">        <span class="keyword">return</span> (</div><div class="line">            &lt;View style=&#123;styles.container&#125;&gt;</div><div class="line">                &lt;Text&gt;Hello.&#123;<span class="keyword">this</span>.state.name&#125;&lt;<span class="regexp">/Text&gt;</span></div><div class="line"><span class="regexp">                &lt;TouchableOpacity style=&#123;styles.th&#125; onPress=&#123;this._onBack.bind(this)&#125;&gt;</span></div><div class="line"><span class="regexp">                    &lt;Text&gt;点我返回&lt;/</span>Text&gt;                    </div><div class="line">                &lt;<span class="regexp">/TouchableOpacity&gt; </span></div><div class="line"><span class="regexp">            &lt;/</span>View&gt;</div><div class="line">        )</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<link href="/css/prism-dark.css" rel="stylesheet">
+    
+  </div>
+</article>
+
+</div>
+
+
+  <div class="text-center donation">
+    <div class="inner-donation">
+      <span class="btn-donation">支持一下</span>
+      <div class="donation-body">
+        <div class="tip text-center">您得支持,是我前进的动力.</div>
+        <ul class="theme.donation.items.length">
+        
+          <li class="item">
+            <img src="/css/qr-donate.jpg" alt="">
+          </li>
+        
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+
+
+  <a id="backTop" class="back-top">
+    <i class="icon-angle-up"></i>
+  </a>
+
+
+
+
+  <div class="modal" id="modal">
+  <span id="cover" class="cover hide"></span>
+  <div id="modal-dialog" class="modal-dialog hide-dialog">
+    <div class="modal-header">
+      <span id="close" class="btn-close">关闭</span>
+    </div>
+    <hr>
+    <div class="modal-body">
+      <ul class="list-toolbox">
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/archives/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              博客
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/category/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              分类
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/tag/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              标签
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/link/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              友链
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/atom.xml"
+              rel="noopener noreferrer"
+              target="_blank"
+              >
+              RSS
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/search/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              搜索
+            </a>
+          </li>
+        
+      </ul>
+
+    </div>
+  </div>
+</div>
+
+
+
+  
+      <div class="fexo-comments comments-post">
+    
+
+    
+  <section class="duoshuo-comments">
+
+    <!-- UY BEGIN -->
+    <div id="uyan_frame"></div>
+    <script async type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid=2144561">
+    <!-- UY END -->
+  </section>
+
+  <script type="text/javascript">
+	var uyan_config = {
+	     'su':"RN（react native）入坑指南-07,使用navigator实现页面跳转" 
+	};
+	</script>
+
+
+
+  </div>
+
+  
+
+  <script type="text/javascript">
+  function loadScript(url, callback) {
+    var script = document.createElement('script')
+    script.type = 'text/javascript';
+
+    if (script.readyState) { //IE
+      script.onreadystatechange = function() {
+        if (script.readyState == 'loaded' ||
+          script.readyState == 'complete') {
+          script.onreadystatechange = null;
+          callback();
+        }
+      };
+    } else { //Others
+      script.onload = function() {
+        callback();
+      };
+    }
+
+    script.src = url;
+    document.getElementsByTagName('head')[0].appendChild(script);
+  }
+
+  window.onload = function() {
+    loadScript('/js/bundle.js?235683', function() {
+      // load success
+    });
+  }
+</script>
+
+</body>
+</html>

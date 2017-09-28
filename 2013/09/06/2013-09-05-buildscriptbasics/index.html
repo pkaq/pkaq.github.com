@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+
+
+  <html class="dark page-post">
+
+
+<head>
+  <meta charset="utf-8">
+  
+  <title>第六章： 构建基础 | 如是我闻</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="Gradle UserGuide," />
+  
+
+  <meta name="description" content="6.1 Projects 和 tasks  Gradle中最重要的两个概念就是 Projects和tasks  任何一个Gradle构建都是由一个或多个 projects 组成.每个project包括许多可构建组成部分.这完全取决于你要构建些什么.举个栗子.每个project或许是一个jar包或者一个web应用,它也可以是一个由许多其他项目中产生的jar构成的zip压缩包.一个project不必描">
+<meta name="keywords" content="Gradle UserGuide">
+<meta property="og:type" content="article">
+<meta property="og:title" content="第六章： 构建基础">
+<meta property="og:url" content="http://pkaq.org/2013/09/06/2013-09-05-buildscriptbasics/index.html">
+<meta property="og:site_name" content="如是我闻">
+<meta property="og:description" content="6.1 Projects 和 tasks  Gradle中最重要的两个概念就是 Projects和tasks  任何一个Gradle构建都是由一个或多个 projects 组成.每个project包括许多可构建组成部分.这完全取决于你要构建些什么.举个栗子.每个project或许是一个jar包或者一个web应用,它也可以是一个由许多其他项目中产生的jar构成的zip压缩包.一个project不必描">
+<meta property="og:updated_time" content="2016-09-01T08:21:47.592Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="第六章： 构建基础">
+<meta name="twitter:description" content="6.1 Projects 和 tasks  Gradle中最重要的两个概念就是 Projects和tasks  任何一个Gradle构建都是由一个或多个 projects 组成.每个project包括许多可构建组成部分.这完全取决于你要构建些什么.举个栗子.每个project或许是一个jar包或者一个web应用,它也可以是一个由许多其他项目中产生的jar构成的zip压缩包.一个project不必描">
+
+  
+
+  
+    <link rel="icon" href="/favicon.ico">
+  
+
+  <link href="/css/styles.css?v=d671a41f" rel="stylesheet">
+
+
+  
+    <link rel="stylesheet" href="/css/fexo-theme.css">
+  
+
+  
+
+  
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?cd1f06c6f057506d537ab11e9f1693be";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+  
+    <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  
+
+  
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  
+
+  <link href='//cdn.webfont.youziku.com/webfonts/nomal/97080/42410/5865c4e5f629db00cc915895.css' rel='stylesheet' type='text/css' />
+ 
+</head>
+
+<body>
+
+
+  
+    <span id="toolbox-mobile" class="toolbox-mobile">　</span>
+  
+
+  <div class="post-header CENTER">
+   
+  <div class="toolbox">
+    <a class="toolbox-entry" href="/">
+      <span class="toolbox-entry-text">　</span>
+      <i class="icon-angle-down"></i>
+      <i class="icon-home"></i>
+    </a>
+    <ul class="list-toolbox">
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE toolbox_color_0"
+            href="/archives/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            博客
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE toolbox_color_1"
+            href="/category/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            分类
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE toolbox_color_2"
+            href="/tag/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            标签
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE toolbox_color_3"
+            href="/link/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            友链
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE toolbox_color_4"
+            href="/atom.xml"
+            rel="noopener noreferrer"
+            target="_blank"
+            >
+            RSS
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE toolbox_color_5"
+            href="/search/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+</div>
+
+
+  <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-text">6.1 Projects 和 tasks#</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-text">6.2 Hello world#</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-text">6.3 快速定义任务#</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-text">6.5 任务依赖#</span></a>
+  </div>
+
+
+
+<div class="content content-post CENTER">
+   <article id="post-2013-09-05-buildscriptbasics" class="article article-type-post" itemprop="blogPost">
+  <header class="article-header">
+    <h1 class="post-title">第六章： 构建基础</h1>
+
+    <div class="article-meta">
+      <span>
+        <i class="icon-calendar"></i>
+        <span>2013.09.06</span>
+      </span>
+
+      
+        <span class="article-author">
+          <i class="icon-user"></i>
+          <span>PKAQ</span>
+        </span>
+      
+
+      
+  <span class="article-category">
+    <i class="icon-list"></i>
+    <a class="article-category-link" href="/categories/Gradle/">Gradle</a>
+  </span>
+
+
+
+      
+
+      
+      <i class="fa fa-eye"></i> 
+        <span id="busuanzi_container_page_pv">
+           &nbsp热度 <span id="busuanzi_value_page_pv">
+           <i class="fa fa-spinner fa-spin"></i></span>℃
+        </span>
+      
+
+      
+        <i class="icon-comment"></i> 
+        共 <a class="ds-thread-count" id="uyan_count_unit" su="第六章： 构建基础" href="http://pkaq.org/2013/09/06/2013-09-05-buildscriptbasics/index.html"></a>
+      
+      
+    </div>
+  </header>
+
+  <div class="article-content">
+    
+      <h4><span id="6-1-projects-he-tasks">6.1 Projects 和 tasks</span><a href="#6-1-projects-he-tasks" class="header-anchor">#</a></h4><p>  Gradle中最重要的两个概念就是 Projects和tasks</p>
+<p> 任何一个Gradle构建都是由一个或多个 projects 组成.每个project包括许多可构建组成部分.这完全取决于你要构建些什么.举个栗子.每个project或许是一个jar包或者一个web应用,它也可以是一个由许多其他项目中产生的jar构成的zip压缩包.一个project不必描述它只能进行构建操作.它也可以部署你的应用或搭建你的环境.不要担心它像听上去的那样庞大.Gradle的build-by-convention可以让您来具体定义一个project到底该做什么.<br>  每个project都由多个tasks组成.每个task都代表了构建执行过程中的一个原子性操作.如编译,打包,生成javadoc,发布等<br>  到目前为止,可以发现我们可以在一个project中定义一些简单任务,后续章节将会阐述多项目构建和多项目多任务的内容.</p>
+<h4><span id="6-2-hello-world">6.2 Hello world</span><a href="#6-2-hello-world" class="header-anchor">#</a></h4><p>你可以通过在命令行运行gradle命令来执行构建,gradle命令会从当前目录下寻找build.gradle文件来执行构建.我们称build.gradle文件为构建脚本.严格来说这其实是一个构建配置脚本,后面你会了接到这个构建脚本定义了一个project和一些默认tasks<br>你可以创建如下脚本到build.gradle中</p>
+<ul>
+<li>例6.1 第一个构建脚本</li>
+</ul>
+<a id="more"></a>
+<p>build.gradle<br><figure class="highlight groovy"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">task hello &#123;</div><div class="line"> doLast &#123;</div><div class="line">     println <span class="string">'Hello world!'</span></div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line">``` </div><div class="line">然后在该文件所在目录执行 gradle -q hello</div><div class="line"> </div><div class="line">* 例<span class="number">6.2</span> 执行脚本</div><div class="line"></div><div class="line">```shell</div><div class="line">&gt; gradle -q hello</div><div class="line">Hello world!</div></pre></td></tr></table></figure></p>
+<p>上面的脚本定义了一个叫做 hello 的 task,并且给它添加了一个动作.当运行 gradle hello 的时候,Gralde便会去调用 hello 这个任务来执行给定操作.这些操作其实就是一个用groovy书写的闭包<br>如果你觉得它看上去跟Ant中的targets很像,那么是对的.Gradle的tasks就相当于Ant中的targets.不过你会发现他功能更加强大.我们只是换了一个比target更形象的另外一个术语.不幸的是这恰巧与Ant中的术语有些冲突.ant 命令中有诸如javac、copy、tasks.所以当该文档中提及tasks时,除非特别指明 ant task ,否则指的仅仅是与Gradle中的tasks.</p>
+<p>注: -q参数的作用?该文档的示例中很多地方在调用gradle命令时都加了-q参数.该参数用来控制gradle的日志级别,可以保证只输出我们需要的内容.具体可参阅本文档 第十八章 日志 来了解更多参数和信息.</p>
+<h4><span id="6-3-kuai-su-ding-yi-ren-wu">6.3 快速定义任务</span><a href="#6-3-kuai-su-ding-yi-ren-wu" class="header-anchor">#</a></h4><ul>
+<li>例6.3 快速定义任务</li>
+</ul>
+<p>build.gradle<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">task hello &lt;&lt;&#123;</div><div class="line">   println 'Hello ,world!'</div><div class="line">&#125;</div><div class="line">``` </div><div class="line">上面的脚本又一次采用闭包来定义了一个叫做hello的任务,本文档后续章节中我们将会更多的采用这种风格来定义任务.</div><div class="line"> </div><div class="line"><span class="meta">#</span>###6.4 代码即脚本</div><div class="line"></div><div class="line">Gradle脚本采用Groovy书写,看下面这道开胃菜.</div><div class="line"></div><div class="line">* 例6.4 在gradle任务中采用groovy</div><div class="line"></div><div class="line">build.gradle</div><div class="line">```groovy</div><div class="line">task upper &lt;&lt; &#123;</div><div class="line">	String someString = 'mY_NaMe'</div><div class="line">	println "Original : " +someString</div><div class="line">	println "Upper case : " + someString.toUpperCase()</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&gt;</span>gradle -q upper</div><div class="line">Original : mY_NaMe</div><div class="line">Upper case : MY_NAME</div></pre></td></tr></table></figure>
+<ul>
+<li>例 6.5 在gradle任务中采用groovy</li>
+</ul>
+<p>build.gradle<br><figure class="highlight groovy"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">task count &lt;&lt; &#123;</div><div class="line">	<span class="number">4.</span>times &#123;</div><div class="line">		print <span class="string">"$it"</span></div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&gt;</span>gradle -q count</div><div class="line">0 1 2 3</div></pre></td></tr></table></figure>
+<h3><span id="6-5-ren-wu-yi-lai">6.5 任务依赖</span><a href="#6-5-ren-wu-yi-lai" class="header-anchor">#</a></h3><p>你可以按如下方式创建任务间的依赖关系</p>
+<p>*例6.6<br><figure class="highlight groovy"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">task hello &lt;&lt; &#123;</div><div class="line">    println <span class="string">'Hello world!'</span></div><div class="line">&#125;</div><div class="line"></div><div class="line">task intro(<span class="string">dependsOn:</span>hello) &lt;&lt; &#123;</div><div class="line">    println <span class="string">"I'm Gradle"</span></div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&gt;</span>gradle -q intro</div><div class="line">Hello world!</div><div class="line">I'm Gradle</div></pre></td></tr></table></figure>
+<link href="/css/prism-dark.css" rel="stylesheet">
+    
+  </div>
+</article>
+
+</div>
+
+
+  <div class="text-center donation">
+    <div class="inner-donation">
+      <span class="btn-donation">支持一下</span>
+      <div class="donation-body">
+        <div class="tip text-center">您得支持,是我前进的动力.</div>
+        <ul class="theme.donation.items.length">
+        
+          <li class="item">
+            <img src="/css/qr-donate.jpg" alt="">
+          </li>
+        
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+
+
+  <a id="backTop" class="back-top">
+    <i class="icon-angle-up"></i>
+  </a>
+
+
+
+
+  <div class="modal" id="modal">
+  <span id="cover" class="cover hide"></span>
+  <div id="modal-dialog" class="modal-dialog hide-dialog">
+    <div class="modal-header">
+      <span id="close" class="btn-close">关闭</span>
+    </div>
+    <hr>
+    <div class="modal-body">
+      <ul class="list-toolbox">
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/archives/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              博客
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/category/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              分类
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/tag/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              标签
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/link/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              友链
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/atom.xml"
+              rel="noopener noreferrer"
+              target="_blank"
+              >
+              RSS
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/search/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              搜索
+            </a>
+          </li>
+        
+      </ul>
+
+    </div>
+  </div>
+</div>
+
+
+
+  
+      <div class="fexo-comments comments-post">
+    
+
+    
+  <section class="duoshuo-comments">
+
+    <!-- UY BEGIN -->
+    <div id="uyan_frame"></div>
+    <script async type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid=2144561">
+    <!-- UY END -->
+  </section>
+
+  <script type="text/javascript">
+	var uyan_config = {
+	     'su':"第六章： 构建基础" 
+	};
+	</script>
+
+
+
+  </div>
+
+  
+
+  <script type="text/javascript">
+  function loadScript(url, callback) {
+    var script = document.createElement('script')
+    script.type = 'text/javascript';
+
+    if (script.readyState) { //IE
+      script.onreadystatechange = function() {
+        if (script.readyState == 'loaded' ||
+          script.readyState == 'complete') {
+          script.onreadystatechange = null;
+          callback();
+        }
+      };
+    } else { //Others
+      script.onload = function() {
+        callback();
+      };
+    }
+
+    script.src = url;
+    document.getElementsByTagName('head')[0].appendChild(script);
+  }
+
+  window.onload = function() {
+    loadScript('/js/bundle.js?235683', function() {
+      // load success
+    });
+  }
+</script>
+
+</body>
+</html>

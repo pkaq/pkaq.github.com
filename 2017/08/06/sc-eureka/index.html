@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+
+
+  <html class="dark page-post">
+
+
+<head>
+  <meta charset="utf-8">
+  
+  <title>Spring Cloud 之服务治理 - 搭建高可用的Eureka服务注册中心 | 如是我闻</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="Spring Cloud,微服务," />
+  
+
+  <meta name="description" content="Spring Cloud 之服务治理 - 搭建高可用的Eureka服务注册中心概述　　著名的CAP理论指出，一个分布式系统不可能同时满足C(一致性)、A(可用性)和P(分区容错性)。由于分区容错性在是分布式系统中必须要保证的，因此我们只能在A和C之间进行权衡。 　　Eureka Server提供服务注册服务，各个节点启动后，会在Eureka Server中进行注册，这样Eureka Server中">
+<meta name="keywords" content="Spring Cloud,微服务">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Spring Cloud 之服务治理 - 搭建高可用的Eureka服务注册中心">
+<meta property="og:url" content="http://pkaq.org/2017/08/06/sc-eureka/index.html">
+<meta property="og:site_name" content="如是我闻">
+<meta property="og:description" content="Spring Cloud 之服务治理 - 搭建高可用的Eureka服务注册中心概述　　著名的CAP理论指出，一个分布式系统不可能同时满足C(一致性)、A(可用性)和P(分区容错性)。由于分区容错性在是分布式系统中必须要保证的，因此我们只能在A和C之间进行权衡。 　　Eureka Server提供服务注册服务，各个节点启动后，会在Eureka Server中进行注册，这样Eureka Server中">
+<meta property="og:updated_time" content="2017-09-12T03:08:00.776Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Spring Cloud 之服务治理 - 搭建高可用的Eureka服务注册中心">
+<meta name="twitter:description" content="Spring Cloud 之服务治理 - 搭建高可用的Eureka服务注册中心概述　　著名的CAP理论指出，一个分布式系统不可能同时满足C(一致性)、A(可用性)和P(分区容错性)。由于分区容错性在是分布式系统中必须要保证的，因此我们只能在A和C之间进行权衡。 　　Eureka Server提供服务注册服务，各个节点启动后，会在Eureka Server中进行注册，这样Eureka Server中">
+
+  
+
+  
+    <link rel="icon" href="/favicon.ico">
+  
+
+  <link href="/css/styles.css?v=d671a41f" rel="stylesheet">
+
+
+  
+    <link rel="stylesheet" href="/css/fexo-theme.css">
+  
+
+  
+
+  
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?cd1f06c6f057506d537ab11e9f1693be";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+  
+    <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  
+
+  
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  
+
+  <link href='//cdn.webfont.youziku.com/webfonts/nomal/97080/42410/5865c4e5f629db00cc915895.css' rel='stylesheet' type='text/css' />
+ 
+</head>
+
+<body>
+
+
+  
+    <span id="toolbox-mobile" class="toolbox-mobile">　</span>
+  
+
+  <div class="post-header CENTER">
+   
+  <div class="toolbox">
+    <a class="toolbox-entry" href="/">
+      <span class="toolbox-entry-text">　</span>
+      <i class="icon-angle-down"></i>
+      <i class="icon-home"></i>
+    </a>
+    <ul class="list-toolbox">
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE toolbox_color_0"
+            href="/archives/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            博客
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE toolbox_color_1"
+            href="/category/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            分类
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE toolbox_color_2"
+            href="/tag/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            标签
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE toolbox_color_3"
+            href="/link/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            友链
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE toolbox_color_4"
+            href="/atom.xml"
+            rel="noopener noreferrer"
+            target="_blank"
+            >
+            RSS
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE toolbox_color_5"
+            href="/search/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+</div>
+
+
+  <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-text">Spring Cloud 之服务治理 - 搭建高可用的Eureka服务注册中心#</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-text">概述#</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-text">创建服务#</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-text">高可用配置#</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-text">[常见问题]#</span></a></li></ol></li></ol>
+  </div>
+
+
+
+<div class="content content-post CENTER">
+   <article id="post-sc-eureka" class="article article-type-post" itemprop="blogPost">
+  <header class="article-header">
+    <h1 class="post-title">Spring Cloud 之服务治理 - 搭建高可用的Eureka服务注册中心</h1>
+
+    <div class="article-meta">
+      <span>
+        <i class="icon-calendar"></i>
+        <span>2017.08.06</span>
+      </span>
+
+      
+        <span class="article-author">
+          <i class="icon-user"></i>
+          <span>PKAQ</span>
+        </span>
+      
+
+      
+  <span class="article-category">
+    <i class="icon-list"></i>
+    <a class="article-category-link" href="/categories/微服务/">微服务</a>
+  </span>
+
+
+
+      
+
+      
+      <i class="fa fa-eye"></i> 
+        <span id="busuanzi_container_page_pv">
+           &nbsp热度 <span id="busuanzi_value_page_pv">
+           <i class="fa fa-spinner fa-spin"></i></span>℃
+        </span>
+      
+
+      
+        <i class="icon-comment"></i> 
+        共 <a class="ds-thread-count" id="uyan_count_unit" su="Spring Cloud 之服务治理 - 搭建高可用的Eureka服务注册中心" href="http://pkaq.org/2017/08/06/sc-eureka/index.html"></a>
+      
+      
+    </div>
+  </header>
+
+  <div class="article-content">
+    
+      <h1><span id="spring-cloud-zhi-fu-wu-zhi-li-da-jian-gao-ke-yong-de-eureka-fu-wu-zhu-ce-zhong-xin">Spring Cloud 之服务治理 - 搭建高可用的Eureka服务注册中心</span><a href="#spring-cloud-zhi-fu-wu-zhi-li-da-jian-gao-ke-yong-de-eureka-fu-wu-zhu-ce-zhong-xin" class="header-anchor">#</a></h1><h2><span id="gai-shu">概述</span><a href="#gai-shu" class="header-anchor">#</a></h2><p>　　著名的CAP理论指出，一个分布式系统不可能同时满足C(一致性)、A(可用性)和P(分区容错性)。由于分区容错性在是分布式系统中必须要保证的，因此我们只能在A和C之间进行权衡。</p>
+<p>　　<code>Eureka Server</code>提供服务注册服务，各个节点启动后，会在<code>Eureka Server</code>中进行注册，这样<code>Eureka Server</code>中的服务注册表中将会存储所有可用服务节点的信息，服务节点的信息可以在界面中直观的看到。</p>
+<p>　　<code>Eureka</code>看明白了这一点，因此在设计时就优先保证可用性。在此<code>Zookeeper</code>保证的是CP, 而<code>Eureka</code>则是AP。<code>Eureka</code>各个节点都是平等的，几个节点挂掉不会影响正常节点的工作，剩余的节点依然可以提供注册和查询服务。</p>
+<a id="more"></a>
+<p>在应用启动后，将会向<code>Eureka Server</code>发送心跳,默认周期为30秒，如果<code>Eureka Server</code>在多个心跳周期内没有接收到某个节点的心跳，<code>Eureka Server</code>将会从服务注册表中把这个服务节点移除(默认90秒)。<br>　　其次，<code>Eureka Client</code>对已经获取到的注册信息也做了30s缓存。即服务通过<code>eureka</code>客户端第一次查询到可用服务地址后会将结果缓存，下次再调用时就不会真正向<code>Eureka</code>发起HTTP请求了。<br>　　再次， 负载均衡组件<code>Ribbon</code>也有30s缓存。**<code>Ribbon</code>会从上面提到的<code>Eureka Client</code>获取服务列表，然后将结果缓存<code>30s</code>。<br>　　最后，如果你并不是在<code>Spring Cloud</code>环境下使用这些组件(<code>Eureka</code>, <code>Ribbon</code>)，你的服务启动后并不会马上向<code>Eureka</code>注册，而是需要等到第一次发送心跳请求时才会注册。心跳请求的发送间隔也是30s。（Spring Cloud对此做了修改，服务启动后会马上注册）<br>　　<code>Eureka Server</code>之间通过复制的方式完成数据的同步，<code>Eureka</code>还提供了客户端缓存机制，即使所有的<code>Eureka Server</code>都挂掉，客户端依然可以利用缓存中的信息消费其他服务的API。<br>　　以上这几个30秒正是官方wiki上写服务注册最长需要2分钟的原因。<code>Eureka</code>通过心跳检查、客户端缓存等机制，确保了系统的高可用性、灵活性和可伸缩性。<br>　　而<code>Eureka</code>的客户端在向某个<code>Eureka</code>注册或时如果发现连接失败，则会自动切换至其它节点，只要有一台<code>Eureka</code>还在，就能保证注册服务可用(保证可用性)，只不过查到的信息可能不是最新的(不保证强一致性)。<br>除此之外，<code>Eureka</code>还有一种自我保护机制，如果在15分钟内超过85%的节点都没有正常的心跳，那么<code>Eureka</code>就认为客户端与注册中心出现了网络故障，此时会出现以下几种情况：</p>
+<ol>
+<li><code>Eureka</code>不再从注册列表中移除因为长时间没收到心跳而应该过期的服务</li>
+<li><code>Eureka</code>仍然能够接受新服务的注册和查询请求，但是不会被同步到其它节点上(即保证当前节点依然可用)</li>
+<li>当网络稳定时，当前实例新的注册信息会被同步到其它节点中</li>
+</ol>
+<p>　　因此， <code>Eureka</code>可以很好的应对因网络故障导致部分节点失去联系的情况，而不会像<code>Zookeeper</code>那样使整个注册服务瘫痪。</p>
+<h2><span id="chuang-jian-fu-wu">创建服务</span><a href="#chuang-jian-fu-wu" class="header-anchor">#</a></h2><p>　　创建一个<code>Eureka</code>服务中心十分简单,只需要引入相关依赖,添加注解,稍作配置即可。<br>1.引入依赖<br><figure class="highlight groovy"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">compile <span class="string">"org.springframework.cloud:spring-cloud-starter-eureka-server:$&#123;cloud_eureka&#125;"</span></div></pre></td></tr></table></figure></p>
+<p>2.添加注解<br><figure class="highlight groovy"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@EnableEurekaServer</span></div></pre></td></tr></table></figure></p>
+<p>3.稍作配置<br><figure class="highlight yaml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="attr">eureka:</span></div><div class="line"><span class="attr">    instance:</span></div><div class="line">        <span class="comment">#配置主机名</span></div><div class="line"><span class="attr">        hostname:</span> <span class="string">eureka.alpha</span></div><div class="line"><span class="attr">        appname:</span> <span class="string">reka-alpha</span></div><div class="line"><span class="attr">    client:</span></div><div class="line">        <span class="comment">#  、在默认设置下，Eureka服务注册中心也会将自己作为客户端来尝试注册它自己，</span></div><div class="line">        <span class="comment">#    所以我们需要禁用它的客户端注册行为。</span></div><div class="line">        <span class="comment">#    因为当注册中心将自己作为客户端注册的时候，发现在server上的端口被自己占据了，然后就挂了</span></div><div class="line"><span class="attr">        register-with-eureka:</span> <span class="literal">false</span></div><div class="line"><span class="attr">        fetch-registry:</span> <span class="literal">false</span></div><div class="line"><span class="attr">        service-url:</span></div><div class="line"><span class="attr">            defaultZone:</span> <span class="attr">http://eureka.alpha:9871/eureka</span></div></pre></td></tr></table></figure></p>
+<p>　　这里访问的是<code>http://eureka.alpha</code>,需要修改<code>hosts</code>文件将<code>eureka.alpha</code>指向<code>127.0.0.1</code>,如果不做指向,这里也可以使用<code>localhost</code>访问,当然,为了后面的高可用配置建议这里做指向.<br>4.启动服务,大功告成</p>
+<p><a href="https://github.com/pkaq/springcloud7/tree/master/cloud-eureka-server-simple" target="_blank" rel="external">代码传送门</a></p>
+<h2><span id="gao-ke-yong-pei-zhi">高可用配置</span><a href="#gao-ke-yong-pei-zhi" class="header-anchor">#</a></h2><p>　　主要是利用多个eureka相互注册,下例用采用三台服务器做集群部署,其中每台<code>eureka</code>服务器向另外两台注册自己的实例.<br>这里需要注意如下几点</p>
+<blockquote>
+<p>1.Eureka Server的同步遵循着一个非常简单的原则：只要有一条边将节点连接，就可以进行信息传播与同步   </p>
+<p>2.如果Eureka A的peer指向了B, B的peer指向了C，那么当服务向A注册时，B中会有该服务的注册信息，但是C中没有。也就是说，如果你希望只要向一台Eureka注册其它所有实例都能得到注册信息，那么就必须把其它所有节点都配置到当前Eureka的peer属性中。这一逻辑是在PeerAwareInstanceRegistryImpl#replicateToPeers()方法中实现的：</p>
+</blockquote>
+<p><a href="https://github.com/pkaq/springcloud7/tree/master/cloud-eureka-server" target="_blank" rel="external">代码传送门</a></p>
+<p>示例代码中拆分了三个配置,可以根据这三个配置分别打成jar包运行即可,当然,这里建议配合<code>docker-compose</code>进行编排部署.</p>
+<p>1.在Eureka中，一个<code>instance</code>通过一个<code>eureka.instance.instanceId</code> 来唯一标识，如果这个值没有设置，就采用<code>eureka.instance.metadataMap.instanceId</code>来代替。<code>instance</code>之间通过<code>eureka.instance.appName</code> 来彼此访问，在<code>spring cloud</code>中默认值是<code>spring.application.name</code>,如果没有设置则为<code>UNKNOWN</code>。在实际使用中<code>spring.application.name</code>不可或缺,因为相同名字的应用会被Eureka合并成一个群集。<code>eureka.instance.instanceId</code>也可以不设置，直接使用缺省值(<code>client.hostname:application.name:port</code>)<br>,同一个<code>appName</code>下<code>InstanceId</code>不能相同。</p>
+<p>2.如果 <code>eureka.client.registerWithEureka</code>设置成true（默认值true），应用启动时，会利用指定的<code>eureka.client.serviceUrl.defaultZone</code>注册到对应的Eureka server中。之后每隔30s（通过<code>eureka.instance.leaseRenewalIntervalInSeconds</code>来配置）向<code>Eureka server</code>发送一次心跳，如果<code>Eureka server</code>在90s（通过<code>eureka.instance.leaseExpirationDurationInSeconds</code>配置）内没有收到某个<code>instance</code>发来的心跳就会把这个<code>instance</code>从注册中心中移走。发送心跳的操作是一个异步任务，如果发送失败，则以2的指数形式延长重试的时间，直到达到<code>eureka.instance.leaseRenewalIntervalInSeconds * eureka.client.heartbeatExecutorExponentialBackOffBound</code>这个上限,之后一直以这个上限值作为重试间隔，直至重新连接到<code>Eureka server</code>，并且重新尝试连接到<code>Eureka server</code>的次数是不受限制的。</p>
+<p>3.在<code>Eureka server</code>中每一个<code>instance</code>都由一个包含大量这个<code>instance</code>信息的<code>com.netflix.appinfo.InstanceInfo</code>标识，<code>client</code>向<code>Eureka server</code>发送心跳和更新注册信息是不相同的，InstanceInfo也以固定的频率发送到<code>Eureka server</code>，这些信息在<code>Eureka client</code>启动后的40s（通过<code>eureka.client.initialInstanceInfoReplicationIntervalSeconds</code>配置）首次发送，之后每隔30s(通过<code>eureka.client.instanceInfoReplicationIntervalSeconds</code>配置)发送一次。</p>
+<p>4.如果<code>eureka.client.fetchRegistry</code>设置成true（默认值true），<code>Eureka client</code>在启动时会从<code>Eureka server</code>获取注册信息并缓存到本地，之后只会增量获取信息（可以把<code>eureka.client.shouldDisableDelta</code>设置成false来强制每次都全量获取）。获取注册信息的操作也是一个异步任务，每隔30秒执行一次（通过<code>eureka.client.registryFetchIntervalSeconds</code>配置），如果操作失败，也是以2的指数形式延长重试时间，直到达到<code>eureka.client.registryFetchIntervalSeconds * eureka.client.cacheRefreshExecutorExponentialBackOffBound</code> 这个上限，之后一直以这个上限值作为重试间隔，直至重新获取到注册信息，并且重新尝试获取注册信息的次数是不受限制的。<br>这些任务都是在<code>com.netflix.discovery.DiscoveryClient中启动，spring cloud</code>用<code>org.springframework.cloud.netflix.eureka.CloudEurekaClient</code>对这个类进行了扩展。</p>
+<h2><span id="chang-jian-wen-ti">[常见问题]</span><a href="#chang-jian-wen-ti" class="header-anchor">#</a></h2><p>1.自我保护模式<br><figure class="highlight cmd"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">EMERGENCY! EUREKA MAY BE INCORRECTLY CLAIMING INSTANCES ARE UP WHEN THEY'RE <span class="keyword">NOT</span>. RENEWALS ARE LESSER THAN THRESHOLD AND HENCE THE INSTANCES ARE <span class="keyword">NOT</span> BEING EXPIRED JUST TO BE SAFE.</div></pre></td></tr></table></figure></p>
+<p>默认情况下，如果<code>Eureka Server</code>在一定时间内没有接收到某个微服务实例的心跳，<code>Eureka Server</code>将会注销该实例（默认90秒）。但是当网络分区故障发生时，微服务与<code>Eureka Server</code>之间无法正常通信，以上行为可能变得非常危险了——因为微服务本身其实是健康的，此时本不应该注销这个微服务。</p>
+<p>Eureka通过“自我保护模式”来解决这个问题——当Eureka Server节点在短时间内丢失过多客户端时（可能发生了网络分区故障），那么这个节点就会进入自我保护模式。一旦进入该模式，<code>Eureka Server</code>就会保护服务注册表中的信息，不再删除服务注册表中的数据（也就是不会注销任何微服务）。当网络故障恢复后，该<code>Eureka Server</code>节点会自动退出自我保护模式。</p>
+<p>综上，自我保护模式是一种应对网络异常的安全保护措施。它的架构哲学是宁可同时保留所有微服务（健康的微服务和不健康的微服务都会保留），也不盲目注销任何健康的微服务。使用自我保护模式，可以让<code>Eureka</code>集群更加的健壮、稳定。</p>
+<p>在Spring Cloud中，可以使用<code>eureka.server.enable-self-preservation = false</code> 禁用自我保护模式。</p>
+<p>2.<code>unavailable-replicas</code><br>在配置文件中如果不使用域名的方式，而指定localhost或者ip(127.0.0.1/外网ip)，服务能够正常启动，但分片服务总显示在<code>unavailable-replicas</code>中，因此在host中指定了相应的域名做服务区分</p>
+<p><strong> 参考 </strong></p>
+<ul>
+<li><a href="http://www.cnblogs.com/ityouknow/p/6854805.html" target="_blank" rel="external">http://www.cnblogs.com/ityouknow/p/6854805.html</a></li>
+<li><a href="https://eacdy.gitbooks.io/spring-cloud-book/content/" target="_blank" rel="external">https://eacdy.gitbooks.io/spring-cloud-book/content/</a></li>
+<li><a href="http://fengyilin.iteye.com/blog/2367265" target="_blank" rel="external">http://fengyilin.iteye.com/blog/2367265</a></li>
+</ul>
+<link href="/css/prism-dark.css" rel="stylesheet">
+    
+  </div>
+</article>
+
+</div>
+
+
+  <div class="text-center donation">
+    <div class="inner-donation">
+      <span class="btn-donation">支持一下</span>
+      <div class="donation-body">
+        <div class="tip text-center">您得支持,是我前进的动力.</div>
+        <ul class="theme.donation.items.length">
+        
+          <li class="item">
+            <img src="/css/qr-donate.jpg" alt="">
+          </li>
+        
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+
+
+  <a id="backTop" class="back-top">
+    <i class="icon-angle-up"></i>
+  </a>
+
+
+
+
+  <div class="modal" id="modal">
+  <span id="cover" class="cover hide"></span>
+  <div id="modal-dialog" class="modal-dialog hide-dialog">
+    <div class="modal-header">
+      <span id="close" class="btn-close">关闭</span>
+    </div>
+    <hr>
+    <div class="modal-body">
+      <ul class="list-toolbox">
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/archives/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              博客
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/category/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              分类
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/tag/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              标签
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/link/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              友链
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/atom.xml"
+              rel="noopener noreferrer"
+              target="_blank"
+              >
+              RSS
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/search/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              搜索
+            </a>
+          </li>
+        
+      </ul>
+
+    </div>
+  </div>
+</div>
+
+
+
+  
+      <div class="fexo-comments comments-post">
+    
+
+    
+  <section class="duoshuo-comments">
+
+    <!-- UY BEGIN -->
+    <div id="uyan_frame"></div>
+    <script async type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid=2144561">
+    <!-- UY END -->
+  </section>
+
+  <script type="text/javascript">
+	var uyan_config = {
+	     'su':"Spring Cloud 之服务治理 - 搭建高可用的Eureka服务注册中心" 
+	};
+	</script>
+
+
+
+  </div>
+
+  
+
+  <script type="text/javascript">
+  function loadScript(url, callback) {
+    var script = document.createElement('script')
+    script.type = 'text/javascript';
+
+    if (script.readyState) { //IE
+      script.onreadystatechange = function() {
+        if (script.readyState == 'loaded' ||
+          script.readyState == 'complete') {
+          script.onreadystatechange = null;
+          callback();
+        }
+      };
+    } else { //Others
+      script.onload = function() {
+        callback();
+      };
+    }
+
+    script.src = url;
+    document.getElementsByTagName('head')[0].appendChild(script);
+  }
+
+  window.onload = function() {
+    loadScript('/js/bundle.js?235683', function() {
+      // load success
+    });
+  }
+</script>
+
+</body>
+</html>

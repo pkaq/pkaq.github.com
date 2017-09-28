@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+
+
+  <html class="dark page-post">
+
+
+<head>
+  <meta charset="utf-8">
+  
+  <title>Centos 6.4安装oracle 11G | 如是我闻</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="linux,oracle," />
+  
+
+  <meta name="description" content="1.安装centos2.配置sshd1234vi etc/ssh/sshd_config PasswordAuthentication yesPermitRootLogin yesservice sshd restart 3.安装ftp1yum install vsftpd 允许root登录12vi /etc/vsftpd/ftpusersvi /etc/vsftpd/userlist 把里面ro">
+<meta name="keywords" content="linux,oracle">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Centos 6.4安装oracle 11G">
+<meta property="og:url" content="http://pkaq.org/2013/11/07/2013-11-07-installoracle11goncentos/index.html">
+<meta property="og:site_name" content="如是我闻">
+<meta property="og:description" content="1.安装centos2.配置sshd1234vi etc/ssh/sshd_config PasswordAuthentication yesPermitRootLogin yesservice sshd restart 3.安装ftp1yum install vsftpd 允许root登录12vi /etc/vsftpd/ftpusersvi /etc/vsftpd/userlist 把里面ro">
+<meta property="og:updated_time" content="2016-09-01T08:25:22.646Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Centos 6.4安装oracle 11G">
+<meta name="twitter:description" content="1.安装centos2.配置sshd1234vi etc/ssh/sshd_config PasswordAuthentication yesPermitRootLogin yesservice sshd restart 3.安装ftp1yum install vsftpd 允许root登录12vi /etc/vsftpd/ftpusersvi /etc/vsftpd/userlist 把里面ro">
+
+  
+
+  
+    <link rel="icon" href="/favicon.ico">
+  
+
+  <link href="/css/styles.css?v=d671a41f" rel="stylesheet">
+
+
+  
+    <link rel="stylesheet" href="/css/fexo-theme.css">
+  
+
+  
+
+  
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?cd1f06c6f057506d537ab11e9f1693be";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+  
+    <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  
+
+  
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  
+
+  <link href='//cdn.webfont.youziku.com/webfonts/nomal/97080/42410/5865c4e5f629db00cc915895.css' rel='stylesheet' type='text/css' />
+ 
+</head>
+
+<body>
+
+
+  
+    <span id="toolbox-mobile" class="toolbox-mobile">　</span>
+  
+
+  <div class="post-header CENTER">
+   
+  <div class="toolbox">
+    <a class="toolbox-entry" href="/">
+      <span class="toolbox-entry-text">　</span>
+      <i class="icon-angle-down"></i>
+      <i class="icon-home"></i>
+    </a>
+    <ul class="list-toolbox">
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE toolbox_color_0"
+            href="/archives/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            博客
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE toolbox_color_1"
+            href="/category/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            分类
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE toolbox_color_2"
+            href="/tag/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            标签
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE toolbox_color_3"
+            href="/link/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            友链
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE toolbox_color_4"
+            href="/atom.xml"
+            rel="noopener noreferrer"
+            target="_blank"
+            >
+            RSS
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE toolbox_color_5"
+            href="/search/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+</div>
+
+
+  <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-text">1.安装centos#</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-text">2.配置sshd#</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-text">3.安装ftp#</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-text">4.关闭SELINUX#</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-text">5.放开防火墙对ftp和1521的限制#</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-text">6.使用懒人包#</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-text">7.安装oracle#</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-text">8.配置.bash_profile#</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-text">9.dbca配置创建数据库#</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-text">10.netca设置监听服务名#</span></a></li></ol>
+  </div>
+
+
+
+<div class="content content-post CENTER">
+   <article id="post-2013-11-07-installoracle11goncentos" class="article article-type-post" itemprop="blogPost">
+  <header class="article-header">
+    <h1 class="post-title">Centos 6.4安装oracle 11G</h1>
+
+    <div class="article-meta">
+      <span>
+        <i class="icon-calendar"></i>
+        <span>2013.11.07</span>
+      </span>
+
+      
+        <span class="article-author">
+          <i class="icon-user"></i>
+          <span>PKAQ</span>
+        </span>
+      
+
+      
+  <span class="article-category">
+    <i class="icon-list"></i>
+    <a class="article-category-link" href="/categories/linux/">linux</a>
+  </span>
+
+
+
+      
+
+      
+      <i class="fa fa-eye"></i> 
+        <span id="busuanzi_container_page_pv">
+           &nbsp热度 <span id="busuanzi_value_page_pv">
+           <i class="fa fa-spinner fa-spin"></i></span>℃
+        </span>
+      
+
+      
+        <i class="icon-comment"></i> 
+        共 <a class="ds-thread-count" id="uyan_count_unit" su="Centos 6.4安装oracle 11G" href="http://pkaq.org/2013/11/07/2013-11-07-installoracle11goncentos/index.html"></a>
+      
+      
+    </div>
+  </header>
+
+  <div class="article-content">
+    
+      <h3><span id="1-an-zhuang-centos">1.安装centos</span><a href="#1-an-zhuang-centos" class="header-anchor">#</a></h3><h3><span id="2-pei-zhi-sshd">2.配置sshd</span><a href="#2-pei-zhi-sshd" class="header-anchor">#</a></h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">vi etc/ssh/sshd_config </div><div class="line">PasswordAuthentication yes</div><div class="line">PermitRootLogin yes</div><div class="line">service sshd restart</div></pre></td></tr></table></figure>
+<h3><span id="3-an-zhuang-ftp">3.安装ftp</span><a href="#3-an-zhuang-ftp" class="header-anchor">#</a></h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">yum install vsftpd</div></pre></td></tr></table></figure>
+<p>允许root登录<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">vi /etc/vsftpd/ftpusers</div><div class="line">vi /etc/vsftpd/userlist</div></pre></td></tr></table></figure></p>
+<p>把里面root前面加#<br>启动ftp<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">service vsftpd start</div></pre></td></tr></table></figure></p>
+<a id="more"></a>
+<h3><span id="4-guan-bi-selinux">4.关闭SELINUX</span><a href="#4-guan-bi-selinux" class="header-anchor">#</a></h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">vi /etc/selinux/config</div></pre></td></tr></table></figure>
+<p> 修改SELINUX=disabled，然后:wq保存退出后，输入setenforce 0 使修改生效，或者重启下电脑 </p>
+<h3><span id="5-fang-kai-fang-huo-qiang-dui-ftp-he-1521-de-xian-zhi">5.放开防火墙对ftp和1521的限制</span><a href="#5-fang-kai-fang-huo-qiang-dui-ftp-he-1521-de-xian-zhi" class="header-anchor">#</a></h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">vi /etc/sysconfig/iptables </div><div class="line">-A INPUT -m state --state NEW -m tcp -p tcp --dport 21 -j ACCEPT</div><div class="line">-A INPUT -m state --state NEW -m tcp -p tcp --dport 22 -j ACCEPT</div><div class="line">-A INPUT -m state --state NEW -m tcp -p tcp --dport 1521 -j ACCEPT</div></pre></td></tr></table></figure>
+<h3><span id="6-shi-yong-lan-ren-bao">6.使用懒人包</span><a href="#6-shi-yong-lan-ren-bao" class="header-anchor">#</a></h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sh Oracle11gPreInstaller.sh</div></pre></td></tr></table></figure>
+<h3><span id="7-an-zhuang-oracle">7.安装oracle</span><a href="#7-an-zhuang-oracle" class="header-anchor">#</a></h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">./runInstaller</div></pre></td></tr></table></figure>
+<h3><span id="8-pei-zhi-bash-profile">8.配置.bash_profile</span><a href="#8-pei-zhi-bash-profile" class="header-anchor">#</a></h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div></pre></td><td class="code"><pre><div class="line">vi.bash_profile </div><div class="line"><span class="meta">#</span> .bash_profile</div><div class="line"></div><div class="line"><span class="meta">#</span> Get the aliases and functions</div><div class="line">if [ -f ~/.bashrc ]; then</div><div class="line">	. ~/.bashrc</div><div class="line">fi</div><div class="line"></div><div class="line"><span class="meta">#</span> User specific environment and startup programs</div><div class="line"></div><div class="line">PATH=$PATH:$HOME/bin</div><div class="line"></div><div class="line">export PATH</div><div class="line"></div><div class="line">ORACLE_BASE=/opt/app/oracle</div><div class="line">ORACLE_HOME=/opt/app/oracle/product</div><div class="line">ORACLE_SID=mord</div><div class="line">TMP=/tmp</div><div class="line">TMPDIR=/tmp</div><div class="line">NLS_DATE_FORMAT='YYYY-MM-DD HH24:MI:SS'</div><div class="line">export ORACLE_BASE ORACLE_HOME ORACLE_SID TMP TMPDIR NLS_DATE_FORMAT</div><div class="line">export NLS_LANG=AMERICAN_AMERICA.AL32UTF8</div><div class="line">export ORA_NLS33=$ORACLE_HOME/nls/data</div><div class="line">export ORACLE_BASE</div><div class="line">export ORACLE_HOME</div><div class="line">export ORACLE_SID</div><div class="line">export LANG=en_US.UTF-8</div><div class="line"></div><div class="line">PATH=$PATH:$HOME/bin:$ORACLE_HOME/bin</div><div class="line"></div><div class="line">export PATH</div><div class="line"></div><div class="line">/bin/dbstart </div><div class="line">/bin/emctl start dbconsole</div></pre></td></tr></table></figure>
+<h3><span id="9-dbca-pei-zhi-chuang-jian-shu-ju-ku">9.dbca配置创建数据库</span><a href="#9-dbca-pei-zhi-chuang-jian-shu-ju-ku" class="header-anchor">#</a></h3><h3><span id="10-netca-she-zhi-jian-ting-fu-wu-ming">10.netca设置监听服务名</span><a href="#10-netca-she-zhi-jian-ting-fu-wu-ming" class="header-anchor">#</a></h3><p><a href="/files/Oracle11gPreInstaller.sh">懒人包下载</a></p>
+<link href="/css/prism-dark.css" rel="stylesheet">
+    
+  </div>
+</article>
+
+</div>
+
+
+  <div class="text-center donation">
+    <div class="inner-donation">
+      <span class="btn-donation">支持一下</span>
+      <div class="donation-body">
+        <div class="tip text-center">您得支持,是我前进的动力.</div>
+        <ul class="theme.donation.items.length">
+        
+          <li class="item">
+            <img src="/css/qr-donate.jpg" alt="">
+          </li>
+        
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+
+
+  <a id="backTop" class="back-top">
+    <i class="icon-angle-up"></i>
+  </a>
+
+
+
+
+  <div class="modal" id="modal">
+  <span id="cover" class="cover hide"></span>
+  <div id="modal-dialog" class="modal-dialog hide-dialog">
+    <div class="modal-header">
+      <span id="close" class="btn-close">关闭</span>
+    </div>
+    <hr>
+    <div class="modal-body">
+      <ul class="list-toolbox">
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/archives/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              博客
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/category/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              分类
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/tag/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              标签
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/link/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              友链
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/atom.xml"
+              rel="noopener noreferrer"
+              target="_blank"
+              >
+              RSS
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/search/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              搜索
+            </a>
+          </li>
+        
+      </ul>
+
+    </div>
+  </div>
+</div>
+
+
+
+  
+      <div class="fexo-comments comments-post">
+    
+
+    
+  <section class="duoshuo-comments">
+
+    <!-- UY BEGIN -->
+    <div id="uyan_frame"></div>
+    <script async type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid=2144561">
+    <!-- UY END -->
+  </section>
+
+  <script type="text/javascript">
+	var uyan_config = {
+	     'su':"Centos 6.4安装oracle 11G" 
+	};
+	</script>
+
+
+
+  </div>
+
+  
+
+  <script type="text/javascript">
+  function loadScript(url, callback) {
+    var script = document.createElement('script')
+    script.type = 'text/javascript';
+
+    if (script.readyState) { //IE
+      script.onreadystatechange = function() {
+        if (script.readyState == 'loaded' ||
+          script.readyState == 'complete') {
+          script.onreadystatechange = null;
+          callback();
+        }
+      };
+    } else { //Others
+      script.onload = function() {
+        callback();
+      };
+    }
+
+    script.src = url;
+    document.getElementsByTagName('head')[0].appendChild(script);
+  }
+
+  window.onload = function() {
+    loadScript('/js/bundle.js?235683', function() {
+      // load success
+    });
+  }
+</script>
+
+</body>
+</html>

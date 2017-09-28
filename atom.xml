@@ -1,0 +1,1783 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title><![CDATA[如是我闻]]></title>
+  <link href="http://www.7yeshu.com/atom.xml" rel="self"/>
+  <link href="http://www.7yeshu.com"/>
+  <updated>2014-06-20T06:23:53.803Z</updated>
+  <id>http://www.7yeshu.com/</id>
+  <author>
+    <name><![CDATA[Leon]]></name>
+    <email><![CDATA[pkaq@msn.com]]></email>
+  </author>
+  <generator uri="http://zespia.tw/hexo">Hexo</generator>
+  <entry>
+    <title type="html"><![CDATA[Gradle汇总集中贴]]></title>
+    <link href="http://www.7yeshu.com/2113/11/19/gradlesummary/"/>
+    <id>http://www.7yeshu.com/2113/11/19/gradlesummary/</id>
+    <published>2113-11-19T10:38:29.000Z</published>
+    <updated>2014-06-03T03:55:00.000Z</updated>
+    <content type="html"><![CDATA[<p>为了方便查询，创建此篇；预知详情，请点更多；</p>
+<p>中文文档翻译进行时,欢迎参与<br><a href="https://github.com/pkaq/gradledoc" target="_blank">https://github.com/pkaq/gradledoc</a><br><a id="more"></a></p>
+<ul>
+<li><p><a href="\2013\08\28\hello-world\index.html">[Gradle用户手册]第一章-什么是Gradle</a></p>
+</li>
+<li><p><a href="\2013\09\05\start-gradle\index.html">[Gradle用户手册]第四章-安装</a></p>
+</li>
+<li><p><a href="\2013\09\06\buildscriptbasics\index.html">[Gradle用户手册]第六章-构建基础</a></p>
+</li>
+<li><p><a href="\2013\10\08\maven2gradle\index.html">[Maven脚本秒变Gradle]</a></p>
+</li>
+<li><p><a href="\2013\10\09\packoldprojectwithgradle\index.html">[使用Gradle为老项目打包（自定义目录结构和使用本地依赖）]</a></p>
+</li>
+<li><p><a href="\2013\10\10\gradleunicodesetting\index.html">[设置中文文件编码和本地JDK]</a></p>
+</li>
+<li><p><a href="\2013\10\11\gradleunicodesetting\index.html">[关于 “编码 GBK 的不可映射字符”错误的解决]</a></p>
+</li>
+<li><p><a href="\2013\10\12\customrepostries\index.html">[使用自定义仓库]</a></p>
+</li>
+<li><p><a href="\2013\10\13\buildrunablejar\index.html">[构建可执行Jar包]</a></p>
+</li>
+<li><p><a href="\2013\10\18\gradlewithcmdjar\index.html">[使用Gradle调用命令行]</a></p>
+</li>
+<li><p><a href="\2013\11\26\gradledownloadjar\index.html">[使用Gradle下载所需jar包]</a></p>
+</li>
+<li><p><a href="\2013\11\27\gradledependencymgmnt\index.html">[Gradle依赖范围说明]</a></p>
+</li>
+<li><p><a href="\2013\12\03\gradleforjenkins\index.html">[使用Jenkins+Gradle搭建CI环境]</a></p>
+</li>
+<li><p><a href="\2013\12\04\gradlelocalrepostry\index.html">[修改Gradle缓存目录]</a></p>
+</li>
+</ul>
+]]></content>
+    <category scheme="http://www.7yeshu.com/tags/Gradle/" term="Gradle"/>
+    <category scheme="http://www.7yeshu.com/categories/Gradle/" term="Gradle"/>
+  </entry>
+  <entry>
+    <title type="html"><![CDATA[]]></title>
+    <link href="http://www.7yeshu.com/2014/06/19/installarch/"/>
+    <id>http://www.7yeshu.com/2014/06/19/installarch/</id>
+    <published>2014-06-18T16:00:00.000Z</published>
+    <updated>2014-06-20T06:23:32.000Z</updated>
+    <content type="html"><![CDATA[<p>title: 拥抱Arch Linux-安装配置小记<br>author: Leon<br>date: 2014-06-19 17:31:40<br>tags:[‘Arch’]</p>
+<h2 id="categories:POSIX">categories:POSIX</h2>
+<h1 id="拥抱Arch_Linux-安装配置小记">拥抱Arch Linux-安装配置小记</h1>
+<h2 id="目录">目录</h2>
+<ol>
+<li>启动虚拟机  </li>
+<li>磁盘规划  </li>
+<li>创建磁盘文件系统</li>
+<li>挂载磁盘</li>
+<li>选择镜像-设置更新源</li>
+<li>安装基本系统</li>
+<li>基本系统设置<br>a.    设置语言<br>b.    设置主机名<br>c.    设置时区<br>d.    创建ramdisk<br>e.    检查syslinux的配置文件是否正确<br>f.    安装syslinux启动管理器,以便实现ArchLinux的顺利启动<br>g.    为root超级用户添加密码<br>h.    退出当前系统环境<br>i.    添加用户<br>j.    配置网络<br>k.    安装X桌面环境<br>l.    安装XFCE4 桌面套件<br>m.    设置xfce4自启动　　<br><a id="more"></a><h2 id="一、启动虚拟机">一、启动虚拟机</h2>
+启动虚拟机,选择对应的选项,可以在虚拟机里面安装64位系统又有这个欲望的，选第二个进去。<br><img src="/images/2014/archinstall/1.png" alt="启动"></li>
+</ol>
+<h2 id="二、磁盘规划">二、磁盘规划</h2>
+<p>从光驱启动完毕后首先进行磁盘规划<br>键入  </p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre>1
+</pre></td><td class="code"><pre>cfdisk
+</pre></td></tr></table></figure>
+
+
+<p><img src="/images/2014/archinstall/2.png" alt="分区">  </p>
+<p>弹出的界面选 New<br><img src="/images/2014/archinstall/3.png" alt="新建分区">  </p>
+<p>新手可以不用分区，如果需要分多个区，建议一个 / 一个/home，如果内存大，不需要swap分区。使用cfdisk分区比较直观。<br>·注意【Bootable】，/ 分区一定要Bootable</p>
+<p>因为这里磁盘规划只有三个分区,所以接下来统一用主分区的形式,选Primary,如果磁盘规划超过4个分区的,规划完3个主分区之后自行调整剩下的空间为扩展分区,然后在扩展分区里面再进行剩余磁盘规划操作</p>
+<p><img src="/images/2014/archinstall/4.png" alt="主分区">   </p>
+<p>boot 规划100M就很够了</p>
+<p><img src="/images/2014/archinstall/5.png" alt="主分区">   </p>
+<p>选Beginning  </p>
+<p><img src="/images/2014/archinstall/6.png" alt="主分区">   </p>
+<p>按一下Bootable,激活当前boot所在分区/dev/sda1,之后可以看到sda1的flags标记下面有个boot  </p>
+<p><img src="/images/2014/archinstall/7.png" alt="主分区">  </p>
+<p><img src="/images/2014/archinstall/8.png" alt="主分区">  </p>
+<p>光标移动到free space ,选 New 规划swap 交换分区  </p>
+<p><img src="/images/2014/archinstall/9.png" alt="交换分区">  </p>
+<p>类型主分区,原因上面已经说过,不喜欢的可以选逻辑分区,大小给1G差不多,多了也没什么太大的用处  </p>
+<p><img src="/images/2014/archinstall/10.png" alt="主分区"><br><img src="/images/2014/archinstall/11.png" alt="主分区">  </p>
+<p>选Beginning  </p>
+<p><img src="/images/2014/archinstall/12.png" alt="Beginning">   </p>
+<p>移动到Type选项回车  </p>
+<p><img src="/images/2014/archinstall/13.png" alt="Type">    </p>
+<p>磁盘类型选择82<br><img src="/images/2014/archinstall/14.png" alt="磁盘类型"><br><img src="/images/2014/archinstall/15.png" alt="磁盘类型"><br><img src="/images/2014/archinstall/16.png" alt="磁盘类型">   </p>
+<p>光标移动到free space 把剩下的空间全部给根节点  </p>
+<p><img src="/images/2014/archinstall/17.png" alt="根分区"><br><img src="/images/2014/archinstall/18.png" alt="根分区"><br><img src="/images/2014/archinstall/19.png" alt="根分区">   </p>
+<p>移动到write选项回车  </p>
+<p><img src="/images/2014/archinstall/20.png" alt="Write">  </p>
+<p>输入yes保存刚才所做的分区更改<br><img src="/images/2014/archinstall/21.png" alt="Write yes">  </p>
+<p>移动到quit选项完成磁盘分区规划操作<br><img src="/images/2014/archinstall/22.png" alt="Quit"><br><img src="/images/2014/archinstall/23.png" alt="Quit">    </p>
+<h2 id="三、创建磁盘文件系统">三、创建磁盘文件系统</h2>
+<p>boot 所在的磁盘分区sda1 用ext4文件系统,当然用其他文件系统也可以<br>键入  </p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre>1
+</pre></td><td class="code"><pre>mkfs<span class="preprocessor">.ext</span>4 /dev/sda1
+</pre></td></tr></table></figure>
+
+
+<p><img src="/images/2014/archinstall/24.png" alt="创建分区"><br><img src="/images/2014/archinstall/25.png" alt="创建分区">    </p>
+<p>根节点所在分区sda3 用主流的ext4文件系统即可<br>键入  </p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre>1
+</pre></td><td class="code"><pre>mkfs<span class="preprocessor">.ext</span>4 /dev/sda3
+</pre></td></tr></table></figure>
+
+
+<p><img src="/images/2014/archinstall/26.png" alt="创建分区"><br><img src="/images/2014/archinstall/27.png" alt="创建分区">    </p>
+<p>交换分区<br>键入  </p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre>1
+</pre></td><td class="code"><pre>mkswap /dev/sda2
+</pre></td></tr></table></figure>
+
+
+<p><img src="/images/2014/archinstall/28.png" alt="创建分区">    </p>
+<p>激活交换分区<br>键入  </p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre>1
+</pre></td><td class="code"><pre>swapon /dev/sda2
+</pre></td></tr></table></figure>
+
+
+<p><img src="/images/2014/archinstall/29.png" alt="激活">    </p>
+<h2 id="四、挂载磁盘">四、挂载磁盘</h2>
+<p>挂载磁盘到AIS Bash安装脚本支持的 mnt 目录:</p>
+<p>先挂载根节点<br>键入  </p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre>1
+</pre></td><td class="code"><pre>mount /dev/sda3 /mnt
+</pre></td></tr></table></figure>
+
+
+<p><img src="/images/2014/archinstall/30.png" alt="挂载">    </p>
+<p>mnt 目录下面创建boot目录用来挂载 boot所在的分区<br><img src="/images/2014/archinstall/31.png" alt="挂载">    </p>
+<p>挂载boot所在分区到 mnt下面的boot目录<br>键入  </p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre>1
+</pre></td><td class="code"><pre>mount /dev/sda1 /mnt/boot
+</pre></td></tr></table></figure>
+
+
+<p><img src="/images/2014/archinstall/32.png" alt="挂载">    </p>
+<h2 id="五、选择镜像-设置更新源">五、选择镜像-设置更新源</h2>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre>1
+</pre></td><td class="code"><pre>nano /etc/pacman<span class="preprocessor">.d</span>/mirrorlist
+</pre></td></tr></table></figure>
+
+
+<p>p.s:找带China的，PageDown PageUp 滚屏，Ctrl+V 向下翻页，Ctrl+Y 向上翻页， Alt+6 复制当前行，Ctrl+u 粘贴，Ctrl+x 退出，保存按Y，回车。<br>163站点在最下面不远处，我复制了2个，放在最上面，如图所示。<br>推荐使用   <a href="http://mirrors.ustc.edu.cn/archlinux/,&quot;中国科技大学的源&quot;" target="_blank">中国科技大学的源 </a>  ,其余的均可以删除。  </p>
+<p><img src="/images/2014/archinstall/33.jpg" alt="设置源">    </p>
+<h2 id="六、安装基本系统">六、安装基本系统</h2>
+<p>键入  </p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre>1
+</pre></td><td class="code"><pre>pacstrap /mnt <span class="keyword">base</span> <span class="keyword">base</span>-devel syslinux vim
+</pre></td></tr></table></figure>
+
+
+<p>p.s:这里需要说明一下,一般来说base就够了,不过后期安装软件基本上会用到base-devel,所以把这个系统软件包组也选上;syslinux是引导程序包(可以根据习惯调整为grub2),双系统情况下,如果物理机器上不想用syslinux覆盖磁盘mbr来引导的,可以通过grub4dos之类的引导linux,具体google一大把;vim是编辑软件,仅仅是为了方便安装完基本系统后编辑配置文件,如果不喜欢的可以用nano 或者安装其他编辑工具</p>
+<p><img src="/images/2014/archinstall/34.png" alt="安装基本系统">    </p>
+<p>回车后会自动查找源,下载软件包,安装<br><img src="/images/2014/archinstall/35.png" alt="安装基本系统">    </p>
+<p>键入   </p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre>1
+</pre></td><td class="code"><pre>pacstrap <span class="attribute">-i</span> /mnt net<span class="attribute">-tools</span>
+</pre></td></tr></table></figure>
+
+
+<p>p.s:也许大多数人对ifconfig这种网络配置命令比较习惯,那么请安装net-tools软件包,而且安装可以添加 i 参数实现一定程度上的交互式安装,这样就不会像上面一样自动下载安装,这里可以不执行,不影响系统搭建<br><img src="/images/2014/archinstall/36.png" alt="安装基本系统"><br><img src="/images/2014/archinstall/37.png" alt="安装基本系统">   </p>
+<p>用AIS脚本自动生成fstab,也就是当前磁盘挂载情况的文件<br>键入  </p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre>1
+</pre></td><td class="code"><pre>genfstab -p /mnt &gt;&gt; <span class="regexp">/mnt/etc</span><span class="regexp">/fstab</span>
+</pre></td></tr></table></figure>
+
+
+<p>>&gt; 是Unix Like下面常见的重定向符号<br><img src="/images/2014/archinstall/38.png" alt="安装基本系统">   </p>
+<p>chroot到刚才安装完毕的基本系统,进行最基础的系统配置<br>键入  </p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre>1
+</pre></td><td class="code"><pre>archroot /mnt
+</pre></td></tr></table></figure>
+
+
+<p><img src="/images/2014/archinstall/39.png" alt="安装基本系统">   </p>
+<p>进入到新环境以后的情况,可以看到终端前面的提示符已经发生了变化<br><img src="/images/2014/archinstall/40.png" alt="安装基本系统">   </p>
+<h2 id="七、基本系统配置">七、基本系统配置</h2>
+<h3 id="A-设置语言">A.设置语言</h3>
+<p>设置系统支持的locale,只需要找到en_US 以及zh_CN开头的,然后把注释符号#去掉即可<br>键入  </p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre>1
+</pre></td><td class="code"><pre>vim /etc/locale<span class="preprocessor">.gen</span>
+</pre></td></tr></table></figure>
+
+
+<p><img src="/images/2014/archinstall/41.png" alt="语言设置"><br><img src="/images/2014/archinstall/42.png" alt="语言设置"><br><img src="/images/2014/archinstall/43.png" alt="语言设置"><br>保存退出<br><img src="/images/2014/archinstall/44.png" alt="语言设置">   </p>
+<p>执行</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre>1
+</pre></td><td class="code"><pre>locale<span class="attribute">-gen</span>
+</pre></td></tr></table></figure>
+
+
+<p><img src="/images/2014/archinstall/45.png" alt="语言设置">   </p>
+<p>设置系统默认的locale,这里决定了进入桌面后是英文界面还是中文界面,我习惯了英文界面,所以设置如下图2所示,喜欢中文界面的可以简单设置为LANG=zh_CN.UTF-8<br>键入  </p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre>1
+</pre></td><td class="code"><pre>vim /etc/locale<span class="preprocessor">.conf</span>
+</pre></td></tr></table></figure>
+
+
+<p>添加适合自己的locale<br><img src="/images/2014/archinstall/46.png" alt="语言设置"><br><img src="/images/2014/archinstall/47.png" alt="语言设置">     </p>
+<h3 id="B-设置主机名">B.设置主机名</h3>
+<p>键入  </p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre>1
+</pre></td><td class="code"><pre>vim /etc/hostname
+</pre></td></tr></table></figure>
+
+
+<p>里面添加自己喜欢的名称,这里演示输入zhongguoyidou,请根据自己的喜好更改<br><img src="/images/2014/archinstall/48.png" alt="设置主机名"><br><img src="/images/2014/archinstall/49.png" alt="设置主机名">  </p>
+<p>修改 hosts文件,添加刚才设置的主机名<br>键入  </p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre>1
+</pre></td><td class="code"><pre>vim /etc/hosts
+</pre></td></tr></table></figure>
+
+
+<p><img src="/images/2014/archinstall/50.png" alt="设置主机名"><br><img src="/images/2014/archinstall/51.png" alt="设置主机名">  </p>
+<h3 id="C-设置时区">C.设置时区</h3>
+<p>设置时区为亚洲/上海,创建一个软链接即可<br>键入 </p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre>1
+</pre></td><td class="code"><pre>ln <span class="operator">-s</span> /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
+</pre></td></tr></table></figure>
+
+
+
+
+<figure class="highlight shell"><table><tr><td class="gutter"><pre>1
+</pre></td><td class="code"><pre>vim /etc/timezone
+</pre></td></tr></table></figure>
+
+
+<p>添加Asia/Shanghai 这一行后保存退出</p>
+<p>多系统的可以设置为本地时间,避免出现系统切换时间8小时之差的情况<br>键入   </p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre>1
+</pre></td><td class="code"><pre><span class="comment">hwclock</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">systohc</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">localtime</span>
+</pre></td></tr></table></figure>
+
+
+<p><img src="/images/2014/archinstall/52.png" alt="设置时区">  </p>
+<h3 id="D-创建ramdisk">D.创建ramdisk</h3>
+<p>键入   </p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre>1
+</pre></td><td class="code"><pre>mkinitcpio <span class="attribute">-p</span> linux
+</pre></td></tr></table></figure>
+
+
+<p>如果不满意默认配制的自行根据需要修改 /etc/mkinitcpio.conf 再执行此命令创建,一般来说默认即可<br><img src="/images/2014/archinstall/53.png" alt="创建ramdisk">  </p>
+<h3 id="E-检查syslinux的配置文件是否正确">E.检查syslinux的配置文件是否正确</h3>
+<p>键入  </p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre>1
+</pre></td><td class="code"><pre>vim /boot/syslinux/syslinux<span class="preprocessor">.cfg</span>
+</pre></td></tr></table></figure>
+
+
+<p>如果分区规划跟我一样的可以不检查也行,默认的就可以.其他自行检查append root=/dev/sdax 这行的sdax ——- 设置为正确的根节点所在分区即可  </p>
+<p><img src="/images/2014/archinstall/54.png" alt="检查syslinux的配置文件是否正确"><br><img src="/images/2014/archinstall/55.png" alt="检查syslinux的配置文件是否正确">  </p>
+<h3 id="F-安装syslinux启动管理器,以便实现ArchLinux的顺利启动">F.安装syslinux启动管理器,以便实现ArchLinux的顺利启动</h3>
+<p>键入  </p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre>1
+</pre></td><td class="code"><pre>syslinux<span class="attribute">-install_update</span> <span class="attribute">-iam</span>
+</pre></td></tr></table></figure>
+
+
+<p><img src="/images/2014/archinstall/56.png" alt="检查syslinux的配置文件是否正确">  </p>
+<h3 id="G-为root超级用户添加密码">G.为root超级用户添加密码</h3>
+<p>键入  </p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre>1
+</pre></td><td class="code"><pre>passwd
+</pre></td></tr></table></figure>
+
+
+<p>输入密码需要两遍以确认是否一致,且密码不会显示在屏幕上<br><img src="/images/2014/archinstall/57.png" alt="为root超级用户添加密码">  </p>
+<h3 id="H-退出当前系统环境">H.退出当前系统环境</h3>
+<p>键入  </p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre>1
+</pre></td><td class="code"><pre><span class="keyword">exit</span>
+</pre></td></tr></table></figure>
+
+
+<p><img src="/images/2014/archinstall/58.png" alt="退出当前系统环境">  </p>
+<p>返回到安装镜像启动所在的系统环境<br>键入  </p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre>1
+2
+3
+</pre></td><td class="code"><pre>umount /mnt/boot
+umount <span class="regexp">/mnt/</span>
+reboot
+</pre></td></tr></table></figure>
+
+
+<p>关机并且从磁盘引导系统<br><img src="/images/2014/archinstall/59.png" alt="关机并且从磁盘引导系统">  </p>
+<p>重起后的系统初始选择界面<br><img src="/images/2014/archinstall/60.png" alt="重起后的系统初始选择界面">  </p>
+<p>启动系统后要求输入用户名以及密码<br>键入  </p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre>1
+</pre></td><td class="code"><pre>root
+</pre></td></tr></table></figure>
+
+
+<p>输入密码<br><img src="/images/2014/archinstall/61.png" alt="登录系统">  </p>
+<p>顺利进入系统<br><img src="/images/2014/archinstall/62.png" alt="登录系统">    </p>
+<h3 id="I-添加用户">I.添加用户</h3>
+<p>添加一个普通用户,比如这里的kafan_zhongguoyidou,具体的其他参数自己google<br>键入  </p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre>1
+</pre></td><td class="code"><pre>useradd <span class="attribute">-m</span> <span class="attribute">-s</span> /bin/bash kafan_zhongguoyidou
+</pre></td></tr></table></figure>
+
+
+<p><img src="/images/2014/archinstall/63.jpg" alt="添加一个普通用户"><br>添加完毕为普通用户设定一个密码<br>键入  </p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre>1
+</pre></td><td class="code"><pre>passwd kafan_zhongguoyidou
+</pre></td></tr></table></figure>
+
+
+<p>为刚才添加的普通用户添加sudo的相关权限,这里只做一点简要设置,其他自己参阅<br>键入 visudo<br>找到图示中root那行,添加图示一行<br><img src="/images/2014/archinstall/64.png" alt="添加一个普通用户"><br><img src="/images/2014/archinstall/65.png" alt="添加一个普通用户"> </p>
+<h3 id="J-配置网络">J.配置网络</h3>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre>1
+2
+3
+4
+5
+6
+</pre></td><td class="code"><pre><span class="preprocessor">##查看可用网卡</span>
+ifconfig -a
+<span class="preprocessor">##启动网卡</span>
+ifconfig eth0 up
+<span class="preprocessor">##获取ip</span>
+dhcpcd  eth0
+</pre></td></tr></table></figure>
+
+
+<h3 id="K-安装X桌面环境">K.安装X桌面环境</h3>
+<p>这里以xfce4这个折中的桌面套件来演示,可以根据自己的爱好选择其他桌面套件或者窗口管理器,接下来不配过多的图,主要叙述一下软件包安装相关指令<br>进入系统后首先更新软件包相关数据,如果提示有更新先更新一下软件<br>键入  </p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre>1
+</pre></td><td class="code"><pre>pacman <span class="attribute">-Syu</span>
+</pre></td></tr></table></figure>
+
+
+<p><img src="/images/2014/archinstall/66.png" alt="添加一个普通用户"></p>
+<p>如果你不知道自己是什么显卡，就用下面的命令查看下：  </p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre>1
+</pre></td><td class="code"><pre>lspci <span class="string">| grep VGA</span>
+</pre></td></tr></table></figure>
+
+
+<p>然后执行下面的命令搜索下匹配你显卡的驱动  </p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre>1
+</pre></td><td class="code"><pre>pacman <span class="attribute">-Ss</span> xf86<span class="attribute">-video</span> <span class="subst">|</span> less
+</pre></td></tr></table></figure>
+
+
+<p>我是VirtualBox，所以我就安装一个万能的，你们安装匹配的，比如你是Intel集成的就执行：  </p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre>1
+</pre></td><td class="code"><pre>pacman <span class="attribute">-S</span> xf86<span class="attribute">-video</span><span class="attribute">-intel</span>
+</pre></td></tr></table></figure>
+
+
+<p>虚拟机就执行  </p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre>1
+</pre></td><td class="code"><pre>pacman <span class="attribute">-S</span> xf86<span class="attribute">-video</span><span class="attribute">-vesa</span>
+</pre></td></tr></table></figure>
+
+
+<p>笔记本还可以装下触摸板驱动  </p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre>1
+</pre></td><td class="code"><pre>pacman <span class="attribute">-S</span> xf86<span class="attribute">-input</span><span class="attribute">-synaptics</span>
+</pre></td></tr></table></figure>
+
+
+<p>安装声卡驱动<br>键入  </p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre>1
+</pre></td><td class="code"><pre>pacman <span class="attribute">-S</span> alsa<span class="attribute">-utils</span>
+</pre></td></tr></table></figure>
+
+
+<p>测试X环境是否安装好了，可以执行下面的命令，其实不用测试。  </p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre>1
+2
+3
+4
+</pre></td><td class="code"><pre>pacman <span class="attribute">-S</span> xorg<span class="attribute">-twm</span> xorg<span class="attribute">-xclock</span> xterm 
+startx 
+exit 
+pkill X
+</pre></td></tr></table></figure>
+
+
+<h3 id="L-安装XFCE4_桌面套件">L.安装XFCE4 桌面套件</h3>
+<p>先安装slim，这是一个图像、登录管理器，可用于xfce4的自启动。  </p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre>1
+</pre></td><td class="code"><pre>pacman <span class="attribute">-S</span> slim
+</pre></td></tr></table></figure>
+
+
+<p>键入</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre>1
+</pre></td><td class="code"><pre>pacman <span class="attribute">-S</span> xfce4
+</pre></td></tr></table></figure>
+
+
+<p>出现的软件包组选择全部即可</p>
+<p>安装sudo,让普通用户无需切换执行一些root用户指令<br>键入  </p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre>1
+</pre></td><td class="code"><pre>pacman -S <span class="built_in">sudo</span>
+</pre></td></tr></table></figure>
+
+
+<p>安装中文字体<br>键入  </p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre>1
+</pre></td><td class="code"><pre>pacman <span class="attribute">-S</span> wqy<span class="attribute">-microhei</span> wqy<span class="attribute">-zenhei</span> wqy<span class="attribute">-bitmapfont</span>
+</pre></td></tr></table></figure>
+
+
+<p>至于美化，都是通过界面操作的，system-setting可以设置字体，另外terminal的preference可以设置它用的字体。</p>
+<p>现在，大功告成！！启动！！！</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre>1
+</pre></td><td class="code"><pre>startxfce4
+</pre></td></tr></table></figure>
+
+
+<p><img src="/images/2014/archinstall/67.jpg" alt="添加一个普通用户">   </p>
+<h3 id="M-设置xfce4自启动_">M.设置xfce4自启动　　</h3>
+<p>要将SLiM配置为加载某个特定的环境，只需编辑~/.xinitrc如下：  </p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+</pre></td><td class="code"><pre><span class="shebang">#!/bin/sh
+</span>
+<span class="comment">#</span>
+<span class="comment"># ~/.xinitrc</span>
+<span class="comment">#</span>
+<span class="comment"># Executed by startx (run your window manager from here)</span>
+<span class="comment">#</span>
+
+<span class="keyword">exec</span> [session-command]
+</pre></td></tr></table></figure>
+
+
+<p>注意：如果你没有~/.xinitrc文件，可以从系统中复制一个：  </p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre>1
+</pre></td><td class="code"><pre>$ <span class="keyword">cp</span> /etc/skel/<span class="preprocessor">.xinitrc</span> ~
+</pre></td></tr></table></figure>
+
+
+<p>将[session-command]替换为适当的会话命令。例如：</p>
+<p>要启动Xfce:  </p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre>1
+2
+</pre></td><td class="code"><pre><span class="comment"># Xfce</span>
+<span class="keyword">exec</span> startxfce4
+</pre></td></tr></table></figure>
+
+
+<p>要启动Openbox：  </p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre>1
+2
+</pre></td><td class="code"><pre><span class="comment"># Openbox</span>
+<span class="keyword">exec</span> openbox-session
+</pre></td></tr></table></figure>
+
+
+<p>要启动Fluxbox:  </p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre>1
+2
+3
+</pre></td><td class="code"><pre><span class="preprocessor"># Fluxbox</span>
+exec fluxbox
+<span class="preprocessor"># Either fluxbox or startfluxbox is acceptable</span>
+</pre></td></tr></table></figure>
+
+
+<p>要启动GNOME:  </p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre>1
+2
+</pre></td><td class="code"><pre><span class="comment"># GNOME</span>
+<span class="keyword">exec</span> gnome-session
+</pre></td></tr></table></figure>
+
+
+<p>要启动KDE:  </p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre>1
+2
+</pre></td><td class="code"><pre><span class="comment"># KDE</span>
+<span class="keyword">exec</span> startkde
+</pre></td></tr></table></figure>
+
+
+<p>如果你的桌面环境不在上述列表中，请参考你的软件文档</p>
+<p>__参考资料<br>*<a href="http://www.cnblogs.com/mad/p/3280041.html" target="_blank">Archlinux网络配置</a>  </p>
+<p>*<a href="http://blog.csdn.net/helloanyone/article/details/7012487" target="_blank">如何安装ArchLinux</a>  </p>
+<p>*<a href="http://bbs.kafan.cn/thread-1371928-1-1.html" target="_blank">大道至简,原来你就是这么KISS—-ArchLinux基本系统到XFCE4桌面搭建</a>   </p>
+<p>*<a href="https://www.archlinux.org/mirrors/status" target="_blank">Arch镜像列表</a>   </p>
+<p>*Arch wiki<br><a href="https://wiki.archlinux.org/index.php?title=SLiM_(%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87)&amp;oldid=212382" target="_blank">https://wiki.archlinux.org/index.php?title=SLiM_(%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87)&amp;oldid=212382</a></p>
+]]></content>
+  </entry>
+  <entry>
+    <title type="html"><![CDATA[修改Gradle缓存目录]]></title>
+    <link href="http://www.7yeshu.com/2013/12/04/gradlelocalrepostry/"/>
+    <id>http://www.7yeshu.com/2013/12/04/gradlelocalrepostry/</id>
+    <published>2013-12-04T08:55:21.000Z</published>
+    <updated>2013-12-04T01:39:05.000Z</updated>
+    <content type="html"><![CDATA[<p>You can set the GRADLE_USER_HOME environment variable, gradle.user.home system property, or —gradle-user-home command line parameter</p>
+]]></content>
+    <category scheme="http://www.7yeshu.com/tags/Gradle/" term="Gradle"/>
+    <category scheme="http://www.7yeshu.com/categories/Gradle/" term="Gradle"/>
+  </entry>
+  <entry>
+    <title type="html"><![CDATA[Jenkins+Gradle搭建CI环境]]></title>
+    <link href="http://www.7yeshu.com/2013/12/03/gradleforjenkins/"/>
+    <id>http://www.7yeshu.com/2013/12/03/gradleforjenkins/</id>
+    <published>2013-12-03T01:52:39.000Z</published>
+    <updated>2014-05-27T12:53:01.000Z</updated>
+    <content type="html"><![CDATA[<h4 id="版本说明">版本说明</h4>
+<ul>
+<li>jenkins 1.542</li>
+<li>jdk 1.6u45</li>
+<li>gradle 1.9</li>
+</ul>
+<h4 id="必要条件">必要条件</h4>
+<ul>
+<li>需要安装JDK并配置配置好JAVA_HOME和JRE_HOME的环境变量</li>
+</ul>
+<ol>
+<li><p>下载jenkins.war<br>去<a href="&quot;http://www.jenkins-ci.org/&quot;">Jenkins官方网站</a>下载相应war包即可</p>
+</li>
+<li><p>使用命令行跳转到jenkins所在目录<br>可以有两种方法进行运行 jenkins<br> a)    直接通过命令行<br> 转到hudson.war所在的目录，当前为<br> java -jar jenkins.war —httpPort=8080<br> 说明：httpPort为jenkins运行的端口，默认端口为8080，上述命令其实jenkins运行在Winstone容器中；<br> b)    在Web容器中运行<br> jenkins可以运行在标准的Web服务器中，支持Tomcat、Jboss、WebLogic中，只需要将jenkins.war放置到相应目录，启动服务就可以进行访问；</p>
+</li>
+<li><p>访问jenkins <a href="http://localhost:8080/" target="_blank">http://localhost:8080/</a></p>
+<a id="more"></a></li>
+<li><p>安装gradle插件<br> 点击系统管理-&gt;插件管理<br> 选择”可安装插件”tab页,过滤出gradle plugin然后勾选点击直接安装即可<br> 如果需要自动部署还需要安装deploy plugin</p>
+</li>
+<li><p>配置</p>
+<ul>
+<li>鉴权配置<br>  点击系统管理 选择Configure Global Security 点击”启用安全”<br>  在访问控制下的安全域 勾选 jenkins专有用户数据库<br>  在访问控制下的授权策略里 更改为 “登录用户可以做任何事”<br>  点击保存会跳转到登陆界面,点击创建一个新用户注册一个新用户即可</li>
+<li>系统配置<br>  系统管理-&gt;系统配置-&gt;找到gradle项目,把自动安装前面的勾去掉即可设置本地gradle目录<br>  <img src="/images/2013/12/03/6.png" alt="gradle config"></li>
+</ul>
+</li>
+<li><p>创建任务<br> 6.1. 点击界面的”创建一个构建任务”进行创建;填入job名称 选择构建一个自由风格的项目<br> <img src="/images/2013/12/03/1.png" alt="project config"></p>
+<p> 6.2. 点击下一步,在”源码管理”选项下选择 subversion repository URL输入你的项目svn地址,第一次输入完之后会给出红色提示说鉴权不通过,点击enter authority,然后选择username/password输入鉴权信息即可(如果你是采用username/password方式的话),其余的保持默认即可<br> <img src="/images/2013/12/03/2.png" alt="subversion config"></p>
+<p> 6.3. 如果希望定时构建可以在”构建触发器”选项下 选择build periodically填写cron表达式来控制构建周期 比如每天20:00构建 H 20 <em> </em> *<br> <img src="/images/2013/12/03/3.png" alt="cron config"></p>
+<p> 6.4. 在”构建”选项下 点击 增加构建步骤 选择 invoke gradle script 在tasks下填入要执行的任务即可<br> <img src="/images/2013/12/03/4.png" alt="gradlescript config"></p>
+<p> 6.5. 自动部署<br> 在”构建后操作”选项下,点击 增加构建步骤 选择 delply war/ear to a container</p>
+<p> 在war/ear files下填入war包所在位置 如target/libs/CIMS.war<br> context path填写项目名称 如 CIMS<br> container选择容器版本 如tomcat<br> 这里需要更改目标tomcat配置 添加相应用户 然后填入相应内容即可<br> <img src="/images/2013/12/03/5.png" alt="deploy config"></p>
+<p> p.s:此步需要修改目标tomcat的配置</p>
+</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre>1
+2
+3
+4
+5
+</pre></td><td class="code"><pre>vi $tomcat/conf/tomcat-usres.xml
+<span class="comment">&lt;!-- 必须开启这两个权限,不然会出现 如下错误,同时该错误也可能由于内存溢出而导致ERROR: Publisher hudson.plugins.deploy.DeployPublisher aborted due to exception   --&gt;</span>
+<span class="tag">&lt;<span class="title">role</span> <span class="attribute">rolename</span>=<span class="value">"manager-script"</span>/&gt;</span>
+<span class="tag">&lt;<span class="title">role</span> <span class="attribute">rolename</span>=<span class="value">"manager-gui"</span>/&gt;</span>	
+<span class="tag">&lt;<span class="title">user</span> <span class="attribute">username</span>=<span class="value">"jenkins"</span> <span class="attribute">password</span>=<span class="value">"jenkins"</span> <span class="attribute">roles</span>=<span class="value">"tomcat,manager-script,manager-gui"</span>/&gt;</span>
+</pre></td></tr></table></figure>
+
+
+
+<ol>
+<li>点击保存,搭建完成</li>
+</ol>
+]]></content>
+    <category scheme="http://www.7yeshu.com/tags/Jenkins/" term="Jenkins"/>
+    <category scheme="http://www.7yeshu.com/tags/Gradle/" term="Gradle"/>
+    <category scheme="http://www.7yeshu.com/categories/Jenkins/" term="Jenkins"/>
+    <category scheme="http://www.7yeshu.com/categories/Jenkins/Gradle/" term="Gradle"/>
+  </entry>
+  <entry>
+    <title type="html"><![CDATA[Gradle依赖范围说明]]></title>
+    <link href="http://www.7yeshu.com/2013/11/27/gradledependencymgmnt/"/>
+    <id>http://www.7yeshu.com/2013/11/27/gradledependencymgmnt/</id>
+    <published>2013-11-27T06:23:53.000Z</published>
+    <updated>2013-11-27T09:30:45.000Z</updated>
+    <content type="html"><![CDATA[<table><thead><tr><th style="width:150px;">名称</th><th>说明</th></tr></thead><tbody><tr><td>providedCompile</td><td>war插件提供的范围类型:与compile作用类似,但不会被添加到最终的war包中这是由于编译、测试阶段代码需要依赖此类jar包，而运行阶段容器已经提供了相应的支持，所以无需将这些文件打入到war包中了;例如Servlet API就是一个很明显的例子.</td></tr><tr><td>compile</td><td>编译范围依赖在所有的classpath中可用，同时它们也会被打包。</td></tr><tr>    <td>providedRuntime</td><td>同proiveCompile类似。</td></tr><tr><td>runtime</td><td>    runtime依赖在运行和测试系统的时候需要，但在编译的时候不需要。比如，你可能在编译的时候只需要JDBC API JAR，而只有在运行的时候才需要JDBC驱动实现。     </td></tr><tr><td>testCompile</td><td>测试期编译需要的附加依赖</td></tr><tr><td>testRuntime</td><td>测试运行期需要</td></tr><tr>    <td>archives</td><td>-</td></tr><tr><td>default</td><td>配置默认依赖范围</td></tr></tbody></table>]]></content>
+    <category scheme="http://www.7yeshu.com/tags/Gradle/" term="Gradle"/>
+    <category scheme="http://www.7yeshu.com/categories/Gradle/" term="Gradle"/>
+  </entry>
+  <entry>
+    <title type="html"><![CDATA[使用gradle下载jar包]]></title>
+    <link href="http://www.7yeshu.com/2013/11/26/gradledownloadjar/"/>
+    <id>http://www.7yeshu.com/2013/11/26/gradledownloadjar/</id>
+    <published>2013-11-26T02:29:48.000Z</published>
+    <updated>2013-11-26T02:38:06.000Z</updated>
+    <content type="html"><![CDATA[<p>如题 建立build.gradle文件如下：</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+</pre></td><td class="code"><pre> apply plugin: <span class="string">'java'</span>
+ 
+ repositories {
+     mavenCentral()
+ }
+
+ dependencies {
+	<span class="javadoc">/**spring版本号**/</span>
+    <span class="keyword">def</span> springVersion = <span class="string">"3.2.4.RELEASE"</span>
+    compile  <span class="string">"org.springframework:spring-webmvc:${springVersion}"</span>,
+              <span class="string">"org.springframework:spring-jdbc:${springVersion}"</span>,
+              <span class="string">"org.springframework:spring-tx:${springVersion}"</span>
+ }
+ 
+ task copyJars(<span class="keyword">type</span>: Copy) {
+   from configurations.runtime
+   into <span class="string">'lib'</span> <span class="comment">// 目标位置</span>
+ }
+</pre></td></tr></table></figure>
+
+
+<p><a id="more"></a><br>然后控制台执行</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre>1
+</pre></td><td class="code"><pre>gradle <span class="attribute">-q</span> copyJars
+</pre></td></tr></table></figure>
+
+
+<p>好了去寻找吧 泰罗</p>
+]]></content>
+    <category scheme="http://www.7yeshu.com/tags/Gradle/" term="Gradle"/>
+    <category scheme="http://www.7yeshu.com/categories/Gradle/" term="Gradle"/>
+  </entry>
+  <entry>
+    <title type="html"><![CDATA[Centos 6.4安装oracle 11G]]></title>
+    <link href="http://www.7yeshu.com/2013/11/07/installoracle11goncentos/"/>
+    <id>http://www.7yeshu.com/2013/11/07/installoracle11goncentos/</id>
+    <published>2013-11-07T09:13:31.000Z</published>
+    <updated>2013-12-10T06:53:39.000Z</updated>
+    <content type="html"><![CDATA[<h3 id="1-安装centos">1.安装centos</h3>
+<h3 id="2-配置sshd">2.配置sshd</h3>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre>1
+2
+3
+4
+</pre></td><td class="code"><pre>vi etc/ssh/sshd_config 
+PasswordAuthentication <span class="literal">yes</span>
+PermitRootLogin <span class="literal">yes</span>
+service sshd restart
+</pre></td></tr></table></figure>
+
+
+<h3 id="3-安装ftp">3.安装ftp</h3>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre>1
+</pre></td><td class="code"><pre>yum <span class="keyword">install</span> vsftpd
+</pre></td></tr></table></figure>
+
+
+<p>允许root登录</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre>1
+2
+</pre></td><td class="code"><pre>vi /etc/vsftpd/ftpusers
+vi /etc/vsftpd/userlist
+</pre></td></tr></table></figure>
+
+
+<p>把里面root前面加#<br>启动ftp</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre>1
+</pre></td><td class="code"><pre>service vsftpd <span class="operator"><span class="keyword">start</span></span>
+</pre></td></tr></table></figure>
+
+
+<p><a id="more"></a></p>
+<h3 id="4-关闭SELINUX">4.关闭SELINUX</h3>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre>1
+</pre></td><td class="code"><pre>vi /etc/selinux/config
+</pre></td></tr></table></figure>
+
+
+<p> 修改SELINUX=disabled，然后:wq保存退出后，输入setenforce 0 使修改生效，或者重启下电脑 </p>
+<h3 id="5-放开防火墙对ftp和1521的限制">5.放开防火墙对ftp和1521的限制</h3>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre>1
+2
+3
+4
+</pre></td><td class="code"><pre>vi /etc/sysconfig/iptables 
+<span class="attribute">-A</span> INPUT <span class="attribute">-m</span> state <span class="subst">--</span>state <span class="literal">NEW</span> <span class="attribute">-m</span> tcp <span class="attribute">-p</span> tcp <span class="subst">--</span>dport <span class="number">21</span> <span class="attribute">-j</span> ACCEPT
+<span class="attribute">-A</span> INPUT <span class="attribute">-m</span> state <span class="subst">--</span>state <span class="literal">NEW</span> <span class="attribute">-m</span> tcp <span class="attribute">-p</span> tcp <span class="subst">--</span>dport <span class="number">22</span> <span class="attribute">-j</span> ACCEPT
+<span class="attribute">-A</span> INPUT <span class="attribute">-m</span> state <span class="subst">--</span>state <span class="literal">NEW</span> <span class="attribute">-m</span> tcp <span class="attribute">-p</span> tcp <span class="subst">--</span>dport <span class="number">1521</span> <span class="attribute">-j</span> ACCEPT
+</pre></td></tr></table></figure>
+
+
+<h3 id="6-使用懒人包">6.使用懒人包</h3>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre>1
+</pre></td><td class="code"><pre>sh Oracle11gPreInstaller<span class="preprocessor">.sh</span>
+</pre></td></tr></table></figure>
+
+
+<h3 id="7-安装oracle">7.安装oracle</h3>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre>1
+</pre></td><td class="code"><pre>./runInstaller
+</pre></td></tr></table></figure>
+
+
+<h3 id="8-配置-bash_profile">8.配置.bash_profile</h3>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+</pre></td><td class="code"><pre>vi.bash_profile 
+<span class="comment"># .bash_profile</span>
+
+<span class="comment"># Get the aliases and functions</span>
+<span class="keyword">if</span> [ <span class="operator">-f</span> ~/.bashrc ]; <span class="keyword">then</span>
+	. ~/.bashrc
+<span class="keyword">fi</span>
+
+<span class="comment"># User specific environment and startup programs</span>
+
+PATH=<span class="variable">$PATH</span>:<span class="variable">$HOME</span>/bin
+
+<span class="keyword">export</span> PATH
+
+ORACLE_BASE=/opt/app/oracle
+ORACLE_HOME=/opt/app/oracle/product
+ORACLE_SID=mord
+TMP=/tmp
+TMPDIR=/tmp
+NLS_DATE_FORMAT=<span class="string">'YYYY-MM-DD HH24:MI:SS'</span>
+<span class="keyword">export</span> ORACLE_BASE ORACLE_HOME ORACLE_SID TMP TMPDIR NLS_DATE_FORMAT
+<span class="keyword">export</span> NLS_LANG=AMERICAN_AMERICA.AL32UTF8
+<span class="keyword">export</span> ORA_NLS33=<span class="variable">$ORACLE_HOME</span>/nls/data
+<span class="keyword">export</span> ORACLE_BASE
+<span class="keyword">export</span> ORACLE_HOME
+<span class="keyword">export</span> ORACLE_SID
+<span class="keyword">export</span> LANG=en_US.UTF-<span class="number">8</span>
+
+PATH=<span class="variable">$PATH</span>:<span class="variable">$HOME</span>/bin:<span class="variable">$ORACLE_HOME</span>/bin
+
+<span class="keyword">export</span> PATH
+
+/bin/dbstart 
+/bin/emctl start dbconsole
+</pre></td></tr></table></figure>
+
+
+<h3 id="9-dbca配置创建数据库">9.dbca配置创建数据库</h3>
+<h3 id="10-netca设置监听服务名">10.netca设置监听服务名</h3>
+<p><a href="/files/Oracle11gPreInstaller.sh">懒人包下载</a></p>
+]]></content>
+    <category scheme="http://www.7yeshu.com/tags/linux/" term="linux"/>
+    <category scheme="http://www.7yeshu.com/tags/oracle/" term="oracle"/>
+    <category scheme="http://www.7yeshu.com/categories/linux/" term="linux"/>
+  </entry>
+  <entry>
+    <title type="html"><![CDATA[使用Gradle调用CMD]]></title>
+    <link href="http://www.7yeshu.com/2013/10/18/graldewithcmd/"/>
+    <id>http://www.7yeshu.com/2013/10/18/graldewithcmd/</id>
+    <published>2013-10-18T03:04:56.000Z</published>
+    <updated>2013-10-18T03:23:28.000Z</updated>
+    <content type="html"><![CDATA[<p>关于如何使用gradle调用命令行来执行一些命令可以参考如下脚本进行修改扩展</p>
+<p>build.gradle</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+</pre></td><td class="code"><pre>task javaVersion(<span class="keyword">type</span>:Exec) {
+  <span class="comment">//这里在windows下一定要加/c参数 ,否则会报错,/c是 执行字符串指定的命令然后终止</span>
+  commandLine <span class="string">'cmd'</span>, <span class="string">'/c'</span>, <span class="string">'java -version'</span>
+  <span class="comment">//执行结果</span>
+  <span class="keyword">if</span>(null == execResult){
+	<span class="built_in">println</span> <span class="string">'exec failed'</span>
+  }<span class="keyword">else</span>{
+	<span class="built_in">println</span> <span class="string">'exec successed'</span>
+  }
+  <span class="comment">//store the output instead of printing to the console:</span>
+  standardOutput = <span class="built_in">new</span> ByteArrayOutputStream()
+
+  <span class="comment">//extension method stopTomcat.output() can be used to obtain the output:</span>
+  ext.output = {
+    <span class="keyword">return</span> standardOutput.toString()
+  }
+}
+</pre></td></tr></table></figure>
+
+
+<p><a id="more"></a><br>控制台调用</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre>1
+</pre></td><td class="code"><pre>gradle <span class="attribute">-q</span> jV
+</pre></td></tr></table></figure>
+
+
+<p>具体可以查看官方API<br><a href="http://www.gradle.org/docs/current/dsl/org.gradle.api.tasks.Exec.html" target="_blank">调用命令行</a></p>
+<p>P.S:感谢gradle群中的 小和尚 提出和发现了此问题的解决方式</p>
+]]></content>
+    <category scheme="http://www.7yeshu.com/tags/Gradle/" term="Gradle"/>
+    <category scheme="http://www.7yeshu.com/categories/Gradle/" term="Gradle"/>
+  </entry>
+  <entry>
+    <title type="html"><![CDATA[借助Libreoffice/Openoffice实现Excel在线预览]]></title>
+    <link href="http://www.7yeshu.com/2013/10/16/previewexcelwithsoffice/"/>
+    <id>http://www.7yeshu.com/2013/10/16/previewexcelwithsoffice/</id>
+    <published>2013-10-16T09:44:40.000Z</published>
+    <updated>2013-10-16T13:11:26.000Z</updated>
+    <content type="html"><![CDATA[<p>有时候你可能需要对客户上传的excel文件提供在线预览的方式,类似很多邮箱直接点击就可以在线查看.但很多第三方工具都是收费的而自己遍历excel重绘界面又比较麻烦;<br>当然如果要求事先将excel另存为html然后上传直接显示是没问题的,但显然这不够科学;那如何才能实现科学预览呢.其实直接借助Libreoffice/Openoffice在点击预览后,后台悄悄把excel另存成html就好了;具体方式如下</p>
+<p>以Centos 6.4为例;</p>
+<h3 id="1-安装桌面环境和office(如果已经安装的可以忽略此步骤)">1.安装桌面环境和office(如果已经安装的可以忽略此步骤)</h3>
+<p>如果没有安装桌面环境的话需要先执行如下命令安装</p>
+<p><strong>安装x window</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre>1
+</pre></td><td class="code"><pre>yum groupinstall <span class="string">'X Window System'</span> <span class="attribute">-y</span>
+</pre></td></tr></table></figure>
+
+
+<p><strong>安装桌面</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre>1
+</pre></td><td class="code"><pre>yum groupinstall <span class="string">'Desktop'</span> <span class="attribute">-y</span>
+</pre></td></tr></table></figure>
+
+
+<p><strong>安装office</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre>1
+</pre></td><td class="code"><pre>yum groupinstall <span class="attribute">'Office</span> Suite <span class="keyword">and</span> Productivity' -y
+</pre></td></tr></table></figure>
+
+
+<a id="more"></a>
+
+<p>P.S:不同版本的系统可能名称会有些许差异,这时可以用yum grouplist | more 来查看要安装的具体名称</p>
+<h3 id="2-启动openoffice_服务">2.启动openoffice 服务</h3>
+<p>进行这一步之前,如果你进行了步骤1,安装完成后需要startx 进入桌面环境,否则会报如下错误</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre>1
+2
+3
+4
+</pre></td><td class="code"><pre>/program/soffice.bin X11 <span class="keyword">error</span>: Can<span class="comment">'t open display: </span>
+  <span class="keyword">Set</span> DISPLAY environment variable, use -display <span class="keyword">option</span> 
+  <span class="keyword">or</span> check permissions <span class="keyword">of</span> your X-Server 
+  (See <span class="string">"man X"</span> resp. <span class="string">"man xhost"</span> <span class="keyword">for</span> details)
+</pre></td></tr></table></figure>
+
+
+<p>可以修改/etc/inittab,设置默认从桌面启动</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre>1
+</pre></td><td class="code"><pre>vi /etc/inittab
+</pre></td></tr></table></figure>
+
+
+<p>找到里面的 </p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre>1
+</pre></td><td class="code"><pre><span class="tag">id</span><span class="pseudo">:3</span><span class="pseudo">:initdefault</span>:
+</pre></td></tr></table></figure>
+
+
+<p>将里面的3改成5,3是文本模式,5是桌面模式;</p>
+<p>运行如下命令启动openoffice服务</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre>1
+</pre></td><td class="code"><pre><span class="comment">soffice</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">headless</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">accept="socket</span><span class="string">,</span><span class="comment">host=127</span><span class="string">.</span><span class="comment">0</span><span class="string">.</span><span class="comment">0</span><span class="string">.</span><span class="comment">1</span><span class="string">,</span><span class="comment">port=8100;urp;"</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">nofirststartwizard</span> <span class="comment">&</span>
+</pre></td></tr></table></figure>
+
+
+<h3 id="3-程序调用">3.程序调用</h3>
+<p>其实就是通过程序调用office服务,然后很猥琐的将excel偷偷转化成html输出到项目下的某个文件夹里,然后页面直接加载这个html文件就可以了,以下是我当前项目的调用示例,依赖的jar我放到网盘了 需要可以下载.</p>
+<p><a href="http://url.cn/MG3Lwn" target="_blank">下载依赖jar</a></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+</pre></td><td class="code"><pre>        String fileID = <span class="keyword">this</span>.getRequest().getParameter(<span class="string">"fileID"</span>);
+        
+        FileUpDown fileUpDown = <span class="keyword">this</span>.fileUpDownManager.get(fileID);
+        
+        String filePath = fileUpDown.getFilePath();
+        String fileName = fileUpDown.getFileName();
+        
+        <span class="comment">//处理文件扩展名</span>
+        String[] fileNameArr = fileName.split(<span class="string">"\\."</span>);
+        String extendName = fileNameArr[fileNameArr.length-<span class="number">1</span>];
+        extendName = extendName.toLowerCase();
+
+        <span class="javadoc">/**浏览器支持格式*/</span>
+        String[] browserFormatArr = {<span class="string">"txt"</span>,<span class="string">"jpg"</span>,<span class="string">"jpeg"</span>,<span class="string">"bmp"</span>,<span class="string">"gif"</span>,<span class="string">"png"</span>};
+        <span class="javadoc">/**Openoffice支持格式*/</span>
+        String[] officeFormatArr = {<span class="string">"doc"</span>,<span class="string">"docx"</span>,<span class="string">"xls"</span>,<span class="string">"xlsx"</span>,<span class="string">"ppt"</span>,<span class="string">"pptx"</span>};
+
+        <span class="keyword">boolean</span> browserFormatFlag = <span class="keyword">false</span>;
+        <span class="keyword">boolean</span> officeFormatFlag = <span class="keyword">false</span>;
+        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;officeFormatArr.length;i++){
+            <span class="keyword">if</span>(extendName.equals(browserFormatArr[i])){
+                browserFormatFlag = <span class="keyword">true</span>;
+            }
+            <span class="keyword">if</span>(extendName.equals(officeFormatArr[i])){
+                officeFormatFlag = <span class="keyword">true</span>;
+            }
+        }
+        
+        <span class="comment">//处理输入的文件</span>
+        String fullRelativePath = filePath+<span class="string">"/"</span>+fileName;
+        String realPath = ServletActionContext.getServletContext().getRealPath(fullRelativePath);
+        File inFile = <span class="keyword">new</span> File(realPath);
+        
+        <span class="comment">//处理输出目录</span>
+        UserView userView = (UserView) <span class="keyword">this</span>.getSession().getAttribute(Constants.USER_VIEW);
+        String outFileParentRelativePath = <span class="string">"tmpUploadFile/preview/"</span>+userView.getId();
+        String outFileParentRealPath = ServletActionContext.getServletContext().getRealPath(outFileParentRelativePath);
+        
+        <span class="comment">//输出文件处理前  先清空输出目录</span>
+        File outFileParent = <span class="keyword">new</span> File(outFileParentRealPath);
+        <span class="keyword">if</span>(outFileParent.exists()){
+            deleteFiles(outFileParent);
+        }
+
+        <span class="comment">//分辨文件类型  执行不同处理</span>
+        <span class="keyword">if</span>(browserFormatFlag){                      <span class="comment">//浏览器可直接打开的文件，复制文件到预览目录并重命名为preview.(extendName)</span>
+            String outFileRelativePath = outFileParentRelativePath + <span class="string">"/preview"</span>+<span class="keyword">new</span> Date().getTime()+<span class="string">"."</span> + extendName ;
+            String outFileRealPath = ServletActionContext.getServletContext().getRealPath(outFileRelativePath);
+            File outFile = <span class="keyword">new</span> File(outFileRealPath);
+            
+            <span class="keyword">if</span>(<span class="string">"txt"</span>.equals(extendName)){
+                <span class="comment">//文本文件要特殊处理一下   全部转换为web.xml中设置的编码格式  UTF-8   否则会乱码</span>
+                FileUtils.writeLines(outFile, <span class="string">"UTF-8"</span>, FileUtils.readLines(inFile, <span class="string">"GBK"</span>)); 
+            }<span class="keyword">else</span>{
+                FileUtils.copyFile(inFile, outFile);    
+            }
+            
+            <span class="keyword">this</span>.print(<span class="string">"{success:true,previewPath:'"</span>+outFileRelativePath+<span class="string">"'}"</span>);
+        }<span class="keyword">else</span> <span class="keyword">if</span>(officeFormatFlag){     <span class="comment">//Office文档，使用Openoffice处理成html</span>
+            String outFileRealPath = outFileParentRealPath + <span class="string">"/preview.html"</span> ;
+            File outFile = <span class="keyword">new</span> File(outFileRealPath);
+            
+            <span class="keyword">if</span>(convertDocToHtml(inFile,outFile)){
+                <span class="comment">//更改扩展名html -&gt; htm   原因：html已经被设置为struts的Action后缀名</span>
+                String jspFileRelativePath = outFileParentRelativePath + <span class="string">"/preview.htm"</span> ;
+                File jspFile = <span class="keyword">new</span> File(outFileParentRealPath + <span class="string">"/preview.htm"</span> );
+                outFile.renameTo(jspFile);
+                <span class="keyword">this</span>.print(<span class="string">"{success:true,previewPath:'"</span>+jspFileRelativePath+<span class="string">"'}"</span>);
+            }<span class="keyword">else</span>{
+                <span class="keyword">this</span>.print(<span class="string">"{success:false,msg:'文件转换出现错误，预览失败。'}"</span>);
+            }
+        }<span class="keyword">else</span>{
+            <span class="keyword">this</span>.print(<span class="string">"{success:false,msg:'不支持的文件格式("</span>+extendName+<span class="string">")，请下载到本地计算机上预览。'}"</span>);
+        }
+        
+        <span class="keyword">return</span> NONE;
+</pre></td></tr></table></figure>
+
+
+]]></content>
+    <category scheme="http://www.7yeshu.com/tags/Java/" term="Java"/>
+    <category scheme="http://www.7yeshu.com/categories/Java/" term="Java"/>
+  </entry>
+  <entry>
+    <title type="html"><![CDATA[构建可执行Jar包]]></title>
+    <link href="http://www.7yeshu.com/2013/10/13/buildrunnablejar/"/>
+    <id>http://www.7yeshu.com/2013/10/13/buildrunnablejar/</id>
+    <published>2013-10-13T08:42:40.000Z</published>
+    <updated>2013-10-13T09:05:55.000Z</updated>
+    <content type="html"><![CDATA[<p>脚本如下</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+</pre></td><td class="code"><pre>apply plugin: <span class="string">'java'</span>
+apply plugin: <span class="string">'application'</span>
+    
+mainClassName = <span class="string">"com.Sayer"</span><span class="comment">
+//仓库</span>
+repositories {
+     mavenRepo url: <span class="string">"http://repo.maven.apache.org/maven2"</span>
+}<span class="comment">
+//依赖,为了确定依赖都打入jar包,这里随便添加了一个dom4j</span>
+dependencies {
+    compile  <span class="string">"dom4j:dom4j:1.6.1"</span>
+}<span class="comment">
+//打包</span>
+task runnbaleJar(type: Jar) {
+    <span class="built_in">from</span> <span class="built_in">files</span>(sourceSets.main.output.classesDir)
+    <span class="built_in">from</span> configurations.runtime.asFileTree.<span class="built_in">files</span>.collect { zipTree(<span class="keyword">it</span>) }
+
+    manifest {
+        attributes <span class="string">'Main-Class'</span>: <span class="string">'com.Sayer'</span>
+    }
+}<span class="comment">
+//设置编码</span>
+tasks.withType(Compile) {
+  options.encoding = <span class="string">"UTF-8"</span>
+}
+</pre></td></tr></table></figure>
+
+
+<p>另外有第三方插件也可以实现此功能<br><a id="more"></a><br><a href="&quot;https://github.com/stigkj/gradle-executable-jar-plugin&quot;">插件地址</a></p>
+<p> 用法:由于已经很明了,在此不做翻译了;</p>
+<p>Executable Jar plugin for Gradle</p>
+<p>The Executable Jar plugin creates an executable jar from your project with all its runtime dependencies embedded.</p>
+<p>This means, when using this plugin in a build, you will get a artifact_-execjar.jar artifact than can be run like this:<br>java -jar artifact_name-execjar.jar</p>
+<p>Usage</p>
+<p>To use the executable jar plugin, include the following in your build script:</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+</pre></td><td class="code"><pre>apply <span class="attribute">plugin</span>: <span class="string">'executable-jar'</span>
+
+<span class="regexp">//</span> This <span class="keyword">is</span> the <span class="class"><span class="keyword">class</span> <span class="title">that</span> <span class="title">starts</span> <span class="title">your</span> <span class="title">application</span></span>
+mainClass = <span class="string">'the.class.that.has.Main'</span>
+
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath <span class="string">'net.nisgits.gradle:gradle-executable-jar-plugin:master-REL-6'</span>
+    }
+}
+</pre></td></tr></table></figure>
+
+
+]]></content>
+    <category scheme="http://www.7yeshu.com/tags/Gradle/" term="Gradle"/>
+    <category scheme="http://www.7yeshu.com/tags/Gradle插件/" term="Gradle插件"/>
+    <category scheme="http://www.7yeshu.com/categories/Gradle/" term="Gradle"/>
+  </entry>
+  <entry>
+    <title type="html"><![CDATA[使用自定义仓库]]></title>
+    <link href="http://www.7yeshu.com/2013/10/12/customrepostries/"/>
+    <id>http://www.7yeshu.com/2013/10/12/customrepostries/</id>
+    <published>2013-10-12T01:01:03.000Z</published>
+    <updated>2013-10-12T01:04:00.000Z</updated>
+    <content type="html"><![CDATA[<p>根据自己版本按如下方式设置即可</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre>1
+2
+3
+4
+5
+6
+</pre></td><td class="code"><pre><span class="comment">//Gradle 1.7</span>
+repositories {
+    mavenRepo url: <span class="string">'http://my.server/'</span>
+    add(<span class="keyword">new</span> org.apache.ivy.plugins.resolver.FileSystemResolver()) {
+        addArtifactPattern(<span class="string">'/some/dir/[organisation]/[module]-[revision].[ext]'</span>)
+}
+</pre></td></tr></table></figure>
+
+
+
+
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+</pre></td><td class="code"><pre><span class="comment">//Gradle 1.8</span>
+repositories {
+    maven {
+        url <span class="string">'http://my.server/'</span>
+    }
+    ivy {
+        artifactPattern <span class="string">'/some/dir/[organisation]/[module]-[revision].[ext]'</span>
+    }
+}
+</pre></td></tr></table></figure>
+
+
+]]></content>
+    <category scheme="http://www.7yeshu.com/tags/Gradle/" term="Gradle"/>
+    <category scheme="http://www.7yeshu.com/categories/Gradle/" term="Gradle"/>
+  </entry>
+  <entry>
+    <title type="html"><![CDATA[关于 "编码 GBK 的不可映射字符"错误的解决]]></title>
+    <link href="http://www.7yeshu.com/2013/10/11/gradleunicodesetting/"/>
+    <id>http://www.7yeshu.com/2013/10/11/gradleunicodesetting/</id>
+    <published>2013-10-11T12:11:57.000Z</published>
+    <updated>2013-10-11T12:16:02.000Z</updated>
+    <content type="html"><![CDATA[<p>今天用gradle编译一个已有项目 结果爆粗 </p>
+<p>“警告：编码 GBK 的不可映射字符” </p>
+<p>原因是因为代码中中文注释的缘故,只需按如下方式设置编码即可 </p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre>1
+2
+3
+4
+</pre></td><td class="code"><pre>//编译groovy代码时采用 UTF-<span class="number">8</span> 
+tasks<span class="preprocessor">.withType</span>(GroovyCompile) { 
+    groovyOptions<span class="preprocessor">.encoding</span> = <span class="string">"MacRoman"</span> 
+}
+</pre></td></tr></table></figure>
+
+
+
+
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre>1
+2
+3
+4
+</pre></td><td class="code"><pre>//编译JAVA文件时采用UTF-<span class="number">8</span> 
+tasks<span class="preprocessor">.withType</span>(Compile) { 
+    options<span class="preprocessor">.encoding</span> = <span class="string">"UTF-8"</span> 
+}
+</pre></td></tr></table></figure>
+
+
+]]></content>
+    <category scheme="http://www.7yeshu.com/tags/Gradle/" term="Gradle"/>
+  </entry>
+  <entry>
+    <title type="html"><![CDATA[设置中文文件编码和本地JDK]]></title>
+    <link href="http://www.7yeshu.com/2013/10/10/gradleunicodesetting/"/>
+    <id>http://www.7yeshu.com/2013/10/10/gradleunicodesetting/</id>
+    <published>2013-10-10T00:33:57.000Z</published>
+    <updated>2013-10-10T00:36:16.000Z</updated>
+    <content type="html"><![CDATA[<p>项目中存在中文文件时用gralde打出的war包在tomcat6下会爆出</p>
+<p>LifecycleException</p>
+<p>tomcat7可以直接爆出错误位置以及乱码的文件名<br>此问题可按如下方式解决</p>
+<p>在项目目录下建立gradle.properties文件增加如下两行</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre>1
+2
+3
+4
+5
+</pre></td><td class="code"><pre>//如果编译所用的jdk与JAVA_HOME不一致需要增加此行进行单独配置
+org<span class="preprocessor">.gradle</span><span class="preprocessor">.java</span><span class="preprocessor">.home</span>=c:/Program Files/Java/jdk1<span class="number">.6</span><span class="number">.0</span>_11/
+
+//支持中文文件
+systemProp<span class="preprocessor">.file</span><span class="preprocessor">.encoding</span>=UTF-<span class="number">8</span>
+</pre></td></tr></table></figure>
+
+
+
+
+]]></content>
+    <category scheme="http://www.7yeshu.com/tags/Gradle/" term="Gradle"/>
+    <category scheme="http://www.7yeshu.com/categories/Gradle/" term="Gradle"/>
+  </entry>
+  <entry>
+    <title type="html"><![CDATA[使用Gradle为老项目打包]]></title>
+    <link href="http://www.7yeshu.com/2013/10/09/packoldprojectwithgradle/"/>
+    <id>http://www.7yeshu.com/2013/10/09/packoldprojectwithgradle/</id>
+    <published>2013-10-09T02:26:01.000Z</published>
+    <updated>2013-10-09T02:30:43.000Z</updated>
+    <content type="html"><![CDATA[<p>脚本如下</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+</pre></td><td class="code"><pre>apply plugin: <span class="string">'war'</span>
+
+webAppDirName = <span class="string">'WebRoot'</span>
+<span class="built_in">version</span> = <span class="string">''</span>
+buildDir = <span class="string">'target'</span>
+sourceCompatibility=<span class="string">'1.6'</span>
+war{
+    baseName =<span class="string">"PCMS"</span>
+}<span class="comment">
+//定义目录结构</span>
+
+sourceSets {
+    main {
+        java {
+            srcDirs = [<span class="string">'src/cmes/java'</span>]
+        }
+        resources {
+            srcDirs = [<span class="string">'src/cmes/resources'</span>,<span class="string">'src/plat/resources'</span>]
+        }
+    }
+}<span class="comment">
+//加载本地依赖</span>
+dependencies {
+    providedCompile fileTree(dir: System.getenv(<span class="string">"CATALINA_HOME"</span>)+<span class="string">'/lib'</span>, <span class="built_in">include</span>: <span class="string">'*.jar'</span>)
+
+    providedCompile fileTree(dir: <span class="string">'WebRoot/WEB-INF/lib'</span>, <span class="built_in">include</span>: <span class="string">'*.jar'</span>)
+}<span class="comment">
+//设置编码</span>
+tasks.withType(Compile) {
+    options.encoding = <span class="string">"UTF-8"</span>
+}
+</pre></td></tr></table></figure>
+
+
+]]></content>
+    <category scheme="http://www.7yeshu.com/tags/Gradle/" term="Gradle"/>
+    <category scheme="http://www.7yeshu.com/categories/Gradle/" term="Gradle"/>
+  </entry>
+  <entry>
+    <title type="html"><![CDATA[Maven脚本秒变Gradle]]></title>
+    <link href="http://www.7yeshu.com/2013/10/08/maven2gradle/"/>
+    <id>http://www.7yeshu.com/2013/10/08/maven2gradle/</id>
+    <published>2013-10-08T09:25:31.000Z</published>
+    <updated>2013-10-08T09:32:21.000Z</updated>
+    <content type="html"><![CDATA[<p>切换到你maven脚本目录</p>
+<p>然后执行</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre>1
+</pre></td><td class="code"><pre>gradle setupBuild --<span class="class"><span class="keyword">type</span> <span class="title">pom</span></span>
+</pre></td></tr></table></figure>
+
+
+<p>回车之后</p>
+<p>你的maven项目已经秒变gradle项目</p>
+<p>要求版本：gradle1.7</p>
+]]></content>
+    <category scheme="http://www.7yeshu.com/tags/Gradle/" term="Gradle"/>
+  </entry>
+  <entry>
+    <title type="html"><![CDATA[不良的编程文化]]></title>
+    <link href="http://www.7yeshu.com/2013/09/13/codecultureproblem/"/>
+    <id>http://www.7yeshu.com/2013/09/13/codecultureproblem/</id>
+    <published>2013-09-13T12:02:16.000Z</published>
+    <updated>2013-10-08T09:04:01.000Z</updated>
+    <content type="html"><![CDATA[<p><img src="/images/2013/09/12073258_ufYN.jpg" alt="WTF"><br><strong>“这代码真垃圾”</strong>，当我们翻查一些代码寻找一个特别讨厌的bug时，同事大声这样说。“是吗”，我回答到。</p>
+<p>像 这样的谴责，以及其它一些类似的话，在办公室里经常会听到，而且频率在增加。而最令人不安的是，这代码并不是特别的糟糕。我这话是什么意思？不能把它们写 的更好吗？当然！大多数的代码都有改善的空间——只要有足够的时间和资源。垃圾代码确实有，我们都看得见，而且都是我们自己写的，但这并不是问题。</p>
+<h3 id="问题是我们有一个不良的“这代码真垃圾”文化。">问题是我们有一个不良的“这代码真垃圾”文化。</h3>
+<p>这是一种我感觉在web开发社区中越来越常见的文化。接着上面的例子，我请同事解释一下，解释为什么这代码很垃圾，我得不到一个直接的答复。</p>
+<p>“这还不垃圾，你看这代码”，他回答说，那种趾高气扬我需要仰头才能看到他，紧邹的眉头就好象是说，如果不能看出这代码有多烂，那就是个傻子。结果你知道怎么着？我开始感觉有点傻了。我差点就忍不住开始跟着他一起嘲笑，认定这代码真的有多烂，多糟糕。</p>
+<p>在 我继续下面的内容之前，我发现上面的内容并没有在最好的光线下描绘我的同事。所以，让我弥补一下。他是个非常好的小伙。坦白的说，他是我见过的最和善的小 伙之一。他友善，有一个他很爱的家庭，他跑马拉松，乐于助人，聪明，等等等等。还有一点要说明：他是一个经验不多的新手。他还在学一些基础的开发知识。这 没什么好羞愧的，我们都经历过这个阶段。那么，为什么这样一个友善、聪明的小伙，在他参与的第一个大型web项目上，他的第一反应就是去指责一些代码很垃 圾？——他甚至还没有真正的去理解它。<br><a id="more"></a></p>
+<h3 id="生活规律：垃圾往下倒。">生活规律：垃圾往下倒。</h3>
+<p>这个问题并不单独出现在程序员新手中。很多精明人士都有这 习惯。你也许是一个奇才，一个久经考验的程序员，但如果有这样一种习惯，整个团队和项目都会受到负面影响。因为新手们把你当作知识和经验的源泉。越多的人 拥抱这种“这代码真垃圾”文化，这种文化就会越被认可，越成为模仿的对象。很快，程序员开始变的不是积极在项目上出力，而是去贬低别人在项目上的贡献。最 大嘴、最反面的程序员很快就成了最受尊敬的人。所有人都受折磨，项目受影响，而一部分人却能能得到赞美，为倒是都是垃圾而感到心满意足。</p>
+<h3 id="我们应该怎么做？">我们应该怎么做？</h3>
+<p>没有人想显得愚蠢，没有人想自己的工作被认为劣质。一旦“这代码真垃圾”文化开始传播，唯一能确保自己在别人之上的办法就是贬低别人。最终，这变成了一种负能量，而不是想着去解决问题。</p>
+<p>那 么，对这样的一种特殊现象有什么解决方法？阻止它。不要不加思索的否定别人的代码——在没有原因、没有理解的情况下。有很多的方式可以处理那些看起来有问 题的代码。如果发现代码中有异味，想办法改进它。从理解这些代码开始，在此基础上修正。如果你发现项目中有一些不良风气，不要跟随。如果有人对你说“这代 码真垃圾”，问他为什么，然后了解查明，去做一些事情让它变的不垃圾。向最初写这些代码的人了解，也许他们这样写代码是有原因的。帮助他们，而不是诋毁他 们。</p>
+<p>下一次，当我发现从显示器里飘出可疑的异味时，我会转身问我的同事，“我们如何改进这段它？”因为，我们要面对它们，有时候代码会很垃圾，但这不意味着我们也去变成垃圾。</p>
+]]></content>
+    <category scheme="http://www.7yeshu.com/tags/转载/" term="转载"/>
+    <category scheme="http://www.7yeshu.com/categories/Tucao/" term="Tucao"/>
+  </entry>
+  <entry>
+    <title type="html"><![CDATA[第六章： 构建基础]]></title>
+    <link href="http://www.7yeshu.com/2013/09/06/buildscriptbasics/"/>
+    <id>http://www.7yeshu.com/2013/09/06/buildscriptbasics/</id>
+    <published>2013-09-06T03:39:54.000Z</published>
+    <updated>2013-10-08T09:03:05.000Z</updated>
+    <content type="html"><![CDATA[<h4 id="6-1_Projects_和_tasks">6.1 Projects 和 tasks</h4>
+<p>  Gradle中最重要的两个概念就是 Projects和tasks</p>
+<p> 任何一个Gradle构建都是由一个或多个 projects 组成.每个project包括许多可构建组成部分.这完全取决于你要构建些什么.举个栗子.每个project或许是一个jar包或者一个web应用,它也可以是一个由许多其他项目中产生的jar构成的zip压缩包.一个project不必描述它只能进行构建操作.它也可以部署你的应用或搭建你的环境.不要担心它像听上去的那样庞大.Gradle的build-by-convention可以让您来具体定义一个project到底该做什么.<br>  每个project都由多个tasks组成.每个task都代表了构建执行过程中的一个原子性操作.如编译,打包,生成javadoc,发布等<br>  到目前为止,可以发现我们可以在一个project中定义一些简单任务,后续章节将会阐述多项目构建和多项目多任务的内容.</p>
+<h4 id="6-2_Hello_world">6.2 Hello world</h4>
+<p>你可以通过在命令行运行gradle命令来执行构建,gradle命令会从当前目录下寻找build.gradle文件来执行构建.我们称build.gradle文件为构建脚本.严格来说这其实是一个构建配置脚本,后面你会了接到这个构建脚本定义了一个project和一些默认tasks<br>你可以创建如下脚本到build.gradle中</p>
+<ul>
+<li>例6.1 第一个构建脚本</li>
+</ul>
+<a id="more"></a>
+
+<p>build.gradle </p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre>1
+2
+3
+4
+5
+</pre></td><td class="code"><pre>task hello {
+ <span class="keyword">do</span>Last {
+     println <span class="string">'Hello world!'</span>
+  }
+}
+</pre></td></tr></table></figure>
+
+
+<p>然后在该文件所在目录执行 gradle -q hello</p>
+<ul>
+<li>例6.2 执行脚本</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre>1
+2
+</pre></td><td class="code"><pre><span class="blockquote">&gt; gradle -q hello</span>
+Hello world!
+</pre></td></tr></table></figure>
+
+
+<p>上面的脚本定义了一个叫做 hello 的 task,并且给它添加了一个动作.当运行 gradle hello 的时候,Gralde便会去调用 hello 这个任务来执行给定操作.这些操作其实就是一个用groovy书写的闭包<br>如果你觉得它看上去跟Ant中的targets很像,那么是对的.Gradle的tasks就相当于Ant中的targets.不过你会发现他功能更加强大.我们只是换了一个比target更形象的另外一个术语.不幸的是这恰巧与Ant中的术语有些冲突.ant 命令中有诸如javac、copy、tasks.所以当该文档中提及tasks时,除非特别指明 ant task ,否则指的仅仅是与Gradle中的tasks.</p>
+<p>注: -q参数的作用?该文档的示例中很多地方在调用gradle命令时都加了-q参数.该参数用来控制gradle的日志级别,可以保证只输出我们需要的内容.具体可参阅本文档 第十八章 日志 来了解更多参数和信息.</p>
+<h4 id="6-3_快速定义任务">6.3 快速定义任务</h4>
+<ul>
+<li>例6.3 快速定义任务</li>
+</ul>
+<p>build.gradle</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre>1
+2
+3
+</pre></td><td class="code"><pre><span class="keyword">task</span> hello &lt;&lt;{
+   println <span class="string">'Hello ,world!'</span>
+}
+</pre></td></tr></table></figure>
+
+
+<p>上面的脚本又一次采用闭包来定义了一个叫做hello的任务,本文档后续章节中我们将会更多的采用这种风格来定义任务.</p>
+<h4 id="6-4_代码即脚本">6.4 代码即脚本</h4>
+<p>Gradle脚本采用Groovy书写,看下面这道开胃菜.</p>
+<ul>
+<li>例6.4 在gradle任务中采用groovy</li>
+</ul>
+<p>build.gradle</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre>1
+2
+3
+4
+5
+</pre></td><td class="code"><pre>task upper &lt;&lt; {
+	String someString = 'mY_NaMe'
+	println <span class="string">"Original : "</span> +someString
+	println <span class="string">"Upper case : "</span> + someString.toUpperCase()
+}
+</pre></td></tr></table></figure>
+
+
+
+
+
+<figure class="highlight shell"><table><tr><td class="gutter"><pre>1
+2
+3
+</pre></td><td class="code"><pre>&gt;gradle -q <span class="built_in">upper</span>
+Original : mY_NaMe
+Upper <span class="keyword">case</span> : MY_NAME
+</pre></td></tr></table></figure>
+
+
+<ul>
+<li>例 6.5 在gradle任务中采用groovy</li>
+</ul>
+<p>build.gradle</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre>1
+2
+3
+4
+5
+</pre></td><td class="code"><pre>task count &lt;&lt; {
+	<span class="number">4</span>.<span class="keyword">times</span> {
+		<span class="keyword">print</span> <span class="string">"<span class="variable">$it</span>"</span>
+	}
+}
+</pre></td></tr></table></figure>
+
+
+
+
+
+<figure class="highlight shell"><table><tr><td class="gutter"><pre>1
+2
+</pre></td><td class="code"><pre><span class="xml"><span class="tag">&gt;</span>gradle -q count
+0 1 2 3</span>
+</pre></td></tr></table></figure>
+
+
+
+<h3 id="6-5_任务依赖">6.5 任务依赖</h3>
+<p>你可以按如下方式创建任务间的依赖关系</p>
+<p>*例6.6</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre>1
+2
+3
+4
+5
+6
+7
+</pre></td><td class="code"><pre><span class="keyword">task</span> hello &lt;&lt; {
+    println <span class="string">'Hello world!'</span>
+}
+
+<span class="keyword">task</span> intro(dependsOn:hello) &lt;&lt; {
+    println <span class="string">"I'm Gradle"</span>
+}
+</pre></td></tr></table></figure>
+
+
+
+
+<figure class="highlight shell"><table><tr><td class="gutter"><pre>1
+2
+3
+</pre></td><td class="code"><pre>&gt;gradle -q intro
+Hello world!
+<span class="keyword">I</span><span class="string">'m Gradle</span>
+</pre></td></tr></table></figure>
+
+
+]]></content>
+    <category scheme="http://www.7yeshu.com/tags/Gradle UserGuide/" term="Gradle UserGuide"/>
+    <category scheme="http://www.7yeshu.com/categories/Gralde/" term="Gralde"/>
+  </entry>
+  <entry>
+    <title type="html"><![CDATA[04.Gradle安装]]></title>
+    <link href="http://www.7yeshu.com/2013/09/05/start-gradle/"/>
+    <id>http://www.7yeshu.com/2013/09/05/start-gradle/</id>
+    <published>2013-09-05T03:39:54.000Z</published>
+    <updated>2013-10-13T08:48:10.000Z</updated>
+    <content type="html"><![CDATA[<h3 id="第四章：安装">第四章：安装</h3>
+<h4 id="4-1-先决条件">4.1.先决条件</h4>
+<ul>
+<li>1.5以上版本的JDK,Gradle会采用你环境变量中设置的JDK目录(可以用java -version进行检查),你需要配置环境变量 JAVA_HOME 并将它指向你的JDK安装目录.</li>
+</ul>
+<p>p.s:Gradle自带了Groovy库,所以无需事先安装Grvoovy,所有已经安装的Grvooy也将被Gradle忽略.</p>
+<h4 id="4-2-下载">4.2.下载</h4>
+<p>  从<a href="&quot;http://www.gradle.org&quot;">Gralde官方网站</a>下载Gradle的最新发行包</p>
+<p><a id="more"></a></p>
+<h4 id="4-3-解压">4.3.解压</h4>
+<p>  下载的ZIP安装包包括如下内容</p>
+<ul>
+<li>Gradle二进制文件 </li>
+<li>用户手册 </li>
+<li>DSL参考指南 </li>
+<li>API文档 </li>
+<li>样例，包括在用户手册中的例子， </li>
+<li>一些完整的构建样例和更加复杂的构建脚本 </li>
+<li>源代码.仅供参考使用,如果你想要自己来构建Gradle你需要从源代码仓库中检出发行版本源码,具体请查看Gradle官方主页.</li>
+</ul>
+<h4 id="4-4-配置环境变量">4.4.配置环境变量</h4>
+<p>   运行gradle必须将GRADLE_HOME/bin加入到你的PATH环境变量中.</p>
+<h4 id="4-5-测试安装">4.5.测试安装</h4>
+<p>  运行如下命令来检查是否安装成功.该命令会显示当前的JVM版本和Gradle版本.</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre>1
+</pre></td><td class="code"><pre>   gradle <span class="attribute">-v</span>
+</pre></td></tr></table></figure>
+
+
+<h4 id="4-6-JVM参数配置">4.6.JVM参数配置</h4>
+<p>  Gradle运行时的JVM参数可以通过GRADLE_OPTS或JAVA_OPTS来设置.这些参数将会同时生效.<br>  JAVA_OPTS设置的参数将会同其它JAVA应用共享,一个典型的例子是可以在JAVA_OPTS中设置代理和GRADLE_OPTS设置内存参数.同时这些参数也可以在Gradle或者Gradlew脚本的开头进行设置.</p>
+]]></content>
+    <category scheme="http://www.7yeshu.com/tags/Gradle UserGuide/" term="Gradle UserGuide"/>
+  </entry>
+  <entry>
+    <title type="html"><![CDATA[使用Hexo在Github上搭建个人博客]]></title>
+    <link href="http://www.7yeshu.com/2013/09/03/hexo/"/>
+    <id>http://www.7yeshu.com/2013/09/03/hexo/</id>
+    <published>2013-09-03T05:18:02.000Z</published>
+    <updated>2013-12-06T14:49:43.000Z</updated>
+    <content type="html"><![CDATA[<p>这篇文章将描述如何使用Hexo在Github上创建属于自己的个人博客</p>
+<h2 id="神马是Hexo"><strong>神马是Hexo</strong></h2>
+<p>  Hexo是基于node.js的静态博客框架,与octopress一样采用markdown语法书写博客内容,但据说octopress在文章数目较多的时候生成一次会很慢,恰巧在刚刚用octopress搭建完的时候发现了Hexo于是果断转投了Hexo.Hexo的作者就是octopress slash主题的作者,据说是某台湾大学生 这是他的github：<a href="https://github.com/tommy351" target="_blank">https://github.com/tommy351</a>  </p>
+<h2 id="必要环境"><strong>必要环境</strong></h2>
+<p><a href="http://nodejs.org/" target="_blank">Node.js</a><br><a href="http://git-scm.com/" target="_blank">Git</a><br>Node.js和Git具体安装过程请依据自己操作系统的具体情况参考其官方网站</p>
+<a id="more"></a>
+
+<p>安装完成后可以使用如下命令</p>
+<h3 id="安装Hexo"><strong>安装Hexo</strong></h3>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre>1
+</pre></td><td class="code"><pre>npm <span class="keyword">install</span> -g hexo
+</pre></td></tr></table></figure>
+
+
+<h3 id="更新Hexo"><strong>更新Hexo</strong></h3>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre>1
+</pre></td><td class="code"><pre>npm <span class="operator"><span class="keyword">update</span> hexo -g</span>
+</pre></td></tr></table></figure>
+
+
+<h3 id="初始化"><strong>初始化</strong></h3>
+<p>初始化到blog目录并且切换到blog目录</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre>1
+</pre></td><td class="code"><pre>hexo init blog && <span class="built_in">cd</span> blog
+</pre></td></tr></table></figure>
+
+
+<h3 id="创建主题"><strong>创建主题</strong></h3>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre>1
+</pre></td><td class="code"><pre>hexo <span class="keyword">new</span> <span class="string">"New Post"</span>
+</pre></td></tr></table></figure>
+
+
+<h3 id="生成"><strong>生成</strong></h3>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre>1
+</pre></td><td class="code"><pre>hexo <span class="keyword">generate</span>
+</pre></td></tr></table></figure>
+
+
+<h3 id="预览"><strong>预览</strong></h3>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre>1
+</pre></td><td class="code"><pre>hexo <span class="keyword">server</span>
+</pre></td></tr></table></figure>
+
+
+<h3 id="发布"><strong>发布</strong></h3>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre>1
+</pre></td><td class="code"><pre>hexo deploy
+</pre></td></tr></table></figure>
+
+
+<p>然后浏览器打开  <a href="http://localhost:4000" target="_blank">http://localhost:4000</a>  就可以看到本地生成的博客了</p>
+<p>——————————————————————————————猥琐分割线————————————————————————————-</p>
+<h2 id="一些问题"><strong>一些问题</strong></h2>
+<h3 id="1-如何部署到github上？"><strong>1.如何部署到github上？</strong></h3>
+<p><strong>建立仓库</strong></p>
+<p>  首先要在github上建立一个仓库,该仓库的名称必须符合如下格式<br>[username].github.com<br>比如我的用户名是pkaq,其余的无须勾选<br><img src="/images/2013/09/20130903134624.png" alt="创建仓库"></p>
+<h4 id="增加ssh-key"><strong>增加ssh-key</strong></h4>
+<p>首先设置下你的用户名和密码</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre>1
+2
+</pre></td><td class="code"><pre>git config --<span class="keyword">global</span> user.name <span class="string">"leon"</span>
+git config --<span class="keyword">global</span> user.email <span class="string">"pkaq@msn.com"</span>
+</pre></td></tr></table></figure>
+
+
+<h4 id="生成密钥"><strong>生成密钥</strong></h4>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre>1
+</pre></td><td class="code"><pre>ssh<span class="attribute">-keygen</span> <span class="attribute">-t</span> rsa <span class="attribute">-C</span> “pkaq@msn<span class="built_in">.</span>com”
+</pre></td></tr></table></figure>
+
+
+<p>  根据个人需要设置存储位置和密码,win8下默认存储在C:\Users\user.ssh,复制生成的id_rsa.pub添加到github中<br><img src="/images/2013/09/20130903135839.png" alt="增加密钥"><br>使用git bash默认会去读取默认位置的private key,如果使用乌龟git的话需要打开pagent将密钥添加到代理中<br>最后将你所建立的仓库ssh地址配置到_config.yml中的repository属性中即可</p>
+<h3 id="2-设置站点信息"><strong>2.设置站点信息</strong></h3>
+<p>  编辑_config.yml可以设置站点信息,有些主题(比如我这个)是可以设置个人头像的,那只需要将email设置成你在 <a href="http://www.gravatar.com" target="_blank">http://www.gravatar.com</a> (需翻墙) 注册的email即可</p>
+<h3 id="3-如何安装主题"><strong>3.如何安装主题</strong></h3>
+<p>  可以到 <a href="https://github.com/tommy351/hexo/wiki/Themes" target="_blank">https://github.com/tommy351/hexo/wiki/Themes</a> 查看目前有的主题,每个主题官方都提供了安装指导,比如安装greyshade主题,切换到themes目录并且将主题clone到本地,然后配置_config.yml即可</p>
+<h4 id="3-1-下载主题"><strong>3.1.下载主题</strong></h4>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre>1
+2
+</pre></td><td class="code"><pre>cd <span class="variable">$hexo</span>/themes
+git <span class="keyword">clone</span> https:<span class="comment">//github.com/nuklly/hexo-theme-greyshade.git greyshade</span>
+</pre></td></tr></table></figure>
+
+
+<h4 id="3-2-使用主题"><strong>3.2.使用主题</strong></h4>
+<p>修改_config.yml将theme属性的值改为你下载主题名称</p>
+<h4 id="3-3-生成并部署到github"><strong>3.3.生成并部署到github</strong></h4>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre>1
+2
+</pre></td><td class="code"><pre>hexo <span class="keyword">generate</span>
+hexo deploy
+</pre></td></tr></table></figure>
+
+
+<h3 id="4-设置read_more"><strong>4.设置read more</strong></h3>
+<p>  关于这个,只需要在想显示“继续阅读”的地方添加如下标签即可</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre>1
+</pre></td><td class="code"><pre><span class="xml"><span class="comment">&lt;!-- more --&gt;</span></span>
+</pre></td></tr></table></figure>
+
+
+<h3 id="5-设置评论"><strong>5.设置评论</strong></h3>
+<p>  首先需要申请<a href="http://www.disqus.com/" target="_blank">disgus</a> 账号,接着将你注册时的shortname填入_config.yml的disqus_shortname属性中即可</p>
+<h3 id="6-RSS插件"><strong>6.RSS插件</strong></h3>
+<h4 id="6-1-安装插件到本地"><strong>6.1.安装插件到本地</strong></h4>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre>1
+</pre></td><td class="code"><pre>npm install hexo<span class="attribute">-generator</span><span class="attribute">-feed</span>
+</pre></td></tr></table></figure>
+
+
+<h4 id="6-2-开启RSS功能："><strong>6.2.开启RSS功能：</strong></h4>
+<p>编辑hexo/_config.yml，添加如下代码：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre>1
+2
+</pre></td><td class="code"><pre>plugins:
+<span class="subst">-</span> hexo<span class="attribute">-generator</span><span class="attribute">-feed</span>
+</pre></td></tr></table></figure>
+
+
+<h4 id="6-3-配置"><strong>6.3.配置</strong></h4>
+<p>编辑主题文件夹中的_config.yml增加</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre>1
+</pre></td><td class="code"><pre><span class="attribute">rss</span>: <span class="string">/atom.xml</span>
+</pre></td></tr></table></figure>
+
+
+<h3 id="6-设置默认生成格式"><strong>6.设置默认生成格式</strong></h3>
+<p>  修改scaffolds/post.md即可。同理可应用在page.md和photo.md。</p>
+<h3 id="7-绑定个人域名"><strong>7.绑定个人域名</strong></h3>
+<p>  在source文件夹下创建CNAME文件,内容输入你的域名<br>  然后在域名提供商处增加A记录指向207.97.227.245<br>  添加CNAME  www指向XXX.github.com即可</p>
+]]></content>
+    <category scheme="http://www.7yeshu.com/tags/Hexo/" term="Hexo"/>
+    <category scheme="http://www.7yeshu.com/categories/Hexo/" term="Hexo"/>
+  </entry>
+  <entry>
+    <title type="html"><![CDATA[00.Hello Gradle]]></title>
+    <link href="http://www.7yeshu.com/2013/08/28/hello-world/"/>
+    <id>http://www.7yeshu.com/2013/08/28/hello-world/</id>
+    <published>2013-08-28T13:18:00.000Z</published>
+    <updated>2013-10-08T09:04:18.000Z</updated>
+    <content type="html"><![CDATA[<h3 id="第一章：简介"><strong>第一章：简介</strong></h3>
+<p>Chapter 1. Introduction  </p>
+<p>很高兴能向大家介绍Gradle,这是一个基于JVM的富有突破性构建工具。<br>We would like to introduce Gradle to you, a build system that we think is a quantum leap for build technology in the Java (JVM) world.</p>
+<p>它为您提供了:<br>Gradle provides:<br><a id="more"></a></p>
+<ul>
+<li>一个像ant一样，通用的灵活的构建工具<br>A very flexible general purpose build tool like Ant.  </li>
+<li>一种可切换的，像maven一样的基于约定(约定优于配置)的构建框架<br>Switchable, build-by-convention frameworks a la Maven. But we never lock you in!     </li>
+<li>强大的多工程构建支持<br>Very powerful support for multi-project builds.     </li>
+<li>强大的依赖管理(基于Apache Ivy)<br>Very powerful dependency management (based on Apache Ivy).     </li>
+<li>全面支持已有的maven和ivy仓库<br>Full support for your existing Maven or Ivy repository infrastructure.    </li>
+<li>支持传递性依赖管理，而不需要远程仓库或者pom.xml或者ivy配置文件<br>Support for transitive dependency management without the need for remote repositories or pom.xml and ivy.xml files.    </li>
+<li>ant的任务和构建是gradle的第一公民<br>Ant tasks and builds as first class citizens.    </li>
+<li>基于groovy脚本构建，其build脚本使用groovy语言编写<br>Groovy build scripts.     </li>
+<li>具有广泛的领域模型支持你的构建<br>A rich domain model for describing your build.   </li>
+</ul>
+<p>在第二章节概述中,你会看到关于Gradle的详细介绍和说明.<br>In Chapter 2, Overview you will find a detailed overview of Gradle. Otherwise, the tutorials are waiting, have fun :) </p>
+<h4 id="1-1-关于该手册"><strong>1.1.关于该手册</strong></h4>
+<p>与Gradle一样,本手册也在不停的更新中.许多部分并未完全进行描述.有些内容并未完全描述.我们需要你来一起帮助改进本手册.你可以在Gradle官方网站找到其余格式的文档.<br>This user guide, like Gradle itself, is under very active development. Some parts of Gradle aren’t documented as completely as they need to be. Some of the content presented won’t be entirely clear or will assume that you know more about Gradle than you do. We need your help to improve this user guide. You can find out more about contributing to the documentation at the Gradle web site. </p>
+]]></content>
+    <category scheme="http://www.7yeshu.com/tags/Gradle UserGuide/" term="Gradle UserGuide"/>
+    <category scheme="http://www.7yeshu.com/categories/Gradle/" term="Gradle"/>
+  </entry>
+</feed>

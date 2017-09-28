@@ -1,0 +1,102 @@
+/**首页背景**/
+html.page-home {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: url(background-cover.jpg);
+  background-color: #CCC;
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  /*background: linear-gradient( #1abc9c, transparent), linear-gradient( 90deg, skyblue, transparent), linear-gradient( -90deg, coral, transparent);*/
+  /*background-blend-mode: screen;*/
+
+  /*background: linear-gradient(to left, #5f2c82, #49a09d);*/
+}
+
+/**首页导航样式**/
+.content-home .nav .item a {
+    display: block;
+    position: relative;
+    opacity: 0.8;
+    padding: 5px 10px;
+    border: 1px solid #FEFEFE;
+    border-radius: 8px;
+    font-size: 0.9em;
+    font-weight: bold;
+    letter-spacing: 1px;
+    text-shadow: none;
+    -webkit-font-smoothing: antialiased;
+     font-family:'Superrazor7f2b268e317b38';
+}
+
+/** 首页遮罩 **/
+.content-home {
+  z-index: 1;
+}
+
+.panel-cover--overlay {
+  display: block;
+  position: absolute;
+  z-index: 0;
+  top: 0px;
+  right: 0px;
+  bottom: 0px;
+  left: 0px;
+  background-color: rgba(68,68,68,0.6);
+  background-image: -webkit-linear-gradient(-410deg, rgba(68,68,68,0.6) 20%, rgba(0,0,0,0.9));
+  background-image: linear-gradient(140deg, rgba(68,68,68,0.6) 20%, rgba(0,0,0,0.9));
+}
+.cover-purple {
+  background-color: rgba(73,50,82,0.1);
+  background-image: -webkit-linear-gradient(-410deg, rgba(73,50,82,0.6) 20%, rgba(17,11,19,0.8));
+  background-image: linear-gradient(140deg, rgba(73,50,82,0.6) 20%, rgba(17,11,19,0.8));
+}
+/** 博客背景 **/
+.page-archives {
+    background: url(bg-archives.jpg) repeat;
+}
+
+.canvas {
+  position: absolute;
+  z-index: -1;
+  top: 0px;
+  left: 0px;
+}
+
+.content content-archive{
+  position: absolute;
+  z-index: 1;
+}
+/** 博客列表导航气泡 **/
+.toolbox_color_0 {
+  background-color: #
+}
+
+.toolbox_color_0 {
+    background: #1abc9c;
+  }
+.toolbox_color_1 {
+    background: #3498db;
+  }
+.toolbox_color_2 {
+    background: #9b59b6;
+  }
+.toolbox_color_3 {
+    background: #e67e22;
+  }
+.toolbox_color_4 {
+    background: #e74c3c;
+}
+.toolbox_color_5 {
+    background: #B76EF2;
+  }
+.toolbox_color_6 {
+    background: #70B4F4;
+  }
+.toolbox_color_7 {
+    background: #70F4B4;
+}
+<link href="/css/prism-dark.css" rel="stylesheet">

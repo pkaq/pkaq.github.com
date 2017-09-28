@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+
+
+  <html class="dark page-post">
+
+
+<head>
+  <meta charset="utf-8">
+  
+  <title>拥抱Arch Linux-安装配置小记 | 如是我闻</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="Arch," />
+  
+
+  <meta name="description" content="目录 启动虚拟机    磁盘规划    创建磁盘文件系统   挂载磁盘   选择镜像-设置更新源   安装基本系统   基本系统设置a.    设置语言b.    设置主机名c.    设置时区d.    创建ramdiske.    检查syslinux的配置文件是否正确f.    安装syslinux启动管理器,以便实现ArchLinux的顺利启动g.    为root超级用户添加密码h.">
+<meta name="keywords" content="Arch">
+<meta property="og:type" content="article">
+<meta property="og:title" content="拥抱Arch Linux-安装配置小记">
+<meta property="og:url" content="http://pkaq.org/2014/06/19/2014-06-19-installarch/index.html">
+<meta property="og:site_name" content="如是我闻">
+<meta property="og:description" content="目录 启动虚拟机    磁盘规划    创建磁盘文件系统   挂载磁盘   选择镜像-设置更新源   安装基本系统   基本系统设置a.    设置语言b.    设置主机名c.    设置时区d.    创建ramdiske.    检查syslinux的配置文件是否正确f.    安装syslinux启动管理器,以便实现ArchLinux的顺利启动g.    为root超级用户添加密码h.">
+<meta property="og:image" content="http://pkaq.org/images/2014/archinstall/1.png">
+<meta property="og:image" content="http://pkaq.org/images/2014/archinstall/57.png">
+<meta property="og:image" content="http://pkaq.org/images/2014/archinstall/58.png">
+<meta property="og:updated_time" content="2016-09-01T08:28:46.981Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="拥抱Arch Linux-安装配置小记">
+<meta name="twitter:description" content="目录 启动虚拟机    磁盘规划    创建磁盘文件系统   挂载磁盘   选择镜像-设置更新源   安装基本系统   基本系统设置a.    设置语言b.    设置主机名c.    设置时区d.    创建ramdiske.    检查syslinux的配置文件是否正确f.    安装syslinux启动管理器,以便实现ArchLinux的顺利启动g.    为root超级用户添加密码h.">
+<meta name="twitter:image" content="http://pkaq.org/images/2014/archinstall/1.png">
+
+  
+
+  
+    <link rel="icon" href="/favicon.ico">
+  
+
+  <link href="/css/styles.css?v=d671a41f" rel="stylesheet">
+
+
+  
+    <link rel="stylesheet" href="/css/fexo-theme.css">
+  
+
+  
+
+  
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?cd1f06c6f057506d537ab11e9f1693be";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+  
+    <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  
+
+  
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  
+
+  <link href='//cdn.webfont.youziku.com/webfonts/nomal/97080/42410/5865c4e5f629db00cc915895.css' rel='stylesheet' type='text/css' />
+ 
+</head>
+
+<body>
+
+
+  
+    <span id="toolbox-mobile" class="toolbox-mobile">　</span>
+  
+
+  <div class="post-header CENTER">
+   
+  <div class="toolbox">
+    <a class="toolbox-entry" href="/">
+      <span class="toolbox-entry-text">　</span>
+      <i class="icon-angle-down"></i>
+      <i class="icon-home"></i>
+    </a>
+    <ul class="list-toolbox">
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE toolbox_color_0"
+            href="/archives/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            博客
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE toolbox_color_1"
+            href="/category/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            分类
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE toolbox_color_2"
+            href="/tag/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            标签
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE toolbox_color_3"
+            href="/link/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            友链
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE toolbox_color_4"
+            href="/atom.xml"
+            rel="noopener noreferrer"
+            target="_blank"
+            >
+            RSS
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE toolbox_color_5"
+            href="/search/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+</div>
+
+
+  <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-text">目录#</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-text">#</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-text">#</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-text">#</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-text">b.#</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-text">j.#</span></a></li></ol></li></ol>
+  </div>
+
+
+
+<div class="content content-post CENTER">
+   <article id="post-2014-06-19-installarch" class="article article-type-post" itemprop="blogPost">
+  <header class="article-header">
+    <h1 class="post-title">拥抱Arch Linux-安装配置小记</h1>
+
+    <div class="article-meta">
+      <span>
+        <i class="icon-calendar"></i>
+        <span>2014.06.19</span>
+      </span>
+
+      
+        <span class="article-author">
+          <i class="icon-user"></i>
+          <span>PKAQ</span>
+        </span>
+      
+
+      
+  <span class="article-category">
+    <i class="icon-list"></i>
+    <a class="article-category-link" href="/categories/POSIX/">POSIX</a>
+  </span>
+
+
+
+      
+
+      
+      <i class="fa fa-eye"></i> 
+        <span id="busuanzi_container_page_pv">
+           &nbsp热度 <span id="busuanzi_value_page_pv">
+           <i class="fa fa-spinner fa-spin"></i></span>℃
+        </span>
+      
+
+      
+        <i class="icon-comment"></i> 
+        共 <a class="ds-thread-count" id="uyan_count_unit" su="拥抱Arch Linux-安装配置小记" href="http://pkaq.org/2014/06/19/2014-06-19-installarch/index.html"></a>
+      
+      
+    </div>
+  </header>
+
+  <div class="article-content">
+    
+      <h2><span id="mu-lu">目录</span><a href="#mu-lu" class="header-anchor">#</a></h2><ol>
+<li><a href="#startvirtualbox">启动虚拟机</a>   </li>
+<li><a href="#disk">磁盘规划</a>   </li>
+<li><a href="#filesystem">创建磁盘文件系统</a>  </li>
+<li><a href="#mount">挂载磁盘</a>  </li>
+<li><a href="#mirrorlist">选择镜像-设置更新源</a>  </li>
+<li><a href="#install">安装基本系统</a>  </li>
+<li><a href="#basicsetup">基本系统设置</a><br>a.    <a href="#language">设置语言</a><br>b.    <a href="#hostname">设置主机名</a><br>c.    <a href="#timezone">设置时区</a><br>d.    <a href="#ramdisk">创建ramdisk</a><br>e.    <a href="#checksyslinux">检查syslinux的配置文件是否正确</a><br>f.    <a href="#syslinux">安装syslinux启动管理器,以便实现ArchLinux的顺利启动</a><br>g.    <a href="#root">为root超级用户添加密码</a><br>h.    <a href="#exit">退出当前系统环境</a><br>i.    <a href="#adduser">添加用户</a><br>j.    <a href="#network">配置网络</a><br>k.    <a href="#installx">安装X桌面环境</a><br>l.    <a href="#xfce4">安装XFCE4 桌面套件</a><br>m.    <a href="#xfce4auto">设置xfce4自启动</a>　　<br>n.    <a href="#inputmethod">安装浏览器和输入法</a><br>o.    <a href="#yaourt">安装yaourt</a>       </li>
+<li><p><a href="#vbaddition">为VBOX安装增强功能</a>   </p>
+</li>
+<li><p><a href="#adv">附录</a><br>a.<a href="#slimthemes">为slim安装主题</a><br>b.<a href="#feh">看图软件</a><br>c.<a href="#zsh">zsh</a><br>d.<a href="#ksh">ksh</a><br>e.<a href="#office">office</a><br>f.<a href="#sublime">文本编辑工具sublime</a><br>j.<a href="#wicd">网络管理工具wicd</a><br>h.<a href="#netctl">使用netctl</a></p>
+</li>
+</ol>
+<a id="more"></a>
+<h2><span id="yi-qi-dong-xu-ni-ji"></span><a href="#yi-qi-dong-xu-ni-ji" class="header-anchor">#</a></h2><p>启动虚拟机,选择对应的选项,可以在虚拟机里面安装64位系统又有这个欲望的，选第二个进去。<br><img src="/images/2014/archinstall/1.png" alt="启动"></p>
+<h2><span id="er-ci-pan-gui-hua"></span><a href="#er-ci-pan-gui-hua" class="header-anchor">#</a></h2><p>从光驱启动完毕后首先进行磁盘规划<br>键入<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div><div class="line">117</div><div class="line">118</div><div class="line">119</div><div class="line">120</div><div class="line">121</div><div class="line">122</div><div class="line">123</div><div class="line">124</div><div class="line">125</div><div class="line">126</div><div class="line">127</div><div class="line">128</div><div class="line">129</div><div class="line">130</div><div class="line">131</div><div class="line">132</div><div class="line">133</div><div class="line">134</div><div class="line">135</div><div class="line">136</div><div class="line">137</div><div class="line">138</div><div class="line">139</div><div class="line">140</div><div class="line">141</div><div class="line">142</div><div class="line">143</div><div class="line">144</div><div class="line">145</div><div class="line">146</div><div class="line">147</div><div class="line">148</div><div class="line">149</div><div class="line">150</div><div class="line">151</div><div class="line">152</div><div class="line">153</div><div class="line">154</div><div class="line">155</div><div class="line">156</div><div class="line">157</div><div class="line">158</div><div class="line">159</div><div class="line">160</div><div class="line">161</div><div class="line">162</div><div class="line">163</div><div class="line">164</div><div class="line">165</div><div class="line">166</div><div class="line">167</div><div class="line">168</div><div class="line">169</div><div class="line">170</div><div class="line">171</div><div class="line">172</div><div class="line">173</div><div class="line">174</div><div class="line">175</div><div class="line">176</div><div class="line">177</div><div class="line">178</div><div class="line">179</div><div class="line">180</div><div class="line">181</div><div class="line">182</div><div class="line">183</div><div class="line">184</div><div class="line">185</div><div class="line">186</div><div class="line">187</div><div class="line">188</div><div class="line">189</div><div class="line">190</div><div class="line">191</div><div class="line">192</div><div class="line">193</div><div class="line">194</div><div class="line">195</div><div class="line">196</div><div class="line">197</div><div class="line">198</div><div class="line">199</div><div class="line">200</div><div class="line">201</div><div class="line">202</div><div class="line">203</div><div class="line">204</div><div class="line">205</div><div class="line">206</div><div class="line">207</div><div class="line">208</div><div class="line">209</div><div class="line">210</div><div class="line">211</div><div class="line">212</div><div class="line">213</div><div class="line">214</div><div class="line">215</div><div class="line">216</div><div class="line">217</div><div class="line">218</div><div class="line">219</div><div class="line">220</div><div class="line">221</div><div class="line">222</div><div class="line">223</div><div class="line">224</div><div class="line">225</div><div class="line">226</div><div class="line">227</div><div class="line">228</div><div class="line">229</div><div class="line">230</div><div class="line">231</div><div class="line">232</div><div class="line">233</div><div class="line">234</div><div class="line">235</div><div class="line">236</div><div class="line">237</div><div class="line">238</div><div class="line">239</div><div class="line">240</div><div class="line">241</div><div class="line">242</div><div class="line">243</div><div class="line">244</div><div class="line">245</div><div class="line">246</div><div class="line">247</div><div class="line">248</div><div class="line">249</div><div class="line">250</div><div class="line">251</div><div class="line">252</div><div class="line">253</div><div class="line">254</div><div class="line">255</div><div class="line">256</div><div class="line">257</div><div class="line">258</div><div class="line">259</div><div class="line">260</div><div class="line">261</div><div class="line">262</div><div class="line">263</div></pre></td><td class="code"><pre><div class="line">	cfdisk</div><div class="line">```  </div><div class="line">![分区](/images/2014/archinstall/2.png)  </div><div class="line"></div><div class="line">弹出的界面选 New  </div><div class="line">![新建分区](/images/2014/archinstall/3.png)  </div><div class="line"></div><div class="line">新手可以不用分区，如果需要分多个区，建议一个 / 一个/home，如果内存大，不需要swap分区。使用cfdisk分区比较直观。</div><div class="line">·注意【Bootable】，/ 分区一定要Bootable</div><div class="line"></div><div class="line">因为这里磁盘规划只有三个分区,所以接下来统一用主分区的形式,选Primary,如果磁盘规划超过4个分区的,规划完3个主分区之后自行调整剩下的空间为扩展分区,然后在扩展分区里面再进行剩余磁盘规划操作</div><div class="line"></div><div class="line"></div><div class="line">![主分区](/images/2014/archinstall/4.png)   </div><div class="line"></div><div class="line">boot 规划100M就很够了</div><div class="line"></div><div class="line">![主分区](/images/2014/archinstall/5.png)   </div><div class="line"></div><div class="line">选Beginning  </div><div class="line"></div><div class="line">![主分区](/images/2014/archinstall/6.png)   </div><div class="line"></div><div class="line">按一下Bootable,激活当前boot所在分区/dev/sda1,之后可以看到sda1的flags标记下面有个boot  </div><div class="line"></div><div class="line">![主分区](/images/2014/archinstall/7.png)  </div><div class="line"></div><div class="line">![主分区](/images/2014/archinstall/8.png)  </div><div class="line"></div><div class="line">光标移动到free space ,选 New 规划swap 交换分区  </div><div class="line"></div><div class="line">![交换分区](/images/2014/archinstall/9.png)  </div><div class="line"></div><div class="line">类型主分区,原因上面已经说过,不喜欢的可以选逻辑分区,大小给1G差不多,多了也没什么太大的用处  </div><div class="line">	</div><div class="line">![主分区](/images/2014/archinstall/10.png)  </div><div class="line">![主分区](/images/2014/archinstall/11.png)  </div><div class="line"></div><div class="line">选Beginning  </div><div class="line"></div><div class="line">![Beginning](/images/2014/archinstall/12.png)   </div><div class="line"></div><div class="line">移动到Type选项回车  </div><div class="line"></div><div class="line">![Type](/images/2014/archinstall/13.png)    </div><div class="line"></div><div class="line">磁盘类型选择82  </div><div class="line">![磁盘类型](/images/2014/archinstall/14.png)    </div><div class="line">![磁盘类型](/images/2014/archinstall/15.png)  </div><div class="line">![磁盘类型](/images/2014/archinstall/16.png)   </div><div class="line"></div><div class="line">光标移动到free space 把剩下的空间全部给根节点  </div><div class="line">   </div><div class="line">![根分区](/images/2014/archinstall/17.png)     </div><div class="line">![根分区](/images/2014/archinstall/18.png)   </div><div class="line">![根分区](/images/2014/archinstall/19.png)   </div><div class="line"></div><div class="line"></div><div class="line">移动到write选项回车  </div><div class="line"></div><div class="line">![Write](/images/2014/archinstall/20.png)  </div><div class="line"></div><div class="line">输入yes保存刚才所做的分区更改  </div><div class="line">![Write yes](/images/2014/archinstall/21.png)  </div><div class="line"></div><div class="line">移动到quit选项完成磁盘分区规划操作  </div><div class="line">![Quit](/images/2014/archinstall/22.png)  </div><div class="line">![Quit](/images/2014/archinstall/23.png)    </div><div class="line"></div><div class="line"><span class="meta">#</span># &lt;a name="filesystem"&gt;三、创建磁盘文件系统&lt;/a&gt;</div><div class="line">boot 所在的磁盘分区sda1 用ext4文件系统,当然用其他文件系统也可以</div><div class="line">键入  </div><div class="line">```shell</div><div class="line">	mkfs.ext4 /dev/sda1  </div><div class="line">```  </div><div class="line"></div><div class="line">![创建分区](/images/2014/archinstall/24.png)  </div><div class="line">![创建分区](/images/2014/archinstall/25.png)    </div><div class="line"></div><div class="line">根节点所在分区sda3 用主流的ext4文件系统即可 </div><div class="line">键入  </div><div class="line">```shell</div><div class="line">	mkfs.ext4 /dev/sda3</div><div class="line">```  </div><div class="line"></div><div class="line">![创建分区](/images/2014/archinstall/26.png)  </div><div class="line">![创建分区](/images/2014/archinstall/27.png)    </div><div class="line"></div><div class="line">交换分区 </div><div class="line">键入  </div><div class="line">```shell</div><div class="line">	mkswap /dev/sda2</div><div class="line">```   </div><div class="line">![创建分区](/images/2014/archinstall/28.png)    </div><div class="line"></div><div class="line">激活交换分区</div><div class="line">键入  </div><div class="line">```shell</div><div class="line">	swapon /dev/sda2</div><div class="line">```   </div><div class="line">![激活](/images/2014/archinstall/29.png)    </div><div class="line"></div><div class="line"><span class="meta">#</span># &lt;a name="mount"&gt;四、挂载磁盘&lt;/a&gt;  </div><div class="line">挂载磁盘到AIS Bash安装脚本支持的 mnt 目录:</div><div class="line"></div><div class="line">先挂载根节点</div><div class="line">键入  </div><div class="line">```shell</div><div class="line">	mount /dev/sda3 /mnt</div><div class="line">```  </div><div class="line">![挂载](/images/2014/archinstall/30.png)    </div><div class="line"></div><div class="line">mnt 目录下面创建boot目录用来挂载 boot所在的分区   </div><div class="line">![挂载](/images/2014/archinstall/31.png)    </div><div class="line"></div><div class="line">挂载boot所在分区到 mnt下面的boot目录</div><div class="line">键入  </div><div class="line">```shell</div><div class="line">	mount /dev/sda1 /mnt/boot</div><div class="line">```  </div><div class="line">![挂载](/images/2014/archinstall/32.png)    </div><div class="line"></div><div class="line"><span class="meta">#</span># &lt;a name="mirrorlist"&gt;五、选择镜像-设置更新源&lt;/a&gt;  </div><div class="line">```shell</div><div class="line">	nano /etc/pacman.d/mirrorlist</div><div class="line">```   </div><div class="line">p.s:找带China的，PageDown PageUp 滚屏，Ctrl+V 向下翻页，Ctrl+Y 向上翻页， Alt+6 复制当前行，Ctrl+u 粘贴，Ctrl+x 退出，保存按Y，回车。</div><div class="line">163站点在最下面不远处，我复制了2个，放在最上面，如图所示。   </div><div class="line">推荐使用   [中国科技大学的源 ](http://mirrors.ustc.edu.cn/archlinux/,"中国科技大学的源")  ,其余的均可以删除。  </div><div class="line"></div><div class="line">![设置源](/images/2014/archinstall/33.jpg)    </div><div class="line"></div><div class="line"><span class="meta">#</span># &lt;a name="install"&gt;六、安装基本系统&lt;/a&gt;  </div><div class="line">键入  </div><div class="line">```shell</div><div class="line">	pacstrap /mnt base base-devel syslinux vim</div><div class="line">```   </div><div class="line">p.s:这里需要说明一下,一般来说base就够了,不过后期安装软件基本上会用到base-devel,所以把这个系统软件包组也选上;syslinux是引导程序包(可以根据习惯调整为grub2),双系统情况下,如果物理机器上不想用syslinux覆盖磁盘mbr来引导的,可以通过grub4dos之类的引导linux,具体google一大把;vim是编辑软件,仅仅是为了方便安装完基本系统后编辑配置文件,如果不喜欢的可以用nano 或者安装其他编辑工具</div><div class="line"></div><div class="line">![安装基本系统](/images/2014/archinstall/34.png)    </div><div class="line"></div><div class="line">回车后会自动查找源,下载软件包,安装  </div><div class="line">![安装基本系统](/images/2014/archinstall/35.png)    </div><div class="line"></div><div class="line">键入   </div><div class="line">```shell</div><div class="line">	pacstrap -i /mnt net-tools</div><div class="line">```    </div><div class="line">p.s:也许大多数人对ifconfig这种网络配置命令比较习惯,那么请安装net-tools软件包,而且安装可以添加 i 参数实现一定程度上的交互式安装,这样就不会像上面一样自动下载安装,这里可以不执行,不影响系统搭建  </div><div class="line">![安装基本系统](/images/2014/archinstall/36.png)   </div><div class="line">![安装基本系统](/images/2014/archinstall/37.png)   </div><div class="line"></div><div class="line">用AIS脚本自动生成fstab,也就是当前磁盘挂载情况的文件</div><div class="line">键入  </div><div class="line">```shell</div><div class="line">	genfstab -p /mnt &gt;&gt; /mnt/etc/fstab</div><div class="line">```  </div><div class="line">\&gt;&gt; 是Unix Like下面常见的重定向符号  </div><div class="line">![安装基本系统](/images/2014/archinstall/38.png)   </div><div class="line"></div><div class="line">chroot到刚才安装完毕的基本系统,进行最基础的系统配置</div><div class="line">键入  </div><div class="line">```shell</div><div class="line">	archroot /mnt</div><div class="line">```  </div><div class="line">![安装基本系统](/images/2014/archinstall/39.png)   </div><div class="line"></div><div class="line">进入到新环境以后的情况,可以看到终端前面的提示符已经发生了变化  </div><div class="line">![安装基本系统](/images/2014/archinstall/40.png)   </div><div class="line"></div><div class="line"><span class="meta">#</span># &lt;a name="basicsetup"&gt;七、基本系统配置&lt;/a&gt;  </div><div class="line"></div><div class="line"><span class="meta">#</span>## &lt;a name="language"&gt;A.设置语言&lt;/a&gt;  </div><div class="line">设置系统支持的locale,只需要找到en_US 以及zh_CN开头的,然后把注释符号#去掉即可</div><div class="line">键入  </div><div class="line">```shell</div><div class="line">	vim /etc/locale.gen</div><div class="line">```  </div><div class="line">![语言设置](/images/2014/archinstall/41.png)   </div><div class="line">![语言设置](/images/2014/archinstall/42.png)   </div><div class="line">![语言设置](/images/2014/archinstall/43.png)    </div><div class="line">保存退出  </div><div class="line">![语言设置](/images/2014/archinstall/44.png)   </div><div class="line"></div><div class="line">执行</div><div class="line">```shell</div><div class="line">	locale-gen</div><div class="line">```  </div><div class="line">![语言设置](/images/2014/archinstall/45.png)   </div><div class="line"></div><div class="line">设置系统默认的locale,这里决定了进入桌面后是英文界面还是中文界面,我习惯了英文界面,所以设置如下图2所示,喜欢中文界面的可以简单设置为LANG=zh_CN.UTF-8</div><div class="line">键入  </div><div class="line">```shell</div><div class="line">	vim /etc/locale.conf  </div><div class="line">```  </div><div class="line">添加适合自己的locale</div><div class="line">![语言设置](/images/2014/archinstall/46.png)  </div><div class="line">![语言设置](/images/2014/archinstall/47.png)     </div><div class="line"></div><div class="line"><span class="meta">#</span>## &lt;a name="hostname"&gt;B.设置主机名&lt;/a&gt;  </div><div class="line">键入  </div><div class="line">```shell</div><div class="line">	vim /etc/hostname  </div><div class="line">```  </div><div class="line">里面添加自己喜欢的名称,这里演示输入zhongguoyidou,请根据自己的喜好更改 </div><div class="line">![设置主机名](/images/2014/archinstall/48.png)  </div><div class="line">![设置主机名](/images/2014/archinstall/49.png)  </div><div class="line"></div><div class="line">修改 hosts文件,添加刚才设置的主机名</div><div class="line">键入  </div><div class="line">```shell</div><div class="line">	vim /etc/hosts</div><div class="line">```  </div><div class="line">![设置主机名](/images/2014/archinstall/50.png)  </div><div class="line">![设置主机名](/images/2014/archinstall/51.png)  </div><div class="line"></div><div class="line"><span class="meta">#</span>## &lt;a name="timezone"&gt;C.设置时区&lt;/a&gt;</div><div class="line">设置时区为亚洲/上海,创建一个软链接即可</div><div class="line">键入 </div><div class="line">```shell</div><div class="line">	ln -s /usr/share/zoneinfo/Asia/Shanghai /etc/localtime  </div><div class="line">```   </div><div class="line"></div><div class="line">```shell</div><div class="line">	vim /etc/timezone</div><div class="line">```  </div><div class="line">添加Asia/Shanghai 这一行后保存退出</div><div class="line"></div><div class="line">多系统的可以设置为本地时间,避免出现系统切换时间8小时之差的情况</div><div class="line">键入   </div><div class="line">```shell</div><div class="line">	hwclock --systohc --localtime</div><div class="line">```  </div><div class="line">![设置时区](/images/2014/archinstall/52.png)  </div><div class="line"><span class="meta">#</span>## &lt;a name="ramdisk"&gt;D.创建ramdisk&lt;/a&gt;</div><div class="line">键入   </div><div class="line">```shell</div><div class="line">	mkinitcpio -p linux </div><div class="line">```  </div><div class="line">如果不满意默认配制的自行根据需要修改 /etc/mkinitcpio.conf 再执行此命令创建,一般来说默认即可  </div><div class="line">![创建ramdisk](/images/2014/archinstall/53.png)  </div><div class="line"><span class="meta">#</span>##&lt;a name="checksyslinux"&gt;E.检查syslinux的配置文件是否正确&lt;/a&gt;  </div><div class="line">键入  </div><div class="line">```shell</div><div class="line">	vim /boot/syslinux/syslinux.cfg  </div><div class="line">```  </div><div class="line">如果分区规划跟我一样的可以不检查也行,默认的就可以.其他自行检查append root=/dev/sdax 这行的sdax ----- 设置为正确的根节点所在分区即可  </div><div class="line"></div><div class="line">![检查syslinux的配置文件是否正确](/images/2014/archinstall/54.png)  </div><div class="line">![检查syslinux的配置文件是否正确](/images/2014/archinstall/55.png)  </div><div class="line"></div><div class="line"><span class="meta">#</span>## &lt;a name="syslinux"&gt;F.安装syslinux启动管理器,以便实现ArchLinux的顺利启动&lt;/a&gt;</div><div class="line">键入  </div><div class="line">```shell</div><div class="line">	syslinux-install_update -iam</div><div class="line">```  </div><div class="line">![检查syslinux的配置文件是否正确](/images/2014/archinstall/56.png)  </div><div class="line"></div><div class="line"></div><div class="line"><span class="meta">#</span>##&lt;a name="root"&gt;G.为root超级用户添加密码&lt;/a&gt;</div><div class="line">键入  </div><div class="line">```shell</div><div class="line">	passwd</div></pre></td></tr></table></figure></p>
+<p>输入密码需要两遍以确认是否一致,且密码不会显示在屏幕上<br><img src="/images/2014/archinstall/57.png" alt="为root超级用户添加密码">  </p>
+<h3><span id="h-tui-chu-dang-qian-xi-tong-huan-jing"></span><a href="#h-tui-chu-dang-qian-xi-tong-huan-jing" class="header-anchor">#</a></h3><p>键入<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">exit</div></pre></td></tr></table></figure></p>
+<p><img src="/images/2014/archinstall/58.png" alt="退出当前系统环境">  </p>
+<p>返回到安装镜像启动所在的系统环境<br>键入<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div></pre></td><td class="code"><pre><div class="line">	umount /mnt/boot</div><div class="line">	umount /mnt/</div><div class="line">	reboot</div><div class="line">```  </div><div class="line">关机并且从磁盘引导系统  </div><div class="line">![关机并且从磁盘引导系统](/images/2014/archinstall/59.png)  </div><div class="line"></div><div class="line">重起后的系统初始选择界面   </div><div class="line">![重起后的系统初始选择界面](/images/2014/archinstall/60.png)  </div><div class="line"></div><div class="line">启动系统后要求输入用户名以及密码</div><div class="line">键入  </div><div class="line">```shell</div><div class="line">	root</div><div class="line">```  </div><div class="line">输入密码  </div><div class="line">![登录系统](/images/2014/archinstall/61.png)  </div><div class="line"></div><div class="line">顺利进入系统  </div><div class="line">![登录系统](/images/2014/archinstall/62.png)    </div><div class="line"></div><div class="line"><span class="meta">#</span>## &lt;a name="adduser"&gt;I.添加用户&lt;/a&gt;  </div><div class="line">添加一个普通用户,比如这里的kafan_zhongguoyidou,具体的其他参数自己google</div><div class="line">键入  </div><div class="line">```shell</div><div class="line">	useradd -m -s /bin/bash kafan_zhongguoyidou</div><div class="line">```  </div><div class="line">![添加一个普通用户](/images/2014/archinstall/63.jpg) </div><div class="line">添加完毕为普通用户设定一个密码</div><div class="line">键入  </div><div class="line">```shell</div><div class="line">	passwd kafan_zhongguoyidou</div><div class="line">```  </div><div class="line">为刚才添加的普通用户添加sudo的相关权限,这里只做一点简要设置,其他自己参阅</div><div class="line">键入 visudo</div><div class="line">找到图示中root那行,添加图示一行  </div><div class="line">![添加一个普通用户](/images/2014/archinstall/64.png)  </div><div class="line">![添加一个普通用户](/images/2014/archinstall/65.png) </div><div class="line"></div><div class="line"><span class="meta">#</span>## &lt;a name="network"&gt;J.配置网络&lt;/a&gt;  </div><div class="line">```shell</div><div class="line"><span class="meta">	#</span>#查看可用网卡</div><div class="line">	ifconfig -a</div><div class="line"><span class="meta">	#</span>#启动网卡</div><div class="line">	ifconfig eth0 up</div><div class="line"><span class="meta">	#</span>#获取ip</div><div class="line">	dhcpcd  eth0</div><div class="line">```  </div><div class="line"></div><div class="line"><span class="meta">#</span>## &lt;a name="xdestop"&gt;K.安装X桌面环境&lt;/a&gt;  </div><div class="line">这里以xfce4这个折中的桌面套件来演示,可以根据自己的爱好选择其他桌面套件或者窗口管理器,接下来不配过多的图,主要叙述一下软件包安装相关指令</div><div class="line">进入系统后首先更新软件包相关数据,如果提示有更新先更新一下软件</div><div class="line">键入  </div><div class="line">```shell</div><div class="line">	pacman -Syu</div><div class="line">```  </div><div class="line">![添加一个普通用户](/images/2014/archinstall/66.png)</div><div class="line"></div><div class="line">如果你不知道自己是什么显卡，就用下面的命令查看下：  </div><div class="line">```shell</div><div class="line">	lspci | grep VGA</div><div class="line">```  </div><div class="line">然后执行下面的命令搜索下匹配你显卡的驱动  </div><div class="line">```shell</div><div class="line">	pacman -Ss xf86-video | less</div><div class="line">```  </div><div class="line">我是VirtualBox，所以我就安装一个万能的，你们安装匹配的，比如你是Intel集成的就执行：  </div><div class="line">```shell</div><div class="line">	pacman -S xf86-video-intel</div><div class="line">```  </div><div class="line">虚拟机就执行  </div><div class="line">```shell</div><div class="line">	pacman -S xf86-video-vesa</div><div class="line">```  </div><div class="line">笔记本还可以装下触摸板驱动  </div><div class="line">```shell</div><div class="line">	pacman -S xf86-input-synaptics</div><div class="line">```  </div><div class="line">安装声卡驱动</div><div class="line">键入  </div><div class="line">```shell</div><div class="line">	pacman -S alsa-utils</div><div class="line">```  </div><div class="line">测试X环境是否安装好了，可以执行下面的命令，其实不用测试。  </div><div class="line">```shell  </div><div class="line">	pacman -S xorg-twm xorg-xclock xterm </div><div class="line">	startx </div><div class="line">	exit </div><div class="line">	pkill X</div><div class="line">```  </div><div class="line"><span class="meta">#</span>##&lt;a name="xfce4"&gt;L.安装XFCE4 桌面套件&lt;/a&gt;</div><div class="line">先安装slim，这是一个图像、登录管理器，可用于xfce4的自启动。  </div><div class="line">```shell</div><div class="line">	pacman -S slim</div></pre></td></tr></table></figure></p>
+<p>安装完成后需要执行来自启动<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div><div class="line">117</div><div class="line">118</div><div class="line">119</div><div class="line">120</div><div class="line">121</div><div class="line">122</div><div class="line">123</div><div class="line">124</div><div class="line">125</div><div class="line">126</div><div class="line">127</div><div class="line">128</div><div class="line">129</div><div class="line">130</div><div class="line">131</div><div class="line">132</div><div class="line">133</div><div class="line">134</div><div class="line">135</div><div class="line">136</div><div class="line">137</div><div class="line">138</div><div class="line">139</div><div class="line">140</div><div class="line">141</div><div class="line">142</div><div class="line">143</div><div class="line">144</div><div class="line">145</div><div class="line">146</div><div class="line">147</div><div class="line">148</div><div class="line">149</div><div class="line">150</div><div class="line">151</div><div class="line">152</div><div class="line">153</div></pre></td><td class="code"><pre><div class="line">	systemctl enable slim.service   </div><div class="line">```  </div><div class="line">键入</div><div class="line">```shell</div><div class="line">	pacman -S xfce4</div><div class="line">```  </div><div class="line">出现的软件包组选择全部即可</div><div class="line"></div><div class="line">安装sudo,让普通用户无需切换执行一些root用户指令</div><div class="line">键入  </div><div class="line">```shell</div><div class="line">	pacman -S sudo</div><div class="line">```  </div><div class="line"></div><div class="line">安装中文字体</div><div class="line">键入  </div><div class="line">```shell</div><div class="line">	pacman -S wqy-microhei wqy-zenhei wqy-bitmapfont</div><div class="line">```  </div><div class="line">至于美化，都是通过界面操作的，system-setting可以设置字体，另外terminal的preference可以设置它用的字体。</div><div class="line"></div><div class="line">现在，大功告成！！启动！！！</div><div class="line">```shell</div><div class="line">	startxfce4</div><div class="line">```  </div><div class="line">![添加一个普通用户](/images/2014/archinstall/67.jpg)   </div><div class="line"></div><div class="line"><span class="meta">#</span>## &lt;a name="xfce4auto"&gt;M.设置xfce4自启动&lt;/a&gt;　　</div><div class="line">要将SLiM配置为加载某个特定的环境，只需编辑~/.xinitrc如下：  </div><div class="line">```shell</div><div class="line"><span class="meta">	#</span>!/bin/sh</div><div class="line">	</div><div class="line"><span class="meta">	#</span></div><div class="line"><span class="meta">	#</span> ~/.xinitrc</div><div class="line"><span class="meta">	#</span></div><div class="line"><span class="meta">	#</span> Executed by startx (run your window manager from here)</div><div class="line"><span class="meta">	#</span></div><div class="line">	</div><div class="line">	exec [session-command]</div><div class="line">```  </div><div class="line">注意：如果你没有~/.xinitrc文件，可以从系统中复制一个：  </div><div class="line">```shell</div><div class="line"><span class="meta">	$</span> cp /etc/skel/.xinitrc ~</div><div class="line">```  </div><div class="line">将[session-command]替换为适当的会话命令。例如：</div><div class="line"></div><div class="line">要启动Xfce:  </div><div class="line">```shell</div><div class="line"><span class="meta">	#</span> Xfce</div><div class="line">	exec startxfce4</div><div class="line">```  </div><div class="line">要启动Openbox：  </div><div class="line">```shell</div><div class="line"><span class="meta">	#</span> Openbox</div><div class="line">	exec openbox-session</div><div class="line">```  </div><div class="line">要启动Fluxbox:  </div><div class="line">```shell</div><div class="line"><span class="meta">	#</span> Fluxbox</div><div class="line">	exec fluxbox</div><div class="line"><span class="meta">	#</span> Either fluxbox or startfluxbox is acceptable</div><div class="line">```  </div><div class="line">要启动GNOME:  </div><div class="line">```shell</div><div class="line"><span class="meta">	#</span> GNOME</div><div class="line">	exec gnome-session</div><div class="line">```  </div><div class="line">要启动KDE:  </div><div class="line">```shell</div><div class="line"><span class="meta">	#</span> KDE</div><div class="line">	exec startkde</div><div class="line">```  </div><div class="line">如果你的桌面环境不在上述列表中，请参考你的软件文档  </div><div class="line"></div><div class="line"><span class="meta">#</span>##&lt;a name="inputmethod"&gt;N.安装浏览器和输入法&lt;/a&gt;  </div><div class="line">键入  </div><div class="line">```shell</div><div class="line">	pacman -S firefox</div><div class="line">```  </div><div class="line">安装火狐浏览器  </div><div class="line"></div><div class="line">键入  </div><div class="line">```shell</div><div class="line">	pacman -S fcitx fcitx-gtk fcitx-gtk2 fcitx-gtk3 fcitx-qt fcitx-configtool  </div><div class="line">```  </div><div class="line">安装小企鹅输入法  </div><div class="line">p.s:这里如果不安装gtk和configtool的话的是没有图形配置界面的  </div><div class="line"></div><div class="line">然后编辑~/.profile  设置一些参数</div><div class="line">```shell</div><div class="line">	export GTK_IM_MODULE=fcitx</div><div class="line"> 	export QT_IM_MODULE=fcitx</div><div class="line">	export XMODIFIERS="@im=fcitx"</div><div class="line">	killall fcitx</div><div class="line">	fcitx &amp;</div><div class="line">```   </div><div class="line"></div><div class="line"><span class="meta">#</span>## &lt;a name="yaourt"&gt;O.安装yaourt&lt;/a&gt;</div><div class="line"></div><div class="line">Yaourt是archlinux方便使用的关键部件之一，但没有被整合到系统安装中的工具。建议在装完系统重启之后，更新完pacman和基本系统之后，就安装这个工具。   </div><div class="line"></div><div class="line">安装方法有下面两种：建议使用第一种，如果要体验AUR的操作过程和使用方法，建议使用第二种方法安装。   </div><div class="line"></div><div class="line">简便的安装  </div><div class="line"></div><div class="line">最简单安装Yaourt的方式是添加Yaourt源至您的 /etc/pacman.conf:  </div><div class="line">```shell</div><div class="line">	[archlinuxcn]</div><div class="line"><span class="meta">	#</span>The Chinese Arch Linux communities packages.</div><div class="line">	SigLevel = Optional TrustAll</div><div class="line">	Server   = http://repo.archlinuxcn.org/$arch</div><div class="line">```  </div><div class="line"></div><div class="line">或者 </div><div class="line">```shell</div><div class="line">[archlinuxfr]</div><div class="line">Server = http://repo.archlinux.fr/$arch</div><div class="line">```  </div><div class="line"></div><div class="line">或者 </div><div class="line">```shell</div><div class="line"> [archlinuxfr]</div><div class="line"> Server = http://repo-fr.archlinuxcn.org/$arch</div><div class="line">```  </div><div class="line">P.S:注意 必须要加上 SigLevel = Optional TrustAll,否则会报package-query: missing required signature错误</div><div class="line"></div><div class="line">同步并安装： </div><div class="line">```shell</div><div class="line"><span class="meta">#</span> pacman -Syu yaourt</div><div class="line">```  </div><div class="line"></div><div class="line"><span class="meta">#</span># &lt;a name="vbaddition"&gt;八、为VBOX安装增强功能&lt;/a&gt;  </div><div class="line">键入</div><div class="line">```shell</div><div class="line">	pacman -S virtualbox-guest-utils</div><div class="line">```   </div><div class="line">重启即可</div><div class="line"></div><div class="line"><span class="meta">#</span># 9.&lt;a name="adv"&gt;附录&lt;/a&gt;  </div><div class="line"><span class="meta">#</span>## a.&lt;a name="slimthemes"&gt;为slim安装主题&lt;/a&gt;</div><div class="line">键入  </div><div class="line">```shell</div><div class="line">	cd /usr/share/slim/themes</div><div class="line">	ls</div><div class="line">```   </div><div class="line">可以查看当前所有可用主题   </div><div class="line">键入   </div><div class="line">```shell</div><div class="line">	pacman -S slim-themes</div><div class="line">```  </div><div class="line">安装其它主题,选择一个喜欢的然后键入   </div><div class="line">```shell</div><div class="line">	vim /etc/slim.conf</div></pre></td></tr></table></figure></p>
+<p>找到current theme配置项修改即可  </p>
+<h3><span id="b-kan-tu-ruan-jian-feh">b.</span><a href="#b-kan-tu-ruan-jian-feh" class="header-anchor">#</a></h3><p>键入<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line">	pacman -S feh</div><div class="line">```  </div><div class="line"><span class="meta">#</span>## c.&lt;a name="zsh"&gt;zsh&lt;/a&gt;</div><div class="line">键入  </div><div class="line">```shell  </div><div class="line">	pacman -S zsh</div><div class="line">```  </div><div class="line"><span class="meta">#</span>## d.&lt;a name="ksh"&gt;ksh&lt;/a&gt;</div><div class="line">键入  </div><div class="line">```shell</div><div class="line">	yaourt -S ksh</div><div class="line">```  </div><div class="line"></div><div class="line"><span class="meta">#</span>## e.&lt;a name="office"&gt;office&lt;/a&gt;</div><div class="line">键入 </div><div class="line">```shell</div><div class="line">	pacman -S libreoffice</div><div class="line">```  </div><div class="line"></div><div class="line"><span class="meta">#</span>## f.&lt;a name="sublime"&gt;文本编辑工具sublime&lt;/a&gt;</div><div class="line">键入   </div><div class="line">```shell</div><div class="line">	yaourt -S sublime-text-dev</div></pre></td></tr></table></figure></p>
+<h3><span id="j-wang-luo-guan-li-gong-ju-wicd">j.</span><a href="#j-wang-luo-guan-li-gong-ju-wicd" class="header-anchor">#</a></h3><p>键入<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">	pacman -Sy wicd wicd-gtk</div><div class="line">```  </div><div class="line">你很可能还要安装DHCP和无线安全管理程序。</div><div class="line">键入   </div><div class="line">```shell  </div><div class="line">	pacman -S dhclient wpa_supplicant</div></pre></td></tr></table></figure></p>
+<p>编辑/etc/rc.conf文件<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div></pre></td><td class="code"><pre><div class="line">	vim /etc/rc.conf</div><div class="line">	DAEMONS = (syslog-ng !network wicd dbus alsa)</div><div class="line">```  </div><div class="line">在network前面加上 ! 并在network后加上 wicd</div><div class="line"></div><div class="line">为用户添加组权限  </div><div class="line">```shell</div><div class="line">	gpasswd -a USERNAME users</div><div class="line">	gpasswd -a USERNAME network</div><div class="line">```  </div><div class="line">启动服务</div><div class="line">```shell  </div><div class="line">	systemctl start wicd</div><div class="line">```  </div><div class="line">运行  </div><div class="line">```shell  </div><div class="line">	wicd-client</div><div class="line">```   </div><div class="line">通知栏按钮  </div><div class="line">```shell  </div><div class="line">	wicd-client --tray</div><div class="line">```  </div><div class="line">清除通知栏按钮  </div><div class="line">```shell  </div><div class="line">	wicd-client -n</div><div class="line">```   </div><div class="line"></div><div class="line"></div><div class="line"><span class="meta">#</span>## h.&lt;a name="netctl"&gt;使用netctl&lt;/a&gt;  </div><div class="line">经过一段时间的使用发现wicd有些不尽如人意的地方,所以已经换成了netctl来管理</div><div class="line">具体设置可以完全参考wiki,要注意的是需要把dhcpcd关掉不然会启动失败</div><div class="line">```shell</div><div class="line">	systemctl disable dhcpcd@ethX.service</div></pre></td></tr></table></figure></p>
+<p>由于我是采用双网卡模式,A网卡是自动获取IP,B网卡是采用静态IP<br>所以只需要禁用掉B网卡的dhcpcd即可,并且参考wiki将静态ip的profile文件添加到自启动即可<br>常用命令如下<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#</span>复制配置文件</div><div class="line">cp /etc/netctl/examples/wireless-wpa /etc/netctl/profile</div><div class="line"><span class="meta">#</span>修改配置文件</div><div class="line">vim profile</div><div class="line"><span class="meta">#</span>手动启动配置文件</div><div class="line">netctl start profile</div><div class="line"><span class="meta">#</span>查看配置文件状态</div><div class="line">netctl status profile</div><div class="line"><span class="meta">#</span>设置配置文件自启动</div><div class="line">netctl enable profile</div><div class="line"><span class="meta">#</span>去除配置文件自启动</div><div class="line">netctl disable profile</div><div class="line"><span class="meta">#</span>重新加载配置文件</div><div class="line">netctl reenable profile</div></pre></td></tr></table></figure></p>
+<p>p.s:需要注意的是配置文件中<br>IP和Routes节点不可同时放开,否则会因为冲突而导致加载配置文件失败</p>
+<p>__参考资料<br>*<a href="http://www.cnblogs.com/mad/p/3280041.html" target="_blank" rel="external">Archlinux网络配置</a>  </p>
+<p>*<a href="http://blog.csdn.net/helloanyone/article/details/7012487" target="_blank" rel="external">如何安装ArchLinux</a>  </p>
+<p>*<a href="http://bbs.kafan.cn/thread-1371928-1-1.html" target="_blank" rel="external">大道至简,原来你就是这么KISS—ArchLinux基本系统到XFCE4桌面搭建</a>   </p>
+<p>*<a href="https://www.archlinux.org/mirrors/status" target="_blank" rel="external">Arch镜像列表</a>   </p>
+<p>*Arch wiki - slim安装<br><a href="https://wiki.archlinux.org/index.php?title=SLiM_(%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87)&amp;oldid=212382" target="_blank" rel="external">https://wiki.archlinux.org/index.php?title=SLiM_(%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87)&amp;oldid=212382</a>  </p>
+<p>*Arch wiki - yaourt安装<br><a href="https://wiki.archlinux.org/index.php/Yaourt_%28%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87%29" target="_blank" rel="external">https://wiki.archlinux.org/index.php/Yaourt_%28%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87%29</a></p>
+<p>*Arch wiki - wicd安装<br><a href="https://wiki.archlinux.org/index.php/Wicd" target="_blank" rel="external">https://wiki.archlinux.org/index.php/Wicd</a></p>
+<p>*Arch wiki - netctl使用<br><a href="https://wiki.archlinux.org/index.php/Netctl_(%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87" target="_blank" rel="external">https://wiki.archlinux.org/index.php/Netctl_(%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87</a>)</p>
+<link href="/css/prism-dark.css" rel="stylesheet">
+    
+  </div>
+</article>
+
+</div>
+
+
+  <div class="text-center donation">
+    <div class="inner-donation">
+      <span class="btn-donation">支持一下</span>
+      <div class="donation-body">
+        <div class="tip text-center">您得支持,是我前进的动力.</div>
+        <ul class="theme.donation.items.length">
+        
+          <li class="item">
+            <img src="/css/qr-donate.jpg" alt="">
+          </li>
+        
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+
+
+  <a id="backTop" class="back-top">
+    <i class="icon-angle-up"></i>
+  </a>
+
+
+
+
+  <div class="modal" id="modal">
+  <span id="cover" class="cover hide"></span>
+  <div id="modal-dialog" class="modal-dialog hide-dialog">
+    <div class="modal-header">
+      <span id="close" class="btn-close">关闭</span>
+    </div>
+    <hr>
+    <div class="modal-body">
+      <ul class="list-toolbox">
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/archives/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              博客
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/category/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              分类
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/tag/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              标签
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/link/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              友链
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/atom.xml"
+              rel="noopener noreferrer"
+              target="_blank"
+              >
+              RSS
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/search/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              搜索
+            </a>
+          </li>
+        
+      </ul>
+
+    </div>
+  </div>
+</div>
+
+
+
+  
+      <div class="fexo-comments comments-post">
+    
+
+    
+  <section class="duoshuo-comments">
+
+    <!-- UY BEGIN -->
+    <div id="uyan_frame"></div>
+    <script async type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid=2144561">
+    <!-- UY END -->
+  </section>
+
+  <script type="text/javascript">
+	var uyan_config = {
+	     'su':"拥抱Arch Linux-安装配置小记" 
+	};
+	</script>
+
+
+
+  </div>
+
+  
+
+  <script type="text/javascript">
+  function loadScript(url, callback) {
+    var script = document.createElement('script')
+    script.type = 'text/javascript';
+
+    if (script.readyState) { //IE
+      script.onreadystatechange = function() {
+        if (script.readyState == 'loaded' ||
+          script.readyState == 'complete') {
+          script.onreadystatechange = null;
+          callback();
+        }
+      };
+    } else { //Others
+      script.onload = function() {
+        callback();
+      };
+    }
+
+    script.src = url;
+    document.getElementsByTagName('head')[0].appendChild(script);
+  }
+
+  window.onload = function() {
+    loadScript('/js/bundle.js?235683', function() {
+      // load success
+    });
+  }
+</script>
+
+</body>
+</html>

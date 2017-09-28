@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+
+
+  <html class="dark page-post">
+
+
+<head>
+  <meta charset="utf-8">
+  
+  <title>grunt -- &gt; gulp,从grunt转向gulp管理前端构建 | 如是我闻</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="gulp,前端&#39;,构建工具," />
+  
+
+  <meta name="description" content="写在前面  在JavaScript的世界里，Grunt.js是基于Node.js的自动化任务运行器。2013年02月18日，Grunt v0.4.0 发布。Fractal公司积极参与了数个流行Node.js模块的开发，它去年发布了一个新的构建系统Gulp，希望能够取其精华，并取代Grunt，成为最流行的JavaScript任务运行器。   不好意思，上面一段是抄的，原文请看前端工程的构建工具对比">
+<meta name="keywords" content="gulp,前端&#39;,构建工具">
+<meta property="og:type" content="article">
+<meta property="og:title" content="grunt -- &gt; gulp,从grunt转向gulp管理前端构建">
+<meta property="og:url" content="http://pkaq.org/2016/01/14/gulp/index.html">
+<meta property="og:site_name" content="如是我闻">
+<meta property="og:description" content="写在前面  在JavaScript的世界里，Grunt.js是基于Node.js的自动化任务运行器。2013年02月18日，Grunt v0.4.0 发布。Fractal公司积极参与了数个流行Node.js模块的开发，它去年发布了一个新的构建系统Gulp，希望能够取其精华，并取代Grunt，成为最流行的JavaScript任务运行器。   不好意思，上面一段是抄的，原文请看前端工程的构建工具对比">
+<meta property="og:updated_time" content="2016-09-01T08:49:58.675Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="grunt -- &gt; gulp,从grunt转向gulp管理前端构建">
+<meta name="twitter:description" content="写在前面  在JavaScript的世界里，Grunt.js是基于Node.js的自动化任务运行器。2013年02月18日，Grunt v0.4.0 发布。Fractal公司积极参与了数个流行Node.js模块的开发，它去年发布了一个新的构建系统Gulp，希望能够取其精华，并取代Grunt，成为最流行的JavaScript任务运行器。   不好意思，上面一段是抄的，原文请看前端工程的构建工具对比">
+
+  
+
+  
+    <link rel="icon" href="/favicon.ico">
+  
+
+  <link href="/css/styles.css?v=d671a41f" rel="stylesheet">
+
+
+  
+    <link rel="stylesheet" href="/css/fexo-theme.css">
+  
+
+  
+
+  
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?cd1f06c6f057506d537ab11e9f1693be";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+  
+    <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  
+
+  
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  
+
+  <link href='//cdn.webfont.youziku.com/webfonts/nomal/97080/42410/5865c4e5f629db00cc915895.css' rel='stylesheet' type='text/css' />
+ 
+</head>
+
+<body>
+
+
+  
+    <span id="toolbox-mobile" class="toolbox-mobile">　</span>
+  
+
+  <div class="post-header CENTER">
+   
+  <div class="toolbox">
+    <a class="toolbox-entry" href="/">
+      <span class="toolbox-entry-text">　</span>
+      <i class="icon-angle-down"></i>
+      <i class="icon-home"></i>
+    </a>
+    <ul class="list-toolbox">
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE toolbox_color_0"
+            href="/archives/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            博客
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE toolbox_color_1"
+            href="/category/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            分类
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE toolbox_color_2"
+            href="/tag/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            标签
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE toolbox_color_3"
+            href="/link/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            友链
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE toolbox_color_4"
+            href="/atom.xml"
+            rel="noopener noreferrer"
+            target="_blank"
+            >
+            RSS
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE toolbox_color_5"
+            href="/search/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+</div>
+
+
+  <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-text">写在前面#</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-text">安装#</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-text">初始化#</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-text">寻找插件#</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-text">继续#</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-text">THE END#</span></a></li></ol>
+  </div>
+
+
+
+<div class="content content-post CENTER">
+   <article id="post-gulp" class="article article-type-post" itemprop="blogPost">
+  <header class="article-header">
+    <h1 class="post-title">grunt -- &gt; gulp,从grunt转向gulp管理前端构建</h1>
+
+    <div class="article-meta">
+      <span>
+        <i class="icon-calendar"></i>
+        <span>2016.01.14</span>
+      </span>
+
+      
+        <span class="article-author">
+          <i class="icon-user"></i>
+          <span>PKAQ</span>
+        </span>
+      
+
+      
+  <span class="article-category">
+    <i class="icon-list"></i>
+    <a class="article-category-link" href="/categories/构建工具/">构建工具</a> / <a class="article-category-link" href="/categories/构建工具/前端/">前端</a>
+  </span>
+
+
+
+      
+
+      
+      <i class="fa fa-eye"></i> 
+        <span id="busuanzi_container_page_pv">
+           &nbsp热度 <span id="busuanzi_value_page_pv">
+           <i class="fa fa-spinner fa-spin"></i></span>℃
+        </span>
+      
+
+      
+        <i class="icon-comment"></i> 
+        共 <a class="ds-thread-count" id="uyan_count_unit" su="grunt -- &gt; gulp,从grunt转向gulp管理前端构建" href="http://pkaq.org/2016/01/14/gulp/index.html"></a>
+      
+      
+    </div>
+  </header>
+
+  <div class="article-content">
+    
+      <h4><span id="xie-zai-qian-mian">写在前面</span><a href="#xie-zai-qian-mian" class="header-anchor">#</a></h4><p>  在JavaScript的世界里，Grunt.js是基于Node.js的自动化任务运行器。2013年02月18日，Grunt v0.4.0 发布。Fractal公司积极参与了数个流行Node.js模块的开发，它去年发布了一个新的构建系统Gulp，希望能够取其精华，并取代Grunt，成为最流行的JavaScript任务运行器。</p>
+<p>  不好意思，上面一段是抄的，原文请看<a href="http://segmentfault.com/a/1190000002491282" target="_blank" rel="external">前端工程的构建工具对比 Gulp vs Grunt</a>  </p>
+<p>  没错，正是因为这篇文章，无意中发现了gulp，试用之后也大有当年从maven切换到gradle的快感<br>  所以，以后的日子还是让gulp来陪伴吧</p>
+<a id="more"></a>
+<h4><span id="an-zhuang">安装</span><a href="#an-zhuang" class="header-anchor">#</a></h4><p>  <a href="http://www.gulpjs.com.cn/docs/getting-started/" target="_blank" rel="external">官方入门指南</a><br><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">npm install --global gulp</div></pre></td></tr></table></figure></p>
+<h4><span id="chu-shi-hua">初始化</span><a href="#chu-shi-hua" class="header-anchor">#</a></h4><p>  同样的安装完在你的项目目录用npm init初始化一个package.json文件，并且创建gulpfile.js文件   </p>
+<h4><span id="xun-zhao-cha-jian">寻找插件</span><a href="#xun-zhao-cha-jian" class="header-anchor">#</a></h4><p> <a href="http://gulpjs.com/plugins/" target="_blank" rel="external">点我传送</a></p>
+<h4><span id="ji-xu">继续</span><a href="#ji-xu" class="header-anchor">#</a></h4><p>因为实在太简单，所以我打算直接贴脚本并且通过在脚本里加注释的方式来说明剩下的部分<br>因为基本就是引入插件然后配置下插件相关属性就行了，而这一切插件介绍里也说的很明白了<br>关于复制目录结构的事情 下面的复制任务里有  </p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> gulp = <span class="built_in">require</span>(<span class="string">'gulp'</span>),</div><div class="line"><span class="comment">//	图片压缩插件</span></div><div class="line">	imagemin = <span class="built_in">require</span>(<span class="string">'gulp-imagemin'</span>),</div><div class="line"><span class="comment">//	深度压缩png图片插件</span></div><div class="line">	imageminPngquant = <span class="built_in">require</span>(<span class="string">'imagemin-pngquant'</span>),</div><div class="line"><span class="comment">//	使用”gulp-cache”只压缩修改的图片插件</span></div><div class="line">	cache = <span class="built_in">require</span>(<span class="string">'gulp-cache'</span>);</div><div class="line">    </div><div class="line"><span class="comment">//图片压缩任务</span></div><div class="line">gulp.task(<span class="string">'imagemin'</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line"> 	gulp.src(<span class="string">'image/*.&#123;png,jpg,gif,ico&#125;'</span>)</div><div class="line">        .pipe(imagemin(&#123;</div><div class="line">            progressive: <span class="literal">true</span>,</div><div class="line">            svgoPlugins: [&#123;<span class="attr">removeViewBox</span>: <span class="literal">false</span>&#125;],</div><div class="line">            use: [imageminPngquant()] </div><div class="line">        &#125;))</div><div class="line">        <span class="comment">//图片压缩质量</span></div><div class="line">    	.pipe(imageminPngquant(&#123;<span class="attr">quality</span>: <span class="string">'65-80'</span>, <span class="attr">speed</span>: <span class="number">2</span>&#125;)())</div><div class="line">    	.pipe(gulp.dest(<span class="string">'dist/img'</span>));</div><div class="line">&#125;);</div><div class="line"><span class="comment">//复制任务</span></div><div class="line">gulp.task(<span class="string">'copy'</span>,<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">	<span class="comment">//复制frozenUI相关依赖</span></div><div class="line">	gulp.src(<span class="string">'bower_components/frozenui/dist/css/*'</span>)</div><div class="line">	    .pipe(gulp.dest(<span class="string">'css/fronzenUI/css'</span>));</div><div class="line">	<span class="comment">//复制font-awesome相关依赖</span></div><div class="line">    <span class="comment">//想复制目录结构？没错，在你想复制的目录后面加*这个目录会被一同复制过去</span></div><div class="line">	gulp.src([<span class="string">'bower_components/font-awesome/css*/*.min.*'</span>,</div><div class="line">	<span class="string">'bower_components/font-awesome/fonts*/*'</span>])</div><div class="line">	    .pipe(gulp.dest(<span class="string">'css/font-awesome'</span>));</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<h4><span id="the-end">THE END</span><a href="#the-end" class="header-anchor">#</a></h4><link href="/css/prism-dark.css" rel="stylesheet">
+    
+  </div>
+</article>
+
+</div>
+
+
+  <div class="text-center donation">
+    <div class="inner-donation">
+      <span class="btn-donation">支持一下</span>
+      <div class="donation-body">
+        <div class="tip text-center">您得支持,是我前进的动力.</div>
+        <ul class="theme.donation.items.length">
+        
+          <li class="item">
+            <img src="/css/qr-donate.jpg" alt="">
+          </li>
+        
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+
+
+  <a id="backTop" class="back-top">
+    <i class="icon-angle-up"></i>
+  </a>
+
+
+
+
+  <div class="modal" id="modal">
+  <span id="cover" class="cover hide"></span>
+  <div id="modal-dialog" class="modal-dialog hide-dialog">
+    <div class="modal-header">
+      <span id="close" class="btn-close">关闭</span>
+    </div>
+    <hr>
+    <div class="modal-body">
+      <ul class="list-toolbox">
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/archives/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              博客
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/category/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              分类
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/tag/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              标签
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/link/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              友链
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/atom.xml"
+              rel="noopener noreferrer"
+              target="_blank"
+              >
+              RSS
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/search/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              搜索
+            </a>
+          </li>
+        
+      </ul>
+
+    </div>
+  </div>
+</div>
+
+
+
+  
+      <div class="fexo-comments comments-post">
+    
+
+    
+  <section class="duoshuo-comments">
+
+    <!-- UY BEGIN -->
+    <div id="uyan_frame"></div>
+    <script async type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid=2144561">
+    <!-- UY END -->
+  </section>
+
+  <script type="text/javascript">
+	var uyan_config = {
+	     'su':"grunt -- &gt; gulp,从grunt转向gulp管理前端构建" 
+	};
+	</script>
+
+
+
+  </div>
+
+  
+
+  <script type="text/javascript">
+  function loadScript(url, callback) {
+    var script = document.createElement('script')
+    script.type = 'text/javascript';
+
+    if (script.readyState) { //IE
+      script.onreadystatechange = function() {
+        if (script.readyState == 'loaded' ||
+          script.readyState == 'complete') {
+          script.onreadystatechange = null;
+          callback();
+        }
+      };
+    } else { //Others
+      script.onload = function() {
+        callback();
+      };
+    }
+
+    script.src = url;
+    document.getElementsByTagName('head')[0].appendChild(script);
+  }
+
+  window.onload = function() {
+    loadScript('/js/bundle.js?235683', function() {
+      // load success
+    });
+  }
+</script>
+
+</body>
+</html>

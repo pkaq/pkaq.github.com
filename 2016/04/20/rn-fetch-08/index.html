@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+
+
+  <html class="dark page-post">
+
+
+<head>
+  <meta charset="utf-8">
+  
+  <title>RN（react native）入坑指南-08,如何加载远程数据 | 如是我闻</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="React Native," />
+  
+
+  <meta name="description" content="前言　　通过前面的一系列联系现在页面布局技巧已经掌握,页面跳转已经搞定,页面之间的参数传递也已经搞定,我们的代码也进行了分层组织,但我们的应用到现在为止都是死的.如何让应用活起来读取远程数据呢.此篇我们便是用fetch来拉去远程数据　　当然如果你想了解更多方式和内容欢迎阅读官方文档 开始">
+<meta name="keywords" content="React Native">
+<meta property="og:type" content="article">
+<meta property="og:title" content="RN（react native）入坑指南-08,如何加载远程数据">
+<meta property="og:url" content="http://pkaq.org/2016/04/20/rn-fetch-08/index.html">
+<meta property="og:site_name" content="如是我闻">
+<meta property="og:description" content="前言　　通过前面的一系列联系现在页面布局技巧已经掌握,页面跳转已经搞定,页面之间的参数传递也已经搞定,我们的代码也进行了分层组织,但我们的应用到现在为止都是死的.如何让应用活起来读取远程数据呢.此篇我们便是用fetch来拉去远程数据　　当然如果你想了解更多方式和内容欢迎阅读官方文档 开始">
+<meta property="og:updated_time" content="2016-04-18T11:57:55.975Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="RN（react native）入坑指南-08,如何加载远程数据">
+<meta name="twitter:description" content="前言　　通过前面的一系列联系现在页面布局技巧已经掌握,页面跳转已经搞定,页面之间的参数传递也已经搞定,我们的代码也进行了分层组织,但我们的应用到现在为止都是死的.如何让应用活起来读取远程数据呢.此篇我们便是用fetch来拉去远程数据　　当然如果你想了解更多方式和内容欢迎阅读官方文档 开始">
+
+  
+
+  
+    <link rel="icon" href="/favicon.ico">
+  
+
+  <link href="/css/styles.css?v=d671a41f" rel="stylesheet">
+
+
+  
+    <link rel="stylesheet" href="/css/fexo-theme.css">
+  
+
+  
+
+  
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?cd1f06c6f057506d537ab11e9f1693be";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+  
+    <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  
+
+  
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  
+
+  <link href='//cdn.webfont.youziku.com/webfonts/nomal/97080/42410/5865c4e5f629db00cc915895.css' rel='stylesheet' type='text/css' />
+ 
+</head>
+
+<body>
+
+
+  
+    <span id="toolbox-mobile" class="toolbox-mobile">　</span>
+  
+
+  <div class="post-header CENTER">
+   
+  <div class="toolbox">
+    <a class="toolbox-entry" href="/">
+      <span class="toolbox-entry-text">　</span>
+      <i class="icon-angle-down"></i>
+      <i class="icon-home"></i>
+    </a>
+    <ul class="list-toolbox">
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE toolbox_color_0"
+            href="/archives/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            博客
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE toolbox_color_1"
+            href="/category/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            分类
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE toolbox_color_2"
+            href="/tag/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            标签
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE toolbox_color_3"
+            href="/link/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            友链
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE toolbox_color_4"
+            href="/atom.xml"
+            rel="noopener noreferrer"
+            target="_blank"
+            >
+            RSS
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE toolbox_color_5"
+            href="/search/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+</div>
+
+
+  <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-text">前言#</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-text">开始#</span></a></li></ol>
+  </div>
+
+
+
+<div class="content content-post CENTER">
+   <article id="post-rn-fetch-08" class="article article-type-post" itemprop="blogPost">
+  <header class="article-header">
+    <h1 class="post-title">RN（react native）入坑指南-08,如何加载远程数据</h1>
+
+    <div class="article-meta">
+      <span>
+        <i class="icon-calendar"></i>
+        <span>2016.04.20</span>
+      </span>
+
+      
+        <span class="article-author">
+          <i class="icon-user"></i>
+          <span>PKAQ</span>
+        </span>
+      
+
+      
+  <span class="article-category">
+    <i class="icon-list"></i>
+    <a class="article-category-link" href="/categories/React-Native/">React Native</a>
+  </span>
+
+
+
+      
+
+      
+      <i class="fa fa-eye"></i> 
+        <span id="busuanzi_container_page_pv">
+           &nbsp热度 <span id="busuanzi_value_page_pv">
+           <i class="fa fa-spinner fa-spin"></i></span>℃
+        </span>
+      
+
+      
+        <i class="icon-comment"></i> 
+        共 <a class="ds-thread-count" id="uyan_count_unit" su="RN（react native）入坑指南-08,如何加载远程数据" href="http://pkaq.org/2016/04/20/rn-fetch-08/index.html"></a>
+      
+      
+    </div>
+  </header>
+
+  <div class="article-content">
+    
+      <h4><span id="qian-yan">前言</span><a href="#qian-yan" class="header-anchor">#</a></h4><p>　　通过前面的一系列联系现在页面布局技巧已经掌握,页面跳转已经搞定,页面之间的参数传递也已经搞定,我们的代码也进行了分层组织,但我们的应用到现在为止都是死的.如何让应用活起来读取远程数据呢.此篇我们便是用fetch来拉去远程数据<br>　　当然如果你想了解更多方式和内容欢迎<a href="http://reactnative.cn/docs/0.23/network.html#content" target="_blank" rel="external">阅读官方文档</a></p>
+<h4><span id="kai-shi">开始</span><a href="#kai-shi" class="header-anchor">#</a></h4><a id="more"></a>
+<p>fetch可以接受两个参数,<code>fetch(string,object)</code>,第一个参数是请求的远程地址;第二个参数是一个可选对象可以设定header,method,body等</p>
+<p>现在在我们的代码中添加如下代码<br><figure class="highlight less"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line"><span class="selector-tag">_onRegister</span>()&#123;    </div><div class="line">   <span class="selector-tag">fetch</span>(<span class="string">'http://192.168.191.1:8080/home/register'</span>, &#123;</div><div class="line">      <span class="comment">//请求类型 </span></div><div class="line">      <span class="attribute">method</span>: <span class="string">'POST'</span>,      </div><div class="line">      <span class="comment">//请求header</span></div><div class="line">      <span class="attribute">headers</span>: &#123;</div><div class="line">        <span class="string">'Accept'</span>: <span class="string">'application/json'</span>,</div><div class="line">        <span class="string">'Content-Type'</span>: <span class="string">'application/json'</span>,</div><div class="line">      &#125;,</div><div class="line">      <span class="comment">// 发送请求参数</span></div><div class="line">      <span class="attribute">body</span>: JSON.stringify(&#123;</div><div class="line">        <span class="attribute">name</span>: <span class="string">'tom'</span>        </div><div class="line">      &#125;)</div><div class="line">    &#125;)<span class="selector-class">.then</span>((response) =&gt; response.json())</div><div class="line">      <span class="selector-class">.then</span>((jsonData) =&gt; &#123;</div><div class="line">        <span class="comment">// 回写数据</span></div><div class="line">        <span class="selector-tag">this</span><span class="selector-class">.setState</span>(&#123;</div><div class="line">          <span class="attribute">text </span>: jsonData.text</div><div class="line">        &#125;);</div><div class="line">      &#125;)</div><div class="line">      <span class="selector-class">.catch</span>((error) =&gt; &#123;</div><div class="line">         <span class="selector-tag">this</span><span class="selector-class">.setState</span>(&#123;</div><div class="line">          <span class="attribute">text </span>: <span class="string">'获取服务器数据错误'</span></div><div class="line">        &#125;);</div><div class="line">      &#125;);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>放置一个区域来显示数据文本并且在注册按钮上添加一个点击事件,这样点击的时候就可以看到数据变化了<br><figure class="highlight dust"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="xml"><span class="tag">&lt;<span class="name">Text</span> <span class="attr">style</span>=</span></span><span class="template-variable">&#123;styles.welcome&#125;</span><span class="xml"><span class="tag">&gt;</span></span></div><div class="line"><span class="xml">  </span><span class="template-variable">&#123;this.state.text&#125;</span><span class="xml"></span></div><div class="line"><span class="xml"><span class="tag">&lt;/<span class="name">Text</span>&gt;</span>  </span></div><div class="line"><span class="xml"></span></div><div class="line"><span class="xml"><span class="tag">&lt;<span class="name">TouchableHighlight</span></span></span></div><div class="line"><span class="xml">    style=</span><span class="template-variable">&#123;styles.th&#125;</span><span class="xml"></span></div><div class="line"><span class="xml">    underlayColor="rgb(210, 230, 255)"</span></div><div class="line"><span class="xml">    onPress=</span><span class="template-variable">&#123;this._onRegister.bind(this)&#125;</span><span class="xml">&gt;</span></div><div class="line"><span class="xml">    <span class="tag">&lt;<span class="name">Text</span>&gt;</span>注册<span class="tag">&lt;/<span class="name">Text</span>&gt;</span>               </span></div><div class="line"><span class="xml"><span class="tag">&lt;/<span class="name">TouchableHighlight</span>&gt;</span></span></div></pre></td></tr></table></figure></p>
+<link href="/css/prism-dark.css" rel="stylesheet">
+    
+  </div>
+</article>
+
+</div>
+
+
+  <div class="text-center donation">
+    <div class="inner-donation">
+      <span class="btn-donation">支持一下</span>
+      <div class="donation-body">
+        <div class="tip text-center">您得支持,是我前进的动力.</div>
+        <ul class="theme.donation.items.length">
+        
+          <li class="item">
+            <img src="/css/qr-donate.jpg" alt="">
+          </li>
+        
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+
+
+  <a id="backTop" class="back-top">
+    <i class="icon-angle-up"></i>
+  </a>
+
+
+
+
+  <div class="modal" id="modal">
+  <span id="cover" class="cover hide"></span>
+  <div id="modal-dialog" class="modal-dialog hide-dialog">
+    <div class="modal-header">
+      <span id="close" class="btn-close">关闭</span>
+    </div>
+    <hr>
+    <div class="modal-body">
+      <ul class="list-toolbox">
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/archives/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              博客
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/category/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              分类
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/tag/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              标签
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/link/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              友链
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/atom.xml"
+              rel="noopener noreferrer"
+              target="_blank"
+              >
+              RSS
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/search/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              搜索
+            </a>
+          </li>
+        
+      </ul>
+
+    </div>
+  </div>
+</div>
+
+
+
+  
+      <div class="fexo-comments comments-post">
+    
+
+    
+  <section class="duoshuo-comments">
+
+    <!-- UY BEGIN -->
+    <div id="uyan_frame"></div>
+    <script async type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid=2144561">
+    <!-- UY END -->
+  </section>
+
+  <script type="text/javascript">
+	var uyan_config = {
+	     'su':"RN（react native）入坑指南-08,如何加载远程数据" 
+	};
+	</script>
+
+
+
+  </div>
+
+  
+
+  <script type="text/javascript">
+  function loadScript(url, callback) {
+    var script = document.createElement('script')
+    script.type = 'text/javascript';
+
+    if (script.readyState) { //IE
+      script.onreadystatechange = function() {
+        if (script.readyState == 'loaded' ||
+          script.readyState == 'complete') {
+          script.onreadystatechange = null;
+          callback();
+        }
+      };
+    } else { //Others
+      script.onload = function() {
+        callback();
+      };
+    }
+
+    script.src = url;
+    document.getElementsByTagName('head')[0].appendChild(script);
+  }
+
+  window.onload = function() {
+    loadScript('/js/bundle.js?235683', function() {
+      // load success
+    });
+  }
+</script>
+
+</body>
+</html>

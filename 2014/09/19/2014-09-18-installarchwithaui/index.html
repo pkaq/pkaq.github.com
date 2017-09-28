@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+
+
+  <html class="dark page-post">
+
+
+<head>
+  <meta charset="utf-8">
+  
+  <title>installarchwithaui | 如是我闻</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="Arch," />
+  
+
+  <meta name="description" content="最近在Github上发现一Arch脚本,可以极大简化Arch安装,今日已在实体机亲测,非常好使 archlinux安装脚本   先决条件# 1.网络畅通 2.以root用户登陆 如何获取#采用Git方式获取#•安装Git12345678910111213141516	pacman -Sy git  ```  •获取脚本```shell  	git clone git://github.com/he">
+<meta name="keywords" content="Arch">
+<meta property="og:type" content="article">
+<meta property="og:title" content="installarchwithaui">
+<meta property="og:url" content="http://pkaq.org/2014/09/19/2014-09-18-installarchwithaui/index.html">
+<meta property="og:site_name" content="如是我闻">
+<meta property="og:description" content="最近在Github上发现一Arch脚本,可以极大简化Arch安装,今日已在实体机亲测,非常好使 archlinux安装脚本   先决条件# 1.网络畅通 2.以root用户登陆 如何获取#采用Git方式获取#•安装Git12345678910111213141516	pacman -Sy git  ```  •获取脚本```shell  	git clone git://github.com/he">
+<meta property="og:updated_time" content="2016-09-01T08:34:13.992Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="installarchwithaui">
+<meta name="twitter:description" content="最近在Github上发现一Arch脚本,可以极大简化Arch安装,今日已在实体机亲测,非常好使 archlinux安装脚本   先决条件# 1.网络畅通 2.以root用户登陆 如何获取#采用Git方式获取#•安装Git12345678910111213141516	pacman -Sy git  ```  •获取脚本```shell  	git clone git://github.com/he">
+
+  
+
+  
+    <link rel="icon" href="/favicon.ico">
+  
+
+  <link href="/css/styles.css?v=d671a41f" rel="stylesheet">
+
+
+  
+    <link rel="stylesheet" href="/css/fexo-theme.css">
+  
+
+  
+
+  
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?cd1f06c6f057506d537ab11e9f1693be";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+  
+    <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  
+
+  
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  
+
+  <link href='//cdn.webfont.youziku.com/webfonts/nomal/97080/42410/5865c4e5f629db00cc915895.css' rel='stylesheet' type='text/css' />
+ 
+</head>
+
+<body>
+
+
+  
+    <span id="toolbox-mobile" class="toolbox-mobile">　</span>
+  
+
+  <div class="post-header CENTER">
+   
+  <div class="toolbox">
+    <a class="toolbox-entry" href="/">
+      <span class="toolbox-entry-text">　</span>
+      <i class="icon-angle-down"></i>
+      <i class="icon-home"></i>
+    </a>
+    <ul class="list-toolbox">
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE toolbox_color_0"
+            href="/archives/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            博客
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE toolbox_color_1"
+            href="/category/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            分类
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE toolbox_color_2"
+            href="/tag/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            标签
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE toolbox_color_3"
+            href="/link/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            友链
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE toolbox_color_4"
+            href="/atom.xml"
+            rel="noopener noreferrer"
+            target="_blank"
+            >
+            RSS
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE toolbox_color_5"
+            href="/search/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+</div>
+
+
+  <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-text">先决条件#</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-text">如何获取#</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-text">采用Git方式获取#</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-text">如何使用#</span></a></li></ol>
+  </div>
+
+
+
+<div class="content content-post CENTER">
+   <article id="post-2014-09-18-installarchwithaui" class="article article-type-post" itemprop="blogPost">
+  <header class="article-header">
+    <h1 class="post-title">installarchwithaui</h1>
+
+    <div class="article-meta">
+      <span>
+        <i class="icon-calendar"></i>
+        <span>2014.09.19</span>
+      </span>
+
+      
+        <span class="article-author">
+          <i class="icon-user"></i>
+          <span>PKAQ</span>
+        </span>
+      
+
+      
+  <span class="article-category">
+    <i class="icon-list"></i>
+    <a class="article-category-link" href="/categories/archlinux/">archlinux</a>
+  </span>
+
+
+
+      
+
+      
+      <i class="fa fa-eye"></i> 
+        <span id="busuanzi_container_page_pv">
+           &nbsp热度 <span id="busuanzi_value_page_pv">
+           <i class="fa fa-spinner fa-spin"></i></span>℃
+        </span>
+      
+
+      
+        <i class="icon-comment"></i> 
+        共 <a class="ds-thread-count" id="uyan_count_unit" su="installarchwithaui" href="http://pkaq.org/2014/09/19/2014-09-18-installarchwithaui/index.html"></a>
+      
+      
+    </div>
+  </header>
+
+  <div class="article-content">
+    
+      <p>最近在Github上发现一Arch脚本,可以极大简化Arch安装,今日已在实体机亲测,非常好使<br> <a href="https://github.com/helmuthdu/aui" target="_blank" rel="external">archlinux安装脚本</a>  </p>
+<h2><span id="xian-jue-tiao-jian">先决条件</span><a href="#xian-jue-tiao-jian" class="header-anchor">#</a></h2><p> 1.网络畅通<br> 2.以root用户登陆</p>
+<h2><span id="ru-he-huo-qu">如何获取</span><a href="#ru-he-huo-qu" class="header-anchor">#</a></h2><h3><span id="cai-yong-git-fang-shi-huo-qu">采用Git方式获取</span><a href="#cai-yong-git-fang-shi-huo-qu" class="header-anchor">#</a></h3><p>•安装Git<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">	pacman -Sy git  </div><div class="line">```  </div><div class="line">•获取脚本</div><div class="line">```shell  </div><div class="line">	git clone git://github.com/helmuthdu/aui   </div><div class="line">```  </div><div class="line"></div><div class="line"></div><div class="line"><span class="meta">#</span>## 采用非Git方式</div><div class="line"></div><div class="line">```shell  </div><div class="line">	wget --no-check-certificate https://github.com/helmuthdu/aui/tarball/master -O - | tar xz  </div><div class="line">```  </div><div class="line">或者采用短地址</div><div class="line">```shell  </div><div class="line">	wget --no-check-certificate http://bit.ly/NoUPC6 -O - | tar xz</div></pre></td></tr></table></figure></p>
+<p>或者采用更短的:)<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">wget ow.ly/wnFgh -o aui.zip</div></pre></td></tr></table></figure></p>
+<h2><span id="ru-he-shi-yong">如何使用</span><a href="#ru-he-shi-yong" class="header-anchor">#</a></h2><p>切换到脚本所在目录执行./fifo或者./lilo然后按提示步骤操作即可,关于两个脚本的区别请参阅github介绍.这里不再翻译.~~:},<br>如果采用fifo脚本安装可以再安装完成后自行安装图形界面等,具体可参考<a href="/2014/06/19/installarch">拥抱Arch Linux-安装配置小记</a><br>•FIFO [system base]:  cd <dir> &amp;&amp; ./fifo<br>•LILO [the rest…]:  cd <dir> &amp;&amp; ./lilo</dir></dir></p>
+<link href="/css/prism-dark.css" rel="stylesheet">
+    
+  </div>
+</article>
+
+</div>
+
+
+  <div class="text-center donation">
+    <div class="inner-donation">
+      <span class="btn-donation">支持一下</span>
+      <div class="donation-body">
+        <div class="tip text-center">您得支持,是我前进的动力.</div>
+        <ul class="theme.donation.items.length">
+        
+          <li class="item">
+            <img src="/css/qr-donate.jpg" alt="">
+          </li>
+        
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+
+
+  <a id="backTop" class="back-top">
+    <i class="icon-angle-up"></i>
+  </a>
+
+
+
+
+  <div class="modal" id="modal">
+  <span id="cover" class="cover hide"></span>
+  <div id="modal-dialog" class="modal-dialog hide-dialog">
+    <div class="modal-header">
+      <span id="close" class="btn-close">关闭</span>
+    </div>
+    <hr>
+    <div class="modal-body">
+      <ul class="list-toolbox">
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/archives/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              博客
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/category/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              分类
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/tag/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              标签
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/link/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              友链
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/atom.xml"
+              rel="noopener noreferrer"
+              target="_blank"
+              >
+              RSS
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/search/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              搜索
+            </a>
+          </li>
+        
+      </ul>
+
+    </div>
+  </div>
+</div>
+
+
+
+  
+      <div class="fexo-comments comments-post">
+    
+
+    
+  <section class="duoshuo-comments">
+
+    <!-- UY BEGIN -->
+    <div id="uyan_frame"></div>
+    <script async type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid=2144561">
+    <!-- UY END -->
+  </section>
+
+  <script type="text/javascript">
+	var uyan_config = {
+	     'su':"installarchwithaui" 
+	};
+	</script>
+
+
+
+  </div>
+
+  
+
+  <script type="text/javascript">
+  function loadScript(url, callback) {
+    var script = document.createElement('script')
+    script.type = 'text/javascript';
+
+    if (script.readyState) { //IE
+      script.onreadystatechange = function() {
+        if (script.readyState == 'loaded' ||
+          script.readyState == 'complete') {
+          script.onreadystatechange = null;
+          callback();
+        }
+      };
+    } else { //Others
+      script.onload = function() {
+        callback();
+      };
+    }
+
+    script.src = url;
+    document.getElementsByTagName('head')[0].appendChild(script);
+  }
+
+  window.onload = function() {
+    loadScript('/js/bundle.js?235683', function() {
+      // load success
+    });
+  }
+</script>
+
+</body>
+</html>

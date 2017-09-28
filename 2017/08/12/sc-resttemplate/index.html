@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+
+
+  <html class="dark page-post">
+
+
+<head>
+  <meta charset="utf-8">
+  
+  <title>Spring Cloud 之服务治理 - Eureka服务发现-消费者(RestTemplate) | 如是我闻</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="Spring Cloud,微服务," />
+  
+
+  <meta name="description" content="本部分需要依赖之前的配置中心和服务注册中心、服务提供者三个示例代码运行 三种方式  RestTemplate Ribbon Feign  下面描述的是通过RestTemplate的方式进行服务调用">
+<meta name="keywords" content="Spring Cloud,微服务">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Spring Cloud 之服务治理 - Eureka服务发现-消费者(RestTemplate)">
+<meta property="og:url" content="http://pkaq.org/2017/08/12/sc-resttemplate/index.html">
+<meta property="og:site_name" content="如是我闻">
+<meta property="og:description" content="本部分需要依赖之前的配置中心和服务注册中心、服务提供者三个示例代码运行 三种方式  RestTemplate Ribbon Feign  下面描述的是通过RestTemplate的方式进行服务调用">
+<meta property="og:updated_time" content="2017-09-12T09:27:38.432Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Spring Cloud 之服务治理 - Eureka服务发现-消费者(RestTemplate)">
+<meta name="twitter:description" content="本部分需要依赖之前的配置中心和服务注册中心、服务提供者三个示例代码运行 三种方式  RestTemplate Ribbon Feign  下面描述的是通过RestTemplate的方式进行服务调用">
+
+  
+
+  
+    <link rel="icon" href="/favicon.ico">
+  
+
+  <link href="/css/styles.css?v=d671a41f" rel="stylesheet">
+
+
+  
+    <link rel="stylesheet" href="/css/fexo-theme.css">
+  
+
+  
+
+  
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?cd1f06c6f057506d537ab11e9f1693be";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+  
+    <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  
+
+  
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  
+
+  <link href='//cdn.webfont.youziku.com/webfonts/nomal/97080/42410/5865c4e5f629db00cc915895.css' rel='stylesheet' type='text/css' />
+ 
+</head>
+
+<body>
+
+
+  
+    <span id="toolbox-mobile" class="toolbox-mobile">　</span>
+  
+
+  <div class="post-header CENTER">
+   
+  <div class="toolbox">
+    <a class="toolbox-entry" href="/">
+      <span class="toolbox-entry-text">　</span>
+      <i class="icon-angle-down"></i>
+      <i class="icon-home"></i>
+    </a>
+    <ul class="list-toolbox">
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE toolbox_color_0"
+            href="/archives/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            博客
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE toolbox_color_1"
+            href="/category/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            分类
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE toolbox_color_2"
+            href="/tag/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            标签
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE toolbox_color_3"
+            href="/link/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            友链
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE toolbox_color_4"
+            href="/atom.xml"
+            rel="noopener noreferrer"
+            target="_blank"
+            >
+            RSS
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE toolbox_color_5"
+            href="/search/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+</div>
+
+
+
+
+<div class="content content-post CENTER">
+   <article id="post-sc-resttemplate" class="article article-type-post" itemprop="blogPost">
+  <header class="article-header">
+    <h1 class="post-title">Spring Cloud 之服务治理 - Eureka服务发现-消费者(RestTemplate)</h1>
+
+    <div class="article-meta">
+      <span>
+        <i class="icon-calendar"></i>
+        <span>2017.08.12</span>
+      </span>
+
+      
+        <span class="article-author">
+          <i class="icon-user"></i>
+          <span>PKAQ</span>
+        </span>
+      
+
+      
+  <span class="article-category">
+    <i class="icon-list"></i>
+    <a class="article-category-link" href="/categories/微服务/">微服务</a>
+  </span>
+
+
+
+      
+
+      
+      <i class="fa fa-eye"></i> 
+        <span id="busuanzi_container_page_pv">
+           &nbsp热度 <span id="busuanzi_value_page_pv">
+           <i class="fa fa-spinner fa-spin"></i></span>℃
+        </span>
+      
+
+      
+        <i class="icon-comment"></i> 
+        共 <a class="ds-thread-count" id="uyan_count_unit" su="Spring Cloud 之服务治理 - Eureka服务发现-消费者(RestTemplate)" href="http://pkaq.org/2017/08/12/sc-resttemplate/index.html"></a>
+      
+      
+    </div>
+  </header>
+
+  <div class="article-content">
+    
+      <p>本部分需要依赖之前的<a href="https://github.com/pkaq/springcloud7/tree/master/cloud-config-server" target="_blank" rel="external">配置中心</a>和<a href="https://github.com/pkaq/springcloud7/tree/master/cloud-eureka-server-simple" target="_blank" rel="external">服务注册中心</a>、<a href="https://github.com/pkaq/springcloud7/tree/master/cloud-config-client" target="_blank" rel="external">服务提供者</a>三个示例代码运行</p>
+<p>三种方式</p>
+<ul>
+<li>RestTemplate</li>
+<li>Ribbon</li>
+<li>Feign</li>
+</ul>
+<p>下面描述的是通过<code>RestTemplate</code>的方式进行服务调用<br><a id="more"></a></p>
+<ul>
+<li><p>RestTemplate<br>　　RestTemplate是Spring提供的用于访问Rest服务的客户端，RestTemplate提供了多种便捷访问远程Http服务的方法，能够大大提高客户端的编写效率<br> 1.引入依赖</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">compile <span class="string">"org.springframework.cloud:spring-cloud-starter-eureka:$&#123;cloud_config&#125;"</span></div></pre></td></tr></table></figure>
+<p> 2.稍作配置<br>  在<code>bootstrap.yaml</code>中加入<code>Eureka server</code>相关配置</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="attr">spring:</span></div><div class="line"><span class="attr">    cloud:</span></div><div class="line"><span class="attr">        config:</span></div><div class="line"><span class="attr">            uri:</span> <span class="attr">http://localhost:8888</span></div><div class="line"><span class="attr">                profile:</span> <span class="string">rabbit</span></div><div class="line"><span class="attr">                name:</span> <span class="string">appliaction</span></div><div class="line"><span class="attr">                username:</span> <span class="string">pkaq</span></div><div class="line"><span class="attr">                password:</span> <span class="string">pkaqx</span></div></pre></td></tr></table></figure>
+<p> 3.添加注解</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@EnableEurekaClient</span></div></pre></td></tr></table></figure>
+<p> 4.来点代码</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@SpringBootApplication</span></div><div class="line"><span class="meta">@EnableEurekaClient</span></div><div class="line">open class RabbitClientBooter: CommandLineRunner&#123;</div><div class="line">   <span class="comment">//spring默认已注入RestTemplateBuilder实例</span></div><div class="line">    <span class="meta">@Autowired</span></div><div class="line">    val builder: RestTemplateBuilder? = <span class="keyword">null</span></div><div class="line">    </div><div class="line">    <span class="comment">// 实例化restTemplate</span></div><div class="line">    <span class="meta">@Bean</span></div><div class="line">    <span class="function">open fun <span class="title">restTemplate</span><span class="params">()</span>: RestTemplate </span>&#123;</div><div class="line">        <span class="keyword">return</span> builder!!.build()</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Throws</span>(Exception::<span class="class"><span class="keyword">class</span>)</span></div><div class="line">    override fun run(vararg args: String) &#123;</div><div class="line">        println(<span class="string">"  --- --- --- [ Rabbit client started ] --- --- ---  "</span>)</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function">fun <span class="title">main</span><span class="params">(args: Array&lt;String&gt;)</span> </span>&#123;</div><div class="line">    org.springframework.boot.SpringApplication.run(org.pkaq.RabbitClientBooter::<span class="class"><span class="keyword">class</span>.<span class="title">java</span>, *<span class="title">args</span>)</span></div><div class="line"><span class="class">&#125;</span></div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>Controller代码<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@RestController</span></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">RabbitController</span> </span>&#123;</div><div class="line"></div><div class="line"><span class="meta">@Autowired</span></div><div class="line">var loadBalancerClient: LoadBalancerClient? = <span class="keyword">null</span>;</div><div class="line"></div><div class="line"><span class="meta">@Autowired</span></div><div class="line">var restTemplate: RestTemplate? = <span class="keyword">null</span></div><div class="line"></div><div class="line"><span class="meta">@RequestMapping</span>(<span class="string">"/jump"</span>)</div><div class="line">    <span class="function">fun <span class="title">say</span><span class="params">()</span>: String </span>&#123;</div><div class="line">        <span class="comment">// 这里配置要调用发的服务提供者的spring.</span></div><div class="line">        val microServiceNode = <span class="string">"tiger"</span></div><div class="line">        val serviceName = <span class="string">"say"</span></div><div class="line">        val serviceInstance  = loadBalancerClient!!.choose(microServiceNode)</div><div class="line">        </div><div class="line">        val url = <span class="string">"http://"</span>+serviceInstance.host+<span class="string">":"</span>+serviceInstance.port+<span class="string">"/"</span>+serviceName</div><div class="line">        </div><div class="line">        return restTemplate!!.getForObject(url, String::class.java)+" - &gt; Rabbit"</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>可以看到 采用这种方式 比较繁琐,其中拼接url的部分代码会产生大量重复,或许你第一反应会是封装一下,但好在已经有了足够多的现成轮子可以使用<br>   5.启动服务,大功告成</p>
+<link href="/css/prism-dark.css" rel="stylesheet">
+    
+  </div>
+</article>
+
+</div>
+
+
+  <div class="text-center donation">
+    <div class="inner-donation">
+      <span class="btn-donation">支持一下</span>
+      <div class="donation-body">
+        <div class="tip text-center">您得支持,是我前进的动力.</div>
+        <ul class="theme.donation.items.length">
+        
+          <li class="item">
+            <img src="/css/qr-donate.jpg" alt="">
+          </li>
+        
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+
+
+  <a id="backTop" class="back-top">
+    <i class="icon-angle-up"></i>
+  </a>
+
+
+
+
+  <div class="modal" id="modal">
+  <span id="cover" class="cover hide"></span>
+  <div id="modal-dialog" class="modal-dialog hide-dialog">
+    <div class="modal-header">
+      <span id="close" class="btn-close">关闭</span>
+    </div>
+    <hr>
+    <div class="modal-body">
+      <ul class="list-toolbox">
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/archives/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              博客
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/category/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              分类
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/tag/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              标签
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/link/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              友链
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/atom.xml"
+              rel="noopener noreferrer"
+              target="_blank"
+              >
+              RSS
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/search/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              搜索
+            </a>
+          </li>
+        
+      </ul>
+
+    </div>
+  </div>
+</div>
+
+
+
+  
+      <div class="fexo-comments comments-post">
+    
+
+    
+  <section class="duoshuo-comments">
+
+    <!-- UY BEGIN -->
+    <div id="uyan_frame"></div>
+    <script async type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid=2144561">
+    <!-- UY END -->
+  </section>
+
+  <script type="text/javascript">
+	var uyan_config = {
+	     'su':"Spring Cloud 之服务治理 - Eureka服务发现-消费者(RestTemplate)" 
+	};
+	</script>
+
+
+
+  </div>
+
+  
+
+  <script type="text/javascript">
+  function loadScript(url, callback) {
+    var script = document.createElement('script')
+    script.type = 'text/javascript';
+
+    if (script.readyState) { //IE
+      script.onreadystatechange = function() {
+        if (script.readyState == 'loaded' ||
+          script.readyState == 'complete') {
+          script.onreadystatechange = null;
+          callback();
+        }
+      };
+    } else { //Others
+      script.onload = function() {
+        callback();
+      };
+    }
+
+    script.src = url;
+    document.getElementsByTagName('head')[0].appendChild(script);
+  }
+
+  window.onload = function() {
+    loadScript('/js/bundle.js?235683', function() {
+      // load success
+    });
+  }
+</script>
+
+</body>
+</html>

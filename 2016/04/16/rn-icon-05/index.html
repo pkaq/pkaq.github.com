@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+
+
+  <html class="dark page-post">
+
+
+<head>
+  <meta charset="utf-8">
+  
+  <title>RN（react native）入坑指南-05,使用图标字体Fontawesome | 如是我闻</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="React Native," />
+  
+
+  <meta name="description" content="先决条件 rn 0.23 npm 3.7.3 node 5.9.1 system winX python 2.7.x  前言　　开发过程中各式各样的图标自然少不了,如果能使用fontawesome等图标字体,自然可以带来极大的方便,然而在rn中并无法直接引用,还好已经有人做好了相关组件,react-native-vector-icons便是其中的佼佼者.　　如果你对此组件感兴趣可以去github页">
+<meta name="keywords" content="React Native">
+<meta property="og:type" content="article">
+<meta property="og:title" content="RN（react native）入坑指南-05,使用图标字体Fontawesome">
+<meta property="og:url" content="http://pkaq.org/2016/04/16/rn-icon-05/index.html">
+<meta property="og:site_name" content="如是我闻">
+<meta property="og:description" content="先决条件 rn 0.23 npm 3.7.3 node 5.9.1 system winX python 2.7.x  前言　　开发过程中各式各样的图标自然少不了,如果能使用fontawesome等图标字体,自然可以带来极大的方便,然而在rn中并无法直接引用,还好已经有人做好了相关组件,react-native-vector-icons便是其中的佼佼者.　　如果你对此组件感兴趣可以去github页">
+<meta property="og:updated_time" content="2016-09-01T09:26:44.078Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="RN（react native）入坑指南-05,使用图标字体Fontawesome">
+<meta name="twitter:description" content="先决条件 rn 0.23 npm 3.7.3 node 5.9.1 system winX python 2.7.x  前言　　开发过程中各式各样的图标自然少不了,如果能使用fontawesome等图标字体,自然可以带来极大的方便,然而在rn中并无法直接引用,还好已经有人做好了相关组件,react-native-vector-icons便是其中的佼佼者.　　如果你对此组件感兴趣可以去github页">
+
+  
+
+  
+    <link rel="icon" href="/favicon.ico">
+  
+
+  <link href="/css/styles.css?v=d671a41f" rel="stylesheet">
+
+
+  
+    <link rel="stylesheet" href="/css/fexo-theme.css">
+  
+
+  
+
+  
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?cd1f06c6f057506d537ab11e9f1693be";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+  
+    <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  
+
+  
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  
+
+  <link href='//cdn.webfont.youziku.com/webfonts/nomal/97080/42410/5865c4e5f629db00cc915895.css' rel='stylesheet' type='text/css' />
+ 
+</head>
+
+<body>
+
+
+  
+    <span id="toolbox-mobile" class="toolbox-mobile">　</span>
+  
+
+  <div class="post-header CENTER">
+   
+  <div class="toolbox">
+    <a class="toolbox-entry" href="/">
+      <span class="toolbox-entry-text">　</span>
+      <i class="icon-angle-down"></i>
+      <i class="icon-home"></i>
+    </a>
+    <ul class="list-toolbox">
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE toolbox_color_0"
+            href="/archives/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            博客
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE toolbox_color_1"
+            href="/category/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            分类
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE toolbox_color_2"
+            href="/tag/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            标签
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE toolbox_color_3"
+            href="/link/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            友链
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE toolbox_color_4"
+            href="/atom.xml"
+            rel="noopener noreferrer"
+            target="_blank"
+            >
+            RSS
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE toolbox_color_5"
+            href="/search/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+</div>
+
+
+  <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-text">先决条件#</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-text">前言#</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-text">安装#</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-text">使用#</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-text">备注#</span></a></li></ol>
+  </div>
+
+
+
+<div class="content content-post CENTER">
+   <article id="post-rn-icon-05" class="article article-type-post" itemprop="blogPost">
+  <header class="article-header">
+    <h1 class="post-title">RN（react native）入坑指南-05,使用图标字体Fontawesome</h1>
+
+    <div class="article-meta">
+      <span>
+        <i class="icon-calendar"></i>
+        <span>2016.04.16</span>
+      </span>
+
+      
+        <span class="article-author">
+          <i class="icon-user"></i>
+          <span>PKAQ</span>
+        </span>
+      
+
+      
+  <span class="article-category">
+    <i class="icon-list"></i>
+    <a class="article-category-link" href="/categories/React-Native/">React Native</a>
+  </span>
+
+
+
+      
+
+      
+      <i class="fa fa-eye"></i> 
+        <span id="busuanzi_container_page_pv">
+           &nbsp热度 <span id="busuanzi_value_page_pv">
+           <i class="fa fa-spinner fa-spin"></i></span>℃
+        </span>
+      
+
+      
+        <i class="icon-comment"></i> 
+        共 <a class="ds-thread-count" id="uyan_count_unit" su="RN（react native）入坑指南-05,使用图标字体Fontawesome" href="http://pkaq.org/2016/04/16/rn-icon-05/index.html"></a>
+      
+      
+    </div>
+  </header>
+
+  <div class="article-content">
+    
+      <h4><span id="xian-jue-tiao-jian">先决条件</span><a href="#xian-jue-tiao-jian" class="header-anchor">#</a></h4><ul>
+<li>rn 0.23</li>
+<li>npm 3.7.3</li>
+<li>node 5.9.1</li>
+<li>system winX</li>
+<li>python 2.7.x</li>
+</ul>
+<h4><span id="qian-yan">前言</span><a href="#qian-yan" class="header-anchor">#</a></h4><p>　　开发过程中各式各样的图标自然少不了,如果能使用fontawesome等图标字体,自然可以带来极大的方便,然而在rn中并无法直接引用,还好已经有人做好了相关组件,react-native-vector-icons便是其中的佼佼者.<br>　　如果你对此组件感兴趣可以去github页面star此项目<br>　　<a href="https://github.com/oblador/react-native-vector-icons" target="_blank" rel="external">https://github.com/oblador/react-native-vector-icons</a>   </p>
+<a id="more"></a>
+<h4><span id="an-zhuang">安装</span><a href="#an-zhuang" class="header-anchor">#</a></h4><p>　　官方README如何使用已经写得很详细,此处需要指出的是几个注意点.<br>　　由于安装时依赖node-gyp,而node-gyp在win下又会有一堆依赖这里以winX为例说一下winX下需要安装的依赖   </p>
+<p>　　1.<a href="https://www.python.org/downloads/" target="_blank" rel="external">python环境</a>:截止博客发表时仅支持到2.7.X版本,如果是下载的zip包需要将python路径添加到环境变量中   </p>
+<p>　　2.vs c++:为了方便 我直接安装了<a href="https://www.visualstudio.com/en-us/downloads/download-visual-studio-vs.aspx" target="_blank" rel="external">Microsoft Visual Studio Express</a><br>npm install react-native-vector-icons –save   </p>
+<p>　　3.<a href="https://github.com/rnpm/rnpm" target="_blank" rel="external">rnpm</a>:<code>npm install rnpm -g</code></p>
+<h4><span id="shi-yong">使用</span><a href="#shi-yong" class="header-anchor">#</a></h4><p>确保以上三点没问题后,可以通过如下命令安装本组件<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">npm install react-native-vector-icons --save</div></pre></td></tr></table></figure></p>
+<p>由于我是开发android App,所以依据官方文档继续执行<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">rnpm link</div></pre></td></tr></table></figure></p>
+<p>在所需使用图标的地方,这里采用的是es6的写法,es5的写法也是可以的<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">import Icon from 'react-native-vector-icons/FontAwesome';</div></pre></td></tr></table></figure></p>
+<p>使用组件<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;Icon name=<span class="string">"qq"</span> size=&#123;<span class="number">30</span>&#125; color=<span class="string">"#52C0FE"</span>/&gt;</div></pre></td></tr></table></figure></p>
+<h4><span id="bei-zhu">备注</span><a href="#bei-zhu" class="header-anchor">#</a></h4><p><strong>参数说明</strong>   </p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>类型</th>
+<th>默认值</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>name</td>
+<td>String</td>
+<td>无</td>
+<td>图标名称,这里需要注意的是 如果你使用font-awesome的图标,例如qq仅写qq即可,无需写fa fa-qq</td>
+</tr>
+<tr>
+<td>size</td>
+<td>数值</td>
+<td>12</td>
+<td>图标的大小</td>
+</tr>
+<tr>
+<td>color</td>
+<td><a href="http://reactnative.cn/docs/0.23/colors.html#content" target="_blank" rel="external">rn支持的颜色格式</a></td>
+<td>自动继承</td>
+<td>图标的颜色</td>
+</tr>
+</tbody>
+</table>
+<p><strong>支持的图标</strong>    </p>
+<ul>
+<li><a href="http://entypo.com" target="_blank" rel="external"><code>Entypo</code></a> by Daniel Bruce (<strong>411</strong> icons) </li>
+<li><a href="http://evil-icons.io" target="_blank" rel="external"><code>EvilIcons</code></a> by Alexander Madyankin &amp; Roman Shamin (v1.8.0, <strong>71</strong> icons) </li>
+<li><a href="http://fortawesome.github.io/Font-Awesome/icons/" target="_blank" rel="external"><code>FontAwesome</code></a> by Dave Gandy (v4.5, <strong>605</strong> icons) </li>
+<li><a href="http://zurb.com/playground/foundation-icon-fonts-3" target="_blank" rel="external"><code>Foundation</code></a> by ZURB, Inc. (v3.0, <strong>283</strong> icons)</li>
+<li><a href="http://ionicons.com/" target="_blank" rel="external"><code>Ionicons</code></a> by Ben Sperry (v2.0.1, <strong>733</strong> icons)</li>
+<li><a href="https://www.google.com/design/icons/" target="_blank" rel="external"><code>MaterialIcons</code></a> by Google, Inc. (v2.1.1, <strong>893</strong> icons)</li>
+<li><a href="http://octicons.github.com" target="_blank" rel="external"><code>Octicons</code></a> by Github, Inc. (v3.5.0, <strong>196</strong> icons)</li>
+<li><a href="http://zocial.smcllns.com/" target="_blank" rel="external"><code>Zocial</code></a> by Sam Collins (v1.0, <strong>100</strong> icons)</li>
+</ul>
+<p><strong>错误记录</strong><br>未正确安装python会出现<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">-gyp ERR! configure error </div><div class="line">gyp ERR! stack Error: Can't find Python executable "python", you can set the PYTHON env variable.</div><div class="line">gyp ERR! stack  </div><div class="line">```   </div><div class="line"></div><div class="line">未正确安装vs c++会出现</div><div class="line">```shell</div><div class="line">未能加载Visual C++ 组件VCBuild.exe ”，要求安装.NET FramMS Build 、.NET Framework 2.0 SDK 、 Microsoft Visual Studio 2005。</div></pre></td></tr></table></figure></p>
+<link href="/css/prism-dark.css" rel="stylesheet">
+    
+  </div>
+</article>
+
+</div>
+
+
+  <div class="text-center donation">
+    <div class="inner-donation">
+      <span class="btn-donation">支持一下</span>
+      <div class="donation-body">
+        <div class="tip text-center">您得支持,是我前进的动力.</div>
+        <ul class="theme.donation.items.length">
+        
+          <li class="item">
+            <img src="/css/qr-donate.jpg" alt="">
+          </li>
+        
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+
+
+  <a id="backTop" class="back-top">
+    <i class="icon-angle-up"></i>
+  </a>
+
+
+
+
+  <div class="modal" id="modal">
+  <span id="cover" class="cover hide"></span>
+  <div id="modal-dialog" class="modal-dialog hide-dialog">
+    <div class="modal-header">
+      <span id="close" class="btn-close">关闭</span>
+    </div>
+    <hr>
+    <div class="modal-body">
+      <ul class="list-toolbox">
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/archives/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              博客
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/category/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              分类
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/tag/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              标签
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/link/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              友链
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/atom.xml"
+              rel="noopener noreferrer"
+              target="_blank"
+              >
+              RSS
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/search/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              搜索
+            </a>
+          </li>
+        
+      </ul>
+
+    </div>
+  </div>
+</div>
+
+
+
+  
+      <div class="fexo-comments comments-post">
+    
+
+    
+  <section class="duoshuo-comments">
+
+    <!-- UY BEGIN -->
+    <div id="uyan_frame"></div>
+    <script async type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid=2144561">
+    <!-- UY END -->
+  </section>
+
+  <script type="text/javascript">
+	var uyan_config = {
+	     'su':"RN（react native）入坑指南-05,使用图标字体Fontawesome" 
+	};
+	</script>
+
+
+
+  </div>
+
+  
+
+  <script type="text/javascript">
+  function loadScript(url, callback) {
+    var script = document.createElement('script')
+    script.type = 'text/javascript';
+
+    if (script.readyState) { //IE
+      script.onreadystatechange = function() {
+        if (script.readyState == 'loaded' ||
+          script.readyState == 'complete') {
+          script.onreadystatechange = null;
+          callback();
+        }
+      };
+    } else { //Others
+      script.onload = function() {
+        callback();
+      };
+    }
+
+    script.src = url;
+    document.getElementsByTagName('head')[0].appendChild(script);
+  }
+
+  window.onload = function() {
+    loadScript('/js/bundle.js?235683', function() {
+      // load success
+    });
+  }
+</script>
+
+</body>
+</html>

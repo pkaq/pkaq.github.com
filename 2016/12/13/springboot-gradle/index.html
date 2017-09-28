@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+
+
+  <html class="dark page-post">
+
+
+<head>
+  <meta charset="utf-8">
+  
+  <title>采用Gradle快速构建基于Spring boot的MVC应用 | 如是我闻</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="Gradle,Spring-boot," />
+  
+
+  <meta name="description" content="Spring boot是用以简化Spring配置开发的一枚框架，采用Spring boot可以抛弃繁琐的XML配置，采用JavaConfigure的方式进行快速配置。同时该框架提供了包含预配置的众多的starter可以极大的简化配置工作量。下面的代码便是采用web-starter和Gradle进行快速创建一个mvc应用的示例。">
+<meta name="keywords" content="Gradle,Spring-boot">
+<meta property="og:type" content="article">
+<meta property="og:title" content="采用Gradle快速构建基于Spring boot的MVC应用">
+<meta property="og:url" content="http://pkaq.org/2016/12/13/springboot-gradle/index.html">
+<meta property="og:site_name" content="如是我闻">
+<meta property="og:description" content="Spring boot是用以简化Spring配置开发的一枚框架，采用Spring boot可以抛弃繁琐的XML配置，采用JavaConfigure的方式进行快速配置。同时该框架提供了包含预配置的众多的starter可以极大的简化配置工作量。下面的代码便是采用web-starter和Gradle进行快速创建一个mvc应用的示例。">
+<meta property="og:image" content="http://pkaq.org/2016/12/13/springboot-gradle/structure.jpg">
+<meta property="og:updated_time" content="2017-08-11T07:26:19.266Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="采用Gradle快速构建基于Spring boot的MVC应用">
+<meta name="twitter:description" content="Spring boot是用以简化Spring配置开发的一枚框架，采用Spring boot可以抛弃繁琐的XML配置，采用JavaConfigure的方式进行快速配置。同时该框架提供了包含预配置的众多的starter可以极大的简化配置工作量。下面的代码便是采用web-starter和Gradle进行快速创建一个mvc应用的示例。">
+<meta name="twitter:image" content="http://pkaq.org/2016/12/13/springboot-gradle/structure.jpg">
+
+  
+
+  
+    <link rel="icon" href="/favicon.ico">
+  
+
+  <link href="/css/styles.css?v=d671a41f" rel="stylesheet">
+
+
+  
+    <link rel="stylesheet" href="/css/fexo-theme.css">
+  
+
+  
+
+  
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?cd1f06c6f057506d537ab11e9f1693be";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+  
+    <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  
+
+  
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  
+
+  <link href='//cdn.webfont.youziku.com/webfonts/nomal/97080/42410/5865c4e5f629db00cc915895.css' rel='stylesheet' type='text/css' />
+ 
+</head>
+
+<body>
+
+
+  
+    <span id="toolbox-mobile" class="toolbox-mobile">　</span>
+  
+
+  <div class="post-header CENTER">
+   
+  <div class="toolbox">
+    <a class="toolbox-entry" href="/">
+      <span class="toolbox-entry-text">　</span>
+      <i class="icon-angle-down"></i>
+      <i class="icon-home"></i>
+    </a>
+    <ul class="list-toolbox">
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE toolbox_color_0"
+            href="/archives/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            博客
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE toolbox_color_1"
+            href="/category/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            分类
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE toolbox_color_2"
+            href="/tag/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            标签
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE toolbox_color_3"
+            href="/link/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            友链
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE toolbox_color_4"
+            href="/atom.xml"
+            rel="noopener noreferrer"
+            target="_blank"
+            >
+            RSS
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE toolbox_color_5"
+            href="/search/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+</div>
+
+
+  <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-text">目录结构#</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-text">引入依赖#</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-text">个性化配置#</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-text">启动类配置#</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-text">一个示例controller#</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-text">view页面#</span></a></li></ol>
+  </div>
+
+
+
+<div class="content content-post CENTER">
+   <article id="post-springboot-gradle" class="article article-type-post" itemprop="blogPost">
+  <header class="article-header">
+    <h1 class="post-title">采用Gradle快速构建基于Spring boot的MVC应用</h1>
+
+    <div class="article-meta">
+      <span>
+        <i class="icon-calendar"></i>
+        <span>2016.12.13</span>
+      </span>
+
+      
+        <span class="article-author">
+          <i class="icon-user"></i>
+          <span>PKAQ</span>
+        </span>
+      
+
+      
+  <span class="article-category">
+    <i class="icon-list"></i>
+    <a class="article-category-link" href="/categories/spring-boot/">spring-boot</a>
+  </span>
+
+
+
+      
+
+      
+      <i class="fa fa-eye"></i> 
+        <span id="busuanzi_container_page_pv">
+           &nbsp热度 <span id="busuanzi_value_page_pv">
+           <i class="fa fa-spinner fa-spin"></i></span>℃
+        </span>
+      
+
+      
+        <i class="icon-comment"></i> 
+        共 <a class="ds-thread-count" id="uyan_count_unit" su="采用Gradle快速构建基于Spring boot的MVC应用" href="http://pkaq.org/2016/12/13/springboot-gradle/index.html"></a>
+      
+      
+    </div>
+  </header>
+
+  <div class="article-content">
+    
+      <p><code>Spring boot</code>是用以简化<code>Spring</code>配置开发的一枚框架，采用<code>Spring boot</code>可以抛弃繁琐的XML配置，采用<code>JavaConfigure</code>的方式进行快速配置。同时该框架提供了包含预配置的众多的<code>starter</code>可以极大的简化配置工作量。下面的代码便是采用<code>web-starter</code>和<code>Gradle</code>进行快速创建一个mvc应用的示例。</p>
+<a id="more"></a>
+<h4><span id="mu-lu-jie-gou">目录结构</span><a href="#mu-lu-jie-gou" class="header-anchor">#</a></h4><p><img src="structure.jpg" alt=""></p>
+<h4><span id="yin-ru-yi-lai">引入依赖</span><a href="#yin-ru-yi-lai" class="header-anchor">#</a></h4><figure class="highlight groovy"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">apply <span class="string">plugin:</span> <span class="string">"war"</span></div><div class="line"><span class="comment">// 版本号</span></div><div class="line">ext &#123;</div><div class="line">    bootVersion = <span class="string">"1.4.2.RELEASE"</span></div><div class="line">    tomcat_embed = <span class="string">"8.5.4"</span></div><div class="line">&#125;</div><div class="line"><span class="comment">// 仓库配置</span></div><div class="line">repositories &#123;</div><div class="line">    maven &#123; url<span class="string">"https://repo.spring.io/libs-release"</span> &#125;</div><div class="line">    jcenter()</div><div class="line">    mavenCentral()</div><div class="line">&#125;</div><div class="line"><span class="comment">// 依赖配置</span></div><div class="line">dependencies &#123;</div><div class="line">    compile <span class="string">"org.springframework.boot:spring-boot-starter-web:$&#123;bootVersion&#125;"</span>,</div><div class="line">            <span class="string">"org.apache.tomcat.embed:tomcat-embed-jasper:$&#123;tomcat_embed&#125;"</span>            </div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4><span id="ge-xing-hua-pei-zhi">个性化配置</span><a href="#ge-xing-hua-pei-zhi" class="header-anchor">#</a></h4><p>　　如果你采用的是标准目录结构，那么可以通过在<code>src/main/resources</code>下创建<code>application.yaml</code>文件对预配置项进行修改，无论是在<code>IDEA</code>还是在<code>STS</code>中，编辑此文件输入<code>spring.</code>都会有相应的代码提示，相关配置项的名字基本也是见名知意，大家可以自己去体会一下。当然你也可以<code>ctrl+click</code>查看下源码做深入了解。<br><figure class="highlight yaml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="attr">spring:</span></div><div class="line"><span class="attr">  mvc:</span></div><div class="line"><span class="attr">    date-format:</span> <span class="string">yyyy-MM-dd</span></div><div class="line"><span class="attr">    view:</span></div><div class="line"><span class="attr">       prefix:</span> <span class="string">/WEB-INF/web/</span></div><div class="line"><span class="attr">       suffix:</span> <span class="string">.jsp</span></div></pre></td></tr></table></figure></p>
+<h4><span id="qi-dong-lei-pei-zhi">启动类配置</span><a href="#qi-dong-lei-pei-zhi" class="header-anchor">#</a></h4><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@SpringBootApplication</span></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Booter</span> <span class="keyword">implements</span> <span class="title">CommandLineRunner</span> </span>&#123;</div><div class="line">    <span class="comment">/**</span></div><div class="line"><span class="comment">     * 入口函数.</span></div><div class="line"><span class="comment">     * <span class="doctag">@param</span> args args</span></div><div class="line"><span class="comment">     */</span></div><div class="line">    <span class="meta">@Autowired</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line">        SpringApplication.run(Booter.class, args);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">(String... args)</span> <span class="keyword">throws</span> Exception </span>&#123;</div><div class="line">        System.out.println(<span class="string">"  --- --- --- [ web started ] --- --- ---  "</span>);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4><span id="yi-ge-shi-li-controller">一个示例controller</span><a href="#yi-ge-shi-li-controller" class="header-anchor">#</a></h4><p>　　这里需要注意，如果没有配置 <code>ComponentScan</code> 指定扫描的包，<code>controller</code> 应该放在启动类的同级或者子包下，否则无法扫描到相应的Bean。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Controller</span></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TigerController</span> </span>&#123;</div><div class="line">    <span class="meta">@RequestMapping</span>(<span class="string">"/tiger"</span>)</div><div class="line">    <span class="function"><span class="keyword">public</span> ModelAndView <span class="title">tiger</span><span class="params">()</span></span>&#123;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">new</span> ModelAndView(<span class="string">"Tiger"</span>,<span class="string">"tigerName"</span>,<span class="string">"Scott"</span>);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h4><span id="view-ye-mian">view页面</span><a href="#view-ye-mian" class="header-anchor">#</a></h4><p>　　无他，JSP尔。<br><figure class="highlight jsp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">&lt;%@ page contentType=<span class="string">"text/html;charset=UTF-8"</span> language=<span class="string">"java"</span> %&gt;</div><div class="line">&lt;html&gt;</div><div class="line">&lt;head&gt;</div><div class="line">    &lt;title&gt;Hello Spring MVC&lt;/title&gt;</div><div class="line">&lt;/head&gt;</div><div class="line">&lt;body&gt;</div><div class="line">Tiger<span class="string">'s name is : $&#123;tigerName&#125;</span></div><div class="line"><span class="string">&lt;/body&gt;</span></div><div class="line"><span class="string">&lt;/html&gt;</span></div></pre></td></tr></table></figure></p>
+<link href="/css/prism-dark.css" rel="stylesheet">
+    
+  </div>
+</article>
+
+</div>
+
+
+  <div class="text-center donation">
+    <div class="inner-donation">
+      <span class="btn-donation">支持一下</span>
+      <div class="donation-body">
+        <div class="tip text-center">您得支持,是我前进的动力.</div>
+        <ul class="theme.donation.items.length">
+        
+          <li class="item">
+            <img src="/css/qr-donate.jpg" alt="">
+          </li>
+        
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+
+
+  <a id="backTop" class="back-top">
+    <i class="icon-angle-up"></i>
+  </a>
+
+
+
+
+  <div class="modal" id="modal">
+  <span id="cover" class="cover hide"></span>
+  <div id="modal-dialog" class="modal-dialog hide-dialog">
+    <div class="modal-header">
+      <span id="close" class="btn-close">关闭</span>
+    </div>
+    <hr>
+    <div class="modal-body">
+      <ul class="list-toolbox">
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/archives/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              博客
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/category/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              分类
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/tag/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              标签
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/link/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              友链
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/atom.xml"
+              rel="noopener noreferrer"
+              target="_blank"
+              >
+              RSS
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/search/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              搜索
+            </a>
+          </li>
+        
+      </ul>
+
+    </div>
+  </div>
+</div>
+
+
+
+  
+      <div class="fexo-comments comments-post">
+    
+
+    
+  <section class="duoshuo-comments">
+
+    <!-- UY BEGIN -->
+    <div id="uyan_frame"></div>
+    <script async type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid=2144561">
+    <!-- UY END -->
+  </section>
+
+  <script type="text/javascript">
+	var uyan_config = {
+	     'su':"采用Gradle快速构建基于Spring boot的MVC应用" 
+	};
+	</script>
+
+
+
+  </div>
+
+  
+
+  <script type="text/javascript">
+  function loadScript(url, callback) {
+    var script = document.createElement('script')
+    script.type = 'text/javascript';
+
+    if (script.readyState) { //IE
+      script.onreadystatechange = function() {
+        if (script.readyState == 'loaded' ||
+          script.readyState == 'complete') {
+          script.onreadystatechange = null;
+          callback();
+        }
+      };
+    } else { //Others
+      script.onload = function() {
+        callback();
+      };
+    }
+
+    script.src = url;
+    document.getElementsByTagName('head')[0].appendChild(script);
+  }
+
+  window.onload = function() {
+    loadScript('/js/bundle.js?235683', function() {
+      // load success
+    });
+  }
+</script>
+
+</body>
+</html>

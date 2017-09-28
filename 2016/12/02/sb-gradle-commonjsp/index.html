@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+
+
+  <html class="dark page-post">
+
+
+<head>
+  <meta charset="utf-8">
+  
+  <title>多模块项目之 -  spring boot + gradle + 构建公共jsp页面的多模块项目 | 如是我闻</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="Gradle,Spring-boot," />
+  
+
+  <meta name="description" content="标题党!!!! 烹制原理Servlet 3.1 规范里 jar包中META-INF/resources/下的文件会被视为根目录文件进行正常访问 , 这也就意味着我们可以将某些 静态页面/图片/样式/js 等打到jar包里当做依赖jar包引用 , 像webjars基本就是这么搞的.当然 如果你在搞前后端分离、gulp、webpack什么的这种方式基本也不用考虑了。    Servlet 3.1 中文">
+<meta name="keywords" content="Gradle,Spring-boot">
+<meta property="og:type" content="article">
+<meta property="og:title" content="多模块项目之 -  spring boot + gradle + 构建公共jsp页面的多模块项目">
+<meta property="og:url" content="http://pkaq.org/2016/12/02/sb-gradle-commonjsp/index.html">
+<meta property="og:site_name" content="如是我闻">
+<meta property="og:description" content="标题党!!!! 烹制原理Servlet 3.1 规范里 jar包中META-INF/resources/下的文件会被视为根目录文件进行正常访问 , 这也就意味着我们可以将某些 静态页面/图片/样式/js 等打到jar包里当做依赖jar包引用 , 像webjars基本就是这么搞的.当然 如果你在搞前后端分离、gulp、webpack什么的这种方式基本也不用考虑了。    Servlet 3.1 中文">
+<meta property="og:updated_time" content="2017-09-07T14:39:30.769Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="多模块项目之 -  spring boot + gradle + 构建公共jsp页面的多模块项目">
+<meta name="twitter:description" content="标题党!!!! 烹制原理Servlet 3.1 规范里 jar包中META-INF/resources/下的文件会被视为根目录文件进行正常访问 , 这也就意味着我们可以将某些 静态页面/图片/样式/js 等打到jar包里当做依赖jar包引用 , 像webjars基本就是这么搞的.当然 如果你在搞前后端分离、gulp、webpack什么的这种方式基本也不用考虑了。    Servlet 3.1 中文">
+
+  
+
+  
+    <link rel="icon" href="/favicon.ico">
+  
+
+  <link href="/css/styles.css?v=d671a41f" rel="stylesheet">
+
+
+  
+    <link rel="stylesheet" href="/css/fexo-theme.css">
+  
+
+  
+
+  
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?cd1f06c6f057506d537ab11e9f1693be";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+  
+    <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  
+
+  
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  
+
+  <link href='//cdn.webfont.youziku.com/webfonts/nomal/97080/42410/5865c4e5f629db00cc915895.css' rel='stylesheet' type='text/css' />
+ 
+</head>
+
+<body>
+
+
+  
+    <span id="toolbox-mobile" class="toolbox-mobile">　</span>
+  
+
+  <div class="post-header CENTER">
+   
+  <div class="toolbox">
+    <a class="toolbox-entry" href="/">
+      <span class="toolbox-entry-text">　</span>
+      <i class="icon-angle-down"></i>
+      <i class="icon-home"></i>
+    </a>
+    <ul class="list-toolbox">
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE toolbox_color_0"
+            href="/archives/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            博客
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE toolbox_color_1"
+            href="/category/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            分类
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE toolbox_color_2"
+            href="/tag/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            标签
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE toolbox_color_3"
+            href="/link/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            友链
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE toolbox_color_4"
+            href="/atom.xml"
+            rel="noopener noreferrer"
+            target="_blank"
+            >
+            RSS
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE toolbox_color_5"
+            href="/search/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+</div>
+
+
+  <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-text">烹制原理#</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-text">烹制方法#</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-text">完整代码#</span></a></li></ol>
+  </div>
+
+
+
+<div class="content content-post CENTER">
+   <article id="post-sb-gradle-commonjsp" class="article article-type-post" itemprop="blogPost">
+  <header class="article-header">
+    <h1 class="post-title">多模块项目之 -  spring boot + gradle + 构建公共jsp页面的多模块项目</h1>
+
+    <div class="article-meta">
+      <span>
+        <i class="icon-calendar"></i>
+        <span>2016.12.02</span>
+      </span>
+
+      
+        <span class="article-author">
+          <i class="icon-user"></i>
+          <span>PKAQ</span>
+        </span>
+      
+
+      
+  <span class="article-category">
+    <i class="icon-list"></i>
+    <a class="article-category-link" href="/categories/spring-boot/">spring-boot</a>
+  </span>
+
+
+
+      
+
+      
+      <i class="fa fa-eye"></i> 
+        <span id="busuanzi_container_page_pv">
+           &nbsp热度 <span id="busuanzi_value_page_pv">
+           <i class="fa fa-spinner fa-spin"></i></span>℃
+        </span>
+      
+
+      
+        <i class="icon-comment"></i> 
+        共 <a class="ds-thread-count" id="uyan_count_unit" su="多模块项目之 -  spring boot + gradle + 构建公共jsp页面的多模块项目" href="http://pkaq.org/2016/12/02/sb-gradle-commonjsp/index.html"></a>
+      
+      
+    </div>
+  </header>
+
+  <div class="article-content">
+    
+      <p>标题党!!!!</p>
+<h4><span id="peng-zhi-yuan-li">烹制原理</span><a href="#peng-zhi-yuan-li" class="header-anchor">#</a></h4><p>Servlet 3.1 规范里 jar包中<code>META-INF/resources/</code>下的文件会被视为根目录文件进行正常访问 , 这也就意味着我们可以将某些 静态页面/图片/样式/js 等打到jar包里当做依赖jar包引用 , 像<code>webjars</code>基本就是这么搞的.当然 如果你在搞前后端分离、gulp、webpack什么的这种方式基本也不用考虑了。   </p>
+<p>Servlet 3.1 中文译本 张开涛 翻译版下载 <a href="http://jinnianshilongnian.iteye.com/blog/1912455" target="_blank" rel="external">&gt; 点传送门 &lt;</a></p>
+<a id="more"></a> 
+<ul>
+<li><p>引用.1</p>
+<blockquote>
+<p>除了 静态资源和 WEB-INF/lib 目录下打包在 JAR 文件中 META-INF/resources 目录下的 JSP 文件之外，WEB-INF 目录下包含的其他任何文件都不能由容器直接提供给客户端访问。<br>serverlet 3.1 规范 - 10.5   </p>
+</blockquote>
+</li>
+<li><p>引用.2</p>
+<blockquote>
+<ol>
+<li>添加了从 JAR 文件中加载静态资源和 JSP 的支持，其包含在绑定在 WEB-INF/lib 目录中的 JAR 文件的 META-INF/resources 目录中<br>变更历史 A.3   </li>
+</ol>
+</blockquote>
+</li>
+</ul>
+<h4><span id="peng-zhi-fang-fa">烹制方法</span><a href="#peng-zhi-fang-fa" class="header-anchor">#</a></h4><ol>
+<li><p>添加spring boot 依赖,如果不想用变量定义版本号可以直接撸版本号</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">compile <span class="string">"org.springframework.boot:spring-boot-starter-web:$&#123;bootVersion&#125;"</span>,</div><div class="line">        <span class="string">"org.apache.tomcat.embed:tomcat-embed-jasper:$&#123;tomcat_embed&#125;"</span></div></pre></td></tr></table></figure>
+</li>
+<li><p>编写controller</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Controller</span></div><div class="line"><span class="meta">@Slf</span>4j</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TigerCtrl</span> </span>&#123;</div><div class="line">    <span class="meta">@RequestMapping</span>(<span class="string">"/"</span>)</div><div class="line">    <span class="function"><span class="keyword">public</span> ModelAndView <span class="title">tiger</span><span class="params">()</span></span>&#123;</div><div class="line">        log.info(<span class="string">"Soft kitty,warm kitty Little ball of fur ."</span>);</div><div class="line">        <span class="keyword">return</span> <span class="keyword">new</span> ModelAndView(<span class="string">"tiger"</span>,<span class="string">"words"</span>,<span class="string">"Roar ~ Roar ~ "</span>);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>编写页面</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">%@</span> <span class="attr">page</span> <span class="attr">contentType</span>=<span class="string">"text/html;charset=UTF-8"</span> <span class="attr">language</span>=<span class="string">"java"</span> %&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Title<span class="tag">&lt;/<span class="name">title</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">img</span> <span class="attr">alt</span>=<span class="string">"j2ee"</span> <span class="attr">src</span>=<span class="string">"static/duke.jpg"</span> <span class="attr">width</span>=<span class="string">"190"</span> <span class="attr">height</span>=<span class="string">"253"</span>/&gt;</span><span class="tag">&lt;<span class="name">br</span>/&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">br</span>/&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">%</span></span></div><div class="line"><span class="tag">    <span class="attr">String</span> <span class="attr">words</span> = <span class="string">String.valueOf(request.getAttribute(</span>"<span class="attr">words</span>"));</span></div><div class="line"><span class="tag">    <span class="attr">out.println</span>("<span class="attr">Tiger</span> <span class="attr">said</span> <span class="attr">:</span> " + <span class="attr">words</span>);</span></div><div class="line"><span class="tag">%&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></div></pre></td></tr></table></figure>
+</li>
+<li><p>添加公共jsp页面模块依赖</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">compile    project(<span class="string">":webpage"</span>)</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<h4><span id="wan-zheng-dai-ma">完整代码</span><a href="#wan-zheng-dai-ma" class="header-anchor">#</a></h4><p><a href="https://github.com/pkaq/GradleSide/tree/master/15-multi-project-springboot" target="_blank" rel="external"> &gt; 点击这里看完整代码 &lt; </a></p>
+<link href="/css/prism-dark.css" rel="stylesheet">
+    
+  </div>
+</article>
+
+</div>
+
+
+  <div class="text-center donation">
+    <div class="inner-donation">
+      <span class="btn-donation">支持一下</span>
+      <div class="donation-body">
+        <div class="tip text-center">您得支持,是我前进的动力.</div>
+        <ul class="theme.donation.items.length">
+        
+          <li class="item">
+            <img src="/css/qr-donate.jpg" alt="">
+          </li>
+        
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+
+
+  <a id="backTop" class="back-top">
+    <i class="icon-angle-up"></i>
+  </a>
+
+
+
+
+  <div class="modal" id="modal">
+  <span id="cover" class="cover hide"></span>
+  <div id="modal-dialog" class="modal-dialog hide-dialog">
+    <div class="modal-header">
+      <span id="close" class="btn-close">关闭</span>
+    </div>
+    <hr>
+    <div class="modal-body">
+      <ul class="list-toolbox">
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/archives/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              博客
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/category/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              分类
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/tag/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              标签
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/link/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              友链
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/atom.xml"
+              rel="noopener noreferrer"
+              target="_blank"
+              >
+              RSS
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/search/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              搜索
+            </a>
+          </li>
+        
+      </ul>
+
+    </div>
+  </div>
+</div>
+
+
+
+  
+      <div class="fexo-comments comments-post">
+    
+
+    
+  <section class="duoshuo-comments">
+
+    <!-- UY BEGIN -->
+    <div id="uyan_frame"></div>
+    <script async type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid=2144561">
+    <!-- UY END -->
+  </section>
+
+  <script type="text/javascript">
+	var uyan_config = {
+	     'su':"多模块项目之 -  spring boot + gradle + 构建公共jsp页面的多模块项目" 
+	};
+	</script>
+
+
+
+  </div>
+
+  
+
+  <script type="text/javascript">
+  function loadScript(url, callback) {
+    var script = document.createElement('script')
+    script.type = 'text/javascript';
+
+    if (script.readyState) { //IE
+      script.onreadystatechange = function() {
+        if (script.readyState == 'loaded' ||
+          script.readyState == 'complete') {
+          script.onreadystatechange = null;
+          callback();
+        }
+      };
+    } else { //Others
+      script.onload = function() {
+        callback();
+      };
+    }
+
+    script.src = url;
+    document.getElementsByTagName('head')[0].appendChild(script);
+  }
+
+  window.onload = function() {
+    loadScript('/js/bundle.js?235683', function() {
+      // load success
+    });
+  }
+</script>
+
+</body>
+</html>

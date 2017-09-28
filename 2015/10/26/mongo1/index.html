@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+
+
+  <html class="dark page-post">
+
+
+<head>
+  <meta charset="utf-8">
+  
+  <title>MongoDB 3.x 笔记 - 2：用户创建和鉴权配置 | 如是我闻</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="MongoDB," />
+  
+
+  <meta name="description" content="MongoDB默认安装后是不需要密码的。此时你 show dbs 会看到只有一个local数据库，那个所谓的admin是不存在的。 mongoDB 没有root，只有能管理用户的用户 userAdminAnyDatabase。">
+<meta name="keywords" content="MongoDB">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MongoDB 3.x 笔记 - 2：用户创建和鉴权配置">
+<meta property="og:url" content="http://pkaq.org/2015/10/26/mongo1/index.html">
+<meta property="og:site_name" content="如是我闻">
+<meta property="og:description" content="MongoDB默认安装后是不需要密码的。此时你 show dbs 会看到只有一个local数据库，那个所谓的admin是不存在的。 mongoDB 没有root，只有能管理用户的用户 userAdminAnyDatabase。">
+<meta property="og:updated_time" content="2016-09-01T08:51:27.489Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="MongoDB 3.x 笔记 - 2：用户创建和鉴权配置">
+<meta name="twitter:description" content="MongoDB默认安装后是不需要密码的。此时你 show dbs 会看到只有一个local数据库，那个所谓的admin是不存在的。 mongoDB 没有root，只有能管理用户的用户 userAdminAnyDatabase。">
+
+  
+
+  
+    <link rel="icon" href="/favicon.ico">
+  
+
+  <link href="/css/styles.css?v=d671a41f" rel="stylesheet">
+
+
+  
+    <link rel="stylesheet" href="/css/fexo-theme.css">
+  
+
+  
+
+  
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?cd1f06c6f057506d537ab11e9f1693be";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+  
+    <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  
+
+  
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  
+
+  <link href='//cdn.webfont.youziku.com/webfonts/nomal/97080/42410/5865c4e5f629db00cc915895.css' rel='stylesheet' type='text/css' />
+ 
+</head>
+
+<body>
+
+
+  
+    <span id="toolbox-mobile" class="toolbox-mobile">　</span>
+  
+
+  <div class="post-header CENTER">
+   
+  <div class="toolbox">
+    <a class="toolbox-entry" href="/">
+      <span class="toolbox-entry-text">　</span>
+      <i class="icon-angle-down"></i>
+      <i class="icon-home"></i>
+    </a>
+    <ul class="list-toolbox">
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE toolbox_color_0"
+            href="/archives/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            博客
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE toolbox_color_1"
+            href="/category/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            分类
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE toolbox_color_2"
+            href="/tag/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            标签
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE toolbox_color_3"
+            href="/link/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            友链
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE toolbox_color_4"
+            href="/atom.xml"
+            rel="noopener noreferrer"
+            target="_blank"
+            >
+            RSS
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE toolbox_color_5"
+            href="/search/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+</div>
+
+
+  <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-text">1.设置鉴权模式#</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-text">2、用户创建#</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-text">配置安全验证#</span></a></li></ol>
+  </div>
+
+
+
+<div class="content content-post CENTER">
+   <article id="post-mongo1" class="article article-type-post" itemprop="blogPost">
+  <header class="article-header">
+    <h1 class="post-title">MongoDB 3.x 笔记 - 2：用户创建和鉴权配置</h1>
+
+    <div class="article-meta">
+      <span>
+        <i class="icon-calendar"></i>
+        <span>2015.10.26</span>
+      </span>
+
+      
+        <span class="article-author">
+          <i class="icon-user"></i>
+          <span>PKAQ</span>
+        </span>
+      
+
+      
+
+
+      
+
+      
+      <i class="fa fa-eye"></i> 
+        <span id="busuanzi_container_page_pv">
+           &nbsp热度 <span id="busuanzi_value_page_pv">
+           <i class="fa fa-spinner fa-spin"></i></span>℃
+        </span>
+      
+
+      
+        <i class="icon-comment"></i> 
+        共 <a class="ds-thread-count" id="uyan_count_unit" su="MongoDB 3.x 笔记 - 2：用户创建和鉴权配置" href="http://pkaq.org/2015/10/26/mongo1/index.html"></a>
+      
+      
+    </div>
+  </header>
+
+  <div class="article-content">
+    
+      <p>MongoDB默认安装后是不需要密码的。<br>此时你 show dbs 会看到只有一个local数据库，那个所谓的admin是不存在的。</p>
+<p>mongoDB 没有root，只有能管理用户的用户 userAdminAnyDatabase。<br><a id="more"></a></p>
+<h4><span id="1-she-zhi-jian-quan-mo-shi">1.设置鉴权模式</span><a href="#1-she-zhi-jian-quan-mo-shi" class="header-anchor">#</a></h4><p>这里由于Mongo3以后默认的鉴权机制更改为SCRAM-SHA-1,而spring-boot直到 1.3.0 rc 仍然不支持Mongo3 的新默认鉴权方式 所以这里指定为旧版本方式MONGODB-CR<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#</span>切换到admin库</div><div class="line">use admin</div><div class="line"><span class="meta">   #</span>查询authSchema</div><div class="line">   var schema = db.system.version.findOne(&#123;“_id” : “authSchema”&#125;) </div><div class="line"><span class="meta">   #</span>设置为MONGODB-CR</div><div class="line">   schema.currentVersion = 3 </div><div class="line"><span class="meta">   #</span>#保存</div><div class="line">   db.system.version.save(schema)</div></pre></td></tr></table></figure></p>
+<p>定义：<br>创建一个数据库新用户用db.createUser()方法，如果用户存在则返回一个用户重复错误。</p>
+<h4><span id="2-yong-hu-chuang-jian">2、用户创建</span><a href="#2-yong-hu-chuang-jian" class="header-anchor">#</a></h4><p>语法：<br>db.createUser(user, writeConcern)<br>    user这个文档创建关于用户的身份认证和访问信息；<br>    writeConcern这个文档描述保证MongoDB提供写操作的成功报告。</p>
+<p>· user文档，定义了用户的以下形式：<br>{ user: “<name>“,<br>  pwd: “<cleartext password="">“,<br>  customData: { <any information=""> },<br>  roles: [<br>    { role: “<role>“, db: “<database>“ } | “<role>“,<br>    …<br>  ]<br>}</role></database></role></any></cleartext></name></p>
+<p>user文档字段介绍：<br>    user字段，为新用户的名字；<br>    pwd字段，用户的密码；<br>    cusomData字段，为任意内容，例如可以为用户全名介绍；<br>    roles字段，指定用户的角色，可以用一个空数组给新用户设定空角色；<br>    在roles字段,可以指定内置角色和用户定义的角色。</p>
+<pre><code>Built-In Roles（内置角色）：
+1. 数据库用户角色：read、readWrite;
+2. 数据库管理角色：dbAdmin、dbOwner、userAdmin；
+3. 集群管理角色：clusterAdmin、clusterManager、clusterMonitor、hostManager；
+4. 备份恢复角色：backup、restore；
+5. 所有数据库角色：readAnyDatabase、readWriteAnyDatabase、userAdminAnyDatabase、dbAdminAnyDatabase
+6. 超级用户角色：root  
+// 这里还有几个角色间接或直接提供了系统超级用户的访问（dbOwner 、userAdmin、userAdminAnyDatabase）
+7. 内部角色：__system
+PS：关于每个角色所拥有的操作权限可以点击上面的内置角色链接查看详情。
+</code></pre><p>· writeConcern文档（官方说明）<br>    w选项：允许的值分别是 1、0、大于1的值、”majority”、<tag set="">；<br>    j选项：确保mongod实例写数据到磁盘上的journal（日志），这可以确保mongd以外关闭不会丢失数据。设置true启用。<br>    wtimeout：指定一个时间限制,以毫秒为单位。wtimeout只适用于w值大于1。</tag></p>
+<p>例如：在products数据库创建用户accountAdmin01，并给该用户admin数据库上clusterAdmin和readAnyDatabase的角色，products数据库上readWrite角色。<br>use products<br>db.createUser( { “user” : “accountAdmin01”,<br>                 “pwd”: “cleartext password”,<br>                 “customData” : { employeeId: 12345 },<br>                 “roles” : [ { role: “clusterAdmin”, db: “admin” },<br>                             { role: “readAnyDatabase”, db: “admin” },<br>                             “readWrite”<br>                             ] },<br>               { w: “majority” , wtimeout: 5000 } )</p>
+<h4><span id="pei-zhi-an-quan-yan-zheng">配置安全验证</span><a href="#pei-zhi-an-quan-yan-zheng" class="header-anchor">#</a></h4><p>这里由于Mongo3以后默认的鉴权机制更改为SCRAM-SHA-1,而spring-boot直到 1.3.0 rc 仍然不支持Mongo3 的新默认鉴权方式 所以这里指定为旧版本方式MONGODB-CR</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="attr">security:</span></div><div class="line"><span class="attr">    authorization:</span> <span class="string">enabled</span></div><div class="line"><span class="attr">setParameter:</span></div><div class="line"><span class="attr">    authenticationMechanisms:</span> <span class="string">MONGODB-CR,SCRAM-SHA-1</span></div><div class="line"><span class="attr">    enableLocalhostAuthBypass:</span> <span class="literal">false</span></div><div class="line"><span class="attr">    logLevel:</span> <span class="number">4</span></div></pre></td></tr></table></figure><link href="/css/prism-dark.css" rel="stylesheet">
+    
+  </div>
+</article>
+
+</div>
+
+
+  <div class="text-center donation">
+    <div class="inner-donation">
+      <span class="btn-donation">支持一下</span>
+      <div class="donation-body">
+        <div class="tip text-center">您得支持,是我前进的动力.</div>
+        <ul class="theme.donation.items.length">
+        
+          <li class="item">
+            <img src="/css/qr-donate.jpg" alt="">
+          </li>
+        
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+
+
+  <a id="backTop" class="back-top">
+    <i class="icon-angle-up"></i>
+  </a>
+
+
+
+
+  <div class="modal" id="modal">
+  <span id="cover" class="cover hide"></span>
+  <div id="modal-dialog" class="modal-dialog hide-dialog">
+    <div class="modal-header">
+      <span id="close" class="btn-close">关闭</span>
+    </div>
+    <hr>
+    <div class="modal-body">
+      <ul class="list-toolbox">
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/archives/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              博客
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/category/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              分类
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/tag/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              标签
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/link/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              友链
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/atom.xml"
+              rel="noopener noreferrer"
+              target="_blank"
+              >
+              RSS
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/search/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              搜索
+            </a>
+          </li>
+        
+      </ul>
+
+    </div>
+  </div>
+</div>
+
+
+
+  
+      <div class="fexo-comments comments-post">
+    
+
+    
+  <section class="duoshuo-comments">
+
+    <!-- UY BEGIN -->
+    <div id="uyan_frame"></div>
+    <script async type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid=2144561">
+    <!-- UY END -->
+  </section>
+
+  <script type="text/javascript">
+	var uyan_config = {
+	     'su':"MongoDB 3.x 笔记 - 2：用户创建和鉴权配置" 
+	};
+	</script>
+
+
+
+  </div>
+
+  
+
+  <script type="text/javascript">
+  function loadScript(url, callback) {
+    var script = document.createElement('script')
+    script.type = 'text/javascript';
+
+    if (script.readyState) { //IE
+      script.onreadystatechange = function() {
+        if (script.readyState == 'loaded' ||
+          script.readyState == 'complete') {
+          script.onreadystatechange = null;
+          callback();
+        }
+      };
+    } else { //Others
+      script.onload = function() {
+        callback();
+      };
+    }
+
+    script.src = url;
+    document.getElementsByTagName('head')[0].appendChild(script);
+  }
+
+  window.onload = function() {
+    loadScript('/js/bundle.js?235683', function() {
+      // load success
+    });
+  }
+</script>
+
+</body>
+</html>

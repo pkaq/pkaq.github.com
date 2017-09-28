@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+
+
+  <html class="dark page-post">
+
+
+<head>
+  <meta charset="utf-8">
+  
+  <title>使用Gradle进行多模块项目构建 | 如是我闻</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="Gradle," />
+  
+
+  <meta name="description" content="概述 项目结构 settings文件 build文件 分离配置 水平布局和分层布局     概述　　随着项目规模的扩展和功能的增加，任何一个简单的项目基本都会进行模块的拆分独立，然后通过项目之间的依赖进行重新整合。 　　项目拆分带来的好处也显而易见。拆分可以是项目结构更加清晰，职责划分更加明确，相关模块的负责人只需专注于自己负责的子模块而无需对整个项目进行一次构建。　　 　　如果不采用构建">
+<meta name="keywords" content="Gradle">
+<meta property="og:type" content="article">
+<meta property="og:title" content="使用Gradle进行多模块项目构建">
+<meta property="og:url" content="http://pkaq.org/2016/12/13/gradle-multi/index.html">
+<meta property="og:site_name" content="如是我闻">
+<meta property="og:description" content="概述 项目结构 settings文件 build文件 分离配置 水平布局和分层布局     概述　　随着项目规模的扩展和功能的增加，任何一个简单的项目基本都会进行模块的拆分独立，然后通过项目之间的依赖进行重新整合。 　　项目拆分带来的好处也显而易见。拆分可以是项目结构更加清晰，职责划分更加明确，相关模块的负责人只需专注于自己负责的子模块而无需对整个项目进行一次构建。　　 　　如果不采用构建">
+<meta property="og:image" content="http://pkaq.org/2016/12/13/gradle-multi/structure.jpg">
+<meta property="og:image" content="http://pkaq.org/2016/12/13/gradle-multi/structure-flat.jpg">
+<meta property="og:image" content="http://pkaq.org/2016/12/13/gradle-multi/multi.jpg">
+<meta property="og:updated_time" content="2016-12-13T03:35:38.687Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="使用Gradle进行多模块项目构建">
+<meta name="twitter:description" content="概述 项目结构 settings文件 build文件 分离配置 水平布局和分层布局     概述　　随着项目规模的扩展和功能的增加，任何一个简单的项目基本都会进行模块的拆分独立，然后通过项目之间的依赖进行重新整合。 　　项目拆分带来的好处也显而易见。拆分可以是项目结构更加清晰，职责划分更加明确，相关模块的负责人只需专注于自己负责的子模块而无需对整个项目进行一次构建。　　 　　如果不采用构建">
+<meta name="twitter:image" content="http://pkaq.org/2016/12/13/gradle-multi/structure.jpg">
+
+  
+
+  
+    <link rel="icon" href="/favicon.ico">
+  
+
+  <link href="/css/styles.css?v=d671a41f" rel="stylesheet">
+
+
+  
+    <link rel="stylesheet" href="/css/fexo-theme.css">
+  
+
+  
+
+  
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?cd1f06c6f057506d537ab11e9f1693be";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+  
+    <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  
+
+  
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  
+
+  <link href='//cdn.webfont.youziku.com/webfonts/nomal/97080/42410/5865c4e5f629db00cc915895.css' rel='stylesheet' type='text/css' />
+ 
+</head>
+
+<body>
+
+
+  
+    <span id="toolbox-mobile" class="toolbox-mobile">　</span>
+  
+
+  <div class="post-header CENTER">
+   
+  <div class="toolbox">
+    <a class="toolbox-entry" href="/">
+      <span class="toolbox-entry-text">　</span>
+      <i class="icon-angle-down"></i>
+      <i class="icon-home"></i>
+    </a>
+    <ul class="list-toolbox">
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE toolbox_color_0"
+            href="/archives/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            博客
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE toolbox_color_1"
+            href="/category/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            分类
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE toolbox_color_2"
+            href="/tag/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            标签
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE toolbox_color_3"
+            href="/link/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            友链
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE toolbox_color_4"
+            href="/atom.xml"
+            rel="noopener noreferrer"
+            target="_blank"
+            >
+            RSS
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE toolbox_color_5"
+            href="/search/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+</div>
+
+
+  <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-text">概述#</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-text">项目结构#</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-text">settings文件#</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-text">build文件#</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-text">分离配置#</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-text">水平布局和分层布局#</span></a></li></ol>
+  </div>
+
+
+
+<div class="content content-post CENTER">
+   <article id="post-gradle-multi" class="article article-type-post" itemprop="blogPost">
+  <header class="article-header">
+    <h1 class="post-title">使用Gradle进行多模块项目构建</h1>
+
+    <div class="article-meta">
+      <span>
+        <i class="icon-calendar"></i>
+        <span>2016.12.13</span>
+      </span>
+
+      
+        <span class="article-author">
+          <i class="icon-user"></i>
+          <span>PKAQ</span>
+        </span>
+      
+
+      
+  <span class="article-category">
+    <i class="icon-list"></i>
+    <a class="article-category-link" href="/categories/Gradle/">Gradle</a>
+  </span>
+
+
+
+      
+
+      
+      <i class="fa fa-eye"></i> 
+        <span id="busuanzi_container_page_pv">
+           &nbsp热度 <span id="busuanzi_value_page_pv">
+           <i class="fa fa-spinner fa-spin"></i></span>℃
+        </span>
+      
+
+      
+        <i class="icon-comment"></i> 
+        共 <a class="ds-thread-count" id="uyan_count_unit" su="使用Gradle进行多模块项目构建" href="http://pkaq.org/2016/12/13/gradle-multi/index.html"></a>
+      
+      
+    </div>
+  </header>
+
+  <div class="article-content">
+    
+      <div class="toc">
+
+<!-- toc -->
+<ul>
+<li><a href="#gai-shu">概述</a></li>
+<li><a href="#xiang-mu-jie-gou">项目结构</a></li>
+<li><a href="#settings-wen-jian">settings文件</a></li>
+<li><a href="#build-wen-jian">build文件</a></li>
+<li><a href="#fen-chi-pei-zhi">分离配置</a></li>
+<li><a href="#shui-ping-bu-ju-he-fen-ceng-bu-ju">水平布局和分层布局</a></li>
+</ul>
+<!-- tocstop -->
+</div>
+
+<h3><span id="gai-shu">概述</span><a href="#gai-shu" class="header-anchor">#</a></h3><p>　　随着项目规模的扩展和功能的增加，任何一个简单的项目基本都会进行模块的拆分独立，然后通过项目之间的依赖进行重新整合。</p>
+<p>　　项目拆分带来的好处也显而易见。拆分可以是项目结构更加清晰，职责划分更加明确，相关模块的负责人只需专注于自己负责的子模块而无需对整个项目进行一次构建。　　</p>
+<p>　　如果不采用构建工具或许最原始的方式无非于将一些相对独立的和公共的模块代码拆分成独立项目，通过手工打jar包替换的方式进行多项目之间的依赖管理，这无疑是低效、繁琐且没有价值的工作。</p>
+<a id="more"></a>
+<p>　　Gradle对多模块项目有着优秀的支持，现在借助于Gradle可以把你从一些低价值的劳动中解放出来。你可以肆意的采用水平或者分层的方式组织你的项目模块，肆意的进行模块之间的依赖，甚至是模块之间深层次的依赖。举个栗子，如果有个web工程依赖于一个<code>util</code>工程和一个<code>common-service</code>工程，那么当<code>util</code>和<code>common-service</code>进行了任何修改，在web工程进行打包的时候会自动编译打包依赖的<code>util</code>和<code>common-service</code>工程，如果你采用了合理的<code>依赖声明</code>那么在发布war的时候这两个工程的会被自动打成<code>jar</code>包打进最终的<code>war</code>中。<br>  这一章节你将会了解到如下内容</p>
+<ul>
+<li>多模块项目结构</li>
+<li>多模块项目脚本</li>
+<li>构建分层布局的多模块项目</li>
+<li>构建集中化配置的多模块项目</li>
+</ul>
+<h3><span id="xiang-mu-jie-gou">项目结构</span><a href="#xiang-mu-jie-gou" class="header-anchor">#</a></h3><p>　　在进行介绍之前，这里有必要先解释一下项目（project）和模块（module）的概念。Gradle中默认是不存在模块概念的，这里指的多模块项目构建对应到Gradle中即是<code>多项目构建</code>，为了便于理解，所以本文中一律按多模块进行描述。</p>
+<blockquote>
+<p>关于多项目和多模块的分歧无法溯源，或许是由于<code>eclipse</code>和<code>idea</code>不同定义而起吧。在<code>eclipse</code>中不存在模块概念，走的是<code>workspace - working set - project</code>路线，而在<code>idea</code>中，则是按<code>project - module</code>进行组织项目。自从转为<code>idea</code>党之后，私以为<code>idea</code>的路子更科学，所以这里按<code>idea</code>的套路进行描述。   </p>
+</blockquote>
+<p>下面展示了分层布局和水平布局的两种多模块项目结构<br><img src="structure.jpg" alt="多模块项目结构">　　　　<br><img src="structure-flat.jpg" alt="多模块项目结构">　　</p>
+<p>　　为了更加直观，这里项目结构采用了分层布局的方式。这也是Gradle默认的布局方式。这里根项目是必不可少的，尽管在分层布局中它看上去更像是一个顶级的<code>working set</code>。其中根项目下的<code>build.gradle</code>文件可以对一些公共属性、插件、依赖等进行统一配置，<code>setting.gradle</code>则是描述项目关系的文件。<br>　　或许你已经注意到，在水平布局的示例图中子项目下没有<code>build.gradle</code>脚本文件,这是由于在构建多模块项目时 Gradle 允许你自由的选用集中化配置和分开式配置。在水平布局的结构图中，所画的即是采用集中化配置的结构。</p>
+<h3><span id="settings-wen-jian">settings文件</span><a href="#settings-wen-jian" class="header-anchor">#</a></h3><p>　　我们了解到一个典型的多模块项目需要有一个根模块项目以及模块描述文件(默认为<code>settings.gradle</code>)，下面我们将通过一个 <a href="https://github.com/GradleCN/GradleSide/tree/master/17-multi-project-central" target="_blank" rel="external">多项目示例</a> 来对多模块项目的结构以及脚本进行更深入的了解。</p>
+<p>如果要让 <code>Gradle</code> 支持多<br>构建，只需为你的项目确定一个 根模块项目 并且在根模块项目下添加 <code>settings.gradle</code> 文件用以描述模块（项目）关系<br><figure class="highlight groovy"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">include <span class="string">'base'</span>,<span class="string">'main'</span></div></pre></td></tr></table></figure></p>
+<p>　　这里将模块（项目）名称路径的字符串以数组的形式传递给了<code>include</code>函数，Gradle 会以相对于当前目录按照 include 给定的模块（项目）路径查找对应的子模块，如果要声明的模块（项目）有多个层次可以用<code>:</code>进行描述，假设<code>main</code>下面又分了<code>Alpha</code>,<code>Bravo</code> 那么声明方式则按如下方式书写<br><figure class="highlight groovy"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">include <span class="string">'base'</span>,<span class="string">'main:Alpha'</span>,<span class="string">'main:Bravo'</span></div></pre></td></tr></table></figure></p>
+<p>　　这里的 <code>settings</code> 文件实际上是对应的 <code>Settings</code> 接口，<code>Setitings</code> 接口中提供的函数在本脚本中都是可用的，具体细节请查阅 <a href="https://docs.gradle.org/current/dsl/" target="_blank" rel="external">&gt;Settins接口DSL&lt;</a> 文档进行了解。</p>
+<p>　　在构建的 <strong>初始化阶段</strong>，Gradle 会读取这个文件，并创建一个 Settings 类型的实例。Gradle 会依据此文件进行多模块项目构建，默认情况下 Gradle 会从同级的 master 目录下寻找此文件，如果未找到则会去父级目录寻找。如果搜寻不到 <code>settings</code> 文件，那么 Gradle 会把模块当做单独构建的项目去执行单独构建。这里 Gradle 提供了一个命令行参数 <code>-u</code> 或 <code>--no-search-upward</code> 来控制 Gradle 不去父目录搜寻 <code>settings</code> 文件。</p>
+<p>　　默认情况下，Gradle 会采用<code>settings.gradle</code>作为文件名去查找，但如果处于某种不可描述的原因要采用其它名称的话也是可以的，调用命令时可以通过<code>-c</code>或者<code>--settings-file</code>参数来指定<code>settings</code>文件的位置以及名称。</p>
+<blockquote>
+<p>tip: 通常情况下，不存在孤立的子模块，所以构建的执行顺序往往是由依赖顺序所决定的。但如果无法通过依赖顺序决定，那么 Gradle 会简单的按照首字母顺序决定构建顺序。</p>
+</blockquote>
+<h3><span id="build-wen-jian">build文件</span><a href="#build-wen-jian" class="header-anchor">#</a></h3><p>　　在根项目下，除了 <code>settings.gradle</code> 文件之外，通常还需要提供一个 <code>build.gradle</code> 文件，该文件用以定义子模块行为以及描述项目的一些公共插件、属性、依赖等。</p>
+<p>　　下面的示例中，定义了所有模块共享的group、版本号，所有子模块共享的插件，以及针对<code>main</code>项目的定制化配置。<br><figure class="highlight groovy"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 所有模块都采用统一的版本号以及groupName</span></div><div class="line">allprojects &#123;</div><div class="line">    group = <span class="string">'org.pkaq.gradle.multi'</span></div><div class="line">    version = <span class="string">"0.1.0"</span></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">// 为所有子模块都应用java插件</span></div><div class="line">subprojects &#123;</div><div class="line">   apply <span class="string">plugin:</span> <span class="string">'java'</span></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">//为main模块定义特定行为,采用war插件并且依赖base模块</span></div><div class="line">project(<span class="string">':main'</span>)&#123;</div><div class="line"></div><div class="line">	apply <span class="string">plugin:</span> <span class="string">'war'</span></div><div class="line"></div><div class="line">	dependencies &#123;</div><div class="line">    	compile  project(<span class="string">':base'</span>)</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>　　如果您阅读了上一小节，<code>settings</code>文件是对<code>Settings</code>接口的脚本化编程实现，那么此处同理，借由 <code>Project</code> API，可对模块的行为进行定制。</p>
+<table>
+<thead>
+<tr>
+<th>方法名</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>allprojects</td>
+<td>配置当前模块以及所有子模块行为</td>
+</tr>
+<tr>
+<td>subprojects</td>
+<td>配置所有子模块行为</td>
+</tr>
+<tr>
+<td>project</td>
+<td>配置指定子模块行为</td>
+</tr>
+</tbody>
+</table>
+<p>　　可以查阅　<a href="https://docs.gradle.org/current/dsl/org.gradle.api.Project.html" target="_blank" rel="external">&gt; Project DSL &lt;</a> 了解 Project 接口的更多操作。</p>
+<p>　　此时可以通过执行  <code>gradle build</code> 来进行构建，这会按照依赖的顺序构建所有子模块，如果要单独构建某个子模块那么可以参照 <code>gradle :main:build</code> 的方式进行单独构建，正如你所见用<code>:</code>分隔项目和<code>task</code>即可。</p>
+<h3><span id="fen-chi-pei-zhi">分离配置</span><a href="#fen-chi-pei-zhi" class="header-anchor">#</a></h3><p>　　当项目足够复杂的时候，采用集中化配置显然不是一个好计谋，尤其是如果你有几十个模块的的时候，当你打开一个几百行的脚本无疑会感到一种不由自主的恶心在背后拍拍你的肩膀说:”兄弟 吐吧”….<br>　　此时，将不同项目的定制行为分离到各自的脚本里无疑会显著的减轻你的饱腹感。这不仅可以是项目结构看起来更加清晰，脚本更加易读，分离化的配置还可以让你更好的关注子模块的特定行为。<br>　　要分离模块配置只需要很简单的两步：</p>
+<ol>
+<li>在子模块建立 <code>build.gradle</code> 文件</li>
+<li>将原来的 <code>project(&#39;:xxx&#39;){}</code> 内的脚本移动到上面建立的文件中去</li>
+</ol>
+<p>　　下面的图展示了一个稍微复杂一点的<code>分层布局的</code>、<code>多模块的</code>、<code>分离配置的</code> 的多模块项目示例，其中所有的二级模块都依赖<code>base</code>，最终的<code>weball</code>又依赖于所有的二级模块。<br> 具体代码可以查看 <a href="https://github.com/GradleCN/GradleSide/tree/master/01-multi-project" target="_blank" rel="external">&gt; 就是这里 &lt;</a><br><img src="multi.jpg" alt=""></p>
+<h3><span id="shui-ping-bu-ju-he-fen-ceng-bu-ju">水平布局和分层布局</span><a href="#shui-ping-bu-ju-he-fen-ceng-bu-ju" class="header-anchor">#</a></h3><p>　　如果你阅读了前面的内容，那么你已经掌握了分层布局。没错，Gradle 默认即是采用的分层布局。只需要正确的配置 <code>settings</code> 文件即可。<br>　　某些情况下，若是出于一些不可描述的原因需要进行水平布局，那么 Gradle 也提供了良好的支持。如果你之前曾经翻阅过 <code>Settings</code> 接口的手册，那么或许你已经发现<code>Settintgs</code>接口提供了一个<code>includeFlat</code>方法，借助此方法即可实现水平布局的多模块项目。<br>  <figure class="highlight groovy"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">includeFlat  <span class="string">'base'</span></div></pre></td></tr></table></figure></p>
+<p>由于此处<code>main</code>即是根项目，所以无需再包含<code>main</code></p>
+<p>完整示例 -&gt;　<a href="https://github.com/GradleCN/GradleSide/tree/master/16-multi-project-flat" target="_blank" rel="external"> &gt; 水平布局的多模块项目示例 &lt; </a></p>
+<p>心法在于两点:</p>
+<p> 1.根项目与被依赖的项目(在水平意义上的子项目,视觉上根项目的兄弟项目)保持平级。<br> 2.配置根项目的  setting.gradle  ， 采用  includeFlat  来描述子项目路径(由于采用的是水平布局,默认根路径就是当前根项目的上级路径,所以无需用../上跳)</p>
+<link href="/css/prism-dark.css" rel="stylesheet">
+    
+  </div>
+</article>
+
+</div>
+
+
+  <div class="text-center donation">
+    <div class="inner-donation">
+      <span class="btn-donation">支持一下</span>
+      <div class="donation-body">
+        <div class="tip text-center">您得支持,是我前进的动力.</div>
+        <ul class="theme.donation.items.length">
+        
+          <li class="item">
+            <img src="/css/qr-donate.jpg" alt="">
+          </li>
+        
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+
+
+  <a id="backTop" class="back-top">
+    <i class="icon-angle-up"></i>
+  </a>
+
+
+
+
+  <div class="modal" id="modal">
+  <span id="cover" class="cover hide"></span>
+  <div id="modal-dialog" class="modal-dialog hide-dialog">
+    <div class="modal-header">
+      <span id="close" class="btn-close">关闭</span>
+    </div>
+    <hr>
+    <div class="modal-body">
+      <ul class="list-toolbox">
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/archives/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              博客
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/category/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              分类
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/tag/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              标签
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/link/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              友链
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/atom.xml"
+              rel="noopener noreferrer"
+              target="_blank"
+              >
+              RSS
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/search/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              搜索
+            </a>
+          </li>
+        
+      </ul>
+
+    </div>
+  </div>
+</div>
+
+
+
+  
+      <div class="fexo-comments comments-post">
+    
+
+    
+  <section class="duoshuo-comments">
+
+    <!-- UY BEGIN -->
+    <div id="uyan_frame"></div>
+    <script async type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid=2144561">
+    <!-- UY END -->
+  </section>
+
+  <script type="text/javascript">
+	var uyan_config = {
+	     'su':"使用Gradle进行多模块项目构建" 
+	};
+	</script>
+
+
+
+  </div>
+
+  
+
+  <script type="text/javascript">
+  function loadScript(url, callback) {
+    var script = document.createElement('script')
+    script.type = 'text/javascript';
+
+    if (script.readyState) { //IE
+      script.onreadystatechange = function() {
+        if (script.readyState == 'loaded' ||
+          script.readyState == 'complete') {
+          script.onreadystatechange = null;
+          callback();
+        }
+      };
+    } else { //Others
+      script.onload = function() {
+        callback();
+      };
+    }
+
+    script.src = url;
+    document.getElementsByTagName('head')[0].appendChild(script);
+  }
+
+  window.onload = function() {
+    loadScript('/js/bundle.js?235683', function() {
+      // load success
+    });
+  }
+</script>
+
+</body>
+</html>
