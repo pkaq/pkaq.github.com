@@ -70,7 +70,7 @@ theme: fexo
 ## Docs: https://hexo.io/docs/deployment.html
 deploy:
   type: git
-  repo: https://github.com/pkaq/pkaq.github.com.git
+  repo: git@github.com:pkaq/pkaq.github.com.git
   branch: master
 toc:
   maxdepth: 3

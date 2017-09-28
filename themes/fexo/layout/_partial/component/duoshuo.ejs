@@ -1,5 +1,6 @@
 <% if (page.comments && theme.duoshuo_shortname){ %>
   <section class="duoshuo-comments">
+
     <!-- UY BEGIN -->
     <div id="uyan_frame"></div>
     <script async type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid=2144561">
@@ -8,7 +9,7 @@
 
   <script type="text/javascript">
 	var uyan_config = {
-	     'su':"<%=url%>" 
+	     'su':"<%= page.title %>" 
 	};
 	</script>
 <% } %>
