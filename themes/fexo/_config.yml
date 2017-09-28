@@ -134,10 +134,7 @@ about:
   - type: me
     icon: icon-user
     text_value:
-    - "咖啡、代码、打字母."
     - "非著名野生程序猿."
-    - "会一点前,懂一些后端,在进击全栈的路上匍匐前进."
-    - "P的了图片,下的了厨房,弹得了尤克里里,打的过流氓."
   - type: Github
     icon: icon-github
     text_key: Github
