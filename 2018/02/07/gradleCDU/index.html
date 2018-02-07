@@ -22,7 +22,7 @@
 <meta property="og:url" content="http://pkaq.org/2018/02/07/gradleCDU/index.html">
 <meta property="og:site_name" content="如是我闻">
 <meta property="og:description" content="​    如今各大小有名无名厂商发布的各种依赖包版本滚动越来越频繁，也总有那么一波同学希望项目中的依赖尽可能保持新的版本，且看如下几种方式： 手动检查#​    最原始费时的方式莫过于手动检查了 ：}，喜欢这种方式自虐的同学可以点击传送门Maven中央仓库 保持最新#​    使用+可以使依赖保持最新，不过这样带来的副作用即是每次构建总会去检查每个依赖是否存在最新版本，这必然会拖慢构建的速度。1o">
-<meta property="og:updated_time" content="2018-02-07T14:20:38.297Z">
+<meta property="og:updated_time" content="2018-02-07T14:27:00.178Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="使用插件检查Gradle依赖更新">
 <meta name="twitter:description" content="​    如今各大小有名无名厂商发布的各种依赖包版本滚动越来越频繁，也总有那么一波同学希望项目中的依赖尽可能保持新的版本，且看如下几种方式： 手动检查#​    最原始费时的方式莫过于手动检查了 ：}，喜欢这种方式自虐的同学可以点击传送门Maven中央仓库 保持最新#​    使用+可以使依赖保持最新，不过这样带来的副作用即是每次构建总会去检查每个依赖是否存在最新版本，这必然会拖慢构建的速度。1o">
@@ -159,7 +159,7 @@
 
   <div id="toc" class="toc-article">
     <strong class="toc-title">文章目录</strong>
-    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-text">手动检查#</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-text">保持最新#</span></a></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-text">手动检查#</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-text">保持最新#</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-text">使用插件#</span></a></li></ol>
   </div>
 
 
@@ -213,7 +213,7 @@
       <p>​    如今各大小有名无名厂商发布的各种依赖包版本滚动越来越频繁，也总有那么一波同学希望项目中的依赖尽可能保持新的版本，且看如下几种方式：</p>
 <h2><span id="shou-dong-jian-cha">手动检查</span><a href="#shou-dong-jian-cha" class="header-anchor">#</a></h2><p>​    最原始费时的方式莫过于手动检查了 ：}，喜欢这种方式自虐的同学可以点击传送门<br><a href="http://mvnrepository.com" target="_blank" rel="noopener">Maven中央仓库</a></p>
 <h2><span id="bao-chi-zui-xin">保持最新</span><a href="#bao-chi-zui-xin" class="header-anchor">#</a></h2><p>​    使用<code>+</code>可以使依赖保持最新，不过这样带来的副作用即是每次构建总会去检查每个依赖是否存在最新版本，这必然会拖慢构建的速度。<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">org.springframework.boot:spring-boot-starter-web:+</span><br></pre></td></tr></table></figure></p>
-<p>##使用插件<br>​    使用三方插件进行检查，可以使依赖固定在一个相对新的版本，这里需要注意的是，plugins需要放置在脚本的顶部，更多关于<code>plugins</code>的内容可以查看<a href="https://docs.gradle.org/4.5/userguide/plugins.html#sec:plugins_block" target="_blank" rel="noopener">官方文档</a><br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">plugins &#123;</span><br><span class="line">   id "name.remal.check-dependency-updates" version "1.0.6" </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2><span id="shi-yong-cha-jian">使用插件</span><a href="#shi-yong-cha-jian" class="header-anchor">#</a></h2><p>​    使用三方插件进行检查，可以使依赖固定在一个相对新的版本，这里需要注意的是，plugins需要放置在脚本的顶部，更多关于<code>plugins</code>的内容可以查看<a href="https://docs.gradle.org/4.5/userguide/plugins.html#sec:plugins_block" target="_blank" rel="noopener">官方文档</a><br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">plugins &#123;</span><br><span class="line">   id "name.remal.check-dependency-updates" version "1.0.6" </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>​    应用此插件后,可以执行<code>gradle checkDependencyUpdates</code> 或 <code>gradle cDU</code> 检查依赖最新版本 : }<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;</span> Task :web:checkDependencyUpdates</span><br><span class="line">New dependency version: com.alibaba:druid: 1.0.29 -&gt; 1.1.7</span><br></pre></td></tr></table></figure></p>
 <link href="/css/prism-dark.css" rel="stylesheet">
     
