@@ -3,7 +3,7 @@ title: Spring Cloud 之服务治理 - Eureka服务发现-消费者(Feign)
 author: PKAQ
 date: 2017-09-12 18:04:38
 tags: ['Spring Cloud','微服务']
-categories: ['微服务']
+categories: ['微服务','Spring']
 ---
 Feign是一种声明式、模板化的HTTP客户端。在Spring Cloud中使用Feign, 我们可以做到使用HTTP请求远程服务时能与调用本地方法一样的编码体验，开发者完全感知不到这是远程方法，更感知不到这是个HTTP请求。
 Feign使得 Java HTTP 客户端编写更方便。Feign 灵感来源于Retrofit、JAXRS-2.0和WebSocket。Feign最初是为了降低统一绑定Denominator到HTTP API的复杂度，不区分是否支持Restful。Feign旨在通过最少的资源和代码来实现和HTTP API的连接。通过可定制的解码器和错误处理，可以编写任意的HTTP API。

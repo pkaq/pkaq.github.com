@@ -1,7 +1,7 @@
 title: 使用gradle下载jar包
 date: 2013-11-26 10:29:48
 tags: ['Gradle']
-categories: Gradle
+categories: Build Tools
 author: PKAQ
 ---
 如题 建立build.gradle文件如下：

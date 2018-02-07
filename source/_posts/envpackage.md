@@ -3,7 +3,7 @@ title: 使用Gradle按不同环境打包项目
 author: PKAQ
 date: 2017-08-09 12:49:36
 tags: [Gradle]
-categories:
+categories: Build Tools
 ---
 
 ## 0.概述

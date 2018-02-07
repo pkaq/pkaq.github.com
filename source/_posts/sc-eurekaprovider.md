@@ -3,7 +3,7 @@ title: Spring Cloud 之服务治理 - Eureka服务发现-生产者
 author: PKAQ
 date: 2017-08-07 11:20:07
 tags: ['Spring Cloud','微服务']
-categories: ['微服务']
+categories: ['微服务','Spring']
 ---
 
 实现服务发现非常容易，只需要如下几步：

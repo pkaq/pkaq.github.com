@@ -1,7 +1,7 @@
 title: 第六章： 构建基础
 date: 2013-09-06 11:39:54
 tags: ['Gradle UserGuide']
-categories: Gradle
+categories: Build Tools
 author: PKAQ
 ---
 

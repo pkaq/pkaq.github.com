@@ -1,7 +1,7 @@
 title: 使用Gradle调用CMD
 date: 2013-10-18 11:04:56
 tags: ['Gradle']
-categories: Gradle
+categories: Build Tools
 author: PKAQ
 ---
 关于如何使用gradle调用命令行来执行一些命令可以参考如下脚本进行修改扩展

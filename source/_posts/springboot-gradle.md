@@ -2,8 +2,8 @@
 title: 采用Gradle快速构建基于Spring boot的MVC应用
 author: PKAQ
 date: 2016-12-13 15:01:06
-tags: ['Spring-boot','Gradle']
-categories: spring-boot
+tags: ['Spring boot','Gradle']
+categories: ['Build Tools','Spring']
 ---
 
 　　`Spring boot`是用以简化`Spring`配置开发的一枚框架，采用`Spring boot`可以抛弃繁琐的XML配置，采用`JavaConfigure`的方式进行快速配置。同时该框架提供了包含预配置的众多的`starter`可以极大的简化配置工作量。下面的代码便是采用`web-starter`和`Gradle`进行快速创建一个mvc应用的示例。

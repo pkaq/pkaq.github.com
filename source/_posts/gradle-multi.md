@@ -2,7 +2,7 @@
 title: 使用Gradle进行多模块项目构建
 date: 2016-12-13 10:31:40
 tags: ['Gradle']
-categories: Gradle
+categories: Build Tools
 author: PKAQ
 ---
 

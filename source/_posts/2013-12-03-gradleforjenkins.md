@@ -1,7 +1,7 @@
 title: Jenkins+Gradle搭建CI环境
 date: 2013-12-03 09:52:39
 tags: ['Jenkins','Gradle']
-categories: ['Jenkins','Gradle']
+categories: ['Build Tools','DevOps']
 author: PKAQ
 ---
 

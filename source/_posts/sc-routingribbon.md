@@ -3,7 +3,7 @@ title:  Spring Cloud 之服务治理 - Eureka服务发现-消费者(负载均衡
 author: PKAQ
 date: 2017-09-12 17:22:01
 tags: ['Spring Cloud','微服务']
-categories: ['微服务']
+categories: ['微服务','Spring']
 ---
 1.引入依赖
 

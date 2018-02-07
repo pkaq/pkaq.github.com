@@ -2,8 +2,8 @@
 title: 使用yarn替代npm
 author: PKAQ
 date: 2017-01-20 17:16:16
-tags: ['构建','前端']
-categories: ['构建','前端']
+tags: ['yarn']
+categories: ['Build Tools','前端']
 ---
 
 强烈安利一波yarn,yarn默认就有锁定文件、更快速地安装依赖以及依赖的更新会自动同步到 package.json 文件中。从npm迁移过来根本不需要做什么,原有的package.json直接可用

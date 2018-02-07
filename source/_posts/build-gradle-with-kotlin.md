@@ -2,8 +2,8 @@
 title: 使用Gradle构建基于Kotlin的Spring Boot项目
 author: PKAQ
 date: 2017-08-11 13:23:49
-tags: ['Gradle','Kotlin']
-categories: ['Kotlin']
+tags: ['Gradle','Kotlin','Spring boot']
+categories: ['Build Tools','Spring']
 ---
 
 Hello Kotlin~

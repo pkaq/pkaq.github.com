@@ -1,8 +1,8 @@
 ---
 title: 多模块项目之 -  spring boot + gradle + 构建公共jsp页面的多模块项目
 date: 2016-12-02 15:28:26
-tags: ['Spring-boot','Gradle']
-categories: spring-boot
+tags: ['Spring boot','Gradle']
+categories: ['Build Tools','Spring']
 author: PKAQ
 
 ---

@@ -3,7 +3,7 @@ title:  Spring Cloud 之服务治理 - Eureka服务发现-消费者(RestTemplate
 author: PKAQ
 date: 2017-08-12 15:54:56
 tags: ['Spring Cloud','微服务']
-categories: ['微服务']
+categories: ['微服务','Spring']
 ---
 
 本部分需要依赖之前的[配置中心](https://github.com/pkaq/springcloud7/tree/master/cloud-config-server)和[服务注册中心](https://github.com/pkaq/springcloud7/tree/master/cloud-eureka-server-simple)、[服务提供者](https://github.com/pkaq/springcloud7/tree/master/cloud-config-client)三个示例代码运行

@@ -2,7 +2,7 @@
 title: Gradle置顶帖
 date: 2099-12-13 10:31:40
 tags: ['Gradle']
-categories: Gradle
+categories: Build Tools
 author: PKAQ
 ---
 

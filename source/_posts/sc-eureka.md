@@ -3,7 +3,7 @@ title: Spring Cloud 之服务治理 - 搭建高可用的Eureka服务注册中心
 author: PKAQ
 date: 2017-08-06 10:19:22
 tags: ['Spring Cloud','微服务']
-categories: ['微服务']
+categories: ['微服务','Spring']
 ---
 # Spring Cloud 之服务治理 - 搭建高可用的Eureka服务注册中心
 
