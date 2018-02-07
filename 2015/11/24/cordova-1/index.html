@@ -200,21 +200,21 @@
 
   <div class="article-content">
     
-      <p><a href="http://segmentfault.com/a/1190000002560220" target="_blank" rel="external">&gt;&gt;请点击这里查看原文&lt;&lt;</a></p>
+      <p><a href="http://segmentfault.com/a/1190000002560220" target="_blank" rel="noopener">&gt;&gt;请点击这里查看原文&lt;&lt;</a></p>
 <a id="more"></a>
 <p>1.安装nodejs </p>
-<p>2.安装coordova模块<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">npm install -g cordova</div></pre></td></tr></table></figure></p>
-<p>这个安装过程需要花费很长的时间，推荐采用 <a href="http://segmentfault.com/a/1190000000471219" target="_blank" rel="external">淘宝的npm镜像</a></p>
-<p>3.安装android开发环境并且配置环境变量，在Terminal里面输入android看看有没有android的版本管理器出来就说明配置有没有做好，关于如何配置环境变量搜素一下，<a href="http://www.micmiu.com/lang/java/set-javahome-on-mac-os-x/" target="_blank" rel="external">mac的看这里</a>  </p>
-<p>4.安装ant，cordova采用ant来做的持续集成，需要配置ant环境，搜素一下，<br><a href="http://blog.csdn.net/crazybigfish/article/details/18215439" target="_blank" rel="external">mac的看这里</a></p>
-<p>5.创建HelloWorld执行命令<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">cordova create hello com.example.hello HelloWorld</div></pre></td></tr></table></figure></p>
+<p>2.安装coordova模块<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install -g cordova</span><br></pre></td></tr></table></figure></p>
+<p>这个安装过程需要花费很长的时间，推荐采用 <a href="http://segmentfault.com/a/1190000000471219" target="_blank" rel="noopener">淘宝的npm镜像</a></p>
+<p>3.安装android开发环境并且配置环境变量，在Terminal里面输入android看看有没有android的版本管理器出来就说明配置有没有做好，关于如何配置环境变量搜素一下，<a href="http://www.micmiu.com/lang/java/set-javahome-on-mac-os-x/" target="_blank" rel="noopener">mac的看这里</a>  </p>
+<p>4.安装ant，cordova采用ant来做的持续集成，需要配置ant环境，搜素一下，<br><a href="http://blog.csdn.net/crazybigfish/article/details/18215439" target="_blank" rel="noopener">mac的看这里</a></p>
+<p>5.创建HelloWorld执行命令<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cordova create hello com.example.hello HelloWorld</span><br></pre></td></tr></table></figure></p>
 <p>这个过程异常的艰难，希望你有个好网络</p>
-<p>6.配置开发平台，进入hello目录，执行<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">cordova platform add android</div></pre></td></tr></table></figure></p>
-<p>7.编译<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">cordova build</div></pre></td></tr></table></figure></p>
-<p>8.安装，非常不喜欢虚拟机，所以直接插上android运行<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">cordova run android</div></pre></td></tr></table></figure></p>
-<p>如果希望启动虚拟机<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">cordova emulate android</div></pre></td></tr></table></figure></p>
+<p>6.配置开发平台，进入hello目录，执行<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cordova platform add android</span><br></pre></td></tr></table></figure></p>
+<p>7.编译<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cordova build</span><br></pre></td></tr></table></figure></p>
+<p>8.安装，非常不喜欢虚拟机，所以直接插上android运行<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cordova run android</span><br></pre></td></tr></table></figure></p>
+<p>如果希望启动虚拟机<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cordova emulate android</span><br></pre></td></tr></table></figure></p>
 <p>然后一个很傻的，没有什么功能的应用就装在手机上了</p>
-<p>9.进一步开发，用Android Studio导入工程，在\hello\www目录下就是html开发内容，hybrid的开发就在这里做<br>在这个阶段中对环境变量的修改<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">export PATH="$PATH:/Users/xxx/android-sdk-macosx/platform-tools"</div><div class="line">export PATH="$PATH:/Users/xxx/android-sdk-macosx/tools"</div><div class="line">export PATH="$PATH:/Users/xxx/android-sdk-macosx"</div><div class="line">export PATH="$PATH:/Users/xxx/apache-ant-1.9.4/bin"</div><div class="line">export JAVA_HOME=`/usr/libexec/java_home`</div></pre></td></tr></table></figure></p>
+<p>9.进一步开发，用Android Studio导入工程，在\hello\www目录下就是html开发内容，hybrid的开发就在这里做<br>在这个阶段中对环境变量的修改<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">export PATH="$PATH:/Users/xxx/android-sdk-macosx/platform-tools"</span><br><span class="line">export PATH="$PATH:/Users/xxx/android-sdk-macosx/tools"</span><br><span class="line">export PATH="$PATH:/Users/xxx/android-sdk-macosx"</span><br><span class="line">export PATH="$PATH:/Users/xxx/apache-ant-1.9.4/bin"</span><br><span class="line">export JAVA_HOME=`/usr/libexec/java_home`</span><br></pre></td></tr></table></figure></p>
 <link href="/css/prism-dark.css" rel="stylesheet">
     
   </div>

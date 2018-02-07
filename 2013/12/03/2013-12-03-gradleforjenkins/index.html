@@ -230,7 +230,7 @@
 </li>
 <li><p>使用命令行跳转到jenkins所在目录<br>可以有两种方法进行运行 jenkins<br> a)    直接通过命令行<br> 转到hudson.war所在的目录，当前为<br> java -jar jenkins.war –httpPort=8080<br> 说明：httpPort为jenkins运行的端口，默认端口为8080，上述命令其实jenkins运行在Winstone容器中；<br> b)    在Web容器中运行<br> jenkins可以运行在标准的Web服务器中，支持Tomcat、Jboss、WebLogic中，只需要将jenkins.war放置到相应目录，启动服务就可以进行访问；</p>
 </li>
-<li><p>访问jenkins <a href="http://localhost:8080/" target="_blank" rel="external">http://localhost:8080/</a></p>
+<li><p>访问jenkins <a href="http://localhost:8080/" target="_blank" rel="noopener">http://localhost:8080/</a></p>
 <a id="more"></a></li>
 <li><p>安装gradle插件<br> 点击系统管理-&gt;插件管理<br> 选择”可安装插件”tab页,过滤出gradle plugin然后勾选点击直接安装即可<br> 如果需要自动部署还需要安装deploy plugin</p>
 </li>
@@ -247,7 +247,7 @@
 <p> 6.5. 自动部署<br> 在”构建后操作”选项下,点击 增加构建步骤 选择 delply war/ear to a container</p>
 <p> 在war/ear files下填入war包所在位置 如target/libs/CIMS.war<br> context path填写项目名称 如 CIMS<br> container选择容器版本 如tomcat<br> 这里需要更改目标tomcat配置 添加相应用户 然后填入相应内容即可<br> <img src="/images/2013/12/03/5.png" alt="deploy config"></p>
 <p> p.s:此步需要修改目标tomcat的配置</p>
- <figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">vi $tomcat/conf/tomcat-usres.xml</div><div class="line">&lt;!-- 必须开启这两个权限,不然会出现 如下错误,同时该错误也可能由于内存溢出而导致ERROR: Publisher hudson.plugins.deploy.DeployPublisher aborted due to exception   --&gt;</div><div class="line">&lt;role rolename="manager-script"/&gt;</div><div class="line">&lt;role rolename="manager-gui"/&gt;	</div><div class="line">&lt;user username="jenkins" password="jenkins" roles="tomcat,manager-script,manager-gui"/&gt;</div></pre></td></tr></table></figure>
+ <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">vi $tomcat/conf/tomcat-usres.xml</span><br><span class="line">&lt;!-- 必须开启这两个权限,不然会出现 如下错误,同时该错误也可能由于内存溢出而导致ERROR: Publisher hudson.plugins.deploy.DeployPublisher aborted due to exception   --&gt;</span><br><span class="line">&lt;role rolename="manager-script"/&gt;</span><br><span class="line">&lt;role rolename="manager-gui"/&gt;	</span><br><span class="line">&lt;user username="jenkins" password="jenkins" roles="tomcat,manager-script,manager-gui"/&gt;</span><br></pre></td></tr></table></figure>
 </li>
 </ol>
 <ol>
