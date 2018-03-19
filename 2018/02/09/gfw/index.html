@@ -7,25 +7,29 @@
 <head>
   <meta charset="utf-8">
   
-  <title>使用插件检查Gradle依赖更新 | 如是我闻</title>
+  <title>一分钱让自己科学上网 | 如是我闻</title>
 
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
   
-    <meta name="keywords" content="Gradle," />
+    <meta name="keywords" content="GFW," />
   
 
-  <meta name="description" content="​    如今各大小有名无名厂商发布的各种依赖包版本滚动越来越频繁，也总有那么一波同学希望项目中的依赖尽可能保持新的版本，且看如下几种方式： 手动检查#​    最原始费时的方式莫过于手动检查了 ：}，喜欢这种方式自虐的同学可以点击传送门Maven中央仓库 保持最新#​    使用+可以使依赖保持最新，不过这样带来的副作用即是每次构建总会去检查每个依赖是否存在最新版本，这必然会拖慢构建的速度。1o">
-<meta name="keywords" content="Gradle">
+  <meta name="description" content="获取云服务器1.注册vultr 点击 |&amp;gt;注册传送门&amp;lt;| 注册vultr    2.选择配置">
+<meta name="keywords" content="GFW">
 <meta property="og:type" content="article">
-<meta property="og:title" content="使用插件检查Gradle依赖更新">
-<meta property="og:url" content="http://pkaq.org/2018/02/07/gradleCDU/index.html">
+<meta property="og:title" content="一分钱让自己科学上网">
+<meta property="og:url" content="http://pkaq.org/2018/02/09/gfw/index.html">
 <meta property="og:site_name" content="如是我闻">
-<meta property="og:description" content="​    如今各大小有名无名厂商发布的各种依赖包版本滚动越来越频繁，也总有那么一波同学希望项目中的依赖尽可能保持新的版本，且看如下几种方式： 手动检查#​    最原始费时的方式莫过于手动检查了 ：}，喜欢这种方式自虐的同学可以点击传送门Maven中央仓库 保持最新#​    使用+可以使依赖保持最新，不过这样带来的副作用即是每次构建总会去检查每个依赖是否存在最新版本，这必然会拖慢构建的速度。1o">
-<meta property="og:updated_time" content="2018-02-07T14:27:00.178Z">
+<meta property="og:description" content="获取云服务器1.注册vultr 点击 |&amp;gt;注册传送门&amp;lt;| 注册vultr    2.选择配置">
+<meta property="og:image" content="http://pkaq.org/2018/02/09/gfw/0.jpg">
+<meta property="og:image" content="http://pkaq.org/2018/02/09/gfw/1.jpg">
+<meta property="og:image" content="http://pkaq.org/2018/02/09/gfw/2.jpg">
+<meta property="og:updated_time" content="2018-03-19T14:33:25.893Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="使用插件检查Gradle依赖更新">
-<meta name="twitter:description" content="​    如今各大小有名无名厂商发布的各种依赖包版本滚动越来越频繁，也总有那么一波同学希望项目中的依赖尽可能保持新的版本，且看如下几种方式： 手动检查#​    最原始费时的方式莫过于手动检查了 ：}，喜欢这种方式自虐的同学可以点击传送门Maven中央仓库 保持最新#​    使用+可以使依赖保持最新，不过这样带来的副作用即是每次构建总会去检查每个依赖是否存在最新版本，这必然会拖慢构建的速度。1o">
+<meta name="twitter:title" content="一分钱让自己科学上网">
+<meta name="twitter:description" content="获取云服务器1.注册vultr 点击 |&amp;gt;注册传送门&amp;lt;| 注册vultr    2.选择配置">
+<meta name="twitter:image" content="http://pkaq.org/2018/02/09/gfw/0.jpg">
 
   
 
@@ -159,20 +163,20 @@
 
   <div id="toc" class="toc-article">
     <strong class="toc-title">文章目录</strong>
-    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-text">手动检查#</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-text">保持最新#</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-text">使用插件#</span></a></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-text">获取云服务器#</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-text">1.注册vultr#</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-text">2.选择配置#</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-text">服务器操作#</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-text">搭建梯子#</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-text">使用梯子#</span></a></li></ol>
   </div>
 
 
 
 <div class="content content-post CENTER">
-   <article id="post-gradleCDU" class="article article-type-post" itemprop="blogPost">
+   <article id="post-gfw" class="article article-type-post" itemprop="blogPost">
   <header class="article-header">
-    <h1 class="post-title">使用插件检查Gradle依赖更新</h1>
+    <h1 class="post-title">一分钱让自己科学上网</h1>
 
     <div class="article-meta">
       <span>
         <i class="icon-calendar"></i>
-        <span>2018.02.07</span>
+        <span>2018.02.09</span>
       </span>
 
       
@@ -185,7 +189,7 @@
       
   <span class="article-category">
     <i class="icon-list"></i>
-    <a class="article-category-link" href="/categories/Build-Tools/">Build Tools</a>
+    <a class="article-category-link" href="/categories/杂文/">杂文</a>
   </span>
 
 
@@ -202,7 +206,7 @@
 
       
         <i class="icon-comment"></i> 
-        共 <a class="ds-thread-count" id="uyan_count_unit" su="使用插件检查Gradle依赖更新" href="http://pkaq.org/2018/02/07/gradleCDU/index.html"></a>
+        共 <a class="ds-thread-count" id="uyan_count_unit" su="一分钱让自己科学上网" href="http://pkaq.org/2018/02/09/gfw/index.html"></a>
       
       
     </div>
@@ -210,11 +214,13 @@
 
   <div class="article-content">
     
-      <p>​    如今各大小有名无名厂商发布的各种依赖包版本滚动越来越频繁，也总有那么一波同学希望项目中的依赖尽可能保持新的版本，且看如下几种方式：</p>
-<h2><span id="shou-dong-jian-cha">手动检查</span><a href="#shou-dong-jian-cha" class="header-anchor">#</a></h2><p>​    最原始费时的方式莫过于手动检查了 ：}，喜欢这种方式自虐的同学可以点击传送门<br><a href="http://mvnrepository.com" target="_blank" rel="noopener">Maven中央仓库</a></p>
-<h2><span id="bao-chi-zui-xin">保持最新</span><a href="#bao-chi-zui-xin" class="header-anchor">#</a></h2><p>​    使用<code>+</code>可以使依赖保持最新，不过这样带来的副作用即是每次构建总会去检查每个依赖是否存在最新版本，这必然会拖慢构建的速度。<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">org.springframework.boot:spring-boot-starter-web:+</span><br></pre></td></tr></table></figure></p>
-<h2><span id="shi-yong-cha-jian">使用插件</span><a href="#shi-yong-cha-jian" class="header-anchor">#</a></h2><p>​    使用三方插件进行检查，可以使依赖固定在一个相对新的版本，这里需要注意的是，plugins需要放置在脚本的顶部，更多关于<code>plugins</code>的内容可以查看<a href="https://docs.gradle.org/4.5/userguide/plugins.html#sec:plugins_block" target="_blank" rel="noopener">官方文档</a><br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">plugins &#123;</span><br><span class="line">   id "name.remal.check-dependency-updates" version "1.0.6" </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>​    应用此插件后,可以执行<code>gradle checkDependencyUpdates</code> 或 <code>gradle cDU</code> 检查依赖最新版本 : }<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;</span><span class="bash"> Task :web:checkDependencyUpdates</span></span><br><span class="line">New dependency version: com.alibaba:druid: 1.0.29 -&gt; 1.1.7</span><br></pre></td></tr></table></figure></p>
+      <h1><span id="huo-qu-yun-fu-wu-qi">获取云服务器</span><a href="#huo-qu-yun-fu-wu-qi" class="header-anchor">#</a></h1><h3><span id="1-zhu-ce-vultr">1.注册vultr</span><a href="#1-zhu-ce-vultr" class="header-anchor">#</a></h3><p> 点击 <a href="https://www.vultr.com/?ref=7353037" target="_blank" rel="noopener">|&gt;注册传送门&lt;|</a> 注册<code>vultr</code>   </p>
+<h3><span id="2-xuan-ze-pei-zhi">2.选择配置</span><a href="#2-xuan-ze-pei-zhi" class="header-anchor">#</a></h3><a id="more"></a>
+<p>  点击<code>servers</code>菜单页面的<code>加号</code>创建服务器。这里建议选择欧洲服务器,根据经验欧洲服务器是稳定性和速度最好的。这里选择最便宜的配置就够用了，当然2.5的基本常年处于缺货状态。<br>  选择完成后，点击部署，等待创建完成。<br><img src=".\0.jpg" alt="0.jpg"></p>
+<h3><span id="fu-wu-qi-cao-zuo">服务器操作</span><a href="#fu-wu-qi-cao-zuo" class="header-anchor">#</a></h3><p>在服务器控制台可以看到刚才创建的服务器，点击右侧的三个原点可以可用操作；<br><img src=".\1.jpg" alt="1.jpg"><br>点击标题可以查看配置详情。到这里你就可以通过<code>online console</code>或者<code>xshell</code>等各种方式来登录操作你的服务器了:)<br><img src=".\2.jpg" alt="2.jpg"></p>
+<h1><span id="da-jian-ti-zi">搭建梯子</span><a href="#da-jian-ti-zi" class="header-anchor">#</a></h1><p>搭建梯子非常简单,登录服务器后只需要用如下的命令三连即可<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 安装docker</span></span><br><span class="line">yum install docker</span><br><span class="line"><span class="comment"># 拉取镜像</span></span><br><span class="line">docker pull oddrationale/docker-shadowsocks</span><br><span class="line"><span class="comment"># 启动docker</span></span><br><span class="line">systemctl start docker</span><br><span class="line"><span class="comment"># 启动容器</span></span><br><span class="line">docker run -d -p 1984 :1984 oddrationale/docker-shadowsocks -s 0.0.0.0 -p 1984 -k password -m aes-256-cfb</span><br></pre></td></tr></table></figure></p>
+<h1><span id="shi-yong-ti-zi">使用梯子</span><a href="#shi-yong-ti-zi" class="header-anchor">#</a></h1><p>使用梯子的方式也十分简单,只需要去 <code>https://shadowsocks.com/client.html</code>下载一个<code>ShadowSocks</code>客户端,填入相应的配置即可。</p>
+<p>p.s:本贴仅用以技术交流探讨</p>
 <link href="/css/prism-dark.css" rel="stylesheet">
     
   </div>
@@ -348,7 +354,7 @@
 
   <script type="text/javascript">
 	var uyan_config = {
-	     'su':"使用插件检查Gradle依赖更新" 
+	     'su':"一分钱让自己科学上网" 
 	};
 	</script>
 
