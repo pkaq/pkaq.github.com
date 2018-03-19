@@ -17,7 +17,7 @@ categories: ['Build Tools']
 ```shell
 org.springframework.boot:spring-boot-starter-web:+
 ```
-##使用插件
+## 使用插件
 ​    使用三方插件进行检查，可以使依赖固定在一个相对新的版本，这里需要注意的是，plugins需要放置在脚本的顶部，更多关于`plugins`的内容可以查看[官方文档](https://docs.gradle.org/4.5/userguide/plugins.html#sec:plugins_block)
 ```shell
 plugins {
