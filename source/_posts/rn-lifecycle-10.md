@@ -5,7 +5,7 @@ categories: ['React Native']
 author: Frank.Wu
 ---
 
-![RN组件的声明周期](./rn-lifecycle-10/lifecycle.jpg)
+![RN组件的声明周期](rn-lifecycle-10/lifecycle.jpg)
 <!-- more -->
 
 **创建阶段**
