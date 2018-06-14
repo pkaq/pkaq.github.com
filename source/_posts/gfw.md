@@ -22,19 +22,18 @@ categories: ['杂文']
 ![2.jpg](.\2.jpg)
 
 # 搭建梯子
-搭建梯子非常简单,登录服务器后只需要用如下的命令三连即可
-```bash
-# 安装docker
-yum install docker
-# 启动docker
-systemctl start docker
-# 拉取镜像
-docker pull oddrationale/docker-shadowsocks
-# 启动容器
-docker run -d -p 1984 :1984 oddrationale/docker-shadowsocks -s 0.0.0.0 -p 1984 -k password -m aes-256-cfb
+搭建梯子非常简单,登录服务器后使用一键脚本即可
+**via curl**  
 ```
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/pkaq/1kss/master/1kss.sh)"
+```
+**via wget**  
+```
+sh -c "$(wget https://raw.githubusercontent.com/pkaq/1kss/master/1kss.sh -O -)"
+```
+
 # 使用梯子
 
 使用梯子的方式也十分简单,只需要去 `https://shadowsocks.com/client.html`下载一个`ShadowSocks`客户端,填入相应的配置即可。
 
-p.s:本贴仅用以技术交流探讨
+p.s:本贴仅用以技术交流探讨 - 2018.06.14更新一键脚本
