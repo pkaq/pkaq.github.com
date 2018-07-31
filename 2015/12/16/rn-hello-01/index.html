@@ -22,7 +22,7 @@
 <meta property="og:url" content="http://pkaq.org/2015/12/16/rn-hello-01/index.html">
 <meta property="og:site_name" content="如是我闻">
 <meta property="og:description" content="写在前面  目前最热的框架之一,可以通过更新远端JS，直接更新app, 用 JavaScript 调起 native 组件，将增强与高性能组件交给 native 来处理 ，相比其他hybrid框架而言并非通过webview来调用原生组件,而是直接调用操作系统自带的javascriptCore  React Native only supports Android 4.1 and above   由">
-<meta property="og:updated_time" content="2016-04-11T09:12:48.536Z">
+<meta property="og:updated_time" content="2018-07-31T05:20:18.788Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="RN（react native）入坑指南-01,Hello RN">
 <meta name="twitter:description" content="写在前面  目前最热的框架之一,可以通过更新远端JS，直接更新app, 用 JavaScript 调起 native 组件，将增强与高性能组件交给 native 来处理 ，相比其他hybrid框架而言并非通过webview来调用原生组件,而是直接调用操作系统自带的javascriptCore  React Native only supports Android 4.1 and above   由">
@@ -213,26 +213,24 @@
       <h4><span id="xie-zai-qian-mian">写在前面</span><a href="#xie-zai-qian-mian" class="header-anchor">#</a></h4><p>  目前最热的框架之一,可以通过更新远端JS，直接更新app, 用 JavaScript 调起 native 组件，将增强与高性能组件交给 native 来处理 ，相比其他hybrid框架而言并非通过webview来调用原生组件,而是直接调用操作系统自带的javascriptCore<br>  React Native only supports Android 4.1 and above</p>
 <p>  由于Facebook基本人手mac+iphone，所以用win+android来搞的同学 如果你在学习使用的过程中出现了各种莫名其妙的意想不到的问题，辣么 这一切都在情理之中，有条件的同学建议宁愿linux也不要win下搞，此处送你前人踩坑宝典两册<br>   <a href="https://github.com/pkaq/react-native-android-lession/blob/master/react-android-lession2.%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98%E6%B1%87%E6%80%BB.md/" target="_blank" rel="noopener">点我传送 - 踩坑宝典&lt;上&gt;</a></p>
 <p>   <a href="http://bbs.react-native.cn/category/3/blogs" target="_blank" rel="noopener">点我传送 - 踩坑宝典&lt;下&gt;</a></p>
+<p>   – 2018/07/31更新</p>
 <a id="more"></a>
-<h4><span id="0-huan-jing">0.环境</span><a href="#0-huan-jing" class="header-anchor">#</a></h4><pre><code>0.rn：0.22
+<h4><span id="0-huan-jing">0.环境</span><a href="#0-huan-jing" class="header-anchor">#</a></h4><pre><code>0.rn：0.56
 1.windows : 10
-2.node : 5.1.0
-3.npm : 3.3.12
-4.react-native-cli : 0.1.7
-5.Genymotion : 2.6, Nexus 6 - 5.1 API 22
-6.git : 2.6.2
+2.node : 10.0.4
+3.npm : 6.1.0
+4.yarn 1.7
 </code></pre><h4><span id="1-an-zhuang">1.安装</span><a href="#1-an-zhuang" class="header-anchor">#</a></h4><p>  安装比较简单 基本按照官网说明走就行了,唯一需要注意的就是<br><strong><em>请时刻保持翻墙状态</em></strong><br><strong><em>请时刻保持翻墙状态</em></strong><br><strong><em>请时刻保持翻墙状态</em></strong></p>
 <p>当然最好使用安装git后自带的git bash 不要用cmd了。   </p>
 <p>   <a href="https://facebook.github.io/react-native/docs/getting-started.html#content" target="_blank" rel="noopener">官网说明传送门</a></p>
-<p>为了方便小语种的同学，这里简单赘述一下<br>1.你需要安装nodejs 4.0 以上的版本<br>当然如果你正在用5.0以上版本的node那么建议切换到npm2，因为这比3要快 采用如下命令切换<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install -g npm@2.</span><br></pre></td></tr></table></figure></p>
-<p>然后你就可以开始安装RN了,这里需要注意的是win下可能会提示你缺少各种依赖的模块包，耐心安装，并不是没有尽头…<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install -g react-native-cli</span><br></pre></td></tr></table></figure></p>
-<h4><span id="2-hello-world">2.Hello World</span><a href="#2-hello-world" class="header-anchor">#</a></h4><p>折腾完了现在开始创建你的项目吧，用下面的命令(AwesomeProject(超屌的项目),名字你可以随便起（其实不能随便起，千万不要带有react这个单词，否则会出现莫名其妙的问题 - 2016.03补充），这是官方示例给的一个名字)<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">react-native init AwesomeProject</span><br></pre></td></tr></table></figure></p>
-<p>创建完成后跳到项目跟目录让他在你的安卓机上跑起来吧：）<br><a href="http://facebook.github.io/react-native/docs/running-on-device-android.html#content" target="_blank" rel="noopener">官方文档传送门</a></p>
-<p>新开个终端 ，跳到你的项目目录执行<br>运行packager，运行下面的命令后此时你可以通过浏览器打开<code>http://localhost:8081/index.android.bundle?platform=android</code>查看打包后的脚本。<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd AwesomeProject</span><br><span class="line">react-native start</span><br></pre></td></tr></table></figure></p>
-<p>真机或者用模拟器运行程序<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">react-native run-android</span><br></pre></td></tr></table></figure></p>
-<p>这里需要注意的地方是<br>0.设置ip<br>现在，打开UIExplorer项目，摇一摇你的手机，在弹出的菜单中选择<code>Dev settings</code>-&gt;<code>Debug server host &amp; port for device</code><br>设置一下你的无线IP 比如<code>192.168.1.1:8081</code>,注意：此处的8081一定要有的否则无法加载   </p>
-<p>1.如果是android 5.0+辣么,这一点我用Genymotion创建的虚拟设备不进行此步骤也没问题，真机了也不行，原因未知。<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">adb reverse tcp:8081 tcp:8081</span><br></pre></td></tr></table></figure></p>
-<p>现在 你应该已经看到官方为你准备的Welcome页面了，这个页面在项目根目录下的index.android.js和index.ios.js下</p>
+<p>为了方便小语种的同学，这里简单赘述一下<br>1.你需要安装nodejs 10.0 以上的版本</p>
+<p>然后你就可以开始安装RN了,这里需要注意的是win下可能会提示你缺少各种依赖的模块包，耐心安装，并不是没有尽头…<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install -g create-react-native-app</span><br></pre></td></tr></table></figure></p>
+<h4><span id="2-hello-world">2.Hello World</span><a href="#2-hello-world" class="header-anchor">#</a></h4><p>折腾完了现在开始创建你的项目吧，用下面的命令(AwesomeProject(超屌的项目),名字你可以随便起（其实不能随便起，千万不要带有react这个单词，否则会出现莫名其妙的问题），这是官方示例给的一个名字)<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">create-react-native-app AwesomeProject</span><br></pre></td></tr></table></figure></p>
+<p>创建完成后跳到项目跟目录让他在你的安卓机上跑起来吧：）<br><a href="https://facebook.github.io/react-native/docs/getting-started.html" target="_blank" rel="noopener">官方文档传送门</a></p>
+<p>安装Expo , 并且保证你的机器所用的网络跟pc在同一个局域网段,可以使用 <code>set REACT_NATIVE_PACKAGER_HOSTNAME</code> 来设置使用哪个ip</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd AwesomeProject</span><br><span class="line">yarn start</span><br></pre></td></tr></table></figure>
+<p>真机或者用模拟器运行程序<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yarn android</span><br></pre></td></tr></table></figure></p>
+<p>现在 你应该已经看到官方为你准备的Welcome页面了，这个页面在项目根目录下的app.js下</p>
 <p>参考链接:<br>  <a href="https://facebook.github.io/react-native/docs/getting-started.html" target="_blank" rel="noopener">点我传送 - 官方文档</a><br>  <a href="https://github.com/pkaq/react-native-android-lession/blob/master/react-android-lession2.%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98%E6%B1%87%E6%80%BB.md/" target="_blank" rel="noopener">点我传送 - 踩坑宝典&lt;上&gt;</a><br>  <a href="http://bbs.react-native.cn/category/3/blogs" target="_blank" rel="noopener">点我传送 - 踩坑宝典&lt;下&gt;</a></p>
 <link href="/css/prism-dark.css" rel="stylesheet">
     
