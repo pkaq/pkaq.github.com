@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+
+
+  <html class="dark page-post">
+
+
+<head>
+  <meta charset="utf-8">
+  
+  <title>基于nginx的简易蓝绿发布 | 如是我闻</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="DevOps,nginx,tomcat," />
+  
+
+  <meta name="description" content="Blue/Green Deployment（蓝绿部署）,又称为蓝绿发布,是一种通过切换蓝绿环境的方式实现新版本的不停机发布手法.      具体的做法是      1.部署两套生产环境,我们称这两套环境分别为蓝色环境和绿色环境. 2.使用负载均衡指向其中一套环境(也可以都指向),当版本升级时 先将版本发布到备用环境中 ,进行有效性测试, 测试通过后,将需要升级的环境(如蓝色环境)流量全部导流到备用">
+<meta name="keywords" content="DevOps,nginx,tomcat">
+<meta property="og:type" content="article">
+<meta property="og:title" content="基于nginx的简易蓝绿发布">
+<meta property="og:url" content="http://pkaq.org/2018/08/02/blueandgreen/index.html">
+<meta property="og:site_name" content="如是我闻">
+<meta property="og:description" content="Blue/Green Deployment（蓝绿部署）,又称为蓝绿发布,是一种通过切换蓝绿环境的方式实现新版本的不停机发布手法.      具体的做法是      1.部署两套生产环境,我们称这两套环境分别为蓝色环境和绿色环境. 2.使用负载均衡指向其中一套环境(也可以都指向),当版本升级时 先将版本发布到备用环境中 ,进行有效性测试, 测试通过后,将需要升级的环境(如蓝色环境)流量全部导流到备用">
+<meta property="og:updated_time" content="2018-08-02T08:18:32.330Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="基于nginx的简易蓝绿发布">
+<meta name="twitter:description" content="Blue/Green Deployment（蓝绿部署）,又称为蓝绿发布,是一种通过切换蓝绿环境的方式实现新版本的不停机发布手法.      具体的做法是      1.部署两套生产环境,我们称这两套环境分别为蓝色环境和绿色环境. 2.使用负载均衡指向其中一套环境(也可以都指向),当版本升级时 先将版本发布到备用环境中 ,进行有效性测试, 测试通过后,将需要升级的环境(如蓝色环境)流量全部导流到备用">
+
+  
+
+  
+    <link rel="icon" href="/favicon.ico">
+  
+
+  <link href="/css/styles.css?v=d671a41f" rel="stylesheet">
+
+
+  
+    <link rel="stylesheet" href="/css/fexo-theme.css">
+  
+
+  
+
+  
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?cd1f06c6f057506d537ab11e9f1693be";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+  
+    <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  
+
+  
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  
+
+  <link href='//cdn.webfont.youziku.com/webfonts/nomal/97080/42410/5865c4e5f629db00cc915895.css' rel='stylesheet' type='text/css' />
+ 
+</head>
+
+<body>
+
+
+  
+    <span id="toolbox-mobile" class="toolbox-mobile">　</span>
+  
+
+  <div class="post-header CENTER">
+   
+  <div class="toolbox">
+    <a class="toolbox-entry" href="/">
+      <span class="toolbox-entry-text">　</span>
+      <i class="icon-angle-down"></i>
+      <i class="icon-home"></i>
+    </a>
+    <ul class="list-toolbox">
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE toolbox_color_0"
+            href="/archives/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            博客
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE toolbox_color_1"
+            href="/category/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            分类
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE toolbox_color_2"
+            href="/tag/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            标签
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE toolbox_color_3"
+            href="/link/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            友链
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE toolbox_color_4"
+            href="/atom.xml"
+            rel="noopener noreferrer"
+            target="_blank"
+            >
+            RSS
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE toolbox_color_5"
+            href="/search/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+</div>
+
+
+  <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-text">1.环境准备#</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-text">2.LB配置#</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-text">3.发布切换#</span></a></li></ol>
+  </div>
+
+
+
+<div class="content content-post CENTER">
+   <article id="post-blueandgreen" class="article article-type-post" itemprop="blogPost">
+  <header class="article-header">
+    <h1 class="post-title">基于nginx的简易蓝绿发布</h1>
+
+    <div class="article-meta">
+      <span>
+        <i class="icon-calendar"></i>
+        <span>2018.08.02</span>
+      </span>
+
+      
+        <span class="article-author">
+          <i class="icon-user"></i>
+          <span>PKAQ</span>
+        </span>
+      
+
+      
+  <span class="article-category">
+    <i class="icon-list"></i>
+    <a class="article-category-link" href="/categories/DevOps/">DevOps</a>
+  </span>
+
+
+
+      
+
+      
+      <i class="fa fa-eye"></i> 
+        <span id="busuanzi_container_page_pv">
+           &nbsp热度 <span id="busuanzi_value_page_pv">
+           <i class="fa fa-spinner fa-spin"></i></span>℃
+        </span>
+      
+
+      
+        <i class="icon-comment"></i> 
+        共 <a class="ds-thread-count" id="uyan_count_unit" su="基于nginx的简易蓝绿发布" href="http://pkaq.org/2018/08/02/blueandgreen/index.html"></a>
+      
+      
+    </div>
+  </header>
+
+  <div class="article-content">
+    
+      <p>Blue/Green Deployment（蓝绿部署）,又称为<code>蓝绿发布</code>,是一种通过切换蓝绿环境的方式实现新版本的不停机发布手法.   </p>
+<p>  具体的做法是    </p>
+<ul>
+<li>1.部署两套生产环境,我们称这两套环境分别为<code>蓝色环境</code>和<code>绿色环境</code>.</li>
+<li>2.使用负载均衡指向其中一套环境(也可以都指向),当版本升级时 先将版本发布到备用环境中 ,进行有效性测试, 测试通过后,将需要升级的环境(如蓝色环境)流量全部导流到备用环境中,此时备用环境与原来的正式环境完成了一次角色互换.</li>
+<li><p>3.重新配置负载均衡.   </p>
+<p>当然,这里也可以让蓝绿两套环境同时支持线上, 思路是一样的, 核心的技术点仍然是通过<code>nginx</code>配置热加载完成导流实现.</p>
+<a id="more"></a>   
+</li>
+</ul>
+<h1><span id="1-huan-jing-zhun-bei">1.环境准备</span><a href="#1-huan-jing-zhun-bei" class="header-anchor">#</a></h1><ul>
+<li>nginx一份</li>
+<li>tomcat两份(配置好端口并启动验证可访问)</li>
+</ul>
+<h1><span id="2-lb-pei-zhi">2.LB配置</span><a href="#2-lb-pei-zhi" class="header-anchor">#</a></h1><p>  <code>nginx.conf</code>配置如下<br>  <figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">  # ... 省略</span><br><span class="line">  http &#123;</span><br><span class="line">  	# ... 前面省略</span><br><span class="line">    upstream nginx_blue_green &#123;</span><br><span class="line">     	#蓝色环境</span><br><span class="line">        #server <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span>:<span class="number">8081</span> down;</span><br><span class="line">        #server <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span>:<span class="number">8080</span> weight=<span class="number">100</span>;</span><br><span class="line">        #绿色环境</span><br><span class="line">        server <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span>:<span class="number">8080</span> down;</span><br><span class="line">        server <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span>:<span class="number">8081</span> weight=<span class="number">100</span>;</span><br><span class="line">     &#125;</span><br><span class="line">     # ... 中间省略</span><br><span class="line">	server &#123;</span><br><span class="line">		 location / &#123;</span><br><span class="line">       		 proxy_pass http://nginx_blue_green;</span><br><span class="line">    	&#125;</span><br><span class="line">    &#125;</span><br><span class="line">    # ... 后面省略</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h1><span id="3-fa-bu-qie-huan">3.发布切换</span><a href="#3-fa-bu-qie-huan" class="header-anchor">#</a></h1><p>  发布时只需要编辑<code>nginx.conf</code>注释解注对应蓝绿环境,然后使用<code>nginx -s reload</code>重新加载配置即可实现蓝绿切换.</p>
+<link href="/css/prism-dark.css" rel="stylesheet">
+    
+  </div>
+</article>
+
+</div>
+
+
+  <div class="text-center donation">
+    <div class="inner-donation">
+      <span class="btn-donation">支持一下</span>
+      <div class="donation-body">
+        <div class="tip text-center">您得支持,是我前进的动力.</div>
+        <ul class="theme.donation.items.length">
+        
+          <li class="item">
+            <img src="/css/qr-donate.jpg" alt="">
+          </li>
+        
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+
+
+  <a id="backTop" class="back-top">
+    <i class="icon-angle-up"></i>
+  </a>
+
+
+
+
+  <div class="modal" id="modal">
+  <span id="cover" class="cover hide"></span>
+  <div id="modal-dialog" class="modal-dialog hide-dialog">
+    <div class="modal-header">
+      <span id="close" class="btn-close">关闭</span>
+    </div>
+    <hr>
+    <div class="modal-body">
+      <ul class="list-toolbox">
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/archives/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              博客
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/category/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              分类
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/tag/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              标签
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/link/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              友链
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/atom.xml"
+              rel="noopener noreferrer"
+              target="_blank"
+              >
+              RSS
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/search/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              搜索
+            </a>
+          </li>
+        
+      </ul>
+
+    </div>
+  </div>
+</div>
+
+
+
+  
+      <div class="fexo-comments comments-post">
+    
+
+    
+  <section class="duoshuo-comments">
+
+    <!-- UY BEGIN -->
+    <div id="uyan_frame"></div>
+    <script async type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid=2144561">
+    <!-- UY END -->
+  </section>
+
+  <script type="text/javascript">
+	var uyan_config = {
+	     'su':"基于nginx的简易蓝绿发布" 
+	};
+	</script>
+
+
+
+  </div>
+
+  
+
+  <script type="text/javascript">
+  function loadScript(url, callback) {
+    var script = document.createElement('script')
+    script.type = 'text/javascript';
+
+    if (script.readyState) { //IE
+      script.onreadystatechange = function() {
+        if (script.readyState == 'loaded' ||
+          script.readyState == 'complete') {
+          script.onreadystatechange = null;
+          callback();
+        }
+      };
+    } else { //Others
+      script.onload = function() {
+        callback();
+      };
+    }
+
+    script.src = url;
+    document.getElementsByTagName('head')[0].appendChild(script);
+  }
+
+  window.onload = function() {
+    loadScript('/js/bundle.js?235683', function() {
+      // load success
+    });
+  }
+</script>
+
+</body>
+</html>
