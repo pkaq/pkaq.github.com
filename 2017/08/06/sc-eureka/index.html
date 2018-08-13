@@ -22,6 +22,7 @@
 <meta property="og:url" content="http://pkaq.org/2017/08/06/sc-eureka/index.html">
 <meta property="og:site_name" content="如是我闻">
 <meta property="og:description" content="Spring Cloud 之服务治理 - 搭建高可用的Eureka服务注册中心概述　　著名的CAP理论指出，一个分布式系统不可能同时满足C(一致性)、A(可用性)和P(分区容错性)。由于分区容错性在是分布式系统中必须要保证的，因此我们只能在A和C之间进行权衡。 　　Eureka Server提供服务注册服务，各个节点启动后，会在Eureka Server中进行注册，这样Eureka Server中">
+<meta property="og:locale" content="default">
 <meta property="og:updated_time" content="2017-10-19T01:51:57.061Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Spring Cloud 之服务治理 - 搭建高可用的Eureka服务注册中心">
@@ -229,6 +230,8 @@
 <h2><span id="gao-ke-yong-pei-zhi">高可用配置</span><a href="#gao-ke-yong-pei-zhi" class="header-anchor">#</a></h2><p>　　主要是利用多个eureka相互注册,下例用采用三台服务器做集群部署,其中每台<code>eureka</code>服务器向另外两台注册自己的实例.<br>这里需要注意如下几点</p>
 <blockquote>
 <p>1.Eureka Server的同步遵循着一个非常简单的原则：只要有一条边将节点连接，就可以进行信息传播与同步   </p>
+</blockquote>
+<blockquote>
 <p>2.如果Eureka A的peer指向了B, B的peer指向了C，那么当服务向A注册时，B中会有该服务的注册信息，但是C中没有。也就是说，如果你希望只要向一台Eureka注册其它所有实例都能得到注册信息，那么就必须把其它所有节点都配置到当前Eureka的peer属性中。这一逻辑是在PeerAwareInstanceRegistryImpl#replicateToPeers()方法中实现的：</p>
 </blockquote>
 <p><a href="https://github.com/pkaq/springcloud7/tree/master/cloud-eureka-server" target="_blank" rel="noopener">代码传送门</a></p>

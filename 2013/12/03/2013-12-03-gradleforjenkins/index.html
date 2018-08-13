@@ -12,16 +12,17 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
   
-    <meta name="keywords" content="Jenkins,Gradle," />
+    <meta name="keywords" content="Gradle,Jenkins," />
   
 
   <meta name="description" content="版本说明 jenkins 1.542 jdk 1.6u45 gradle 1.9  必要条件 需要安装JDK并配置配置好JAVA_HOME和JRE_HOME的环境变量   下载jenkins.war去Jenkins官方网站下载相应war包即可  使用命令行跳转到jenkins所在目录可以有两种方法进行运行 jenkins a)    直接通过命令行 转到hudson.war所在的目录，当前为 ja">
-<meta name="keywords" content="Jenkins,Gradle">
+<meta name="keywords" content="Gradle,Jenkins">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Jenkins+Gradle搭建CI环境">
 <meta property="og:url" content="http://pkaq.org/2013/12/03/2013-12-03-gradleforjenkins/index.html">
 <meta property="og:site_name" content="如是我闻">
 <meta property="og:description" content="版本说明 jenkins 1.542 jdk 1.6u45 gradle 1.9  必要条件 需要安装JDK并配置配置好JAVA_HOME和JRE_HOME的环境变量   下载jenkins.war去Jenkins官方网站下载相应war包即可  使用命令行跳转到jenkins所在目录可以有两种方法进行运行 jenkins a)    直接通过命令行 转到hudson.war所在的目录，当前为 ja">
+<meta property="og:locale" content="default">
 <meta property="og:image" content="http://pkaq.org/images/2013/12/03/6.png">
 <meta property="og:image" content="http://pkaq.org/images/2013/12/03/1.png">
 <meta property="og:image" content="http://pkaq.org/images/2013/12/03/2.png">
@@ -250,7 +251,7 @@
  <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">vi $tomcat/conf/tomcat-usres.xml</span><br><span class="line">&lt;!-- 必须开启这两个权限,不然会出现 如下错误,同时该错误也可能由于内存溢出而导致ERROR: Publisher hudson.plugins.deploy.DeployPublisher aborted due to exception   --&gt;</span><br><span class="line">&lt;role rolename="manager-script"/&gt;</span><br><span class="line">&lt;role rolename="manager-gui"/&gt;	</span><br><span class="line">&lt;user username="jenkins" password="jenkins" roles="tomcat,manager-script,manager-gui"/&gt;</span><br></pre></td></tr></table></figure>
 </li>
 </ol>
-<ol>
+<ol start="7">
 <li>点击保存,搭建完成</li>
 </ol>
 <link href="/css/prism-dark.css" rel="stylesheet">

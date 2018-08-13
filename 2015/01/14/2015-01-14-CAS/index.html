@@ -22,6 +22,7 @@
 <meta property="og:url" content="http://pkaq.org/2015/01/14/2015-01-14-CAS/index.html">
 <meta property="og:site_name" content="如是我闻">
 <meta property="og:description" content="本教程使用的SSO服务器是Yelu大学研发的CAS(Central Authentication Server)，官网：http://www.jasig.org/cas下载地址:http://downloads.jasig.org/文档地址:http://jasig.github.io/cas/4.0.x/index.html本文修改的cas-server项目代码我已经放到了github上 htt">
+<meta property="og:locale" content="default">
 <meta property="og:updated_time" content="2016-09-01T08:36:11.677Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="CAS单点登陆(SSO)开发指南">
@@ -213,7 +214,7 @@
       <p>本教程使用的SSO服务器是Yelu大学研发的CAS(Central Authentication Server)，<br>官网：<a href="http://www.jasig.org/cas" target="_blank" rel="noopener">http://www.jasig.org/cas</a><br>下载地址:<a href="http://downloads.jasig.org/" target="_blank" rel="noopener">http://downloads.jasig.org/</a><br>文档地址:<a href="http://jasig.github.io/cas/4.0.x/index.html" target="_blank" rel="noopener">http://jasig.github.io/cas/4.0.x/index.html</a><br>本文修改的cas-server项目代码我已经放到了github上 <a href="https://github.com/pkaq/cas-server-3.5.2" target="_blank" rel="noopener">https://github.com/pkaq/cas-server-3.5.2</a></p>
 <h3><span id="huan-jing-pei-zhi">环境配置</span><a href="#huan-jing-pei-zhi" class="header-anchor">#</a></h3><p>JDK:1.7.45<br>CAS版本:4.0.0</p>
 <h2><span id="mu-lu">目录</span><a href="#mu-lu" class="header-anchor">#</a></h2><ol>
-<li><a href="#env">环境准备</a><br><strong>_A.  <a href="#cert">证书生成</a><br><em>__</em></strong>1.  <a href="#export">导出证书</a><br><strong>__</strong>2.  <a href="#import">导入服务端信任证书</a><br><strong>__</strong>3.  <a href="#importclient">颁发给客户机</a><br><strong>_B.  <a href="#webserver">WEB服务器配置</a><br><em>__</em></strong>1.  <a href="#tomcat">tomcat配置</a><br><strong>__</strong>2.  <a href="#jboss">jboss配置</a><br><strong>__</strong>3.  <a href="#weblogic">webloigc配置</a><br><strong>__</strong>4.  <a href="#websphere">websphere配置</a></li>
+<li><a href="#env">环境准备</a><br><strong>_A.  <a href="#cert">证书生成</a><br>____</strong>1.  <a href="#export">导出证书</a><br><strong>__</strong>2.  <a href="#import">导入服务端信任证书</a><br><strong>__</strong>3.  <a href="#importclient">颁发给客户机</a><br><strong>_B.  <a href="#webserver">WEB服务器配置</a><br>____</strong>1.  <a href="#tomcat">tomcat配置</a><br><strong>__</strong>2.  <a href="#jboss">jboss配置</a><br><strong>__</strong>3.  <a href="#weblogic">webloigc配置</a><br><strong>__</strong>4.  <a href="#websphere">websphere配置</a></li>
 <li><a href="#server">服务端搭建</a></li>
 <li><a href="#client">客户端搭建</a><br>___a.  <a href="#withjava">JAVA客户端应用搭建</a></li>
 <li><a href="#adv">进阶应用</a><br><strong>_a.  <a href="#adv_1">配置自定义校验规则</a><br>_</strong>b.  <a href="#adv_2">配置自定义认证返回参数</a><br>___c.  <a href="#adv_3">配置自定义界面</a></li>
@@ -263,7 +264,7 @@
 <p>4 修改 cas目录/cas.properties 中 cas.viewResolver.basename =mytheme</p>
 <p>到这一步我们只是将登陆页面拷贝了一份然后指向这份拷贝，接下来我们就可以随意修改我们拷贝的页面，这样做的目的是如果以后想还原回来比较方便，只需要修改引用就行。</p>
 <p>接下来我们修改casLoginView.jsp页面：</p>
-<p>修改的要求是：需要保留登陆form表单（但可以修改样式，虽然表单标签是带前缀的，但和普通html标签一样修改其样式，也可以将所有的信息输出删除 如<spring:message code="screen.welcome.label.netid.accesskey" var="userNameAccessKey">）但必须保留保单中的用户名、密码输入框，确认按钮，而且最好复制其标签，修改其class属性来修改样式.</spring:message></p>
+<p>修改的要求是：需要保留登陆form表单（但可以修改样式，虽然表单标签是带前缀的，但和普通html标签一样修改其样式，也可以将所有的信息输出删除 如&lt;spring:message code=”screen.welcome.label.netid.accesskey” var=”userNameAccessKey” /&gt;）但必须保留保单中的用户名、密码输入框，确认按钮，而且最好复制其标签，修改其class属性来修改样式.</p>
 <p>__参考资料<br><em><a href="http://www.liferay.com/community/wiki/-/wiki/Main/JBoss+AS7+tips#section-JBoss+AS7+tips-Installing+cas-web" target="_blank" rel="noopener">Jboss as 7 wiki - Installing cas-web</a>
 </em><a href="http://wiki.bsdn.org/pages/viewpage.action?pageId=2326779" target="_blank" rel="noopener">WebLogic上CAS服务器搭建</a><br><em><a href="http://wiki.bsdn.org/pages/viewpage.action?pageId=2326775" target="_blank" rel="noopener">WebSphere上搭建CAS Server</a>
 </em><a href="http://www.coin163.com/java/cas/cas.html" target="_blank" rel="noopener">CAS实现单点登陆的原理</a><br><em><a href="http://blog.csdn.net/frinder/article/details/7969925" target="_blank" rel="noopener">CAS单点登陆(SSO)完整教程</a>

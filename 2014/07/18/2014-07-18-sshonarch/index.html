@@ -22,6 +22,7 @@
 <meta property="og:url" content="http://pkaq.org/2014/07/18/2014-07-18-sshonarch/index.html">
 <meta property="og:site_name" content="如是我闻">
 <meta property="og:description" content="1.安装OpenSSH#安装 pacman -S openssh #启动 systemctl start sshd.service #添加到守护进程 systemctl enable sshd.service  2.配置vim /etc/ssh/sshd_config  修改如下两个参数为UsePAM noPubkeyAuthentication yes设置完成后重启服务   systemctl">
+<meta property="og:locale" content="default">
 <meta property="og:updated_time" content="2016-09-01T08:33:29.350Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="ArchLinux配置SSH publickey登录">
@@ -220,12 +221,12 @@ systemctl enable sshd.service
 <h3><span id="2-pei-zhi">2.配置</span><a href="#2-pei-zhi" class="header-anchor">#</a></h3><pre class=" language-shell"><code class="language-shell">vim /etc/ssh/sshd_config
 </code></pre>
 <p>修改如下两个参数为<br>UsePAM no<br>PubkeyAuthentication yes<br>设置完成后重启服务  </p>
-<pre class=" language-shell"><code class="language-shell">systemctl restart sshd.service
+<pre class=" language-shell"><code class="language-shell">systemctl restart sshd.service  
 </code></pre>
-<h3><span id="3-sheng-cheng-key">3.生成key</span><a href="#3-sheng-cheng-key" class="header-anchor">#</a></h3><pre class=" language-shell"><code class="language-shell">ssh-keygen -t rsa
+<h3><span id="3-sheng-cheng-key">3.生成key</span><a href="#3-sheng-cheng-key" class="header-anchor">#</a></h3><pre class=" language-shell"><code class="language-shell">ssh-keygen -t rsa  
 </code></pre>
 <p>该过程中会提示输入密码,直接回车略过即可忽略密码<br>添加认证</p>
-<pre class=" language-shell"><code class="language-shell">cat ~/.ssh/id_rsa.pub>>authorized_keys
+<pre class=" language-shell"><code class="language-shell">cat ~/.ssh/id_rsa.pub>>authorized_keys  
 </code></pre>
 <a id="more"></a>
 <p>知识普及:  </p>
