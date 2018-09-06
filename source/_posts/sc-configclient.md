@@ -2,7 +2,7 @@
 title: Spring Cloud 之创建配置中心服务 - 请求端
 author: PKAQ
 date: 2017-07-18 09:34:06
-tags: ['Spring Cloud','Spring boot']
+tags: ['Spring Cloud','Spring Boot']
 categories: ['微服务','Spring']
 ---
 
