@@ -7,26 +7,26 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Gradle中的任务 | 如是我闻</title>
+  <title>使用Jasypt加密你的Spring Boot配置文件 | 如是我闻</title>
 
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
   
-    <meta name="keywords" content="Gradle," />
+    <meta name="keywords" content="Gradle,Java,Spring Boot,Spring," />
   
 
-  <meta name="description" content="Project和Task是Gradle中最核心的两个元素，当创建了一个build.gradle脚本那么Gradle便会依据脚本的配置创建一个Project,而脚本中的Task也会创建与之相对应DeafultTask实现。 Gradle通过一个个Task来完成具体的构建任务 ,可以说Task乃是Gradle的核心。根据执行阶段的不同，可以将Gradle中Task分为配置型Task以及执行型Task（">
-<meta name="keywords" content="Gradle">
+  <meta name="description" content="引言#　　Jasypt 是一个Java库，允许开发人员以很简单的方式添加基本加密功能，而无需深入研究加密原理。利用它可以实现高安全性的，基于标准的加密技术，无论是单向和双向加密。加密密码，文本，数字，二进制文件。并且可集成到Spring应用程序中，与Spring Security集成，加密的应用程序（即数据源）的配置等信息。 版本# jasypt-spring-boot-starter ： 2.1">
+<meta name="keywords" content="Gradle,Java,Spring Boot,Spring">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Gradle中的任务">
-<meta property="og:url" content="http://pkaq.org/2018/08/12/gradletask/index.html">
+<meta property="og:title" content="使用Jasypt加密你的Spring Boot配置文件">
+<meta property="og:url" content="http://pkaq.org/2018/09/06/jasypt/index.html">
 <meta property="og:site_name" content="如是我闻">
-<meta property="og:description" content="Project和Task是Gradle中最核心的两个元素，当创建了一个build.gradle脚本那么Gradle便会依据脚本的配置创建一个Project,而脚本中的Task也会创建与之相对应DeafultTask实现。 Gradle通过一个个Task来完成具体的构建任务 ,可以说Task乃是Gradle的核心。根据执行阶段的不同，可以将Gradle中Task分为配置型Task以及执行型Task（">
+<meta property="og:description" content="引言#　　Jasypt 是一个Java库，允许开发人员以很简单的方式添加基本加密功能，而无需深入研究加密原理。利用它可以实现高安全性的，基于标准的加密技术，无论是单向和双向加密。加密密码，文本，数字，二进制文件。并且可集成到Spring应用程序中，与Spring Security集成，加密的应用程序（即数据源）的配置等信息。 版本# jasypt-spring-boot-starter ： 2.1">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-08-13T15:21:17.543Z">
+<meta property="og:updated_time" content="2018-09-06T23:38:42.713Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Gradle中的任务">
-<meta name="twitter:description" content="Project和Task是Gradle中最核心的两个元素，当创建了一个build.gradle脚本那么Gradle便会依据脚本的配置创建一个Project,而脚本中的Task也会创建与之相对应DeafultTask实现。 Gradle通过一个个Task来完成具体的构建任务 ,可以说Task乃是Gradle的核心。根据执行阶段的不同，可以将Gradle中Task分为配置型Task以及执行型Task（">
+<meta name="twitter:title" content="使用Jasypt加密你的Spring Boot配置文件">
+<meta name="twitter:description" content="引言#　　Jasypt 是一个Java库，允许开发人员以很简单的方式添加基本加密功能，而无需深入研究加密原理。利用它可以实现高安全性的，基于标准的加密技术，无论是单向和双向加密。加密密码，文本，数字，二进制文件。并且可集成到Spring应用程序中，与Spring Security集成，加密的应用程序（即数据源）的配置等信息。 版本# jasypt-spring-boot-starter ： 2.1">
 
   
 
@@ -160,20 +160,20 @@
 
   <div id="toc" class="toc-article">
     <strong class="toc-title">文章目录</strong>
-    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-text">定义task#</span></a></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-text">引言#</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-text">版本#</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-text">步骤#</span></a></li></ol>
   </div>
 
 
 
 <div class="content content-post CENTER">
-   <article id="post-gradletask" class="article article-type-post" itemprop="blogPost">
+   <article id="post-jasypt" class="article article-type-post" itemprop="blogPost">
   <header class="article-header">
-    <h1 class="post-title">Gradle中的任务</h1>
+    <h1 class="post-title">使用Jasypt加密你的Spring Boot配置文件</h1>
 
     <div class="article-meta">
       <span>
         <i class="icon-calendar"></i>
-        <span>2018.08.12</span>
+        <span>2018.09.06</span>
       </span>
 
       
@@ -186,7 +186,7 @@
       
   <span class="article-category">
     <i class="icon-list"></i>
-    <a class="article-category-link" href="/categories/构建/">构建</a>
+    <a class="article-category-link" href="/categories/Spring-Boot/">Spring Boot</a>
   </span>
 
 
@@ -203,7 +203,7 @@
 
       
         <i class="icon-comment"></i> 
-        共 <a class="ds-thread-count" id="uyan_count_unit" su="Gradle中的任务" href="http://pkaq.org/2018/08/12/gradletask/index.html"></a>
+        共 <a class="ds-thread-count" id="uyan_count_unit" su="使用Jasypt加密你的Spring Boot配置文件" href="http://pkaq.org/2018/09/06/jasypt/index.html"></a>
       
       
     </div>
@@ -211,21 +211,27 @@
 
   <div class="article-content">
     
-      <p><code>Project</code>和<code>Task</code>是<code>Gradle</code>中最核心的两个元素，当创建了一个<code>build.gradle</code>脚本那么<code>Gradle</code>便会依据脚本的配置创建一个<code>Project</code>,而脚本中的<code>Task</code>也会创建与之相对应<code>DeafultTask</code>实现。</p>
-<p><code>Gradle</code>通过一个个<code>Task</code>来完成具体的构建任务 ,可以说<code>Task</code>乃是<code>Gradle</code>的核心。根据执行阶段的不同，可以将<code>Gradle</code>中<code>Task</code>分为<code>配置型Task</code>以及<code>执行型Task</code>（非官方定义）。</p>
-<h2><span id="ding-yi-task">定义task</span><a href="#ding-yi-task" class="header-anchor">#</a></h2><p>定义一个<code>Task</code>十分简单，只需要使用<code>task name{}</code>即可定义一个简单的任务。</p>
-<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">task helloTask &#123;</span><br><span class="line">    println <span class="string">"Hello World"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>执行<code>gradle hT</code>，可以观察到执行结果。这里你可能会注意到<code>Hello world</code>并非在执行阶段开始执行的,而是在配置阶段就已经打印了。没错，这就是一个<code>配置型Task</code>，因为Gradle在任务执行前，总会去遍历所有任务去生成一张DAG来确定任务之间的关系。</p>
-<p>如果不想让任务在配置阶段执行，那么可以参照如下方式，通过给任务添加action的方式使其在执行阶段运行。</p>
-<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">task helloTask &#123;</span><br><span class="line">    doLast &#123;</span><br><span class="line">        println <span class="string">"Hello World"</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>常用的action有两个，doFirst和doLast，通过这两个见名知意的action可以用来定置化你的任务行为。</p>
-<ul>
-<li>l 一个Task包含若干Action。所以，Task有doFirst和doLast两个函数，用于添加需要最先执行的Action和需要和需要最后执行的Action。Action就是一个闭包。</li>
-<li>l Task创建的时候可以指定Type，通过<em>type:名字</em>表达。这是什么意思呢？其实就是告诉Gradle，这个新建的Task对象会从哪个基类Task派生。比如，Gradle本身提供了一些通用的Task，最常见的有Copy 任务。Copy是Gradle中的一个类。当我们：<em>task myTask(type:Copy)</em>的时候，创建的Task就是一个Copy Task。</li>
-<li>l 当我们使用 taskmyTask{ xxx}的时候。花括号是一个closure。这会导致gradle在创建这个Task之后，返回给用户之前，会先执行closure的内容。</li>
-<li>l 当我们使用taskmyTask &lt;&lt; {xxx}的时候，我们创建了一个Task对象，同时把closure做为一个action加到这个Task的action队列中，并且告诉它“最后才执行这个closure”（<em>注意，&lt;&lt;符号是doLast的代表</em>）。</li>
+      <h1><span id="yin-yan">引言</span><a href="#yin-yan" class="header-anchor">#</a></h1><p>　　<a href="http://jasypt.org/" target="_blank" rel="noopener">Jasypt</a> 是一个Java库，允许开发人员以很简单的方式添加基本加密功能，而无需深入研究加密原理。利用它可以实现高安全性的，基于标准的加密技术，无论是单向和双向加密。加密密码，文本，数字，二进制文件。并且可集成到Spring应用程序中，与Spring Security集成，加密的应用程序（即数据源）的配置等信息。</p>
+<h1><span id="ban-ben">版本</span><a href="#ban-ben" class="header-anchor">#</a></h1><ul>
+<li>jasypt-spring-boot-starter ： 2.1.0</li>
+<li>Spring Boot : 2.0.4</li>
+<li>JDK 1.9</li>
 </ul>
-<p>当用户执行test任务时，执行以下步骤：  1. 执行build.gradle，初始化任务，初始化步骤为2-7;  2. 注册test任务，任务体都是默认好的，不可更改，为打印冒号加任务名，所以test的任务体为<code>println &#39;:test&#39;</code>；  3. 每个任务都有一个队列一个栈，一个是依赖队列，一个是first栈，一个是last队列；  4. 遇到doFirst函数，该函数接受一个闭包作为参数，doFirst函数会把闭包参数放入first栈；  5. 遇到doLast函数，同理doFirst函数，闭包参数会被放入last队列；  6. 然后遇到<code>println &#39;hello.&#39;</code>，执行该指令//1；  7. 至此初始化过程完成。  8. 开始执行test任务前，先检查是否任务依赖，如果有，先把依赖的任务都执行完。  9. 然后开始执行test任务；  10. 执行时，首先执行test任务的任务体，即<code>println &#39;:test&#39;</code>；  11. 然后执行test任务的first栈//2和last队列//3；  12. 任务执行结束。</p>
+<h1><span id="bu-zou">步骤</span><a href="#bu-zou" class="header-anchor">#</a></h1><p>　　借助<code>jasypt-spring-boot-starter</code>给<code>Spring boot</code>应用配置加密非常简单。   </p>
+<ol>
+<li><p>引入依赖</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">compile <span class="string">"com.github.ulisesbocchio:jasypt-spring-boot-starter:$&#123;jasypt&#125;"</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>配置密码<br>　　在<code>application.yml</code>中配置加密需要使用的密钥。</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">jasypt:</span></span><br><span class="line">	<span class="attr">encryptor:</span></span><br><span class="line">  	<span class="attr">password:</span> <span class="string">eva</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>加密内容<br>　　编写一个单元测试加密你需要加密的内容。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">	<span class="meta">@Autowired</span></span><br><span class="line">StringEncryptor stringEncryptor;</span><br><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">encrypt</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    System.out.println(<span class="string">"PWD: "</span> + stringEncryptor.encrypt(<span class="string">"yourpassword"</span>));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>修改配置文件,使用<code>ENC</code>包裹加密得到的密文即可。</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">spring:</span></span><br><span class="line"><span class="attr">  datasource:</span></span><br><span class="line"><span class="attr">    type:</span> <span class="string">com.alibaba.druid.pool.DruidDataSource</span></span><br><span class="line"><span class="attr">    url:</span> <span class="attr">jdbc:mysql://localhost:3306/jxc?useUnicode=true&amp;characterEncoding=UTF-8&amp;serverTimezone=UTC</span></span><br><span class="line"><span class="attr">    username:</span> <span class="string">ENC(dghf0DZZJA+vQ95xgHz5iA==)</span></span><br><span class="line"><span class="attr">    password:</span> <span class="string">ENC(TNbKfi0lHjpfPcdepEnR5oKHikoDfVr+/amPonxytqK5u+B8Pid7k4hmlGUOhv+6QxEuB3gjJPPn7L8ishuFYym/Gr59qRO6Uf5/XiyT+3FUTujtyybxUjTyo4CO1wKe+zubp27QVYM=)</span></span><br></pre></td></tr></table></figure>
+</li>
+</ol>
 <link href="/css/prism-dark.css" rel="stylesheet">
     
   </div>
@@ -359,7 +365,7 @@
 
   <script type="text/javascript">
 	var uyan_config = {
-	     'su':"Gradle中的任务" 
+	     'su':"使用Jasypt加密你的Spring Boot配置文件" 
 	};
 	</script>
 
