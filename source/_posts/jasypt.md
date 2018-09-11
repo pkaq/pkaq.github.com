@@ -50,3 +50,6 @@ spring:
     password: ENC(TNbKfi0lHjpfPcdepEnR5oKHikoDfVr+/amPonxytqK5u+B8Pid7k4hmlGUOhv+6QxEuB3gjJPPn7L8ishuFYym/Gr59qRO6Uf5/XiyT+3FUTujtyybxUjTyo4CO1wKe+zubp27QVYM=)
 ```
 
+
+
+> 参考: https://github.com/ulisesbocchio/jasypt-spring-boot
