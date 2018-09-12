@@ -26,7 +26,7 @@ categories: ['Spring Boot']
 
 　　Flyway脚本的命名规则如下：
 
-![](./flyway/sql_migration_naming.png)
+![flyway](sql_migration_naming.png)
 
 - prefix: 可配置，前缀标识，默认值`V`表示Versioned，`R`表示Repeatable
 - version: 标识版本号，由一个或多个数字构成，数字之间的分隔符可用点`.`或下划线`_`
@@ -48,8 +48,6 @@ categories: ['Spring Boot']
  compile "org.flywaydb:flyway-core:5.1.4"
 ```
 
-
-
 2.来点配置 `application.yaml`   
 
 ```yaml
@@ -58,8 +56,6 @@ spring:
  flyway:
   baseline-on-migrate: true
 ```
-
-
 
 3.准备脚本   
 
@@ -79,7 +75,7 @@ CREATE TABLE `flyway_test_alpha`  (
 
 `V3__Add_column.sql`
 
-```
+```sql
 ALTER TABLE `flyway_test_alpha`
 	ADD COLUMN `column_bravo` varchar(25) NULL
 ```
