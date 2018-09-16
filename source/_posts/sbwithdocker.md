@@ -31,9 +31,9 @@ categories: ['Spring Boot']
 FROM daocloud.io/java:8
 # 作者
 MAINTAINER PKAQ #pkaq@msn.com
-# 映射/tmp到主机
+# 在宿主机的/var/lib/docker目录下创建一个临时文件并把它链接到容器中的/tmp目录。
 VOLUME /tmp
-#将打包好的spring程序拷贝到容器中的指定位置
+# 将打包好的spring程序拷贝到容器中的指定位置
 COPY ./build/lib/app.jar /opt/app.jar
 #容器对外暴露9006
 EXPOSE 9006
@@ -76,4 +76,46 @@ ENTRYPOINT ["java","-Djava.security.egd=file:/dev/./urandom","-jar","/opt/app.ja
 　　要升级应用版本时，需要重复步骤 2-3 构建新的 `Dockerfile` 镜像。需要注意的是不要忘记修改构建时的版本号，此时可以通过 `-p` 参数在与上一个版本不同的端口上启动一个新的容器。配合 `LB` 工具（如 `nginx`）切换到新的容器上实现蓝绿部署。
 
 　　如果发布出现问题，如果应用了蓝绿部署只需要切换回原来运行端口即可。若未使用蓝绿部署的方式，那么也只需要 `stop` 有问题的版本，重新 `start` 即可。
+
+## 5.使用 Gradle 插件
+
+　　如果你是用 `Gradle` 来进行应用构建的，那么可以使用 [Gradle-Docker](https://github.com/palantir/gradle-docker)  插件进行镜像创建操作。
+
+1.引入插件
+
+```groovy
+plugins {
+  id "com.palantir.docker" version "0.20.1"
+}
+```
+
+2.编写 `Dockerfile`
+
+```dockerfile
+# 基于哪个镜像
+FROM daocloud.io/java:8
+# 作者
+MAINTAINER PKAQ #pkaq@msn.com
+# 在宿主机的/var/lib/docker目录下创建一个临时文件并把它链接到容器中的/tmp目录。
+VOLUME /tmp
+#将打包好的spring程序拷贝到容器中的指定位置
+ARG JAR_FILE
+COPY ${JAR_FILE} /opt/app.jar
+#容器对外暴露9006
+EXPOSE 9006
+# 容器启动后执行的命令
+ENTRYPOINT ["java","-Djava.security.egd=file:/dev/./urandom","-jar","/opt/app.jar"]
+```
+
+3.应用插件
+
+```groovy
+
+docker {
+    dependsOn build
+    name "${project.group}/${bootJar.baseName}"
+    files bootJar.archivePath
+    buildArgs(['JAR_FILE': "${bootJar.archiveName}"])
+}
+```
 
