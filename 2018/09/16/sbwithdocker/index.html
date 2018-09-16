@@ -7,7 +7,7 @@
 <head>
   <meta charset="utf-8">
   
-  <title>使用Jasypt加密你的Spring Boot配置文件 | 如是我闻</title>
+  <title>使用 Docker 发布 Spring Boot 应用 | 如是我闻</title>
 
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
@@ -15,18 +15,18 @@
     <meta name="keywords" content="Java,Gradle,Spring Boot,Spring," />
   
 
-  <meta name="description" content="引言#　　Jasypt 是一个Java库，允许开发人员以很简单的方式添加基本加密功能，而无需深入研究加密原理。利用它可以实现高安全性的，基于标准的加密技术，无论是单向和双向加密。加密密码，文本，数字，二进制文件。并且可集成到Spring应用程序中，与Spring Security集成，加密的应用程序（即数据源）的配置等信息。 版本# jasypt-spring-boot-starter ： 2.1">
+  <meta name="description" content="引言　　一个 Spring Boot  应用在编写完成后，可以方便的打包成一个 jar 文件直接运行。通常的做法是使用 nohup java -jar app.jar &amp;amp; 的方式使其在服务器后台运行。 这种方式对服务器环境不仅有着很强的依赖并且会产生一个随时间推移越来越大的 nohup 文件 ，虽然可以利用管道黑洞将其输出到未知领域，但是对于运行版本的管理仍然依赖于人肉备份的方式。 　　借">
 <meta name="keywords" content="Java,Gradle,Spring Boot,Spring">
 <meta property="og:type" content="article">
-<meta property="og:title" content="使用Jasypt加密你的Spring Boot配置文件">
-<meta property="og:url" content="http://pkaq.org/2018/09/06/jasypt/index.html">
+<meta property="og:title" content="使用 Docker 发布 Spring Boot 应用">
+<meta property="og:url" content="http://pkaq.org/2018/09/16/sbwithdocker/index.html">
 <meta property="og:site_name" content="如是我闻">
-<meta property="og:description" content="引言#　　Jasypt 是一个Java库，允许开发人员以很简单的方式添加基本加密功能，而无需深入研究加密原理。利用它可以实现高安全性的，基于标准的加密技术，无论是单向和双向加密。加密密码，文本，数字，二进制文件。并且可集成到Spring应用程序中，与Spring Security集成，加密的应用程序（即数据源）的配置等信息。 版本# jasypt-spring-boot-starter ： 2.1">
+<meta property="og:description" content="引言　　一个 Spring Boot  应用在编写完成后，可以方便的打包成一个 jar 文件直接运行。通常的做法是使用 nohup java -jar app.jar &amp;amp; 的方式使其在服务器后台运行。 这种方式对服务器环境不仅有着很强的依赖并且会产生一个随时间推移越来越大的 nohup 文件 ，虽然可以利用管道黑洞将其输出到未知领域，但是对于运行版本的管理仍然依赖于人肉备份的方式。 　　借">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-09-07T00:49:55.494Z">
+<meta property="og:updated_time" content="2018-09-16T10:53:33.116Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="使用Jasypt加密你的Spring Boot配置文件">
-<meta name="twitter:description" content="引言#　　Jasypt 是一个Java库，允许开发人员以很简单的方式添加基本加密功能，而无需深入研究加密原理。利用它可以实现高安全性的，基于标准的加密技术，无论是单向和双向加密。加密密码，文本，数字，二进制文件。并且可集成到Spring应用程序中，与Spring Security集成，加密的应用程序（即数据源）的配置等信息。 版本# jasypt-spring-boot-starter ： 2.1">
+<meta name="twitter:title" content="使用 Docker 发布 Spring Boot 应用">
+<meta name="twitter:description" content="引言　　一个 Spring Boot  应用在编写完成后，可以方便的打包成一个 jar 文件直接运行。通常的做法是使用 nohup java -jar app.jar &amp;amp; 的方式使其在服务器后台运行。 这种方式对服务器环境不仅有着很强的依赖并且会产生一个随时间推移越来越大的 nohup 文件 ，虽然可以利用管道黑洞将其输出到未知领域，但是对于运行版本的管理仍然依赖于人肉备份的方式。 　　借">
 
   
 
@@ -160,20 +160,20 @@
 
   <div id="toc" class="toc-article">
     <strong class="toc-title">文章目录</strong>
-    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-text">引言#</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-text">版本#</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-text">步骤#</span></a></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-text">引言#</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-text">版本#</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-text">步骤#</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-text">1.编写脚本#</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-text">2.构建镜像#</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-text">3.运行容器#</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-text">4.应用升级#</span></a></li></ol></li></ol>
   </div>
 
 
 
 <div class="content content-post CENTER">
-   <article id="post-jasypt" class="article article-type-post" itemprop="blogPost">
+   <article id="post-sbwithdocker" class="article article-type-post" itemprop="blogPost">
   <header class="article-header">
-    <h1 class="post-title">使用Jasypt加密你的Spring Boot配置文件</h1>
+    <h1 class="post-title">使用 Docker 发布 Spring Boot 应用</h1>
 
     <div class="article-meta">
       <span>
         <i class="icon-calendar"></i>
-        <span>2018.09.06</span>
+        <span>2018.09.16</span>
       </span>
 
       
@@ -203,7 +203,7 @@
 
       
         <i class="icon-comment"></i> 
-        共 <a class="ds-thread-count" id="uyan_count_unit" su="使用Jasypt加密你的Spring Boot配置文件" href="http://pkaq.org/2018/09/06/jasypt/index.html"></a>
+        共 <a class="ds-thread-count" id="uyan_count_unit" su="使用 Docker 发布 Spring Boot 应用" href="http://pkaq.org/2018/09/16/sbwithdocker/index.html"></a>
       
       
     </div>
@@ -211,30 +211,38 @@
 
   <div class="article-content">
     
-      <h1><span id="yin-yan">引言</span><a href="#yin-yan" class="header-anchor">#</a></h1><p>　　<a href="http://jasypt.org/" target="_blank" rel="noopener">Jasypt</a> 是一个Java库，允许开发人员以很简单的方式添加基本加密功能，而无需深入研究加密原理。利用它可以实现高安全性的，基于标准的加密技术，无论是单向和双向加密。加密密码，文本，数字，二进制文件。并且可集成到Spring应用程序中，与Spring Security集成，加密的应用程序（即数据源）的配置等信息。</p>
+      <h1><span id="yin-yan">引言</span><a href="#yin-yan" class="header-anchor">#</a></h1><p>　　一个 <code>Spring Boot</code>  应用在编写完成后，可以方便的打包成一个 <code>jar</code> 文件直接运行。通常的做法是使用 <code>nohup java -jar app.jar &amp;</code> 的方式使其在服务器后台运行。 这种方式对服务器环境不仅有着很强的依赖并且会产生一个随时间推移越来越大的 <code>nohup</code> 文件 ，虽然可以利用管道黑洞将其输出到未知领域，但是对于运行版本的管理仍然依赖于人肉备份的方式。</p>
+<p>　　借助 <code>Docker</code>  不仅可以做到运行环境与服务器环境的隔离，同时可以方便的管理发布版本。通过版本 <code>tag</code>  不仅可以方便的回滚到相应版本，使用端口映射也可以方便的配合蓝绿发布。</p>
+<a id="more"></a>
 <h1><span id="ban-ben">版本</span><a href="#ban-ben" class="header-anchor">#</a></h1><ul>
-<li>jasypt-spring-boot-starter ： 2.1.0</li>
-<li>Spring Boot : 2.0.4</li>
-<li>JDK 1.9</li>
+<li>Spring Boot： 2.0.5 Release</li>
+<li>Docker：</li>
+<li>Centos: 7.3</li>
 </ul>
-<h1><span id="bu-zou">步骤</span><a href="#bu-zou" class="header-anchor">#</a></h1><p>　　借助<code>jasypt-spring-boot-starter</code>给<code>Spring boot</code>应用配置加密非常简单。   </p>
-<ol>
-<li><p>引入依赖</p>
-<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">compile <span class="string">"com.github.ulisesbocchio:jasypt-spring-boot-starter:$&#123;jasypt&#125;"</span></span><br></pre></td></tr></table></figure>
+<h1><span id="bu-zou">步骤</span><a href="#bu-zou" class="header-anchor">#</a></h1><h2><span id="1-bian-xie-jiao-ben">1.编写脚本</span><a href="#1-bian-xie-jiao-ben" class="header-anchor">#</a></h2><figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 基于哪个镜像</span></span><br><span class="line"><span class="keyword">FROM</span> daocloud.io/java:<span class="number">8</span></span><br><span class="line"><span class="comment"># 作者</span></span><br><span class="line"><span class="keyword">MAINTAINER</span> PKAQ <span class="comment">#pkaq@msn.com</span></span><br><span class="line"><span class="comment"># 映射/tmp到主机</span></span><br><span class="line"><span class="keyword">VOLUME</span> /tmp</span><br><span class="line">#将打包好的spring程序拷贝到容器中的指定位置</span><br><span class="line">COPY ./build/lib/app.jar /opt/app.jar</span><br><span class="line">#容器对外暴露9006</span><br><span class="line">EXPOSE 9006</span><br><span class="line"># 容器启动后执行的命令</span><br><span class="line">ENTRYPOINT ["java","-Djava.security.egd=file:/dev/./urandom","-jar","/opt/app.jar"]</span><br></pre></td></tr></table></figure>
+<h2><span id="2-gou-jian-jing-xiang">2.构建镜像</span><a href="#2-gou-jian-jing-xiang" class="header-anchor">#</a></h2><p>　    在 <code>Dockerfile</code> 所在目录，使用 <code>docker build -t MyApp:1.0 .</code>  这句话的意思是从当前目录的 <code>Dockerfile</code> 文件构建一个名为 <code>MyApp</code> ，版本为 <code>1.0</code>  的镜像。</p>
+<h2><span id="3-yun-xing-rong-qi">3.运行容器</span><a href="#3-yun-xing-rong-qi" class="header-anchor">#</a></h2><p>　　使用 <code>docker run -d -e &quot;SPRING_PROFILES_ACTIVE=dev&quot; -p 9006:9006 --name Myapp1.0 Myapp:1.0</code></p>
+<p>　　上面操作的意思是 </p>
+<ul>
+<li><p><code>-d</code> : 以守护进程运行一个容器</p>
 </li>
-<li><p>配置密码<br>　　在<code>application.yml</code>中配置加密需要使用的密钥。</p>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">jasypt:</span></span><br><span class="line">	<span class="attr">encryptor:</span></span><br><span class="line">  	<span class="attr">password:</span> <span class="string">eva</span></span><br></pre></td></tr></table></figure>
+<li><p><code>-e</code> : 为容器传递一个环境变量</p>
 </li>
-<li><p>加密内容<br>　　编写一个单元测试加密你需要加密的内容。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">	<span class="meta">@Autowired</span></span><br><span class="line">StringEncryptor stringEncryptor;</span><br><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">encrypt</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    System.out.println(<span class="string">"PWD: "</span> + stringEncryptor.encrypt(<span class="string">"yourpassword"</span>));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<li><p><code>-p</code>：映射容器端口 9006 到宿主机的 9006</p>
 </li>
-<li><p>修改配置文件,使用<code>ENC</code>包裹加密得到的密文即可。</p>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">spring:</span></span><br><span class="line"><span class="attr">  datasource:</span></span><br><span class="line"><span class="attr">    type:</span> <span class="string">com.alibaba.druid.pool.DruidDataSource</span></span><br><span class="line"><span class="attr">    url:</span> <span class="attr">jdbc:mysql://localhost:3306/jxc?useUnicode=true&amp;characterEncoding=UTF-8&amp;serverTimezone=UTC</span></span><br><span class="line"><span class="attr">    username:</span> <span class="string">ENC(dghf0DZZJA+vQ95xgHz5iA==)</span></span><br><span class="line"><span class="attr">    password:</span> <span class="string">ENC(TNbKfi0lHjpfPcdepEnR5oKHikoDfVr+/amPonxytqK5u+B8Pid7k4hmlGUOhv+6QxEuB3gjJPPn7L8ishuFYym/Gr59qRO6Uf5/XiyT+3FUTujtyybxUjTyo4CO1wKe+zubp27QVYM=)</span></span><br></pre></td></tr></table></figure>
+<li><p><code>--name</code>：指定容器的别名</p>
 </li>
-</ol>
-<blockquote>
-<p>参考: <a href="https://github.com/ulisesbocchio/jasypt-spring-boot" target="_blank" rel="noopener">https://github.com/ulisesbocchio/jasypt-spring-boot</a></p>
-</blockquote>
+</ul>
+<p>　　下面是针对容器操作的几个常用命令：   </p>
+<ul>
+<li><p>启动容器：<code>docker start Myapp1.0</code></p>
+</li>
+<li><p>停止容器：<code>docker stop Myapp1.0</code></p>
+</li>
+<li>删除容器：<code>docker rm Myapp1.0</code></li>
+</ul>
+<h2><span id="4-ying-yong-sheng-ji">4.应用升级</span><a href="#4-ying-yong-sheng-ji" class="header-anchor">#</a></h2><p>　　要升级应用版本时，需要重复步骤 2-3 构建新的 <code>Dockerfile</code> 镜像。需要注意的是不要忘记修改构建时的版本号，此时可以通过 <code>-p</code> 参数在与上一个版本不同的端口上启动一个新的容器。配合 <code>LB</code> 工具（如 <code>nginx</code>）切换到新的容器上实现蓝绿部署。</p>
+<p>　　如果发布出现问题，如果应用了蓝绿部署只需要切换回原来运行端口即可。若未使用蓝绿部署的方式，那么也只需要 <code>stop</code> 有问题的版本，重新 <code>start</code> 即可。</p>
 <link href="/css/prism-dark.css" rel="stylesheet">
     
   </div>
@@ -368,7 +376,7 @@
 
   <script type="text/javascript">
 	var uyan_config = {
-	     'su':"使用Jasypt加密你的Spring Boot配置文件" 
+	     'su':"使用 Docker 发布 Spring Boot 应用" 
 	};
 	</script>
 
