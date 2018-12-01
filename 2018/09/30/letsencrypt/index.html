@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 
 
-  <html class="dark page-archives2016">
+  <html class="dark page-post">
 
 
 <head>
   <meta charset="utf-8">
   
-  <title>Archives: 2016 | 如是我闻</title>
+  <title>letsencrypt | 如是我闻</title>
 
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
@@ -15,16 +15,17 @@
     <meta name="keywords" content="PKAQ,Gradle,Java,Spring boot,React native" />
   
 
-  <meta name="description" content="nothing but blue skies for miles.">
-<meta property="og:type" content="website">
-<meta property="og:title" content="如是我闻">
-<meta property="og:url" content="http://pkaq.org/archives/2016/index.html">
+  <meta name="description" content="https://blog.github.com/2018-05-01-github-pages-custom-domains-https/ 安装 yum -y install yum-utilsyum-config-manager –enable rhui-REGION-rhel-server-extras rhui-REGION-rhel-server-optional  yum install">
+<meta property="og:type" content="article">
+<meta property="og:title" content="letsencrypt">
+<meta property="og:url" content="http://pkaq.org/2018/09/30/letsencrypt/index.html">
 <meta property="og:site_name" content="如是我闻">
-<meta property="og:description" content="nothing but blue skies for miles.">
+<meta property="og:description" content="https://blog.github.com/2018-05-01-github-pages-custom-domains-https/ 安装 yum -y install yum-utilsyum-config-manager –enable rhui-REGION-rhel-server-extras rhui-REGION-rhel-server-optional  yum install">
 <meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2018-09-30T01:01:15.246Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="如是我闻">
-<meta name="twitter:description" content="nothing but blue skies for miles.">
+<meta name="twitter:title" content="letsencrypt">
+<meta name="twitter:description" content="https://blog.github.com/2018-05-01-github-pages-custom-domains-https/ 安装 yum -y install yum-utilsyum-config-manager –enable rhui-REGION-rhel-server-extras rhui-REGION-rhel-server-optional  yum install">
 
   
 
@@ -73,17 +74,8 @@
     <span id="toolbox-mobile" class="toolbox-mobile">　</span>
   
 
-  <div class="content content-archive">
-  <div class="page-header">
-
-  
-    <div class="breadcrumb">
-      <div class="location">博客</div>
-      <i class="icon-location"></i>
-    </div>
-  
-
-  
+  <div class="post-header CENTER">
+   
   <div class="toolbox">
     <a class="toolbox-entry" href="/">
       <span class="toolbox-entry-text">　</span>
@@ -162,210 +154,100 @@
   </div>
 
 
+</div>
 
-  <div class="box-blog-info">
-    <a class="avatar" href="/">
-      <img src="/images/avatar.jpg" alt="" />
-    </a>
-    <div class="info">
-      <h3 class="name" style="font-family: calligraffittiregular">
-        如是我闻
-      </h3>
-      <div class="slogan">
-        万物皆虚 万事皆允
+
+
+
+<div class="content content-post CENTER">
+   <article id="post-letsencrypt" class="article article-type-post" itemprop="blogPost">
+  <header class="article-header">
+    <h1 class="post-title">letsencrypt</h1>
+
+    <div class="article-meta">
+      <span>
+        <i class="icon-calendar"></i>
+        <span>2018.09.30</span>
+      </span>
+
+      
+        <span class="article-author">
+          <i class="icon-user"></i>
+          <span>PKAQ</span>
+        </span>
+      
+
+      
+
+
+      
+
+      
+      <i class="fa fa-eye"></i> 
+        <span id="busuanzi_container_page_pv">
+           &nbsp热度 <span id="busuanzi_value_page_pv">
+           <i class="fa fa-spinner fa-spin"></i></span>℃
+        </span>
+      
+
+      
+        <i class="icon-comment"></i> 
+        共 <a class="ds-thread-count" id="uyan_count_unit" su="letsencrypt" href="http://pkaq.org/2018/09/30/letsencrypt/index.html"></a>
+      
+      
+    </div>
+  </header>
+
+  <div class="article-content">
+    
+      <p><a href="https://blog.github.com/2018-05-01-github-pages-custom-domains-https/" target="_blank" rel="noopener">https://blog.github.com/2018-05-01-github-pages-custom-domains-https/</a></p>
+<p>安装</p>
+<p>yum -y install yum-utils<br>yum-config-manager –enable rhui-REGION-rhel-server-extras rhui-REGION-rhel-server-optional</p>
+<p> yum install epel-release</p>
+<p> yum install python2-certbot-nginx</p>
+<p>连接ng</p>
+<p>The nginx plugin is not working; there may be problems with your existing configuration.<br>The error was: NoInstallationError()</p>
+<p>ln -s /usr/local/nginx/sbin/nginx /usr/bin/nginx<br>ln -s /usr/local/nginx/conf/ /etc/nginx</p>
+<p>安装ng</p>
+<p>The nginx plugin is not working; there may be problems with your existing configuration.<br>The error was: PluginError(‘Nginx build is missing SSL module (–with-http_ssl_module).’,)</p>
+<p>编译安装with-http_ssl_module</p>
+<p> ./configure –prefix=/usr/local/nginx –with-http_stub_status_module –with-http_ssl_module<br>make</p>
+<p>make install</p>
+<p>安装证书</p>
+<p>certbot –nginx</p>
+<p>证书目录</p>
+<p>/usr/local/nginx/conf/ssl/</p>
+<p>续期</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">certbot -<span class="selector-tag">a</span> dns-plugin -<span class="selector-tag">i</span> nginx -d <span class="string">"*.example.com"</span> -d example<span class="selector-class">.com</span> --server https:<span class="comment">//acme-v02.api.letsencrypt.org/directory</span></span><br></pre></td></tr></table></figure><link href="/css/prism-dark.css" rel="stylesheet">
+    
+  </div>
+</article>
+
+</div>
+
+
+  <div class="text-center donation">
+    <div class="inner-donation">
+      <span class="btn-donation">支持一下</span>
+      <div class="donation-body">
+        <div class="tip text-center">您得支持,是我前进的动力.</div>
+        <ul class="theme.donation.items.length">
+        
+          <li class="item">
+            <img src="/css/qr-donate.jpg" alt="">
+          </li>
+        
+        </ul>
       </div>
     </div>
   </div>
 
-</div>
 
 
-  <div class="post-list-box archive-body">
-    <ul class="list-post">  <li class="item-year item item-title item-title-1">
-    <a href="/archives/2016" class="text-year">
-      2016
-      <i class="icon-hou"></i>
-      
-    </a>
-  </li>
-<li class="item-post item">
-  <span class="post-date">12-13</span>
 
-  
-  <a class="post-title" href="/2016/12/13/springboot-gradle/">采用Gradle快速构建基于Spring boot的MVC应用</a>
-
-
-</li>
-<li class="item-post item">
-  <span class="post-date">12-13</span>
-
-  
-  <a class="post-title" href="/2016/12/13/gradle-multi/">使用Gradle进行多模块项目构建</a>
-
-
-</li>
-<li class="item-post item">
-  <span class="post-date">12-02</span>
-
-  
-  <a class="post-title" href="/2016/12/02/sb-gradle-commonjsp/">多模块项目之 -  spring boot + gradle + 构建公共jsp页面的多模块项目</a>
-
-
-</li>
-<li class="item-post item">
-  <span class="post-date">04-24</span>
-
-  
-  <a class="post-title" href="/2016/04/24/rn-pkq-12/">RN（react native）入坑指南-12,打正式签名包和发布</a>
-
-
-</li>
-<li class="item-post item">
-  <span class="post-date">04-24</span>
-
-  
-  <a class="post-title" href="/2016/04/24/rn-lifecycle-10/">RN（react native）入坑指南-10,组件的生命周期</a>
-
-
-</li>
-<li class="item-post item">
-  <span class="post-date">04-20</span>
-
-  
-  <a class="post-title" href="/2016/04/20/rn-fetch-08/">RN（react native）入坑指南-08,如何加载远程数据</a>
-
-
-</li>
-<li class="item-post item">
-  <span class="post-date">04-18</span>
-
-  
-  <a class="post-title" href="/2016/04/18/rn-navigator-07/">RN（react native）入坑指南-07,使用navigator实现页面跳转</a>
-
-
-</li>
-<li class="item-post item">
-  <span class="post-date">04-17</span>
-
-  
-  <a class="post-title" href="/2016/04/17/rn-structure-06/">RN（react native）入坑指南-06,项目开发结构(代码分层组织)</a>
-
-
-</li>
-<li class="item-post item">
-  <span class="post-date">04-17</span>
-
-  
-  <a class="post-title" href="/2016/04/17/rn-command-a/">RN（react native）入坑指南-附录A,常用命令</a>
-
-
-</li>
-<li class="item-post item">
-  <span class="post-date">04-16</span>
-
-  
-  <a class="post-title" href="/2016/04/16/rn-icon-05/">RN（react native）入坑指南-05,使用图标字体Fontawesome</a>
-
-
-</li>
-<li class="item-post item">
-  <span class="post-date">04-12</span>
-
-  
-  <a class="post-title" href="/2016/04/12/rn-layout-04/">RN（react native）入坑指南-04,布局容器</a>
-
-
-</li>
-<li class="item-post item">
-  <span class="post-date">04-09</span>
-
-  
-  <a class="post-title" href="/2016/04/09/rn-examples-03/">RN（react native）入坑指南-03,运行官方示例UIExplorer</a>
-
-
-</li>
-<li class="item-post item">
-  <span class="post-date">04-09</span>
-
-  
-  <a class="post-title" href="/2016/04/09/rn-summary-09/">RN（react native）入坑指南-09,单元学习小结</a>
-
-
-</li>
-<li class="item-post item">
-  <span class="post-date">01-14</span>
-
-  
-  <a class="post-title" href="/2016/01/14/gulp/">grunt -- &gt; gulp,从grunt转向gulp管理前端构建</a>
-
-
-</li>
-</ul>
-  </div>
-
-  <div class="archive-footer">
-    
-
-  </div>  
-</div>
-<canvas width="100%" height="100%" class="canvas"></canvas>
-<script>
-// canvas 开始
-  document.addEventListener('touchmove', function (e) {
-      e.preventDefault()
-  })
-
-  var c = document.getElementsByTagName('canvas')[0],
-      x = c.getContext('2d'),
-      pr = window.devicePixelRatio || 1,
-      w = window.innerWidth,
-      h = window.innerHeight,
-      f = 90,
-      q,
-      m = Math,
-      r = 0,
-      u = m.PI*2,
-      v = m.cos,
-      z = m.random
-    c.width = w*pr
-    c.height = h*pr
-    x.scale(pr, pr)
-    x.globalAlpha = 0.6
-
-  function i(){
-      x.clearRect(0,0,w,h)
-      q=[{x:0,y:h*.7+f},{x:0,y:h*.7-f}]
-      while(q[1].x<w+f) d(q[0], q[1])
-  }
-
-  function d(i,j){   
-      x.beginPath()
-      x.moveTo(i.x, i.y)
-      x.lineTo(j.x, j.y)
-      var k = j.x + (z()*2-0.25)*f,
-          n = y(j.y)
-      x.lineTo(k, n)
-      x.closePath()
-      r-=u/-50
-      x.fillStyle = '#'+(v(r)*127+128<<16 | v(r+u/3)*127+128<<8 | v(r+u/3*2)*127+128).toString(16)
-      x.fill()
-      q[0] = q[1]
-      q[1] = {x:k,y:n}
-  }
-
-  function y(p){
-      var t = p + (z()*2-1.1)*f
-      return (t>h||t<0) ? y(p) : t
-  }
-
-  document.onclick = i
-  document.ontouchstart = i
-  i()
-
-  //canvas 结束
-</script>
-
-
+  <a id="backTop" class="back-top">
+    <i class="icon-angle-up"></i>
+  </a>
 
 
 
@@ -453,6 +335,29 @@
 </div>
 
 
+
+  
+      <div class="fexo-comments comments-post">
+    
+
+    
+  <section class="duoshuo-comments">
+
+    <!-- UY BEGIN -->
+    <div id="uyan_frame"></div>
+    <script async type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid=2144561">
+    <!-- UY END -->
+  </section>
+
+  <script type="text/javascript">
+	var uyan_config = {
+	     'su':"letsencrypt" 
+	};
+	</script>
+
+
+
+  </div>
 
   
 

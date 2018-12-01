@@ -7,26 +7,26 @@
 <head>
   <meta charset="utf-8">
   
-  <title>使用Jasypt加密你的Spring Boot配置文件 | 如是我闻</title>
+  <title>使用Let&#39;s encrypt和nginx配置https访问 | 如是我闻</title>
 
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
   
-    <meta name="keywords" content="Gradle,Java,Spring Boot,Spring," />
+    <meta name="keywords" content="nginx,https," />
   
 
-  <meta name="description" content="引言#　　Jasypt 是一个Java库，允许开发人员以很简单的方式添加基本加密功能，而无需深入研究加密原理。利用它可以实现高安全性的，基于标准的加密技术，无论是单向和双向加密。加密密码，文本，数字，二进制文件。并且可集成到Spring应用程序中，与Spring Security集成，加密的应用程序（即数据源）的配置等信息。 版本# jasypt-spring-boot-starter ： 2.1">
-<meta name="keywords" content="Gradle,Java,Spring Boot,Spring">
+  <meta name="description" content="引言#　　Let’s Encrypt 是一个将于2015年末推出的数字证书认证机构，将通过旨在消除当前手动创建和安装证书的复杂过程的自动化流程，为安全网站提供免费的SSL/TLS证书 ， 虽然Let’s Encrypt’s证书有效期只有90天，不过你可以通过配置一个简单的定时任务来免费更新你的证书。 版本# CentOS Linux 7 (Core) x86_64  nginx 1.12.2  步">
+<meta name="keywords" content="nginx,https">
 <meta property="og:type" content="article">
-<meta property="og:title" content="使用Jasypt加密你的Spring Boot配置文件">
-<meta property="og:url" content="http://pkaq.org/2018/09/06/jasypt/index.html">
+<meta property="og:title" content="使用Let&#39;s encrypt和nginx配置https访问">
+<meta property="og:url" content="http://pkaq.org/2018/05/21/https/index.html">
 <meta property="og:site_name" content="如是我闻">
-<meta property="og:description" content="引言#　　Jasypt 是一个Java库，允许开发人员以很简单的方式添加基本加密功能，而无需深入研究加密原理。利用它可以实现高安全性的，基于标准的加密技术，无论是单向和双向加密。加密密码，文本，数字，二进制文件。并且可集成到Spring应用程序中，与Spring Security集成，加密的应用程序（即数据源）的配置等信息。 版本# jasypt-spring-boot-starter ： 2.1">
+<meta property="og:description" content="引言#　　Let’s Encrypt 是一个将于2015年末推出的数字证书认证机构，将通过旨在消除当前手动创建和安装证书的复杂过程的自动化流程，为安全网站提供免费的SSL/TLS证书 ， 虽然Let’s Encrypt’s证书有效期只有90天，不过你可以通过配置一个简单的定时任务来免费更新你的证书。 版本# CentOS Linux 7 (Core) x86_64  nginx 1.12.2  步">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-09-07T00:49:55.494Z">
+<meta property="og:updated_time" content="2018-12-01T08:25:56.024Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="使用Jasypt加密你的Spring Boot配置文件">
-<meta name="twitter:description" content="引言#　　Jasypt 是一个Java库，允许开发人员以很简单的方式添加基本加密功能，而无需深入研究加密原理。利用它可以实现高安全性的，基于标准的加密技术，无论是单向和双向加密。加密密码，文本，数字，二进制文件。并且可集成到Spring应用程序中，与Spring Security集成，加密的应用程序（即数据源）的配置等信息。 版本# jasypt-spring-boot-starter ： 2.1">
+<meta name="twitter:title" content="使用Let&#39;s encrypt和nginx配置https访问">
+<meta name="twitter:description" content="引言#　　Let’s Encrypt 是一个将于2015年末推出的数字证书认证机构，将通过旨在消除当前手动创建和安装证书的复杂过程的自动化流程，为安全网站提供免费的SSL/TLS证书 ， 虽然Let’s Encrypt’s证书有效期只有90天，不过你可以通过配置一个简单的定时任务来免费更新你的证书。 版本# CentOS Linux 7 (Core) x86_64  nginx 1.12.2  步">
 
   
 
@@ -160,20 +160,20 @@
 
   <div id="toc" class="toc-article">
     <strong class="toc-title">文章目录</strong>
-    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-text">引言#</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-text">版本#</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-text">步骤#</span></a></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-text">引言#</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-text">版本#</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-text">步骤#</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-text">nginx配置#</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-text">证书获取#</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-text">安装Certbot#</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-text">证书申请#</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-text">自动更新#</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-text">证书管理#</span></a></li></ol></li></ol>
   </div>
 
 
 
 <div class="content content-post CENTER">
-   <article id="post-jasypt" class="article article-type-post" itemprop="blogPost">
+   <article id="post-https" class="article article-type-post" itemprop="blogPost">
   <header class="article-header">
-    <h1 class="post-title">使用Jasypt加密你的Spring Boot配置文件</h1>
+    <h1 class="post-title">使用Let&#39;s encrypt和nginx配置https访问</h1>
 
     <div class="article-meta">
       <span>
         <i class="icon-calendar"></i>
-        <span>2018.09.06</span>
+        <span>2018.05.21</span>
       </span>
 
       
@@ -186,7 +186,7 @@
       
   <span class="article-category">
     <i class="icon-list"></i>
-    <a class="article-category-link" href="/categories/Spring-Boot/">Spring Boot</a>
+    <a class="article-category-link" href="/categories/Http/">Http</a>
   </span>
 
 
@@ -203,7 +203,7 @@
 
       
         <i class="icon-comment"></i> 
-        共 <a class="ds-thread-count" id="uyan_count_unit" su="使用Jasypt加密你的Spring Boot配置文件" href="http://pkaq.org/2018/09/06/jasypt/index.html"></a>
+        共 <a class="ds-thread-count" id="uyan_count_unit" su="使用Let&#39;s encrypt和nginx配置https访问" href="http://pkaq.org/2018/05/21/https/index.html"></a>
       
       
     </div>
@@ -211,30 +211,25 @@
 
   <div class="article-content">
     
-      <h1><span id="yin-yan">引言</span><a href="#yin-yan" class="header-anchor">#</a></h1><p>　　<a href="http://jasypt.org/" target="_blank" rel="noopener">Jasypt</a> 是一个Java库，允许开发人员以很简单的方式添加基本加密功能，而无需深入研究加密原理。利用它可以实现高安全性的，基于标准的加密技术，无论是单向和双向加密。加密密码，文本，数字，二进制文件。并且可集成到Spring应用程序中，与Spring Security集成，加密的应用程序（即数据源）的配置等信息。</p>
+      <h1><span id="yin-yan">引言</span><a href="#yin-yan" class="header-anchor">#</a></h1><p>　　Let’s Encrypt 是一个将于2015年末推出的数字证书认证机构，将通过旨在消除当前手动创建和安装证书的复杂过程的自动化流程，为安全网站提供免费的SSL/TLS证书 ， 虽然Let’s Encrypt’s证书有效期只有90天，不过你可以通过配置一个简单的定时任务来免费更新你的证书。</p>
 <h1><span id="ban-ben">版本</span><a href="#ban-ben" class="header-anchor">#</a></h1><ul>
-<li>jasypt-spring-boot-starter ： 2.1.0</li>
-<li>Spring Boot : 2.0.4</li>
-<li>JDK 1.9</li>
+<li>CentOS Linux 7 (Core) x86_64 </li>
+<li>nginx 1.12.2</li>
 </ul>
-<h1><span id="bu-zou">步骤</span><a href="#bu-zou" class="header-anchor">#</a></h1><p>　　借助<code>jasypt-spring-boot-starter</code>给<code>Spring boot</code>应用配置加密非常简单。   </p>
-<ol>
-<li><p>引入依赖</p>
-<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">compile <span class="string">"com.github.ulisesbocchio:jasypt-spring-boot-starter:$&#123;jasypt&#125;"</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>配置密码<br>　　在<code>application.yml</code>中配置加密需要使用的密钥。</p>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">jasypt:</span></span><br><span class="line">	<span class="attr">encryptor:</span></span><br><span class="line">  	<span class="attr">password:</span> <span class="string">eva</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>加密内容<br>　　编写一个单元测试加密你需要加密的内容。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">	<span class="meta">@Autowired</span></span><br><span class="line">StringEncryptor stringEncryptor;</span><br><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">encrypt</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    System.out.println(<span class="string">"PWD: "</span> + stringEncryptor.encrypt(<span class="string">"yourpassword"</span>));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>修改配置文件,使用<code>ENC</code>包裹加密得到的密文即可。</p>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">spring:</span></span><br><span class="line"><span class="attr">  datasource:</span></span><br><span class="line"><span class="attr">    type:</span> <span class="string">com.alibaba.druid.pool.DruidDataSource</span></span><br><span class="line"><span class="attr">    url:</span> <span class="attr">jdbc:mysql://localhost:3306/jxc?useUnicode=true&amp;characterEncoding=UTF-8&amp;serverTimezone=UTC</span></span><br><span class="line"><span class="attr">    username:</span> <span class="string">ENC(dghf0DZZJA+vQ95xgHz5iA==)</span></span><br><span class="line"><span class="attr">    password:</span> <span class="string">ENC(TNbKfi0lHjpfPcdepEnR5oKHikoDfVr+/amPonxytqK5u+B8Pid7k4hmlGUOhv+6QxEuB3gjJPPn7L8ishuFYym/Gr59qRO6Uf5/XiyT+3FUTujtyybxUjTyo4CO1wKe+zubp27QVYM=)</span></span><br></pre></td></tr></table></figure>
-</li>
-</ol>
+<h1><span id="bu-zou">步骤</span><a href="#bu-zou" class="header-anchor">#</a></h1><h2><span id="nginx-pei-zhi">nginx配置</span><a href="#nginx-pei-zhi" class="header-anchor">#</a></h2><p>　　首先要配置<code>nginx</code>的<code>server</code>节点，用以<code>lets&#39;s encrypt</code>进行域名验证。</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">	server_name yourdomain.com;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>配置完成后，<code>reload</code>一下<code>nginx</code>配置</p>
+<h2><span id="zheng-shu-huo-qu">证书获取</span><a href="#zheng-shu-huo-qu" class="header-anchor">#</a></h2><h3><span id="an-zhuang-certbot">安装Certbot</span><a href="#an-zhuang-certbot" class="header-anchor">#</a></h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">wget https://dl.eff.org/certbot-auto </span><br><span class="line">chmod a+x ./certbot-auto</span><br></pre></td></tr></table></figure>
+<h3><span id="zheng-shu-shen-qing">证书申请</span><a href="#zheng-shu-shen-qing" class="header-anchor">#</a></h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./cerbot-auto -d yourdomain.com</span><br></pre></td></tr></table></figure>
 <blockquote>
-<p>参考: <a href="https://github.com/ulisesbocchio/jasypt-spring-boot" target="_blank" rel="noopener">https://github.com/ulisesbocchio/jasypt-spring-boot</a></p>
+<p>使用 -d 参数来指定你的域名</p>
+<p>申请时根据提示输入你的<code>Email</code>并且同意协议等。完成后会自动配置<code>nginx</code></p>
+<p>注意: <code>https</code>走的是443端口，记得防火墙放开443端口的访问</p>
 </blockquote>
+<h2><span id="zi-dong-geng-xin">自动更新</span><a href="#zi-dong-geng-xin" class="header-anchor">#</a></h2><p>　　使用<code>crontab -e</code>创建定时任务，来定时更新你的证书文件。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">0 0 15 1-12/2 * /path/of/your/certbot-auto renew --quiet</span><br></pre></td></tr></table></figure>
+<h2><span id="zheng-shu-guan-li">证书管理</span><a href="#zheng-shu-guan-li" class="header-anchor">#</a></h2><p>　　可以通过以下几个命令参数来管理你的证书</p>
+<figure class="highlight haml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">-<span class="ruby"> certificates    显示证书信息</span></span><br><span class="line"><span class="ruby">- revoke          撤销证书（提供证书路径 --cert-path）</span></span><br><span class="line"><span class="ruby">- delete          删除证书</span></span><br></pre></td></tr></table></figure>
 <link href="/css/prism-dark.css" rel="stylesheet">
     
   </div>
@@ -368,7 +363,7 @@
 
   <script type="text/javascript">
 	var uyan_config = {
-	     'su':"使用Jasypt加密你的Spring Boot配置文件" 
+	     'su':"使用Let&#39;s encrypt和nginx配置https访问" 
 	};
 	</script>
 
