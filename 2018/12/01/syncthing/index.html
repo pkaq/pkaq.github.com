@@ -7,33 +7,26 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Jenkins+Gradle搭建CI环境 | 如是我闻</title>
+  <title>使用Syncthing自建网盘 | 如是我闻</title>
 
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
   
-    <meta name="keywords" content="Jenkins,Gradle," />
+    <meta name="keywords" content="Syncthing," />
   
 
-  <meta name="description" content="版本说明 jenkins 1.542 jdk 1.6u45 gradle 1.9  必要条件 需要安装JDK并配置配置好JAVA_HOME和JRE_HOME的环境变量   下载jenkins.war去Jenkins官方网站下载相应war包即可  使用命令行跳转到jenkins所在目录可以有两种方法进行运行 jenkins a)    直接通过命令行 转到hudson.war所在的目录，当前为 ja">
-<meta name="keywords" content="Jenkins,Gradle">
+  <meta name="description" content="引言#　　Syncthing是一个开源免费的文件夹/文件同步神器，支持Android、Linux、Windows、Mac OS X等系统，可以使我们任意台任何系统任何设备之间，实现文件实时同步。所有通信都使用TLS进行保护。所使用的加密包括完美的前向保密，以防止窃听者获得对您的数据的访问权限。很适合用来搭建私有同步网盘。  版本# Centos OS7 + Win10 x64 Syncthing">
+<meta name="keywords" content="Syncthing">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Jenkins+Gradle搭建CI环境">
-<meta property="og:url" content="http://pkaq.org/2013/12/03/2013-12-03-gradleforjenkins/index.html">
+<meta property="og:title" content="使用Syncthing自建网盘">
+<meta property="og:url" content="http://pkaq.org/2018/12/01/syncthing/index.html">
 <meta property="og:site_name" content="如是我闻">
-<meta property="og:description" content="版本说明 jenkins 1.542 jdk 1.6u45 gradle 1.9  必要条件 需要安装JDK并配置配置好JAVA_HOME和JRE_HOME的环境变量   下载jenkins.war去Jenkins官方网站下载相应war包即可  使用命令行跳转到jenkins所在目录可以有两种方法进行运行 jenkins a)    直接通过命令行 转到hudson.war所在的目录，当前为 ja">
+<meta property="og:description" content="引言#　　Syncthing是一个开源免费的文件夹/文件同步神器，支持Android、Linux、Windows、Mac OS X等系统，可以使我们任意台任何系统任何设备之间，实现文件实时同步。所有通信都使用TLS进行保护。所使用的加密包括完美的前向保密，以防止窃听者获得对您的数据的访问权限。很适合用来搭建私有同步网盘。  版本# Centos OS7 + Win10 x64 Syncthing">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="http://pkaq.org/images/2013/12/03/6.png">
-<meta property="og:image" content="http://pkaq.org/images/2013/12/03/1.png">
-<meta property="og:image" content="http://pkaq.org/images/2013/12/03/2.png">
-<meta property="og:image" content="http://pkaq.org/images/2013/12/03/3.png">
-<meta property="og:image" content="http://pkaq.org/images/2013/12/03/4.png">
-<meta property="og:image" content="http://pkaq.org/images/2013/12/03/5.png">
-<meta property="og:updated_time" content="2017-10-19T01:47:25.739Z">
+<meta property="og:updated_time" content="2018-12-01T13:20:08.619Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Jenkins+Gradle搭建CI环境">
-<meta name="twitter:description" content="版本说明 jenkins 1.542 jdk 1.6u45 gradle 1.9  必要条件 需要安装JDK并配置配置好JAVA_HOME和JRE_HOME的环境变量   下载jenkins.war去Jenkins官方网站下载相应war包即可  使用命令行跳转到jenkins所在目录可以有两种方法进行运行 jenkins a)    直接通过命令行 转到hudson.war所在的目录，当前为 ja">
-<meta name="twitter:image" content="http://pkaq.org/images/2013/12/03/6.png">
+<meta name="twitter:title" content="使用Syncthing自建网盘">
+<meta name="twitter:description" content="引言#　　Syncthing是一个开源免费的文件夹/文件同步神器，支持Android、Linux、Windows、Mac OS X等系统，可以使我们任意台任何系统任何设备之间，实现文件实时同步。所有通信都使用TLS进行保护。所使用的加密包括完美的前向保密，以防止窃听者获得对您的数据的访问权限。很适合用来搭建私有同步网盘。  版本# Centos OS7 + Win10 x64 Syncthing">
 
   
 
@@ -167,20 +160,20 @@
 
   <div id="toc" class="toc-article">
     <strong class="toc-title">文章目录</strong>
-    <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-text">版本说明#</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-text">必要条件#</span></a></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-text">引言#</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-text">版本#</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-text">拉取镜像#</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-text">创建容器#</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-text">安全访问#</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-text">文件同步#</span></a></li></ol></li></ol>
   </div>
 
 
 
 <div class="content content-post CENTER">
-   <article id="post-2013-12-03-gradleforjenkins" class="article article-type-post" itemprop="blogPost">
+   <article id="post-syncthing" class="article article-type-post" itemprop="blogPost">
   <header class="article-header">
-    <h1 class="post-title">Jenkins+Gradle搭建CI环境</h1>
+    <h1 class="post-title">使用Syncthing自建网盘</h1>
 
     <div class="article-meta">
       <span>
         <i class="icon-calendar"></i>
-        <span>2013.12.03</span>
+        <span>2018.12.01</span>
       </span>
 
       
@@ -193,7 +186,7 @@
       
   <span class="article-category">
     <i class="icon-list"></i>
-    <a class="article-category-link" href="/categories/Build-Tools/">Build Tools</a> / <a class="article-category-link" href="/categories/Build-Tools/DevOps/">DevOps</a>
+    <a class="article-category-link" href="/categories/The-Others/">The Others</a>
   </span>
 
 
@@ -210,7 +203,7 @@
 
       
         <i class="icon-comment"></i> 
-        共 <a class="ds-thread-count" id="uyan_count_unit" su="Jenkins+Gradle搭建CI环境" href="http://pkaq.org/2013/12/03/2013-12-03-gradleforjenkins/index.html"></a>
+        共 <a class="ds-thread-count" id="uyan_count_unit" su="使用Syncthing自建网盘" href="http://pkaq.org/2018/12/01/syncthing/index.html"></a>
       
       
     </div>
@@ -218,42 +211,28 @@
 
   <div class="article-content">
     
-      <h4><span id="ban-ben-shuo-ming">版本说明</span><a href="#ban-ben-shuo-ming" class="header-anchor">#</a></h4><ul>
-<li>jenkins 1.542</li>
-<li>jdk 1.6u45</li>
-<li>gradle 1.9</li>
+      <h1><span id="yin-yan">引言</span><a href="#yin-yan" class="header-anchor">#</a></h1><p>　　<code>Syncthing</code>是一个开源免费的文件夹/文件同步神器，支持<code>Android</code>、<code>Linux</code>、<code>Windows</code>、<code>Mac OS X</code>等系统，可以使我们任意台任何系统任何设备之间，实现文件实时同步。所有通信都使用<code>TLS</code>进行保护。所使用的加密包括完美的前向保密，以防止窃听者获得对您的数据的访问权限。很适合用来搭建私有同步网盘。 </p>
+<h1><span id="ban-ben">版本</span><a href="#ban-ben" class="header-anchor">#</a></h1><ul>
+<li>Centos OS7 + Win10 x64</li>
+<li>Syncthing v0.14.52</li>
+<li>Docker version 1.13.1</li>
 </ul>
-<h4><span id="bi-yao-tiao-jian">必要条件</span><a href="#bi-yao-tiao-jian" class="header-anchor">#</a></h4><ul>
-<li>需要安装JDK并配置配置好JAVA_HOME和JRE_HOME的环境变量</li>
-</ul>
-<ol>
-<li><p>下载jenkins.war<br>去<a href="&quot;http://www.jenkins-ci.org/&quot;">Jenkins官方网站</a>下载相应war包即可</p>
-</li>
-<li><p>使用命令行跳转到jenkins所在目录<br>可以有两种方法进行运行 jenkins<br> a)    直接通过命令行<br> 转到hudson.war所在的目录，当前为<br> java -jar jenkins.war –httpPort=8080<br> 说明：httpPort为jenkins运行的端口，默认端口为8080，上述命令其实jenkins运行在Winstone容器中；<br> b)    在Web容器中运行<br> jenkins可以运行在标准的Web服务器中，支持Tomcat、Jboss、WebLogic中，只需要将jenkins.war放置到相应目录，启动服务就可以进行访问；</p>
-</li>
-<li><p>访问jenkins <a href="http://localhost:8080/" target="_blank" rel="noopener">http://localhost:8080/</a></p>
-<a id="more"></a></li>
-<li><p>安装gradle插件<br> 点击系统管理-&gt;插件管理<br> 选择”可安装插件”tab页,过滤出gradle plugin然后勾选点击直接安装即可<br> 如果需要自动部署还需要安装deploy plugin</p>
-</li>
-<li><p>配置</p>
+<p>#步骤</p>
+<h2><span id="la-qu-jing-xiang">拉取镜像</span><a href="#la-qu-jing-xiang" class="header-anchor">#</a></h2><p>　　使用<code>docker pull syncthing/syncthing</code>拉取最新镜像。</p>
+<h2><span id="chuang-jian-rong-qi">创建容器</span><a href="#chuang-jian-rong-qi" class="header-anchor">#</a></h2><p>　　使用如下命令创建容器, 这里需要注意 外挂的目录需要执行<code>chown -R 1000:1000 dir</code></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker create --name syncthing -p 8384:8384 -p 22000:22000 -p 21027:21027/udp -v /opt/data/docker/syncthing/st-cfg:/var/syncthing/config -v /opt/data/docker/syncthing/st-sync:/var/syncthing docker.io/syncthing/syncthing:latest</span><br></pre></td></tr></table></figure>
+<p>　　参数说明：</p>
 <ul>
-<li>鉴权配置<br>  点击系统管理 选择Configure Global Security 点击”启用安全”<br>  在访问控制下的安全域 勾选 jenkins专有用户数据库<br>  在访问控制下的授权策略里 更改为 “登录用户可以做任何事”<br>  点击保存会跳转到登陆界面,点击创建一个新用户注册一个新用户即可</li>
-<li>系统配置<br>  系统管理-&gt;系统配置-&gt;找到gradle项目,把自动安装前面的勾去掉即可设置本地gradle目录<br>  <img src="/images/2013/12/03/6.png" alt="gradle config"></li>
+<li>–name： 容器别名</li>
+<li>-p： 映射主机端口</li>
+<li>-v： 映射主机目录</li>
 </ul>
-</li>
-<li><p>创建任务<br> 6.1. 点击界面的”创建一个构建任务”进行创建;填入job名称 选择构建一个自由风格的项目<br> <img src="/images/2013/12/03/1.png" alt="project config"></p>
-<p> 6.2. 点击下一步,在”源码管理”选项下选择 subversion repository URL输入你的项目svn地址,第一次输入完之后会给出红色提示说鉴权不通过,点击enter authority,然后选择username/password输入鉴权信息即可(如果你是采用username/password方式的话),其余的保持默认即可<br> <img src="/images/2013/12/03/2.png" alt="subversion config"></p>
-<p> 6.3. 如果希望定时构建可以在”构建触发器”选项下 选择build periodically填写cron表达式来控制构建周期 比如每天20:00构建 H 20 <em> </em> *<br> <img src="/images/2013/12/03/3.png" alt="cron config"></p>
-<p> 6.4. 在”构建”选项下 点击 增加构建步骤 选择 invoke gradle script 在tasks下填入要执行的任务即可<br> <img src="/images/2013/12/03/4.png" alt="gradlescript config"></p>
-<p> 6.5. 自动部署<br> 在”构建后操作”选项下,点击 增加构建步骤 选择 delply war/ear to a container</p>
-<p> 在war/ear files下填入war包所在位置 如target/libs/CIMS.war<br> context path填写项目名称 如 CIMS<br> container选择容器版本 如tomcat<br> 这里需要更改目标tomcat配置 添加相应用户 然后填入相应内容即可<br> <img src="/images/2013/12/03/5.png" alt="deploy config"></p>
-<p> p.s:此步需要修改目标tomcat的配置</p>
- <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">vi $tomcat/conf/tomcat-usres.xml</span><br><span class="line">&lt;!-- 必须开启这两个权限,不然会出现 如下错误,同时该错误也可能由于内存溢出而导致ERROR: Publisher hudson.plugins.deploy.DeployPublisher aborted due to exception   --&gt;</span><br><span class="line">&lt;role rolename="manager-script"/&gt;</span><br><span class="line">&lt;role rolename="manager-gui"/&gt;	</span><br><span class="line">&lt;user username="jenkins" password="jenkins" roles="tomcat,manager-script,manager-gui"/&gt;</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<ol start="7">
-<li>点击保存,搭建完成</li>
-</ol>
+<p>　　容器创建完成后，使用<code>docker start syncthing</code>即可启动容器，这里需要注意的是，需要放开防火墙对8384端口的访问。</p>
+<p>　　启动完成后，访问<code>http://ip:8384</code>即可。</p>
+<h2><span id="an-quan-fang-wen">安全访问</span><a href="#an-quan-fang-wen" class="header-anchor">#</a></h2><p>　　访问到webui界面后，依次点击<code>操作-&gt;设置-&gt;图形用户界面</code>，设置用户名/密码。
+　　</p>
+<h2><span id="wen-jian-tong-bu">文件同步</span><a href="#wen-jian-tong-bu" class="header-anchor">#</a></h2><p>　　在你的<code>Windows</code>机器下载相应的客户端，启动后点击<code>添加远程设备</code>，此时会要求你输入远程设备的ID，打开你的远程界面，点击<code>操作-&gt;显示ID</code>将相应设备ID复制后填入即可。</p>
+<p>　　界面左侧可以点击<code>添加文件夹</code>添加需要同步的文件夹，默认会一小时扫描一次磁盘更改，可以点击<code>选项</code>重新设置扫描间隔，需要注意的是，这里的间隔单位是<code>秒</code>。设置完成后便会开始同步啦。</p>
 <link href="/css/prism-dark.css" rel="stylesheet">
     
   </div>
@@ -387,7 +366,7 @@
 
   <script type="text/javascript">
 	var uyan_config = {
-	     'su':"Jenkins+Gradle搭建CI环境" 
+	     'su':"使用Syncthing自建网盘" 
 	};
 	</script>
 
