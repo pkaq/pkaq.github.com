@@ -45,7 +45,7 @@ task helloTask {
 
 　　执行`gradle hT`，可以观察到执行结果。这里你可能会注意到`Hello world`并非在执行阶段开始执行的,而是在配置阶段就已经打印了。没错，这就是一个`配置型Task`，因为Gradle在任务执行前，总会去遍历所有任务去生成一张`DAG(有向无环图)`来确定任务之间的关系。
 
-###动作型Task
+### 动作型Task
 
 　　如果不想让任务在配置阶段执行，那么可以参照如下方式，通过给任务添加action的方式使其在执行阶段运行。
 
@@ -63,9 +63,8 @@ task helloTask {
 
 - 一个Task包含若干`Action`。所以，Task有`doFirst`和`doLast`两个函数，用于添加需要最先执行的`Action`和需要和需要最后执行的`Action`。`Action`就是一个闭包。
 -  Task创建的时候可以指定Type，通过*type:名字*表达。这是什么意思呢？其实就是告诉`Gradle`，这个新建的Task对象会从哪个基类Task派生。比如，Gradle本身提供了一些通用的Task，最常见的有Copy 任务。Copy是Gradle中的一个类。当我们：`*task myTask(type:Copy)*`的时候，创建的Task就是一个Copy Task。
--  当我们使用 `task myTask{ xxx}`的时候。花括号是一个`closure`。这会导致gradle在创建这个Task之后，返回给用户之前，会先执行closure的内容。
+- 当我们使用 `task myTask{ xxx}`的时候。花括号是一个`closure`。这会导致gradle在创建这个Task之后，返回给用户之前，会先执行closure的内容。
 
-  
 
 当用户执行test任务时，执行以下步骤：  
 
