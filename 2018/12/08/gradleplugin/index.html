@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+
+
+  <html class="dark page-post">
+
+
+<head>
+  <meta charset="utf-8">
+  
+  <title>为Gradle创建一个自定义插件 | 如是我闻</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="Gradle," />
+  
+
+  <meta name="description" content="概述　 在对Gradle有了一定的了解后，你会发现通过使用Gradle的内置任务以及各种插件可以轻松地达成构建目标，例如使用了war插件后，无需编写任何Task即拥有了打war包的能力。大多数情况下，官方提供的插件和众多第三方插件可以满足你的绝大部分需求，但或许你也想为团队提供一个定制化功能的插件。本章节就是来讲解如何编写、发布一个自定义插件来实现Gradle功能的扩展。">
+<meta name="keywords" content="Gradle">
+<meta property="og:type" content="article">
+<meta property="og:title" content="为Gradle创建一个自定义插件">
+<meta property="og:url" content="https://pkaq.org/2018/12/08/gradleplugin/index.html">
+<meta property="og:site_name" content="如是我闻">
+<meta property="og:description" content="概述　 在对Gradle有了一定的了解后，你会发现通过使用Gradle的内置任务以及各种插件可以轻松地达成构建目标，例如使用了war插件后，无需编写任何Task即拥有了打war包的能力。大多数情况下，官方提供的插件和众多第三方插件可以满足你的绝大部分需求，但或许你也想为团队提供一个定制化功能的插件。本章节就是来讲解如何编写、发布一个自定义插件来实现Gradle功能的扩展。">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2018-12-08T07:31:57.458Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="为Gradle创建一个自定义插件">
+<meta name="twitter:description" content="概述　 在对Gradle有了一定的了解后，你会发现通过使用Gradle的内置任务以及各种插件可以轻松地达成构建目标，例如使用了war插件后，无需编写任何Task即拥有了打war包的能力。大多数情况下，官方提供的插件和众多第三方插件可以满足你的绝大部分需求，但或许你也想为团队提供一个定制化功能的插件。本章节就是来讲解如何编写、发布一个自定义插件来实现Gradle功能的扩展。">
+
+  
+
+  
+    <link rel="icon" href="/favicon.ico">
+  
+
+  <link href="/css/styles.css?v=d671a41f" rel="stylesheet">
+
+
+  
+    <link rel="stylesheet" href="/css/fexo-theme.css">
+  
+
+  
+
+  
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?cd1f06c6f057506d537ab11e9f1693be";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+  
+    <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  
+
+  
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  
+
+  <link href='//cdn.webfont.youziku.com/webfonts/nomal/97080/42410/5865c4e5f629db00cc915895.css' rel='stylesheet' type='text/css' />
+ 
+</head>
+
+<body>
+
+
+  
+    <span id="toolbox-mobile" class="toolbox-mobile">　</span>
+  
+
+  <div class="post-header CENTER">
+   
+  <div class="toolbox">
+    <a class="toolbox-entry" href="/">
+      <span class="toolbox-entry-text">　</span>
+      <i class="icon-angle-down"></i>
+      <i class="icon-home"></i>
+    </a>
+    <ul class="list-toolbox">
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE toolbox_color_0"
+            href="/archives/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            博客
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE toolbox_color_1"
+            href="/category/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            分类
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE toolbox_color_2"
+            href="/tag/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            标签
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE toolbox_color_3"
+            href="/link/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            友链
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE toolbox_color_4"
+            href="/atom.xml"
+            rel="noopener noreferrer"
+            target="_blank"
+            >
+            RSS
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE toolbox_color_5"
+            href="/search/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+</div>
+
+
+  <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-text">概述#</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-text">目录结构#</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-text">如何开始#</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-text">1.任务定义#</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-text">3.插件定义#</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-text">发布插件#</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-text">发布到Gradle Plugin Portal　 　#</span></a></li></ol></li></ol></li></ol>
+  </div>
+
+
+
+<div class="content content-post CENTER">
+   <article id="post-gradleplugin" class="article article-type-post" itemprop="blogPost">
+  <header class="article-header">
+    <h1 class="post-title">为Gradle创建一个自定义插件</h1>
+
+    <div class="article-meta">
+      <span>
+        <i class="icon-calendar"></i>
+        <span>2018.12.08</span>
+      </span>
+
+      
+        <span class="article-author">
+          <i class="icon-user"></i>
+          <span>PKAQ</span>
+        </span>
+      
+
+      
+  <span class="article-category">
+    <i class="icon-list"></i>
+    <a class="article-category-link" href="/categories/Build-Tools/">Build Tools</a>
+  </span>
+
+
+
+      
+
+      
+      <i class="fa fa-eye"></i> 
+        <span id="busuanzi_container_page_pv">
+           &nbsp热度 <span id="busuanzi_value_page_pv">
+           <i class="fa fa-spinner fa-spin"></i></span>℃
+        </span>
+      
+
+      
+        <i class="icon-comment"></i> 
+        共 <a class="ds-thread-count" id="uyan_count_unit" su="为Gradle创建一个自定义插件" href="https://pkaq.org/2018/12/08/gradleplugin/index.html"></a>
+      
+      
+    </div>
+  </header>
+
+  <div class="article-content">
+    
+      <h1><span id="gai-shu">概述</span><a href="#gai-shu" class="header-anchor">#</a></h1><p>　 在对<code>Gradle</code>有了一定的了解后，你会发现通过使用Gradle的内置任务以及各种插件可以轻松地达成构建目标，例如使用了<code>war</code>插件后，无需编写任何<code>Task</code>即拥有了打<code>war</code>包的能力。大多数情况下，官方提供的插件和众多第三方插件可以满足你的绝大部分需求，但或许你也想为团队提供一个定制化功能的插件。本章节就是来讲解如何编写、发布一个自定义插件来实现<code>Gradle</code>功能的扩展。</p>
+<a id="more"></a>
+<h1><span id="mu-lu-jie-gou">目录结构</span><a href="#mu-lu-jie-gou" class="header-anchor">#</a></h1><p>　 在前面的章节已经介绍了<code>如何自定义一个Task</code>，编写插件其实与之类似，也可以把插件看作为若干任务的包装器。甚至方式也与编写一个<code>Task</code>相同，你可以选择把插件代码直接编写到脚本中或者作为一个独立的工程发布出去。出于可维护性、易用性等方面的考虑，本章节只介绍如何采用独立工程的方式编写插件。</p>
+<p>　 一个插件工程的目录结构与一个普通的<code>java</code>工程一致，你可以选择使用Java或者Groovy来作为插件的实现。</p>
+<figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">|-src   </span><br><span class="line">	|-main   </span><br><span class="line">		|-java</span><br><span class="line">        |-groovy</span><br><span class="line">		|-resources   </span><br><span class="line">			|-META-INF   </span><br><span class="line">	|-test   </span><br><span class="line">		|-java </span><br><span class="line">        |-groovy</span><br><span class="line">		|-resource</span><br></pre></td></tr></table></figure>
+<h1><span id="ru-he-kai-shi">如何开始</span><a href="#ru-he-kai-shi" class="header-anchor">#</a></h1><p>　 接下来我们便携与一个名为<code>org.pkaq.foLeng</code>的插件，来描述一个插件编写的步骤，该插件提供一个名为<code>mlfl</code>的<code>Task</code>，该<code>Task</code>可接受一个名为<code>words</code>的输入属性，运行插件任务后会在控制台显出佛祖真身，保佑你的代码不受<code>bug</code>侵扰。</p>
+<p>　 该插件主要有三部分：任务定义、插件定义、插件的扩展属性。</p>
+<p>　 开始编写之前你需要引入<code>Gradle</code>相关依赖:</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">dependencies &#123;</span><br><span class="line">    compile localGroovy() </span><br><span class="line">    compile gradleApi() </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2><span id="1-ren-wu-ding-yi">1.任务定义</span><a href="#1-ren-wu-ding-yi" class="header-anchor">#</a></h2><p>　 首先定义一个插件任务，方式与<code>如何自定义一个Task</code>提到的方式相同。只需继承<code>DefaultTask</code>类，并添加相应注解即可。<code>@Input</code>定义了该任务接受一个名为<code>words</code>的入参，<code>@TaskAction</code>注解了<code>Task</code>的行为，表示该<code>Task</code>调用时将执行注解动作。该动作执行后会在控制台打印出佛祖真身以及输入的参数。</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> org.pkaq</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.gradle.api.DefaultTask</span><br><span class="line"><span class="keyword">import</span> org.gradle.api.tasks.Input</span><br><span class="line"><span class="keyword">import</span> org.gradle.api.tasks.TaskAction</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">FoLengTask</span> <span class="keyword">extends</span> <span class="title">DefaultTask</span> &#123;</span></span><br><span class="line">   <span class="meta">@Input</span></span><br><span class="line">    String words = <span class="string">'Hello'</span></span><br><span class="line"></span><br><span class="line">    FoLengTask()&#123;</span><br><span class="line">       description = <span class="string">"Mai Le FoLeng?"</span></span><br><span class="line">       group = <span class="string">"FoLeng"</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@TaskAction</span></span><br><span class="line">    <span class="keyword">void</span> mlfl() &#123;</span><br><span class="line">        <span class="comment">// 获取输入的属性</span></span><br><span class="line">        words = getWords()</span><br><span class="line">        println <span class="string">'''</span></span><br><span class="line"><span class="string">                   _ooOoo_</span></span><br><span class="line"><span class="string">                  o8888888o</span></span><br><span class="line"><span class="string">                  88" . "88</span></span><br><span class="line"><span class="string">                  (| -_- |)</span></span><br><span class="line"><span class="string">                  O\\  =  /O</span></span><br><span class="line"><span class="string">               ____/`---'\\____</span></span><br><span class="line"><span class="string">             .'  \\\\|     |//  `.</span></span><br><span class="line"><span class="string">            /  \\\\|||  :  |||//  \\</span></span><br><span class="line"><span class="string">           /  _||||| -:- |||||-  \\</span></span><br><span class="line"><span class="string">           |   | \\\\\\  -  /// |   |</span></span><br><span class="line"><span class="string">           | \\_|  ''\\---/''  |   |</span></span><br><span class="line"><span class="string">           \\  .-\\__  `-`  ___/-. /</span></span><br><span class="line"><span class="string">         ___`. .'  /--.--\\  `. . __</span></span><br><span class="line"><span class="string">      ."" '&lt;  `.___\\_&lt;|&gt;_/___.'  &gt;'"".</span></span><br><span class="line"><span class="string">     | | :  ` - `.;`\\ _ /`;.`/ - ` : | |</span></span><br><span class="line"><span class="string">     \\  \\ `-.   \\_ __\\ /__ _/   .-` /  /</span></span><br><span class="line"><span class="string">======`-.____`-.___\\_____/___.-`____.-'======</span></span><br><span class="line"><span class="string">                   `=---='</span></span><br><span class="line"><span class="string">^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^</span></span><br><span class="line"><span class="string">            佛祖保佑       永无BUG</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">            '''</span></span><br><span class="line">        println <span class="string">"            &lt; -   $&#123;words&#125;   -&gt;"</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>##2.扩展属性</p>
+<p>　 为插件添加一个名为<code>words</code>的扩展属性。这样我们在插件发布后可以采用定义的扩展容器来方面的设定插件的各类参数。</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> org.pkaq</span><br><span class="line"></span><br><span class="line"><span class="comment">// 扩展属性</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">FolengExtension</span> &#123;</span></span><br><span class="line">   String words</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2><span id="3-cha-jian-ding-yi">3.插件定义</span><a href="#3-cha-jian-ding-yi" class="header-anchor">#</a></h2><p>　 定义插件只需实现<code>Plugin</code>接口即可，该接口只提供了一个方法：<code>void apply(Project project)；</code>。由<code>DefaultTask</code>继承而来的<code>Task</code>都有一个<code>conventionMapping</code>属性，通过这个属性可以将扩展模型的值赋值给<code>Task</code>的<code>@Input`</code>@Output`参数。</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> org.pkaq</span><br><span class="line"><span class="keyword">import</span> org.gradle.api.Plugin</span><br><span class="line"><span class="keyword">import</span> org.gradle.api.Project</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">FoLengPlugin</span> <span class="keyword">implements</span> <span class="title">Plugin</span>&lt;<span class="title">Project</span>&gt;&#123;</span></span><br><span class="line">	<span class="meta">@Override</span>		</span><br><span class="line">    <span class="keyword">void</span> apply(Project project) &#123;</span><br><span class="line">        <span class="comment">/**注册一个扩展容器，扩展容器可以使我们在一个闭包中为task赋值*/</span></span><br><span class="line">        project.extensions.create(<span class="string">'foleng'</span>, FolengExtension)</span><br><span class="line">        folengTask(project)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">void</span> folengTask(Project project)&#123;</span><br><span class="line">        project.tasks.withType(FoLengTask) &#123;</span><br><span class="line">            <span class="comment">/**查找扩展容器中已配置的属性*/</span></span><br><span class="line">            <span class="keyword">def</span> extension = project.extensions.findByName(<span class="string">'foleng'</span>)</span><br><span class="line">            <span class="comment">/**将闭包中的扩展属性值赋给 FoLengTask 的相关属性*/</span></span><br><span class="line">            conventionMapping.words = &#123; extension.words &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        project.task(<span class="string">'mlfl'</span>, <span class="string">type:</span> FoLengTask) &#123;</span><br><span class="line">            conventionMapping.words = &#123;</span><br><span class="line">               project.hasProperty(<span class="string">'words'</span>) ?</span><br><span class="line">                       project.words :</span><br><span class="line">                       project.extensions.findByName(<span class="string">'foleng'</span>).words</span><br><span class="line">            &#125;</span><br><span class="line">            doLast &#123;</span><br><span class="line">                println <span class="string">' The End '</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1><span id="fa-bu-cha-jian">发布插件</span><a href="#fa-bu-cha-jian" class="header-anchor">#</a></h1><p>　 　 至此已经完成了一个简单插件的编写，默认情况下插件的ID与工程的名称是一致的，如果要改变这个默认规则可以在<code>src/main/resources/META-INF/gradle-plugins</code>下新建一个<code>pluginId.properties</code>的文件，该文件的名称即为插件的<code>id</code>，在插件发布后可通过<code>apply plugin:id</code>来引入插件。内容如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">implementation-class=org.pkaq.FoLengPlugin</span><br></pre></td></tr></table></figure>
+<p>###发布到maven仓库　 　 </p>
+<p>　 　 现在可以把编写好的插件发布到<code>Maven</code>仓库来使用了。不过在发布之前可以通过使用<code>gradle assemble</code>本地打包测试一下。只需要将打包后的<code>jar</code>放到需要调用插件的工程内，通过本地文件仓库的形式引入即可。关于如何上传到<code>Maven</code>仓库，请查阅<code>打包与发布章节</code>进行详细了解。这里使用了maven插件简单的发布到了本地目录中。</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">apply <span class="string">plugin:</span> <span class="string">'maven'</span></span><br><span class="line"><span class="comment">// 发布插件到本地目录</span></span><br><span class="line">uploadArchives &#123;</span><br><span class="line">    repositories &#123;</span><br><span class="line">        mavenDeployer &#123;</span><br><span class="line">             repository(<span class="string">url:</span> uri(<span class="string">'/opt/repo'</span>))</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>　 　 使用插件</p>
+<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">buildscript</span> &#123;</span><br><span class="line">	<span class="keyword">repositories</span> &#123; <span class="keyword">flatDir</span> name: <span class="string">'libs'</span>, dirs: <span class="string">"libs"</span> &#125;	</span><br><span class="line">    <span class="keyword">dependencies</span> &#123;</span><br><span class="line">        <span class="keyword">classpath</span> <span class="string">'org.pkaq:plugin:1.0'</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//应用插件</span></span><br><span class="line">apply plugin: <span class="string">'org.pkaq.foLeng'</span></span><br><span class="line"></span><br><span class="line">foleng &#123;</span><br><span class="line">	words = <span class="string">'Tom'</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3><span id="fa-bu-dao-gradle-plugin-portal">发布到<code>Gradle Plugin Portal</code>　 　</span><a href="#fa-bu-dao-gradle-plugin-portal" class="header-anchor">#</a></h3><p> 　 　 为了便于插件的推广和检索，更好的形式是将编写好的插件上传到<code>Gradle Plugin Portal</code>，上传到<code>Gradle Plugin Portal</code>只需如下几步即可。</p>
+<ol>
+<li>创建一个Gradle账户和Key获取</li>
+<li>配置相关Key和发布参数到Gradle脚本</li>
+</ol>
+<p>　 　 注册登录后在个人中心界面可以看到<code>API Key</code>的标签页，复制key和secret后保存到<code>gradle.properties</code>中即可。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">gradle.publish.key=foo</span><br><span class="line">gradle.publish.secret=bar</span><br></pre></td></tr></table></figure>
+<p>　 　 脚本配置，首先应用<code>Gradle</code>提供的发布插件，然后针对插件参数进行配置。如图该插件提供了见名知意的属性这里不做过多赘述。</p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">plugins</span> &#123;</span><br><span class="line">    <span class="attribute">id</span> <span class="string">'java-gradle-plugin'</span></span><br><span class="line">    id <span class="string">'com.gradle.plugin-publish'</span> version <span class="string">'0.10.0'</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">pluginBundle &#123;</span><br><span class="line">    <span class="attribute">website</span> = <span class="string">'https://github.com/GradleCN/GradleSide'</span></span><br><span class="line">    vcsUrl = <span class="string">'https://github.com/GradleCN/GradleSide'</span></span><br><span class="line">    tags = [<span class="string">'买了佛冷'</span>, <span class="string">'pluginlearn'</span>]</span><br><span class="line">&#125;</span><br><span class="line">gradlePlugin &#123;</span><br><span class="line">    <span class="section">plugins</span> &#123;</span><br><span class="line">        <span class="section">foLeng</span> &#123;</span><br><span class="line">            <span class="attribute">id</span> = <span class="string">'org.pkaq.foLeng'</span></span><br><span class="line">            displayName = <span class="string">'Mai le fo leng?'</span></span><br><span class="line">            description = <span class="string">'&lt;a plugin demo&gt;'</span></span><br><span class="line">            implementationClass = <span class="string">'org.pkaq.FoLengPlugin'</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<hr>
+<p>完整脚本如下</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line">plugins &#123;</span><br><span class="line">    id <span class="string">'java-gradle-plugin'</span></span><br><span class="line">    id <span class="string">'com.gradle.plugin-publish'</span> version <span class="string">'0.10.0'</span></span><br><span class="line">&#125;</span><br><span class="line">apply <span class="string">plugin:</span> <span class="string">'groovy'</span></span><br><span class="line">apply <span class="string">plugin:</span> <span class="string">'maven'</span></span><br><span class="line"></span><br><span class="line">group = <span class="string">'org.pakq'</span></span><br><span class="line">archivesBaseName=<span class="string">"plugin"</span></span><br><span class="line">version = <span class="string">'1.0'</span></span><br><span class="line"></span><br><span class="line">pluginBundle &#123;</span><br><span class="line">    website = <span class="string">'https://github.com/GradleCN/GradleSide'</span></span><br><span class="line">    vcsUrl = <span class="string">'https://github.com/GradleCN/GradleSide'</span></span><br><span class="line">    tags = [<span class="string">'买了佛冷'</span>, <span class="string">'pluginlearn'</span>]</span><br><span class="line">&#125;</span><br><span class="line">gradlePlugin &#123;</span><br><span class="line">    plugins &#123;</span><br><span class="line">        foLeng &#123;</span><br><span class="line">            id = <span class="string">'org.pkaq.foLeng'</span></span><br><span class="line">            displayName = <span class="string">'Mai le fo leng?'</span></span><br><span class="line">            description = <span class="string">'&lt;a plugin demo&gt;'</span></span><br><span class="line">            implementationClass = <span class="string">'org.pkaq.FoLengPlugin'</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">repositories &#123;</span><br><span class="line">    mavenCentral()</span><br><span class="line">&#125;</span><br><span class="line">dependencies &#123;</span><br><span class="line">    compile localGroovy() </span><br><span class="line">    compile gradleApi() </span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 发布插件到本地目录</span></span><br><span class="line">uploadArchives &#123;</span><br><span class="line">    repositories &#123;</span><br><span class="line">        mavenDeployer &#123;</span><br><span class="line">             repository(<span class="string">url:</span> uri(<span class="string">'/opt/repo'</span>))</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<link href="/css/prism-dark.css" rel="stylesheet">
+    
+  </div>
+</article>
+
+</div>
+
+
+  <div class="text-center donation">
+    <div class="inner-donation">
+      <span class="btn-donation">支持一下</span>
+      <div class="donation-body">
+        <div class="tip text-center">您得支持,是我前进的动力.</div>
+        <ul class="theme.donation.items.length">
+        
+          <li class="item">
+            <img src="/css/qr-donate.jpg" alt="">
+          </li>
+        
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+
+
+  <a id="backTop" class="back-top">
+    <i class="icon-angle-up"></i>
+  </a>
+
+
+
+
+  <div class="modal" id="modal">
+  <span id="cover" class="cover hide"></span>
+  <div id="modal-dialog" class="modal-dialog hide-dialog">
+    <div class="modal-header">
+      <span id="close" class="btn-close">关闭</span>
+    </div>
+    <hr>
+    <div class="modal-body">
+      <ul class="list-toolbox">
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/archives/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              博客
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/category/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              分类
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/tag/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              标签
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/link/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              友链
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/atom.xml"
+              rel="noopener noreferrer"
+              target="_blank"
+              >
+              RSS
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/search/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              搜索
+            </a>
+          </li>
+        
+      </ul>
+
+    </div>
+  </div>
+</div>
+
+
+
+  
+      <div class="fexo-comments comments-post">
+    
+
+    
+  <section class="duoshuo-comments">
+
+    <!-- UY BEGIN -->
+    <div id="uyan_frame"></div>
+    <script async type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid=2144561">
+    <!-- UY END -->
+  </section>
+
+  <script type="text/javascript">
+	var uyan_config = {
+	     'su':"为Gradle创建一个自定义插件" 
+	};
+	</script>
+
+
+
+  </div>
+
+  
+
+  <script type="text/javascript">
+  function loadScript(url, callback) {
+    var script = document.createElement('script')
+    script.type = 'text/javascript';
+
+    if (script.readyState) { //IE
+      script.onreadystatechange = function() {
+        if (script.readyState == 'loaded' ||
+          script.readyState == 'complete') {
+          script.onreadystatechange = null;
+          callback();
+        }
+      };
+    } else { //Others
+      script.onload = function() {
+        callback();
+      };
+    }
+
+    script.src = url;
+    document.getElementsByTagName('head')[0].appendChild(script);
+  }
+
+  window.onload = function() {
+    loadScript('/js/bundle.js?235683', function() {
+      // load success
+    });
+  }
+</script>
+
+</body>
+</html>
