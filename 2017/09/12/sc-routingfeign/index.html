@@ -4,7 +4,7 @@
   <html class="dark page-post">
 
 
-<head>
+<head><meta name="generator" content="Hexo 3.9.0">
   <meta charset="utf-8">
   
   <title>Spring Cloud 之服务治理 - Eureka服务发现-消费者(Feign) | 如是我闻</title>
@@ -12,7 +12,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
   
-    <meta name="keywords" content="Spring Cloud,微服务," />
+    <meta name="keywords" content="Spring Cloud,微服务,">
   
 
   <meta name="description" content="Feign是一种声明式、模板化的HTTP客户端。在Spring Cloud中使用Feign, 我们可以做到使用HTTP请求远程服务时能与调用本地方法一样的编码体验，开发者完全感知不到这是远程方法，更感知不到这是个HTTP请求。Feign使得 Java HTTP 客户端编写更方便。Feign 灵感来源于Retrofit、JAXRS-2.0和WebSocket。Feign最初是为了降低统一绑定Deno">
@@ -64,10 +64,10 @@
     <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css">
   
 
-  <link href='//cdn.webfont.youziku.com/webfonts/nomal/97080/42410/5865c4e5f629db00cc915895.css' rel='stylesheet' type='text/css' />
+  <link href="//cdn.webfont.youziku.com/webfonts/nomal/97080/42410/5865c4e5f629db00cc915895.css" rel="stylesheet" type="text/css">
  
 </head>
-
+</html>
 <body>
 
 
@@ -217,9 +217,9 @@
 <p>由于Feign是基于Ribbon的,所以这里使用了Feign就已经具备了Ribbon的负载均衡功能<br><a id="more"></a><br>1.引入依赖</p>
 <figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">"org.springframework.cloud:spring-cloud-starter-feign:$&#123;cloud_config&#125;"</span></span><br></pre></td></tr></table></figure>
 <p>2.稍作配置</p>
-<p>在<code>bootstrap.yaml</code>中加入<code>Eureka server</code>相关配置<br><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">spring:</span></span><br><span class="line"><span class="attr">    cloud:</span></span><br><span class="line"><span class="attr">        config:</span></span><br><span class="line"><span class="attr">            uri:</span> <span class="attr">http://localhost:8888</span></span><br><span class="line"><span class="attr">                profile:</span> <span class="string">rabbit</span></span><br><span class="line"><span class="attr">                name:</span> <span class="string">appliaction</span></span><br><span class="line"><span class="attr">                username:</span> <span class="string">pkaq</span></span><br><span class="line"><span class="attr">                password:</span> <span class="string">pkaqx</span></span><br></pre></td></tr></table></figure></p>
+<p>在<code>bootstrap.yaml</code>中加入<code>Eureka server</code>相关配置<br><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">spring:</span></span><br><span class="line">    <span class="attr">cloud:</span></span><br><span class="line">        <span class="attr">config:</span></span><br><span class="line">            <span class="attr">uri:</span> <span class="string">http://localhost:8888</span></span><br><span class="line">                <span class="attr">profile:</span> <span class="string">rabbit</span></span><br><span class="line">                <span class="attr">name:</span> <span class="string">appliaction</span></span><br><span class="line">                <span class="attr">username:</span> <span class="string">pkaq</span></span><br><span class="line">                <span class="attr">password:</span> <span class="string">pkaqx</span></span><br></pre></td></tr></table></figure></p>
 <p>Feign在默认情况下使用的是JDK原生的URLConnection发送HTTP请求，没有连接池，但是对每个地址会保持一个长连接，即利用HTTP的persistence connection 。我们可以用Apache的HTTP Client替换Feign原始的http client, 从而获取连接池、超时时间等与性能息息相关的控制能力。Spring Cloud从Brixtion.SR5版本开始支持这种替换，首先在项目中声明Apache HTTP Client和feign-httpclient依赖：\<br><figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">compile <span class="string">"com.netflix.feign:feign-httpclient:$&#123;feign_httpclient&#125;"</span></span><br></pre></td></tr></table></figure></p>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">feign:</span></span><br><span class="line"><span class="attr">    httpclient:</span></span><br><span class="line"><span class="attr">        enabled:</span> <span class="literal">true</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">feign:</span></span><br><span class="line">    <span class="attr">httpclient:</span></span><br><span class="line">        <span class="attr">enabled:</span> <span class="literal">true</span></span><br></pre></td></tr></table></figure>
 <p>3.添加注解</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@EnableEurekaClient</span></span><br></pre></td></tr></table></figure>
 <p>4.来点代码</p>
@@ -227,7 +227,7 @@
 <p>Feign接口</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@org</span>.springframework.cloud.netflix.feign.FeignClient(<span class="string">"tiger"</span>)</span><br><span class="line">internal <span class="class"><span class="keyword">interface</span> <span class="title">FeignClient</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 所请求的服务接口</span></span><br><span class="line">    <span class="meta">@RequestMapping</span>(<span class="string">"/say"</span>)</span><br><span class="line">    <span class="function">fun <span class="title">say</span><span class="params">()</span>: String</span></span><br><span class="line"><span class="function">&#125;</span></span><br></pre></td></tr></table></figure>
 <p>Controller代码</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RestController</span></span><br><span class="line">open <span class="class"><span class="keyword">class</span> <span class="title">FeignController</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> var feignClient: FeignClient? = <span class="keyword">null</span></span><br><span class="line">    <span class="meta">@RequestMapping</span>(<span class="string">"/Feign"</span>)</span><br><span class="line">    <span class="function">fun <span class="title">say</span><span class="params">()</span>: String </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> feignClient!!.say()+<span class="string">"--&gt; Feign"</span></span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RestController</span></span><br><span class="line">open <span class="class"><span class="keyword">class</span> <span class="title">FeignController</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">var</span> feignClient: FeignClient? = <span class="keyword">null</span></span><br><span class="line">    <span class="meta">@RequestMapping</span>(<span class="string">"/Feign"</span>)</span><br><span class="line">    <span class="function">fun <span class="title">say</span><span class="params">()</span>: String </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> feignClient!!.say()+<span class="string">"--&gt; Feign"</span></span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>5.启动服务,大功告成</p>
 <link href="/css/prism-dark.css" rel="stylesheet">
     
@@ -402,5 +402,5 @@
   }
 </script>
 
-</body>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/assets/hijiki.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true},"log":false});</script></body>
 </html>

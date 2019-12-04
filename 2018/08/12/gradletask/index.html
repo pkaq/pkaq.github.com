@@ -4,7 +4,7 @@
   <html class="dark page-post">
 
 
-<head>
+<head><meta name="generator" content="Hexo 3.9.0">
   <meta charset="utf-8">
   
   <title>Gradle中的任务 | 如是我闻</title>
@@ -12,7 +12,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
   
-    <meta name="keywords" content="Gradle," />
+    <meta name="keywords" content="Gradle,">
   
 
   <meta name="description" content="Project和Task是Gradle中最核心的两个元素，当创建了一个build.gradle脚本那么Gradle便会依据脚本的配置创建一个Project,而脚本中的Task也会创建与之相对应DeafultTask实现。 　　Gradle通过一个个Task来完成具体的构建任务 ,可以说Task乃是Gradle的核心。根据执行阶段的不同，可以将Gradle中Task分为配置型Task以及动作型Tas">
@@ -23,7 +23,7 @@
 <meta property="og:site_name" content="如是我闻">
 <meta property="og:description" content="Project和Task是Gradle中最核心的两个元素，当创建了一个build.gradle脚本那么Gradle便会依据脚本的配置创建一个Project,而脚本中的Task也会创建与之相对应DeafultTask实现。 　　Gradle通过一个个Task来完成具体的构建任务 ,可以说Task乃是Gradle的核心。根据执行阶段的不同，可以将Gradle中Task分为配置型Task以及动作型Tas">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-12-02T05:06:07.486Z">
+<meta property="og:updated_time" content="2018-12-08T07:37:24.640Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Gradle中的任务">
 <meta name="twitter:description" content="Project和Task是Gradle中最核心的两个元素，当创建了一个build.gradle脚本那么Gradle便会依据脚本的配置创建一个Project,而脚本中的Task也会创建与之相对应DeafultTask实现。 　　Gradle通过一个个Task来完成具体的构建任务 ,可以说Task乃是Gradle的核心。根据执行阶段的不同，可以将Gradle中Task分为配置型Task以及动作型Tas">
@@ -64,10 +64,10 @@
     <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css">
   
 
-  <link href='//cdn.webfont.youziku.com/webfonts/nomal/97080/42410/5865c4e5f629db00cc915895.css' rel='stylesheet' type='text/css' />
+  <link href="//cdn.webfont.youziku.com/webfonts/nomal/97080/42410/5865c4e5f629db00cc915895.css" rel="stylesheet" type="text/css">
  
 </head>
-
+</html>
 <body>
 
 
@@ -160,7 +160,7 @@
 
   <div id="toc" class="toc-article">
     <strong class="toc-title">文章目录</strong>
-    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-text">一、Task的基本组成#</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-text">二、定义Task#</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-text">配置型Task#</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-text">三、Task中属性的应用#</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-text">分组#</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-text">依赖#</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-text">跳过#</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-text">动态任务#</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-text">类型任务#</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-text">四、自定义任务#</span></a></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#null"><span class="toc-text">一、Task的基本组成#</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#null"><span class="toc-text">二、定义Task#</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#null"><span class="toc-text">配置型Task#</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#null"><span class="toc-text">动作型Task#</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#null"><span class="toc-text">三、Task中属性的应用#</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#null"><span class="toc-text">分组#</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#null"><span class="toc-text">依赖#</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#null"><span class="toc-text">跳过#</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#null"><span class="toc-text">动态任务#</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#null"><span class="toc-text">类型任务#</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#null"><span class="toc-text">四、自定义任务#</span></a></li></ol>
   </div>
 
 
@@ -221,8 +221,7 @@
 <h3><span id="pei-zhi-xing-task">配置型Task</span><a href="#pei-zhi-xing-task" class="header-anchor">#</a></h3><p>　　定义一个<code>Task</code>十分简单，只需要使用<code>task name{}</code>即可定义一个简单的任务。</p>
 <figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">task helloTask &#123;</span><br><span class="line">    println <span class="string">"Hello World"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>　　执行<code>gradle hT</code>，可以观察到执行结果。这里你可能会注意到<code>Hello world</code>并非在执行阶段开始执行的,而是在配置阶段就已经打印了。没错，这就是一个<code>配置型Task</code>，因为Gradle在任务执行前，总会去遍历所有任务去生成一张<code>DAG(有向无环图)</code>来确定任务之间的关系。</p>
-<p>###动作型Task</p>
-<p>　　如果不想让任务在配置阶段执行，那么可以参照如下方式，通过给任务添加action的方式使其在执行阶段运行。</p>
+<h3><span id="dong-zuo-xing-task">动作型Task</span><a href="#dong-zuo-xing-task" class="header-anchor">#</a></h3><p>　　如果不想让任务在配置阶段执行，那么可以参照如下方式，通过给任务添加action的方式使其在执行阶段运行。</p>
 <figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">task helloTask &#123;</span><br><span class="line">    doLast &#123;</span><br><span class="line">        println <span class="string">"Hello World"</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>常用的action有两个，<code>doFirst</code>和<code>doLast</code>，通过这两个见名知意的<code>action</code>可以用来定置化你的任务行为。</p>
 <ul>
@@ -433,5 +432,5 @@
   }
 </script>
 
-</body>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/assets/hijiki.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true},"log":false});</script></body>
 </html>

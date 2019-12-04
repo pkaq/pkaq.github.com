@@ -4,7 +4,7 @@
   <html class="dark page-post">
 
 
-<head>
+<head><meta name="generator" content="Hexo 3.9.0">
   <meta charset="utf-8">
   
   <title>使用Flyway管理你的Spring boot数据库版本 | 如是我闻</title>
@@ -12,7 +12,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
   
-    <meta name="keywords" content="Gradle,Java,Spring Boot,Spring," />
+    <meta name="keywords" content="Gradle,Java,Spring Boot,Spring,">
   
 
   <meta name="description" content="引言　　Flyway是一款开源的数据库版本管理工具，它更倾向于规约优于配置的方式。Flyway可以独立于应用实现管理并跟踪数据库变更，支持数据库版本自动升级，并且有一套默认的规约，不需要复杂的配置，Migrations可以写成SQL脚本，也可以写在Java代码中，不仅支持Command Line和Java API，还支持Build构建工具和Spring Boot等，同时在分布式环境下能够安全可靠地">
@@ -66,10 +66,10 @@
     <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css">
   
 
-  <link href='//cdn.webfont.youziku.com/webfonts/nomal/97080/42410/5865c4e5f629db00cc915895.css' rel='stylesheet' type='text/css' />
+  <link href="//cdn.webfont.youziku.com/webfonts/nomal/97080/42410/5865c4e5f629db00cc915895.css" rel="stylesheet" type="text/css">
  
 </head>
-
+</html>
 <body>
 
 
@@ -162,7 +162,7 @@
 
   <div id="toc" class="toc-article">
     <strong class="toc-title">文章目录</strong>
-    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-text">引言#</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-text">版本#</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-text">步骤#</span></a></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#null"><span class="toc-text">引言#</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#null"><span class="toc-text">版本#</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#null"><span class="toc-text">步骤#</span></a></li></ol>
   </div>
 
 
@@ -239,7 +239,7 @@
 <p>1.添加依赖   </p>
 <figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">compile</span> "<span class="selector-tag">org</span><span class="selector-class">.flywaydb</span><span class="selector-pseudo">:flyway-core</span><span class="selector-pseudo">:5.1.4"</span></span><br></pre></td></tr></table></figure>
 <p>2.来点配置 <code>application.yaml</code>   </p>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># flyway配置 对于非空数据库 需要开启此项避免报错</span></span><br><span class="line"><span class="attr">spring:</span></span><br><span class="line"><span class="attr"> flyway:</span></span><br><span class="line"><span class="attr">  baseline-on-migrate:</span> <span class="literal">true</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># flyway配置 对于非空数据库 需要开启此项避免报错</span></span><br><span class="line"><span class="attr">spring:</span></span><br><span class="line"> <span class="attr">flyway:</span></span><br><span class="line">  <span class="attr">baseline-on-migrate:</span> <span class="literal">true</span></span><br></pre></td></tr></table></figure>
 <p>3.准备脚本   </p>
 <p>　　依据上文描述的命名规则，在<code>src\main\resources\db\migration</code>下添加你的数据库变更脚本，这里需要注意的是，由于我们是在非空数据库进行操作，所以这里的版本号是从<code>v2</code>开始。</p>
 <p><code>V2__Add_new_table.sql</code></p>
@@ -423,5 +423,5 @@
   }
 </script>
 
-</body>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/assets/hijiki.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true},"log":false});</script></body>
 </html>

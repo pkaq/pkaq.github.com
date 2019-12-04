@@ -4,7 +4,7 @@
   <html class="dark page-post">
 
 
-<head>
+<head><meta name="generator" content="Hexo 3.9.0">
   <meta charset="utf-8">
   
   <title>RN（react native）入坑指南-03,运行官方示例UIExplorer | 如是我闻</title>
@@ -12,7 +12,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
   
-    <meta name="keywords" content="React Native," />
+    <meta name="keywords" content="React Native,">
   
 
   <meta name="description" content="学习RN，官方示例是必不可少的，研究和学习官方示例会带来许多帮助。在搭建好rn环境之后就可以着手尝试运行官方示例来看下RN的各类组件了。    先决条件 node npm RN Git Gradle ADK/SDK  开始首先下载RN代码Github: https://github.com/facebook/react-native下载成功后 命令行切换到目标目录 执行npm install安装所">
@@ -64,10 +64,10 @@
     <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css">
   
 
-  <link href='//cdn.webfont.youziku.com/webfonts/nomal/97080/42410/5865c4e5f629db00cc915895.css' rel='stylesheet' type='text/css' />
+  <link href="//cdn.webfont.youziku.com/webfonts/nomal/97080/42410/5865c4e5f629db00cc915895.css" rel="stylesheet" type="text/css">
  
 </head>
-
+</html>
 <body>
 
 
@@ -160,7 +160,7 @@
 
   <div id="toc" class="toc-article">
     <strong class="toc-title">文章目录</strong>
-    <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-text">先决条件#</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-text">开始#</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-text">配置*DK#</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-text">真机测试#</span></a></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#null"><span class="toc-text">先决条件#</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#null"><span class="toc-text">开始#</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#null"><span class="toc-text">配置*DK#</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#null"><span class="toc-text">真机测试#</span></a></li></ol>
   </div>
 
 
@@ -221,7 +221,7 @@
 <li>ADK/SDK</li>
 </ul>
 <h4><span id="kai-shi">开始</span><a href="#kai-shi" class="header-anchor">#</a></h4><p>首先下载RN代码<br>Github: <a href="https://github.com/facebook/react-native" target="_blank" rel="noopener">https://github.com/facebook/react-native</a><br>下载成功后 命令行切换到目标目录 执行<code>npm install</code>安装所需依赖<br><a id="more"></a></p>
-<h4><span id="pei-zhi-dk">配置*DK</span><a href="#pei-zhi-dk" class="header-anchor">#</a></h4><p>这里有两种方式<br>法1：<br>　　切换到react-native目录, 新建local.properties<br><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sdk.<span class="attribute">dir</span>=absolute_path_to_android_sdk</span><br><span class="line">ndk.<span class="attribute">dir</span>=absolute_path_to_android_ndk</span><br></pre></td></tr></table></figure></p>
+<h4><span id="pei-zhi-dk">配置*DK</span><a href="#pei-zhi-dk" class="header-anchor">#</a></h4><p>这里有两种方式<br>法1：<br>　　切换到react-native目录, 新建local.properties<br><figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">sdk.dir</span>=absolute_path_to_android_sdk</span><br><span class="line"><span class="attr">ndk.dir</span>=absolute_path_to_android_ndk</span><br></pre></td></tr></table></figure></p>
 <p>法2:<br>　　环境变量添加ANDROID_NDK,ANDROID_SDK分别指向NDK和SDK的目录<br>更多说明请参考   <a href="https://facebook.github.io/react-native/docs/android-building-from-source.html" target="_blank" rel="noopener">关于SDK/NDK配置的官方文档</a></p>
 <h4><span id="zhen-ji-ce-shi">真机测试</span><a href="#zhen-ji-ce-shi" class="header-anchor">#</a></h4><p>　　如果是windows小伙伴，下面的命令建议用安装完git后自带的gitbash运行</p>
 <p>1.执行命令<br><figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./<span class="string">gradlew :</span><span class="string">ReactAndroid:</span>assembleDebug</span><br></pre></td></tr></table></figure></p>
@@ -403,5 +403,5 @@
   }
 </script>
 
-</body>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/assets/hijiki.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true},"log":false});</script></body>
 </html>

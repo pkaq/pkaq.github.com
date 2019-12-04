@@ -4,7 +4,7 @@
   <html class="dark page-post">
 
 
-<head>
+<head><meta name="generator" content="Hexo 3.9.0">
   <meta charset="utf-8">
   
   <title>使用P6Spy监控你的Spring boot数据库操作 | 如是我闻</title>
@@ -12,7 +12,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
   
-    <meta name="keywords" content="Gradle,Java,Spring Boot,Spring," />
+    <meta name="keywords" content="Gradle,Java,Spring Boot,Spring,">
   
 
   <meta name="description" content="引言　　最近换了号称最快的HikariDataSource，由于没有了SQL监控，加之于Mybaits默认输出日志之拙计。遂用此物，与之相仿还有log4jdbc，比较活跃度后选择了P6Spy。">
@@ -64,10 +64,10 @@
     <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css">
   
 
-  <link href='//cdn.webfont.youziku.com/webfonts/nomal/97080/42410/5865c4e5f629db00cc915895.css' rel='stylesheet' type='text/css' />
+  <link href="//cdn.webfont.youziku.com/webfonts/nomal/97080/42410/5865c4e5f629db00cc915895.css" rel="stylesheet" type="text/css">
  
 </head>
-
+</html>
 <body>
 
 
@@ -160,7 +160,7 @@
 
   <div id="toc" class="toc-article">
     <strong class="toc-title">文章目录</strong>
-    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-text">引言#</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-text">版本#</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-text">步骤#</span></a></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#null"><span class="toc-text">引言#</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#null"><span class="toc-text">版本#</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#null"><span class="toc-text">步骤#</span></a></li></ol>
   </div>
 
 
@@ -231,7 +231,7 @@
 <li>3.配置<code>spy.properties</code></li>
 </ul>
 <p>1.修改<code>application.yml</code>文件,替换<code>jdbc driver</code>和<code>url</code></p>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 数据源</span></span><br><span class="line"><span class="attr">spring:</span></span><br><span class="line"><span class="attr">  datasource:</span></span><br><span class="line"><span class="attr">    type:</span> <span class="string">com.zaxxer.hikari.HikariDataSource</span></span><br><span class="line"><span class="attr">    url:</span> <span class="attr">jdbc:p6spy:mysql://...</span></span><br><span class="line"><span class="attr">    username:</span> <span class="string">...</span></span><br><span class="line"><span class="attr">    password:</span> <span class="string">...</span></span><br><span class="line"><span class="attr">    driver-class-name:</span> <span class="string">com.p6spy.engine.spy.P6SpyDriver</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight dts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta"># 数据源</span></span><br><span class="line"><span class="symbol">spring:</span></span><br><span class="line"><span class="symbol">  datasource:</span></span><br><span class="line"><span class="symbol">    type:</span> com.zaxxer.hikari.HikariDataSource</span><br><span class="line"><span class="symbol">    url:</span> jdbc:p6spy:mysql:<span class="comment">//...</span></span><br><span class="line"><span class="symbol">    username:</span> ...</span><br><span class="line"><span class="symbol">    password:</span> ...</span><br><span class="line">    driver-class-name: com.p6spy.engine.spy.P6SpyDriver</span><br></pre></td></tr></table></figure>
 <p>2.配置<code>spy.properties</code></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">module.log=com.p6spy.engine.logging.P6LogFactory,com.p6spy.engine.outage.P6OutageFactory</span><br><span class="line"># 自定义日志打印</span><br><span class="line">logMessageFormat=org.pkaq.core.log.P6SpyLogger</span><br><span class="line"># 使用日志系统记录sql</span><br><span class="line">appender=com.p6spy.engine.spy.appender.Slf4JLogger</span><br><span class="line">## 配置记录Log例外</span><br><span class="line">excludecategories=info,debug,result,batc,resultset</span><br><span class="line"># 设置使用p6spy driver来做代理</span><br><span class="line">deregisterdrivers=true</span><br><span class="line"># 日期格式</span><br><span class="line">dateformat=yyyy-MM-dd HH:mm:ss</span><br><span class="line"># 实际驱动 </span><br><span class="line">driverlist=com.mysql.jdbc.Driver</span><br><span class="line"># 是否开启慢SQL记录</span><br><span class="line">outagedetection=true</span><br><span class="line"># 慢SQL记录标准 秒</span><br><span class="line">outagedetectioninterval=2</span><br></pre></td></tr></table></figure>
 <p>3.自定义日志打印 , 实现<code>MessageFormattingStrategy</code>接口即可</p>
@@ -411,5 +411,5 @@
   }
 </script>
 
-</body>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/assets/hijiki.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true},"log":false});</script></body>
 </html>

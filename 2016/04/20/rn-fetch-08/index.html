@@ -4,7 +4,7 @@
   <html class="dark page-post">
 
 
-<head>
+<head><meta name="generator" content="Hexo 3.9.0">
   <meta charset="utf-8">
   
   <title>RN（react native）入坑指南-08,如何加载远程数据 | 如是我闻</title>
@@ -12,7 +12,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
   
-    <meta name="keywords" content="React Native," />
+    <meta name="keywords" content="React Native,">
   
 
   <meta name="description" content="前言　　通过前面的一系列联系现在页面布局技巧已经掌握,页面跳转已经搞定,页面之间的参数传递也已经搞定,我们的代码也进行了分层组织,但我们的应用到现在为止都是死的.如何让应用活起来读取远程数据呢.此篇我们便是用fetch来拉去远程数据　　当然如果你想了解更多方式和内容欢迎阅读官方文档 开始">
@@ -64,10 +64,10 @@
     <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css">
   
 
-  <link href='//cdn.webfont.youziku.com/webfonts/nomal/97080/42410/5865c4e5f629db00cc915895.css' rel='stylesheet' type='text/css' />
+  <link href="//cdn.webfont.youziku.com/webfonts/nomal/97080/42410/5865c4e5f629db00cc915895.css" rel="stylesheet" type="text/css">
  
 </head>
-
+</html>
 <body>
 
 
@@ -160,7 +160,7 @@
 
   <div id="toc" class="toc-article">
     <strong class="toc-title">文章目录</strong>
-    <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-text">前言#</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-text">开始#</span></a></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#null"><span class="toc-text">前言#</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#null"><span class="toc-text">开始#</span></a></li></ol>
   </div>
 
 
@@ -215,7 +215,7 @@
 <h4><span id="kai-shi">开始</span><a href="#kai-shi" class="header-anchor">#</a></h4><a id="more"></a>
 <p>fetch可以接受两个参数,<code>fetch(string,object)</code>,第一个参数是请求的远程地址;第二个参数是一个可选对象可以设定header,method,body等</p>
 <p>现在在我们的代码中添加如下代码<br><figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">_onRegister</span>()&#123;    </span><br><span class="line">   <span class="selector-tag">fetch</span>(<span class="string">'http://192.168.191.1:8080/home/register'</span>, &#123;</span><br><span class="line">      <span class="comment">//请求类型 </span></span><br><span class="line">      <span class="attribute">method</span>: <span class="string">'POST'</span>,      </span><br><span class="line">      <span class="comment">//请求header</span></span><br><span class="line">      <span class="attribute">headers</span>: &#123;</span><br><span class="line">        <span class="string">'Accept'</span>: <span class="string">'application/json'</span>,</span><br><span class="line">        <span class="string">'Content-Type'</span>: <span class="string">'application/json'</span>,</span><br><span class="line">      &#125;,</span><br><span class="line">      <span class="comment">// 发送请求参数</span></span><br><span class="line">      <span class="attribute">body</span>: JSON.stringify(&#123;</span><br><span class="line">        <span class="attribute">name</span>: <span class="string">'tom'</span>        </span><br><span class="line">      &#125;)</span><br><span class="line">    &#125;)<span class="selector-class">.then</span>((response) =&gt; response.json())</span><br><span class="line">      <span class="selector-class">.then</span>((jsonData) =&gt; &#123;</span><br><span class="line">        <span class="comment">// 回写数据</span></span><br><span class="line">        <span class="selector-tag">this</span><span class="selector-class">.setState</span>(&#123;</span><br><span class="line">          <span class="attribute">text </span>: jsonData.text</span><br><span class="line">        &#125;);</span><br><span class="line">      &#125;)</span><br><span class="line">      <span class="selector-class">.catch</span>((error) =&gt; &#123;</span><br><span class="line">         <span class="selector-tag">this</span><span class="selector-class">.setState</span>(&#123;</span><br><span class="line">          <span class="attribute">text </span>: <span class="string">'获取服务器数据错误'</span></span><br><span class="line">        &#125;);</span><br><span class="line">      &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>放置一个区域来显示数据文本并且在注册按钮上添加一个点击事件,这样点击的时候就可以看到数据变化了<br><figure class="highlight dust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">Text</span> <span class="attr">style</span>=</span></span><span class="template-variable">&#123;styles.welcome&#125;</span><span class="xml"><span class="tag">&gt;</span></span></span><br><span class="line"><span class="xml">  </span><span class="template-variable">&#123;this.state.text&#125;</span><span class="xml"></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;/<span class="name">Text</span>&gt;</span>  </span></span><br><span class="line"><span class="xml"></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">TouchableHighlight</span></span></span></span><br><span class="line"><span class="xml">    style=</span><span class="template-variable">&#123;styles.th&#125;</span><span class="xml"></span></span><br><span class="line"><span class="xml">    underlayColor="rgb(210, 230, 255)"</span></span><br><span class="line"><span class="xml">    onPress=</span><span class="template-variable">&#123;this._onRegister.bind(this)&#125;</span><span class="xml">&gt;</span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;<span class="name">Text</span>&gt;</span>注册<span class="tag">&lt;/<span class="name">Text</span>&gt;</span>               </span></span><br><span class="line"><span class="xml"><span class="tag">&lt;/<span class="name">TouchableHighlight</span>&gt;</span></span></span><br></pre></td></tr></table></figure></p>
+<p>放置一个区域来显示数据文本并且在注册按钮上添加一个点击事件,这样点击的时候就可以看到数据变化了<br><figure class="highlight dust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">Text</span> <span class="attr">style</span>=</span></span><span class="template-variable">&#123;styles.welcome&#125;</span><span class="xml"><span class="tag">&gt;</span></span></span><br><span class="line"><span class="xml">  </span><span class="template-variable">&#123;this.state.text&#125;</span></span><br><span class="line"><span class="xml"><span class="tag">&lt;/<span class="name">Text</span>&gt;</span>  </span></span><br><span class="line"></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">TouchableHighlight</span></span></span></span><br><span class="line"><span class="xml">    style=</span><span class="template-variable">&#123;styles.th&#125;</span></span><br><span class="line"><span class="xml">    underlayColor="rgb(210, 230, 255)"</span></span><br><span class="line"><span class="xml">    onPress=</span><span class="template-variable">&#123;this._onRegister.bind(this)&#125;</span><span class="xml">&gt;</span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;<span class="name">Text</span>&gt;</span>注册<span class="tag">&lt;/<span class="name">Text</span>&gt;</span>               </span></span><br><span class="line"><span class="xml"><span class="tag">&lt;/<span class="name">TouchableHighlight</span>&gt;</span></span></span><br></pre></td></tr></table></figure></p>
 <link href="/css/prism-dark.css" rel="stylesheet">
     
   </div>
@@ -389,5 +389,5 @@
   }
 </script>
 
-</body>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/assets/hijiki.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true},"log":false});</script></body>
 </html>

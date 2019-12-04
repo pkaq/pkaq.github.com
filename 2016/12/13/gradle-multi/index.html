@@ -4,7 +4,7 @@
   <html class="dark page-post">
 
 
-<head>
+<head><meta name="generator" content="Hexo 3.9.0">
   <meta charset="utf-8">
   
   <title>使用Gradle进行多模块项目构建 | 如是我闻</title>
@@ -12,7 +12,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
   
-    <meta name="keywords" content="Gradle," />
+    <meta name="keywords" content="Gradle,">
   
 
   <meta name="description" content="概述 项目结构 settings文件 build文件 分离配置 水平布局和分层布局     概述　　随着项目规模的扩展和功能的增加，任何一个简单的项目基本都会进行模块的拆分独立，然后通过项目之间的依赖进行重新整合。 　　项目拆分带来的好处也显而易见。拆分可以是项目结构更加清晰，职责划分更加明确，相关模块的负责人只需专注于自己负责的子模块而无需对整个项目进行一次构建。　　 　　如果不采用构建">
@@ -68,10 +68,10 @@
     <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css">
   
 
-  <link href='//cdn.webfont.youziku.com/webfonts/nomal/97080/42410/5865c4e5f629db00cc915895.css' rel='stylesheet' type='text/css' />
+  <link href="//cdn.webfont.youziku.com/webfonts/nomal/97080/42410/5865c4e5f629db00cc915895.css" rel="stylesheet" type="text/css">
  
 </head>
-
+</html>
 <body>
 
 
@@ -164,7 +164,7 @@
 
   <div id="toc" class="toc-article">
     <strong class="toc-title">文章目录</strong>
-    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-text">概述#</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-text">项目结构#</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-text">settings文件#</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-text">build文件#</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-text">分离配置#</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-text">水平布局和分层布局#</span></a></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#null"><span class="toc-text">概述#</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#null"><span class="toc-text">项目结构#</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#null"><span class="toc-text">settings文件#</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#null"><span class="toc-text">build文件#</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#null"><span class="toc-text">分离配置#</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#null"><span class="toc-text">水平布局和分层布局#</span></a></li></ol>
   </div>
 
 
@@ -287,7 +287,7 @@
 <li>在子模块建立 <code>build.gradle</code> 文件</li>
 <li>将原来的 <code>project(&#39;:xxx&#39;){}</code> 内的脚本移动到上面建立的文件中去</li>
 </ol>
-<p>　　下面的图展示了一个稍微复杂一点的<code>分层布局的</code>、<code>多模块的</code>、<code>分离配置的</code> 的多模块项目示例，其中所有的二级模块都依赖<code>base</code>，最终的<code>weball</code>又依赖于所有的二级模块。<br> 具体代码可以查看 <a href="https://github.com/GradleCN/GradleSide/tree/master/01-multi-project" target="_blank" rel="noopener">&gt; 就是这里 &lt;</a><br><img src="multi.jpg" alt=""></p>
+<p>　　下面的图展示了一个稍微复杂一点的<code>分层布局的</code>、<code>多模块的</code>、<code>分离配置的</code> 的多模块项目示例，其中所有的二级模块都依赖<code>base</code>，最终的<code>weball</code>又依赖于所有的二级模块。<br> 具体代码可以查看 <a href="https://github.com/GradleCN/GradleSide/tree/master/01-multi-project" target="_blank" rel="noopener">&gt; 就是这里 &lt;</a><br><img src="multi.jpg" alt></p>
 <h3><span id="shui-ping-bu-ju-he-fen-ceng-bu-ju">水平布局和分层布局</span><a href="#shui-ping-bu-ju-he-fen-ceng-bu-ju" class="header-anchor">#</a></h3><p>　　如果你阅读了前面的内容，那么你已经掌握了分层布局。没错，Gradle 默认即是采用的分层布局。只需要正确的配置 <code>settings</code> 文件即可。<br>　　某些情况下，若是出于一些不可描述的原因需要进行水平布局，那么 Gradle 也提供了良好的支持。如果你之前曾经翻阅过 <code>Settings</code> 接口的手册，那么或许你已经发现<code>Settintgs</code>接口提供了一个<code>includeFlat</code>方法，借助此方法即可实现水平布局的多模块项目。<br>  <figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">includeFlat  <span class="string">'base'</span></span><br></pre></td></tr></table></figure></p>
 <p>由于此处<code>main</code>即是根项目，所以无需再包含<code>main</code></p>
 <p>完整示例 -&gt;　<a href="https://github.com/GradleCN/GradleSide/tree/master/16-multi-project-flat" target="_blank" rel="noopener"> &gt; 水平布局的多模块项目示例 &lt; </a></p>
@@ -466,5 +466,5 @@
   }
 </script>
 
-</body>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/assets/hijiki.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true},"log":false});</script></body>
 </html>

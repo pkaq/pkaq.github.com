@@ -4,7 +4,7 @@
   <html class="dark page-post">
 
 
-<head>
+<head><meta name="generator" content="Hexo 3.9.0">
   <meta charset="utf-8">
   
   <title>使用Jasypt加密你的Spring Boot配置文件 | 如是我闻</title>
@@ -12,7 +12,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
   
-    <meta name="keywords" content="Gradle,Java,Spring Boot,Spring," />
+    <meta name="keywords" content="Gradle,Java,Spring Boot,Spring,">
   
 
   <meta name="description" content="引言#　　Jasypt 是一个Java库，允许开发人员以很简单的方式添加基本加密功能，而无需深入研究加密原理。利用它可以实现高安全性的，基于标准的加密技术，无论是单向和双向加密。加密密码，文本，数字，二进制文件。并且可集成到Spring应用程序中，与Spring Security集成，加密的应用程序（即数据源）的配置等信息。 版本# jasypt-spring-boot-starter ： 2.1">
@@ -64,10 +64,10 @@
     <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css">
   
 
-  <link href='//cdn.webfont.youziku.com/webfonts/nomal/97080/42410/5865c4e5f629db00cc915895.css' rel='stylesheet' type='text/css' />
+  <link href="//cdn.webfont.youziku.com/webfonts/nomal/97080/42410/5865c4e5f629db00cc915895.css" rel="stylesheet" type="text/css">
  
 </head>
-
+</html>
 <body>
 
 
@@ -160,7 +160,7 @@
 
   <div id="toc" class="toc-article">
     <strong class="toc-title">文章目录</strong>
-    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-text">引言#</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-text">版本#</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-text">步骤#</span></a></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#null"><span class="toc-text">引言#</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#null"><span class="toc-text">版本#</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#null"><span class="toc-text">步骤#</span></a></li></ol>
   </div>
 
 
@@ -229,7 +229,7 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">	<span class="meta">@Autowired</span></span><br><span class="line">StringEncryptor stringEncryptor;</span><br><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">encrypt</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    System.out.println(<span class="string">"PWD: "</span> + stringEncryptor.encrypt(<span class="string">"yourpassword"</span>));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>修改配置文件,使用<code>ENC</code>包裹加密得到的密文即可。</p>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">spring:</span></span><br><span class="line"><span class="attr">  datasource:</span></span><br><span class="line"><span class="attr">    type:</span> <span class="string">com.alibaba.druid.pool.DruidDataSource</span></span><br><span class="line"><span class="attr">    url:</span> <span class="attr">jdbc:mysql://localhost:3306/jxc?useUnicode=true&amp;characterEncoding=UTF-8&amp;serverTimezone=UTC</span></span><br><span class="line"><span class="attr">    username:</span> <span class="string">ENC(dghf0DZZJA+vQ95xgHz5iA==)</span></span><br><span class="line"><span class="attr">    password:</span> <span class="string">ENC(TNbKfi0lHjpfPcdepEnR5oKHikoDfVr+/amPonxytqK5u+B8Pid7k4hmlGUOhv+6QxEuB3gjJPPn7L8ishuFYym/Gr59qRO6Uf5/XiyT+3FUTujtyybxUjTyo4CO1wKe+zubp27QVYM=)</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">spring:</span></span><br><span class="line">  <span class="attr">datasource:</span></span><br><span class="line">    <span class="attr">type:</span> <span class="string">com.alibaba.druid.pool.DruidDataSource</span></span><br><span class="line">    <span class="attr">url:</span> <span class="string">jdbc:mysql://localhost:3306/jxc?useUnicode=true&amp;characterEncoding=UTF-8&amp;serverTimezone=UTC</span></span><br><span class="line">    <span class="attr">username:</span> <span class="string">ENC(dghf0DZZJA+vQ95xgHz5iA==)</span></span><br><span class="line">    <span class="attr">password:</span> <span class="string">ENC(TNbKfi0lHjpfPcdepEnR5oKHikoDfVr+/amPonxytqK5u+B8Pid7k4hmlGUOhv+6QxEuB3gjJPPn7L8ishuFYym/Gr59qRO6Uf5/XiyT+3FUTujtyybxUjTyo4CO1wKe+zubp27QVYM=)</span></span><br></pre></td></tr></table></figure>
 </li>
 </ol>
 <blockquote>
@@ -408,5 +408,5 @@
   }
 </script>
 
-</body>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/assets/hijiki.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true},"log":false});</script></body>
 </html>

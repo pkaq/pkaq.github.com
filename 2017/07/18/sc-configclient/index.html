@@ -4,7 +4,7 @@
   <html class="dark page-post">
 
 
-<head>
+<head><meta name="generator" content="Hexo 3.9.0">
   <meta charset="utf-8">
   
   <title>Spring Cloud 之创建配置中心服务 - 请求端 | 如是我闻</title>
@@ -12,7 +12,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
   
-    <meta name="keywords" content="Spring Boot,Spring Cloud," />
+    <meta name="keywords" content="Spring Boot,Spring Cloud,">
   
 
   <meta name="description" content="Spring Cloud 之创建配置中心服务-客户端　　各个微服务想要使用配置中心服务非常简单,仅需要在bootstrap.yaml(或.properties)文件中稍作配置即可">
@@ -64,10 +64,10 @@
     <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css">
   
 
-  <link href='//cdn.webfont.youziku.com/webfonts/nomal/97080/42410/5865c4e5f629db00cc915895.css' rel='stylesheet' type='text/css' />
+  <link href="//cdn.webfont.youziku.com/webfonts/nomal/97080/42410/5865c4e5f629db00cc915895.css" rel="stylesheet" type="text/css">
  
 </head>
-
+</html>
 <body>
 
 
@@ -160,7 +160,7 @@
 
   <div id="toc" class="toc-article">
     <strong class="toc-title">文章目录</strong>
-    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-text">1.添加依赖#</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-text">2.配置上下文#</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-text">2.1 启动上下文#</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-text">2.2 应用上下文层次结构#</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-text">3.启动服务,大功告成.#</span></a></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#null"><span class="toc-text">1.添加依赖#</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#null"><span class="toc-text">2.配置上下文#</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#null"><span class="toc-text">2.1 启动上下文#</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#null"><span class="toc-text">2.2 应用上下文层次结构#</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#null"><span class="toc-text">3.启动服务,大功告成.#</span></a></li></ol>
   </div>
 
 
@@ -214,7 +214,7 @@
       <p>Spring Cloud 之创建配置中心服务-客户端<br>　　各个微服务想要使用配置中心服务非常简单,仅需要在<code>bootstrap.yaml</code>(或<code>.properties</code>)文件中稍作配置即可</p>
 <a id="more"></a>
 <h2><span id="1-tian-jia-yi-lai">1.添加依赖</span><a href="#1-tian-jia-yi-lai" class="header-anchor">#</a></h2><figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">`org.springframework.<span class="string">cloud:</span>spring-cloud-starter-<span class="string">config:</span>$&#123;cloud_config&#125;`</span><br></pre></td></tr></table></figure>
-<h2><span id="2-pei-zhi-shang-xia-wen">2.配置上下文</span><a href="#2-pei-zhi-shang-xia-wen" class="header-anchor">#</a></h2><p><code>bootstrap.yaml</code>中添加<br><figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">spring:</span></span><br><span class="line"><span class="attr">    application:</span></span><br><span class="line"><span class="attr">        name:</span> <span class="string">config-client</span></span><br><span class="line"><span class="attr">    cloud:</span></span><br><span class="line"><span class="attr">        config:</span></span><br><span class="line">            <span class="comment"># 配置中心地址</span></span><br><span class="line"><span class="attr">            uri:</span> <span class="attr">http://localhost:8888</span></span><br><span class="line">            <span class="comment"># 要应用的配置文件</span></span><br><span class="line"><span class="attr">            profile:</span> <span class="string">dev</span></span><br><span class="line">            <span class="comment"># 要读取的配置文件名</span></span><br><span class="line"><span class="attr">            name:</span> <span class="string">bravo</span></span><br><span class="line">            <span class="comment"># 对应服务端security设置的用户名密码</span></span><br><span class="line"><span class="attr">            username:</span> <span class="string">pkaq</span></span><br><span class="line"><span class="attr">            password:</span> <span class="string">pkaqx</span></span><br></pre></td></tr></table></figure></p>
+<h2><span id="2-pei-zhi-shang-xia-wen">2.配置上下文</span><a href="#2-pei-zhi-shang-xia-wen" class="header-anchor">#</a></h2><p><code>bootstrap.yaml</code>中添加<br><figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">spring:</span></span><br><span class="line">    <span class="attr">application:</span></span><br><span class="line">        <span class="attr">name:</span> <span class="string">config-client</span></span><br><span class="line">    <span class="attr">cloud:</span></span><br><span class="line">        <span class="attr">config:</span></span><br><span class="line">            <span class="comment"># 配置中心地址</span></span><br><span class="line">            <span class="attr">uri:</span> <span class="string">http://localhost:8888</span></span><br><span class="line">            <span class="comment"># 要应用的配置文件</span></span><br><span class="line">            <span class="attr">profile:</span> <span class="string">dev</span></span><br><span class="line">            <span class="comment"># 要读取的配置文件名</span></span><br><span class="line">            <span class="attr">name:</span> <span class="string">bravo</span></span><br><span class="line">            <span class="comment"># 对应服务端security设置的用户名密码</span></span><br><span class="line">            <span class="attr">username:</span> <span class="string">pkaq</span></span><br><span class="line">            <span class="attr">password:</span> <span class="string">pkaqx</span></span><br></pre></td></tr></table></figure></p>
 <blockquote>
 <p>注意这里是<code>bootstrap.yml</code>而不是<code>appliction.yml</code>,因为<code>bootstrap.yml</code>会在应用启动之前读取, 而<code>spring.cloud.config.uri</code>会影响应用启动,关于上下文可参见如下内容.</p>
 </blockquote>
@@ -230,7 +230,7 @@
 </blockquote>
 <p><strong>覆盖远程属性</strong> </p>
 <p>　　<code>property sources</code>被<code>bootstrap context</code> 添加到应用通常通过远程的方式，比如”Config Server”。默认情况下，本地的配置文件不能覆盖远程配置，但是可以通过启动命令行参数来覆盖远程配置。如果需要本地文件覆盖远程文件，需要在远程配置文件里设置授权<br><code>spring.cloud.config.allowOverride=true</code>（这个配置不能在本地被设置）。一旦设置了这个权限，你可以配置更加细粒度的配置来配置覆盖的方式，</p>
-<p>比如：<br><figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">spring:</span></span><br><span class="line"><span class="attr">    cloud:</span></span><br><span class="line"><span class="attr">        config:</span></span><br><span class="line">            <span class="comment"># 覆盖任何本地属性 </span></span><br><span class="line"><span class="attr">            overrideNone:</span> <span class="literal">true</span> </span><br><span class="line">            <span class="comment"># 仅仅系统属性和环境变量 </span></span><br><span class="line"><span class="attr">            overrideSystemProperties:</span> <span class="literal">false</span></span><br></pre></td></tr></table></figure></p>
+<p>比如：<br><figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">spring:</span></span><br><span class="line">    <span class="attr">cloud:</span></span><br><span class="line">        <span class="attr">config:</span></span><br><span class="line">            <span class="comment"># 覆盖任何本地属性 </span></span><br><span class="line">            <span class="attr">overrideNone:</span> <span class="literal">true</span> </span><br><span class="line">            <span class="comment"># 仅仅系统属性和环境变量 </span></span><br><span class="line">            <span class="attr">overrideSystemProperties:</span> <span class="literal">false</span></span><br></pre></td></tr></table></figure></p>
 <p>源文件见PropertySourceBootstrapPropertie</p>
 <h2><span id="3-qi-dong-fu-wu-da-gong-gao-cheng">3.启动服务,大功告成.</span><a href="#3-qi-dong-fu-wu-da-gong-gao-cheng" class="header-anchor">#</a></h2><p>端口号采用配置中心相应配置文件的端口<br>启动后访问 <a href="http://localhost:port/say" target="_blank" rel="noopener">http://localhost:port/say</a></p>
 <p><strong> <a href="https://github.com/pkaq/springcloud7/tree/master/cloud-config-client" target="_blank" rel="noopener">示例代码</a> </strong> </p>
@@ -411,5 +411,5 @@
   }
 </script>
 
-</body>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/assets/hijiki.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true},"log":false});</script></body>
 </html>

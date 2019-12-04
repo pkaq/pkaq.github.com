@@ -4,7 +4,7 @@
   <html class="dark page-post">
 
 
-<head>
+<head><meta name="generator" content="Hexo 3.9.0">
   <meta charset="utf-8">
   
   <title>借助Libreoffice/Openoffice实现Excel在线预览 | 如是我闻</title>
@@ -12,7 +12,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
   
-    <meta name="keywords" content="Java," />
+    <meta name="keywords" content="Java,">
   
 
   <meta name="description" content="有时候你可能需要对客户上传的excel文件提供在线预览的方式,类似很多邮箱直接点击就可以在线查看.但很多第三方工具都是收费的而自己遍历excel重绘界面又比较麻烦;当然如果要求事先将excel另存为html然后上传直接显示是没问题的,但显然这不够科学;那如何才能实现科学预览呢.其实直接借助Libreoffice/Openoffice在点击预览后,后台悄悄把excel另存成html就好了;具体方式如">
@@ -64,10 +64,10 @@
     <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css">
   
 
-  <link href='//cdn.webfont.youziku.com/webfonts/nomal/97080/42410/5865c4e5f629db00cc915895.css' rel='stylesheet' type='text/css' />
+  <link href="//cdn.webfont.youziku.com/webfonts/nomal/97080/42410/5865c4e5f629db00cc915895.css" rel="stylesheet" type="text/css">
  
 </head>
-
+</html>
 <body>
 
 
@@ -160,7 +160,7 @@
 
   <div id="toc" class="toc-article">
     <strong class="toc-title">文章目录</strong>
-    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-text">1.安装桌面环境和office(如果已经安装的可以忽略此步骤)#</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-text">2.启动openoffice 服务#</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-text">3.程序调用#</span></a></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#null"><span class="toc-text">1.安装桌面环境和office(如果已经安装的可以忽略此步骤)#</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#null"><span class="toc-text">2.启动openoffice 服务#</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#null"><span class="toc-text">3.程序调用#</span></a></li></ol>
   </div>
 
 
@@ -245,7 +245,7 @@ String[] officeFormatArr = {<span class="string">"doc"</span>,<span class="strin
 
 <span class="keyword">boolean</span> browserFormatFlag = <span class="keyword">false</span>;
 <span class="keyword">boolean</span> officeFormatFlag = <span class="keyword">false</span>;
-<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i<officeformatarr.length;i++){ <span="" class="keyword">if</officeformatarr.length;i++){></code></span>(extendName.equals(browserFormatArr[i])){
+<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i<officeformatarr.length;i++){ <span class="keyword">if</officeformatarr.length;i++){></code></span>(extendName.equals(browserFormatArr[i])){
         browserFormatFlag = <span class="keyword">true</span>;
     }
     <span class="keyword">if</span>(extendName.equals(officeFormatArr[i])){
@@ -475,5 +475,5 @@ File outFileParent = <span class="keyword">new</span> File(outFileParentRealPath
   }
 </script>
 
-</body>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/assets/hijiki.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true},"log":false});</script></body>
 </html>
