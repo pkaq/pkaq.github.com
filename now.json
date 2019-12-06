@@ -1,4 +1,5 @@
 {
   "name": "如是我闻",
-  "regions": ["hnd1", "sfo1"]
+  "regions": ["hnd1", "sfo1"],
+  "alias": ["pkaq.org"]
 }
