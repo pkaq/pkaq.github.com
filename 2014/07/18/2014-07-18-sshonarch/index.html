@@ -217,7 +217,7 @@ pacman -S openssh
 systemctl start sshd.service
 <span class="meta">#</span><span class="bash">添加到守护进程</span>
 systemctl enable sshd.service
-</code></span></pre>
+</code></pre>
 <h3><span id="2-pei-zhi">2.配置</span><a href="#2-pei-zhi" class="header-anchor">#</a></h3><pre class=" language-shell"><code class="language-shell">vim /etc/ssh/sshd_config
 </code></pre>
 <p>修改如下两个参数为<br>UsePAM no<br>PubkeyAuthentication yes<br>设置完成后重启服务  </p>

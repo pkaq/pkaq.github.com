@@ -245,7 +245,8 @@ String[] officeFormatArr = {<span class="string">"doc"</span>,<span class="strin
 
 <span class="keyword">boolean</span> browserFormatFlag = <span class="keyword">false</span>;
 <span class="keyword">boolean</span> officeFormatFlag = <span class="keyword">false</span>;
-<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i<officeformatarr.length;i++){ <span class="keyword">if</officeformatarr.length;i++){></code></span>(extendName.equals(browserFormatArr[i])){
+<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i<officeFormatArr.length;i++){
+    <span class="keyword">if</span>(extendName.equals(browserFormatArr[i])){
         browserFormatFlag = <span class="keyword">true</span>;
     }
     <span class="keyword">if</span>(extendName.equals(officeFormatArr[i])){
@@ -301,7 +302,7 @@ File outFileParent = <span class="keyword">new</span> File(outFileParentRealPath
 }
 
 <span class="keyword">return</span> NONE;
-</pre>
+</code></pre>
 <link href="/css/prism-dark.css" rel="stylesheet">
     
   </div>
