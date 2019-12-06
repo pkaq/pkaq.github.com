@@ -1,1 +1,4 @@
-{"name":"如是我闻","regions":["hnd1","sfo1"]}<link href="/css/prism-dark.css" rel="stylesheet">
+{
+  "name": "如是我闻",
+  "regions": ["hnd1", "sfo1"]
+}
