@@ -16,9 +16,6 @@ home_nav:
   - name: 博客
     url: /archives
     target_blank: false #不在新页面打开
-  - name: Gradle教程
-    url: http://pkaq.org/GradleTraining
-    target_blank: true #在新页面打开
   - name: Projects
     url: /project
     target_blank: true #在新页面打开
