@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+
+
+  <html class="dark page-post">
+
+
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+  <title>基于 TrueLicense 的项目证书验证 | 如是我闻</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="Spring boot,License,">
+  
+
+  <meta name="description" content="一、简述开发的软件产品在交付使用的时候，往往有一段时间的试用期，这期间我们不希望自己的代码被客户二次拷贝，这个时候 license 就派上用场了，license 的功能包括设定有效期、绑定 ip、绑定 mac 等。授权方直接生成一个 license 给使用方使用，如果需要延长试用期，也只需要重新生成一份 license 即可，无需手动修改源代码。 TrueLicense 是一个开源的证书管理引擎，">
+<meta name="keywords" content="Spring boot,License">
+<meta property="og:type" content="article">
+<meta property="og:title" content="基于 TrueLicense 的项目证书验证">
+<meta property="og:url" content="https://pkaq.org/2020/02/13/truelicense/index.html">
+<meta property="og:site_name" content="如是我闻">
+<meta property="og:description" content="一、简述开发的软件产品在交付使用的时候，往往有一段时间的试用期，这期间我们不希望自己的代码被客户二次拷贝，这个时候 license 就派上用场了，license 的功能包括设定有效期、绑定 ip、绑定 mac 等。授权方直接生成一个 license 给使用方使用，如果需要延长试用期，也只需要重新生成一份 license 即可，无需手动修改源代码。 TrueLicense 是一个开源的证书管理引擎，">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2020-02-13T08:48:47.686Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="基于 TrueLicense 的项目证书验证">
+<meta name="twitter:description" content="一、简述开发的软件产品在交付使用的时候，往往有一段时间的试用期，这期间我们不希望自己的代码被客户二次拷贝，这个时候 license 就派上用场了，license 的功能包括设定有效期、绑定 ip、绑定 mac 等。授权方直接生成一个 license 给使用方使用，如果需要延长试用期，也只需要重新生成一份 license 即可，无需手动修改源代码。 TrueLicense 是一个开源的证书管理引擎，">
+
+  
+
+  
+    <link rel="icon" href="/favicon.ico">
+  
+
+  <link href="/css/styles.css?v=d671a41f" rel="stylesheet">
+
+
+  
+    <link rel="stylesheet" href="/css/fexo-theme.css">
+  
+
+  
+
+  
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?cd1f06c6f057506d537ab11e9f1693be";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+  
+    <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  
+
+  
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  
+
+  <link href="//cdn.webfont.youziku.com/webfonts/nomal/97080/42410/5865c4e5f629db00cc915895.css" rel="stylesheet" type="text/css">
+ 
+</head>
+</html>
+<body>
+
+
+  
+    <span id="toolbox-mobile" class="toolbox-mobile">　</span>
+  
+
+  <div class="post-header CENTER">
+   
+  <div class="toolbox">
+    <a class="toolbox-entry" href="/">
+      <span class="toolbox-entry-text">　</span>
+      <i class="icon-angle-down"></i>
+      <i class="icon-home"></i>
+    </a>
+    <ul class="list-toolbox">
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE toolbox_color_0"
+            href="/archives/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            博客
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE toolbox_color_1"
+            href="/category/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            分类
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE toolbox_color_2"
+            href="/tag/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            标签
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE toolbox_color_3"
+            href="/link/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            友链
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE toolbox_color_4"
+            href="/atom.xml"
+            rel="noopener noreferrer"
+            target="_blank"
+            >
+            RSS
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE toolbox_color_5"
+            href="/search/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+</div>
+
+
+  <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#null"><span class="toc-text">一、简述#</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#null"><span class="toc-text">二、生成密钥对#</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#null"><span class="toc-text">三、准备工作#</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#null"><span class="toc-text">四、利用私钥生成证书#</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#null"><span class="toc-text">四、利用公钥验证证书#</span></a></li></ol>
+  </div>
+
+
+
+<div class="content content-post CENTER">
+   <article id="post-truelicense" class="article article-type-post" itemprop="blogPost">
+  <header class="article-header">
+    <h1 class="post-title">基于 TrueLicense 的项目证书验证</h1>
+
+    <div class="article-meta">
+      <span>
+        <i class="icon-calendar"></i>
+        <span>2020.02.13</span>
+      </span>
+
+      
+        <span class="article-author">
+          <i class="icon-user"></i>
+          <span>PKAQ</span>
+        </span>
+      
+
+      
+  <span class="article-category">
+    <i class="icon-list"></i>
+    <a class="article-category-link" href="/categories/Spring-Boot/">Spring Boot</a>
+  </span>
+
+
+
+      
+
+      
+      <i class="fa fa-eye"></i> 
+        <span id="busuanzi_container_page_pv">
+           &nbsp热度 <span id="busuanzi_value_page_pv">
+           <i class="fa fa-spinner fa-spin"></i></span>℃
+        </span>
+      
+
+      
+        <i class="icon-comment"></i> 
+        共 <a class="ds-thread-count" id="uyan_count_unit" su="基于 TrueLicense 的项目证书验证" href="https://pkaq.org/2020/02/13/truelicense/index.html"></a>
+      
+      
+    </div>
+  </header>
+
+  <div class="article-content">
+    
+      <h2><span id="yi-jian-shu">一、简述</span><a href="#yi-jian-shu" class="header-anchor">#</a></h2><p>开发的软件产品在交付使用的时候，往往有一段时间的试用期，这期间我们不希望自己的代码被客户二次拷贝，这个时候 license 就派上用场了，license 的功能包括设定有效期、绑定 ip、绑定 mac 等。授权方直接生成一个 license 给使用方使用，如果需要延长试用期，也只需要重新生成一份 license 即可，无需手动修改源代码。</p>
+<p>TrueLicense 是一个开源的证书管理引擎，详细介绍见 <a href="https://truelicense.java.net/" target="_blank" rel="noopener">https://truelicense.java.net/</a></p>
+<p>首先介绍下 license 授权机制的原理：</p>
+<ol>
+<li>生成密钥对，包含私钥和公钥。</li>
+<li>授权者保留私钥，使用私钥对授权信息诸如使用截止日期，mac 地址等内容生成 license 签名证书。</li>
+<li>公钥给使用者，放在代码中使用，用于验证 license 签名证书是否符合使用条件。</li>
+</ol>
+<a id="more"></a>
+<h2><span id="er-sheng-cheng-mi-yao-dui">二、生成密钥对</span><a href="#er-sheng-cheng-mi-yao-dui" class="header-anchor">#</a></h2><p>以下命令在 window cmd 命令窗口执行，注意当前执行目录，最后生成的密钥对即在该目录下：<br>1、首先要用 KeyTool 工具来生成私匙库：（-alias别名 -validity 3650 表示10年有效）</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">keytool -genkey -<span class="built_in">alias</span> privatekey -keysize 1024 -keystore privateKeys.store -validity 3650</span><br></pre></td></tr></table></figure>
+<p>2、然后把私匙库内的证书导出到一个文件当中</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">keytool -<span class="built_in">export</span> -<span class="built_in">alias</span> privatekey -file certfile.cer -keystore privateKeys.store</span><br></pre></td></tr></table></figure>
+<p>3、然后再把这个证书文件导入到公匙库</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">keytool -import -<span class="built_in">alias</span> publiccert -file certfile.cer -keystore publicCerts.store</span><br></pre></td></tr></table></figure>
+<p>最后生成的文件 privateKeys.store（私钥）、publicCerts.store（公钥）拷贝出来备用。</p>
+<h2><span id="san-zhun-bei-gong-zuo">三、准备工作</span><a href="#san-zhun-bei-gong-zuo" class="header-anchor">#</a></h2><p>首先，我们需要引入 truelicense 的 jar 包，用于实现我们的证书管理。</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">implementation  <span class="string">"cn.hutool:hutool-all:$&#123;hutool&#125;"</span>,</span><br><span class="line">                   <span class="string">"de.schlichtherle.truelicense:truelicense-core:1.33"</span></span><br></pre></td></tr></table></figure>
+<p>然后，我们建立一个单例模式下的证书管理器。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LicenseManagerHolder</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">volatile</span> LicenseManager licenseManager = <span class="keyword">null</span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="title">LicenseManagerHolder</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> LicenseManager <span class="title">getLicenseManager</span><span class="params">(LicenseParam param)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (licenseManager == <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="keyword">synchronized</span> (LicenseManagerHolder<span class="class">.<span class="keyword">class</span>) </span>&#123;</span><br><span class="line">                <span class="keyword">if</span> (licenseManager == <span class="keyword">null</span>) &#123;</span><br><span class="line">                    licenseManager = <span class="keyword">new</span> LicenseManager(param);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> licenseManager;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2><span id="si-li-yong-si-yao-sheng-cheng-zheng-shu">四、利用私钥生成证书</span><a href="#si-li-yong-si-yao-sheng-cheng-zheng-shu" class="header-anchor">#</a></h2><p>利用私钥生成证书，我们需要两部分内容，一部分是私钥的配置信息（私钥的配置信息在生成私钥库的过程中获得），一部分是自定义的项目证书信息。如下展示：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">eva:</span></span><br><span class="line">  <span class="attr">license:</span></span><br><span class="line">    <span class="comment">########## 私钥的配置信息 ###########</span></span><br><span class="line">    <span class="attr">priv:</span></span><br><span class="line">      <span class="comment"># 私钥的别名</span></span><br><span class="line">      <span class="attr">key_alias:</span> <span class="string">private_license_key</span></span><br><span class="line">      <span class="comment"># privateKeyPwd（该密码是生成密钥对的密码 — 需要妥善保管，不能让使用者知道）</span></span><br><span class="line">      <span class="attr">key_pwd:</span> <span class="string">7u8i9o0p</span></span><br><span class="line">      <span class="comment"># keyStorePwd（该密码是访问密钥库的密码 — 使用 keytool 生成密钥对时设置，使用者知道该密码）</span></span><br><span class="line">      <span class="attr">keystore_pwd:</span> <span class="string">7u8i9o0p</span></span><br><span class="line">      <span class="comment"># 密钥库的地址（放在 resource 目录下）</span></span><br><span class="line">      <span class="attr">path:</span> <span class="string">/license/private_license.store</span></span><br><span class="line">    <span class="comment">########## 公钥的配置信息 ###########</span></span><br><span class="line">    <span class="attr">pub:</span></span><br><span class="line">      <span class="comment"># 公钥别名</span></span><br><span class="line">      <span class="attr">alias:</span> <span class="string">publiccert</span></span><br><span class="line">    <span class="comment"># 该密码是访问密钥库的密码 — 使用 keytool 生成密钥对时设置，使用者知道该密码</span></span><br><span class="line">      <span class="attr">keystore_pwd:</span> <span class="string">7u8i9o0p</span></span><br><span class="line">      <span class="comment"># 公共库路径（放在 resource 目录下</span></span><br><span class="line">      <span class="attr">path:</span> <span class="string">/license/publicCerts.store</span></span><br><span class="line">      <span class="comment"># 证书路径（我这边配置在了 linux 根路径下，即 /license.lic ）</span></span><br><span class="line">      <span class="attr">license:</span> <span class="string">/license/license.lic</span></span><br><span class="line">    <span class="comment"># 项目的唯一识别码</span></span><br><span class="line">    <span class="attr">subject:</span> <span class="string">eva</span></span><br><span class="line">    <span class="comment">########## license content ###########</span></span><br><span class="line">    <span class="comment"># 发布日期</span></span><br><span class="line">    <span class="attr">issuedTime:</span> <span class="number">2020</span><span class="number">-02</span><span class="number">-09</span> <span class="number">00</span><span class="string">:00:00</span></span><br><span class="line">    <span class="comment"># 有效开始日期</span></span><br><span class="line">    <span class="attr">notBefore:</span> <span class="number">2020</span><span class="number">-02</span><span class="number">-09</span> <span class="number">00</span><span class="string">:00:00</span></span><br><span class="line">    <span class="comment"># 有效截止日期</span></span><br><span class="line">    <span class="attr">notAfter:</span> <span class="number">2029</span><span class="number">-02</span><span class="number">-09</span> <span class="number">23</span><span class="string">:16:00</span></span><br><span class="line">    <span class="comment"># ip 地址</span></span><br><span class="line">    <span class="attr">ipAddress:</span> <span class="number">192.168</span><span class="number">.0</span><span class="number">.107</span></span><br><span class="line">    <span class="comment"># mac 地址</span></span><br><span class="line">    <span class="attr">macAddress:</span> <span class="number">70</span><span class="string">-C9-4E-E6-6D-D1</span></span><br><span class="line">    <span class="comment"># 使用者类型，用户(user)、电脑(computer)、其他（else）</span></span><br><span class="line">    <span class="attr">consumerType:</span> <span class="string">user</span></span><br><span class="line">    <span class="comment"># 证书允许使用的消费者数量</span></span><br><span class="line">    <span class="attr">consumerAmount:</span> <span class="number">1</span></span><br><span class="line">    <span class="comment"># 证书说明</span></span><br><span class="line">    <span class="attr">info:</span> <span class="string">power</span> <span class="string">by</span> <span class="string">xiamen</span> <span class="string">yungu</span></span><br><span class="line">    <span class="comment">#生成证书的地址</span></span><br><span class="line">    <span class="attr">licPath:</span> <span class="string">D:\eva_license\license.lic</span></span><br></pre></td></tr></table></figure>
+<p>接下来，就是如何生成证书的实操部分了</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> io.nerv.license;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> cn.hutool.core.date.DateUtil;</span><br><span class="line"><span class="keyword">import</span> de.schlichtherle.license.*;</span><br><span class="line"><span class="keyword">import</span> lombok.extern.slf4j.Slf4j;</span><br><span class="line"><span class="keyword">import</span> org.springframework.beans.factory.annotation.Autowired;</span><br><span class="line"><span class="keyword">import</span> org.springframework.stereotype.Component;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> javax.security.auth.x500.X500Principal;</span><br><span class="line"><span class="keyword">import</span> java.io.File;</span><br><span class="line"><span class="keyword">import</span> java.text.ParseException;</span><br><span class="line"><span class="keyword">import</span> java.text.SimpleDateFormat;</span><br><span class="line"><span class="keyword">import</span> java.time.LocalDateTime;</span><br><span class="line"><span class="keyword">import</span> java.util.Date;</span><br><span class="line"><span class="keyword">import</span> java.util.HashMap;</span><br><span class="line"><span class="keyword">import</span> java.util.Map;</span><br><span class="line"><span class="keyword">import</span> java.util.prefs.Preferences;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Slf</span>4j</span><br><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LicenseGenerator</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> LicenseConfig licenseConfig;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * X500Princal 是一个证书文件的固有格式，详见API</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">static</span> X500Principal DEFAULT_HOLDERAND_ISSUER = <span class="keyword">new</span> X500Principal(<span class="string">"CN=Eva, OU=Nerv, O=Nerv, L=Nerv, ST=Unknown, C=CN"</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 生成证书，在证书发布者端执行</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@throws</span> Exception</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">create</span><span class="params">()</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        LicenseManager licenseManager = LicenseManagerHolder.getLicenseManager(initLicenseParams());</span><br><span class="line">        licenseManager.store(buildLicenseContent(), <span class="keyword">new</span> File(licenseConfig.getLicPath()));</span><br><span class="line">        log.info(<span class="string">"------ 证书发布成功 ------"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 初始化证书的相关参数</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> LicenseParam <span class="title">initLicenseParams</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        Class&lt;LicenseGenerator&gt; clazz = LicenseGenerator<span class="class">.<span class="keyword">class</span></span>;</span><br><span class="line">        Preferences preferences = Preferences.userNodeForPackage(clazz);</span><br><span class="line">        <span class="comment">// 设置对证书内容加密的对称密码</span></span><br><span class="line">        CipherParam cipherParam = <span class="keyword">new</span> DefaultCipherParam(licenseConfig.getPriv().getKeystorePwd());</span><br><span class="line">        <span class="comment">// 参数 1,2 从哪个Class.getResource()获得密钥库;</span></span><br><span class="line">        <span class="comment">// 参数 3 密钥库的别名;</span></span><br><span class="line">        <span class="comment">// 参数 4 密钥库存储密码;</span></span><br><span class="line">        <span class="comment">// 参数 5 密钥库密码</span></span><br><span class="line">        KeyStoreParam privateStoreParam = <span class="keyword">new</span> DefaultKeyStoreParam(clazz, licenseConfig.getPriv().getPath(),</span><br><span class="line">                                                                          licenseConfig.getPriv().getKeyAlias(),</span><br><span class="line">                                                                          licenseConfig.getPriv().getKeystorePwd(),</span><br><span class="line">                                                                          licenseConfig.getPriv().getKeyPwd());</span><br><span class="line">        <span class="comment">// 返回生成证书时需要的参数</span></span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> DefaultLicenseParam(licenseConfig.getSubject(), preferences, privateStoreParam, cipherParam);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 通过外部配置文件构建证书的的相关信息</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     * <span class="doctag">@throws</span> ParseException</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> LicenseContent <span class="title">buildLicenseContent</span><span class="params">()</span> <span class="keyword">throws</span> ParseException </span>&#123;</span><br><span class="line">        LicenseContent content = <span class="keyword">new</span> LicenseContent();</span><br><span class="line"><span class="comment">//        SimpleDateFormat formate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        content.setConsumerAmount(licenseConfig.getConsumerAmount());</span><br><span class="line">        content.setConsumerType(licenseConfig.getConsumerType());</span><br><span class="line">        content.setHolder(DEFAULT_HOLDERAND_ISSUER);</span><br><span class="line">        content.setIssuer(DEFAULT_HOLDERAND_ISSUER);</span><br><span class="line">        content.setIssued( DateUtil.parseDateTime(licenseConfig.getIssuedTime()) );</span><br><span class="line">        content.setNotBefore( DateUtil.parseDateTime(licenseConfig.getNotBefore()) );</span><br><span class="line">        content.setNotAfter( DateUtil.parseDateTime(licenseConfig.getNotAfter()) );</span><br><span class="line">        content.setInfo(licenseConfig.getInfo());</span><br><span class="line">        <span class="comment">// 扩展字段</span></span><br><span class="line">        Map&lt;String, String&gt; map = <span class="keyword">new</span> HashMap&lt;&gt;(<span class="number">4</span>);</span><br><span class="line">        map.put(<span class="string">"ip"</span>, licenseConfig.getIpAddress());</span><br><span class="line">        map.put(<span class="string">"mac"</span>, licenseConfig.getMacAddress());</span><br><span class="line">        content.setExtra(map);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> content;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>最后，来尝试生成一份证书吧！</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">       licenseVerify.init();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2><span id="si-li-yong-gong-yao-yan-zheng-zheng-shu">四、利用公钥验证证书</span><a href="#si-li-yong-gong-yao-yan-zheng-zheng-shu" class="header-anchor">#</a></h2><p>利用公钥生成证书，我们需要有公钥库、license 证书等信息。</p>
+<p>接下来就是怎么用公钥验证 license 证书，怎样验证 ip、mac 地址等信息的过程了~</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> io.nerv.license;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> cn.hutool.core.net.NetUtil;</span><br><span class="line"><span class="keyword">import</span> de.schlichtherle.license.*;</span><br><span class="line"><span class="keyword">import</span> lombok.extern.slf4j.Slf4j;</span><br><span class="line"><span class="keyword">import</span> org.springframework.beans.factory.annotation.Autowired;</span><br><span class="line"><span class="keyword">import</span> org.springframework.stereotype.Component;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.io.File;</span><br><span class="line"><span class="keyword">import</span> java.net.InetAddress;</span><br><span class="line"><span class="keyword">import</span> java.util.Map;</span><br><span class="line"><span class="keyword">import</span> java.util.Objects;</span><br><span class="line"><span class="keyword">import</span> java.util.prefs.Preferences;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Slf</span>4j</span><br><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LicenseVerify</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> LicenseConfig licenseConfig;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 安装证书证书</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">install</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            LicenseManager licenseManager = getLicenseManager();</span><br><span class="line">            licenseManager.install(<span class="keyword">new</span> File(licenseConfig.getLicPath()));</span><br><span class="line">            log.info(<span class="string">"安装证书成功!"</span>);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">            log.error(<span class="string">"授权已过期, 安装证书失败!"</span>, e);</span><br><span class="line">            Runtime.getRuntime().halt(<span class="number">1</span>);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> LicenseManager <span class="title">getLicenseManager</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> LicenseManagerHolder.getLicenseManager(initLicenseParams());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 初始化证书的相关参数</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> LicenseParam <span class="title">initLicenseParams</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        Class&lt;LicenseVerify&gt; clazz = LicenseVerify<span class="class">.<span class="keyword">class</span></span>;</span><br><span class="line">        Preferences pre = Preferences.userNodeForPackage(clazz);</span><br><span class="line">        CipherParam cipherParam = <span class="keyword">new</span> DefaultCipherParam(licenseConfig.getPub().getKeystorePwd());</span><br><span class="line">        KeyStoreParam pubStoreParam = <span class="keyword">new</span> DefaultKeyStoreParam(clazz,</span><br><span class="line">                                                               licenseConfig.getPub().getPath(),</span><br><span class="line">                                                               licenseConfig.getPub().getAlias(),</span><br><span class="line">                                                               licenseConfig.getPub().getKeystorePwd() , <span class="keyword">null</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> DefaultLicenseParam(licenseConfig.getSubject(), pre, pubStoreParam, cipherParam);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 验证证书的合法性</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">vertify</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            LicenseManager licenseManager = getLicenseManager();</span><br><span class="line">            LicenseContent verify = licenseManager.verify();</span><br><span class="line">            log.info(<span class="string">"验证证书成功!"</span>);</span><br><span class="line">            Map&lt;String, String&gt; extra = (Map) verify.getExtra();</span><br><span class="line">            String ip = extra.get(<span class="string">"ip"</span>);</span><br><span class="line">            InetAddress inetAddress = InetAddress.getLocalHost();</span><br><span class="line">            String localIp = inetAddress.toString().split(<span class="string">"/"</span>)[<span class="number">1</span>];</span><br><span class="line">            <span class="keyword">if</span> (!Objects.equals(ip, localIp)) &#123;</span><br><span class="line">                log.error(<span class="string">"IP 地址验证不通过"</span>);</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            String mac = extra.get(<span class="string">"mac"</span>);</span><br><span class="line">            String localMac = getLocalMac(inetAddress);</span><br><span class="line">            <span class="keyword">if</span> (!Objects.equals(mac, localMac)) &#123;</span><br><span class="line">                log.error(<span class="string">"MAC 地址验证不通过"</span>);</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            log.info(<span class="string">"IP、MAC地址验证通过"</span>);</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">        &#125; <span class="keyword">catch</span> (LicenseContentException ex) &#123;</span><br><span class="line">            log.error(<span class="string">"证书已经过期!"</span>, ex);</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">            log.error(<span class="string">"验证证书失败!"</span>, e);</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 得到本机 mac 地址</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> inetAddress</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> String <span class="title">getLocalMac</span><span class="params">(InetAddress inetAddress)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> NetUtil.getMacAddress(inetAddress).toUpperCase();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>有了公钥的验证过程了，等下！事情还没结束呢！我们需要在项目启动的时候，安装 licnese 证书，然后验证ip、mac 等信息。如果校验不通过，就阻止项目启动！</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (evaConfig.getLicense().isEnable())&#123;</span><br><span class="line">	<span class="comment">// 安装license</span></span><br><span class="line">   licenseVerify.init();</span><br><span class="line"></span><br><span class="line"><span class="comment">// 验证license</span></span><br><span class="line">   <span class="keyword">if</span> (!licenseVerify.vertify()) &#123;</span><br><span class="line">   log.error(<span class="string">"授权验证未通过, 请更新授权文件"</span>);</span><br><span class="line">   	Runtime.getRuntime().halt(<span class="number">1</span>);</span><br><span class="line">   &#125;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure><link href="/css/prism-dark.css" rel="stylesheet">
+    
+  </div>
+</article>
+
+</div>
+
+
+  <div class="text-center donation">
+    <div class="inner-donation">
+      <span class="btn-donation">支持一下</span>
+      <div class="donation-body">
+        <div class="tip text-center">您得支持,是我前进的动力.</div>
+        <ul class="theme.donation.items.length">
+        
+          <li class="item">
+            <img src="/css/qr-donate.jpg" alt="">
+          </li>
+        
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+
+
+  <a id="backTop" class="back-top">
+    <i class="icon-angle-up"></i>
+  </a>
+
+
+
+
+  <div class="modal" id="modal">
+  <span id="cover" class="cover hide"></span>
+  <div id="modal-dialog" class="modal-dialog hide-dialog">
+    <div class="modal-header">
+      <span id="close" class="btn-close">关闭</span>
+    </div>
+    <hr>
+    <div class="modal-body">
+      <ul class="list-toolbox">
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/archives/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              博客
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/category/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              分类
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/tag/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              标签
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/link/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              友链
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/atom.xml"
+              rel="noopener noreferrer"
+              target="_blank"
+              >
+              RSS
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/search/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              搜索
+            </a>
+          </li>
+        
+      </ul>
+
+    </div>
+  </div>
+</div>
+
+
+
+  
+      <div class="fexo-comments comments-post">
+    
+
+    
+  <section class="duoshuo-comments">
+
+    <!-- UY BEGIN -->
+    <div id="uyan_frame"></div>
+    <script async type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid=2144561">
+    <!-- UY END -->
+  </section>
+
+  <script type="text/javascript">
+	var uyan_config = {
+	     'su':"基于 TrueLicense 的项目证书验证" 
+	};
+	</script>
+
+
+
+  </div>
+
+  
+
+  <script type="text/javascript">
+  function loadScript(url, callback) {
+    var script = document.createElement('script')
+    script.type = 'text/javascript';
+
+    if (script.readyState) { //IE
+      script.onreadystatechange = function() {
+        if (script.readyState == 'loaded' ||
+          script.readyState == 'complete') {
+          script.onreadystatechange = null;
+          callback();
+        }
+      };
+    } else { //Others
+      script.onload = function() {
+        callback();
+      };
+    }
+
+    script.src = url;
+    document.getElementsByTagName('head')[0].appendChild(script);
+  }
+
+  window.onload = function() {
+    loadScript('/js/bundle.js?235683', function() {
+      // load success
+    });
+  }
+</script>
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/assets/hijiki.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true},"log":false});</script></body>
+</html>
