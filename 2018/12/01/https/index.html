@@ -23,7 +23,7 @@
 <meta property="og:site_name" content="如是我闻">
 <meta property="og:description" content="引言#　　Let’s Encrypt 是一个将于2015年末推出的数字证书认证机构，将通过旨在消除当前手动创建和安装证书的复杂过程的自动化流程，为安全网站提供免费的SSL/TLS证书 ， 虽然Let’s Encrypt’s证书有效期只有90天，不过你可以通过配置一个简单的定时任务来免费更新你的证书。 版本# CentOS Linux 7 (Core) x86_64  nginx 1.12.2  步">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-12-01T08:41:20.405Z">
+<meta property="og:updated_time" content="2020-02-21T12:31:19.308Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="使用Let&#39;s encrypt和nginx配置https访问">
 <meta name="twitter:description" content="引言#　　Let’s Encrypt 是一个将于2015年末推出的数字证书认证机构，将通过旨在消除当前手动创建和安装证书的复杂过程的自动化流程，为安全网站提供免费的SSL/TLS证书 ， 虽然Let’s Encrypt’s证书有效期只有90天，不过你可以通过配置一个简单的定时任务来免费更新你的证书。 版本# CentOS Linux 7 (Core) x86_64  nginx 1.12.2  步">
@@ -220,7 +220,7 @@
 <figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">	server_name yourdomain.com;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>配置完成后，<code>reload</code>一下<code>nginx</code>配置</p>
 <h2><span id="zheng-shu-huo-qu">证书获取</span><a href="#zheng-shu-huo-qu" class="header-anchor">#</a></h2><h3><span id="an-zhuang-certbot">安装Certbot</span><a href="#an-zhuang-certbot" class="header-anchor">#</a></h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">wget https://dl.eff.org/certbot-auto </span><br><span class="line">chmod a+x ./certbot-auto</span><br></pre></td></tr></table></figure>
-<h3><span id="zheng-shu-shen-qing">证书申请</span><a href="#zheng-shu-shen-qing" class="header-anchor">#</a></h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./cerbot-auto -d yourdomain.com</span><br></pre></td></tr></table></figure>
+<h3><span id="zheng-shu-shen-qing">证书申请</span><a href="#zheng-shu-shen-qing" class="header-anchor">#</a></h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./certbot-auto -d yourdomain.com</span><br></pre></td></tr></table></figure>
 <blockquote>
 <p>使用 -d 参数来指定你的域名</p>
 <p>申请时根据提示输入你的<code>Email</code>并且同意协议等。完成后会自动配置<code>nginx</code></p>
