@@ -4,7 +4,7 @@
   <html class="dark page-post">
 
 
-<head><meta name="generator" content="Hexo 3.9.0">
+<head>
   <meta charset="utf-8">
   
   <title>在Gradle中使用阿里巴巴Java开发规约进行代码检查 | 如是我闻</title>
@@ -12,21 +12,21 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
   
-    <meta name="keywords" content="Gradle,">
+    <meta name="keywords" content="Gradle," />
   
 
-  <meta name="description" content="#  概述#　　最近阿里发布了《阿里巴巴Java开发手册》,一时间无数阿里拥趸如获武穆遗书,就在近日阿里又顺便发布了&amp;lt;阿里巴巴java开发规约插件&amp;gt;,可以轻松的在码字阶段获得相应的编码提示,那么,在Gradle中如何应用阿里开发规约进行代码检查呢.且看下文. 　　阿里的开发规约插件是基于PMD进行的代码检测,所以在Gradle应用阿里开发规约检查只需要使用gradle提供的pmd插件即">
-<meta name="keywords" content="Gradle">
+  <meta name="description" content="#概述#　　最近阿里发布了《阿里巴巴Java开发手册》,一时间无数阿里拥趸如获武穆遗书,就在近日阿里又顺便发布了&lt;阿里巴巴java开发规约插件&gt;,可以轻松的在码字阶段获得相应的编码提示,那么,在Gradle中如何应用阿里开发规约进行代码检查呢.且看下文. 　　阿里的开发规约插件是基于PMD进行的代码检测,所以在Gradle应用阿里开发规约检查只需要使用gradle提供的pmd插件即可达">
 <meta property="og:type" content="article">
 <meta property="og:title" content="在Gradle中使用阿里巴巴Java开发规约进行代码检查">
 <meta property="og:url" content="https://pkaq.org/2017/10/19/gradlewithp3c/index.html">
 <meta property="og:site_name" content="如是我闻">
-<meta property="og:description" content="#  概述#　　最近阿里发布了《阿里巴巴Java开发手册》,一时间无数阿里拥趸如获武穆遗书,就在近日阿里又顺便发布了&amp;lt;阿里巴巴java开发规约插件&amp;gt;,可以轻松的在码字阶段获得相应的编码提示,那么,在Gradle中如何应用阿里开发规约进行代码检查呢.且看下文. 　　阿里的开发规约插件是基于PMD进行的代码检测,所以在Gradle应用阿里开发规约检查只需要使用gradle提供的pmd插件即">
-<meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2017-10-19T01:41:55.806Z">
+<meta property="og:description" content="#概述#　　最近阿里发布了《阿里巴巴Java开发手册》,一时间无数阿里拥趸如获武穆遗书,就在近日阿里又顺便发布了&lt;阿里巴巴java开发规约插件&gt;,可以轻松的在码字阶段获得相应的编码提示,那么,在Gradle中如何应用阿里开发规约进行代码检查呢.且看下文. 　　阿里的开发规约插件是基于PMD进行的代码检测,所以在Gradle应用阿里开发规约检查只需要使用gradle提供的pmd插件即可达">
+<meta property="og:locale">
+<meta property="article:published_time" content="2017-10-19T01:27:38.000Z">
+<meta property="article:modified_time" content="2017-10-19T01:41:55.806Z">
+<meta property="article:author" content="PKAQ">
+<meta property="article:tag" content="Gradle">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="在Gradle中使用阿里巴巴Java开发规约进行代码检查">
-<meta name="twitter:description" content="#  概述#　　最近阿里发布了《阿里巴巴Java开发手册》,一时间无数阿里拥趸如获武穆遗书,就在近日阿里又顺便发布了&amp;lt;阿里巴巴java开发规约插件&amp;gt;,可以轻松的在码字阶段获得相应的编码提示,那么,在Gradle中如何应用阿里开发规约进行代码检查呢.且看下文. 　　阿里的开发规约插件是基于PMD进行的代码检测,所以在Gradle应用阿里开发规约检查只需要使用gradle提供的pmd插件即">
 
   
 
@@ -38,7 +38,9 @@
 
 
   
-    <link rel="stylesheet" href="/css/fexo-theme.css">
+    
+<link rel="stylesheet" href="/css/fexo-theme.css">
+
   
 
   
@@ -64,10 +66,10 @@
     <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css">
   
 
-  <link href="//cdn.webfont.youziku.com/webfonts/nomal/97080/42410/5865c4e5f629db00cc915895.css" rel="stylesheet" type="text/css">
+  <link href='//cdn.webfont.youziku.com/webfonts/nomal/97080/42410/5865c4e5f629db00cc915895.css' rel='stylesheet' type='text/css' />
  
-</head>
-</html>
+<meta name="generator" content="Hexo 5.3.0"><link rel="stylesheet" href="/css/prism-dark.css" type="text/css"></head>
+
 <body>
 
 
@@ -160,7 +162,7 @@
 
   <div id="toc" class="toc-article">
     <strong class="toc-title">文章目录</strong>
-    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#null"><span class="toc-text">概述#</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#null"><span class="toc-text">使用#</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#null"><span class="toc-text">运行检查#</span></a></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-text">#</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-text">概述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-text">使用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-text">运行检查</span></a></li></ol></li></ol>
   </div>
 
 
@@ -211,9 +213,8 @@
 
   <div class="article-content">
     
-      <p># </p>
-<h2><span id="gai-shu">概述</span><a href="#gai-shu" class="header-anchor">#</a></h2><p>　　最近阿里发布了<a href="https://yq.aliyun.com/articles/69327?spm=5176.100239.blogcont69327.158.xUUgiz&amp;p=2#comments" target="_blank" rel="noopener">《阿里巴巴Java开发手册》</a>,一时间无数阿里拥趸如获武穆遗书,就在近日阿里又顺便发布了<a href="https://github.com/alibaba/p3c" target="_blank" rel="noopener">&lt;阿里巴巴java开发规约插件&gt;</a>,可以轻松的在码字阶段获得相应的编码提示,那么,在Gradle中如何应用<code>阿里开发规约</code>进行代码检查呢.且看下文.</p>
-<p>　　阿里的开发规约插件是基于PMD进行的代码检测,所以在Gradle应用<code>阿里开发规约</code>检查只需要使用<code>gradle</code>提供的<a href="https://docs.gradle.org/current/dsl/org.gradle.api.plugins.quality.Pmd.html" target="_blank" rel="noopener"><code>pmd</code>插件</a>即可达成目的.<br>  目前阿里开发规约提供了如下一些规则配置,要应用这些配置只需要将他们配置到<code>pmd</code>的检查规则中即可.</p>
+      <h1><span id></span><a href="#" class="header-anchor">#</a></h1><h2><span id="gai-shu">概述</span><a href="#gai-shu" class="header-anchor">#</a></h2><p>　　最近阿里发布了<a target="_blank" rel="noopener" href="https://yq.aliyun.com/articles/69327?spm=5176.100239.blogcont69327.158.xUUgiz&p=2#comments">《阿里巴巴Java开发手册》</a>,一时间无数阿里拥趸如获武穆遗书,就在近日阿里又顺便发布了<a target="_blank" rel="noopener" href="https://github.com/alibaba/p3c">&lt;阿里巴巴java开发规约插件&gt;</a>,可以轻松的在码字阶段获得相应的编码提示,那么,在Gradle中如何应用<code>阿里开发规约</code>进行代码检查呢.且看下文.</p>
+<p>　　阿里的开发规约插件是基于PMD进行的代码检测,所以在Gradle应用<code>阿里开发规约</code>检查只需要使用<code>gradle</code>提供的<a target="_blank" rel="noopener" href="https://docs.gradle.org/current/dsl/org.gradle.api.plugins.quality.Pmd.html"><code>pmd</code>插件</a>即可达成目的.<br>  目前阿里开发规约提供了如下一些规则配置,要应用这些配置只需要将他们配置到<code>pmd</code>的检查规则中即可.</p>
 <ul>
 <li>ali-comment.xml    </li>
 <li>ali-concurrent.xml</li>
@@ -232,12 +233,12 @@
 <blockquote>
 <p>以上内容引自百度百科-PMD条目</p>
 </blockquote>
-<h2><span id="shi-yong">使用</span><a href="#shi-yong" class="header-anchor">#</a></h2><figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">apply <span class="string">plugin:</span> <span class="string">'java'</span></span><br><span class="line">apply <span class="string">plugin:</span> <span class="string">'pmd'</span></span><br><span class="line"></span><br><span class="line">ext &#123;</span><br><span class="line">	p3c = <span class="string">"1.3.0"</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">pmd &#123;</span><br><span class="line">	consoleOutput = <span class="literal">true</span></span><br><span class="line">    reportsDir = file(<span class="string">"build/reports/pmd"</span>)</span><br><span class="line"></span><br><span class="line">	ruleSets = [</span><br><span class="line">		<span class="string">"java-ali-comment"</span></span><br><span class="line">	]</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">repositories &#123;</span><br><span class="line">   jcenter()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">dependencies &#123;</span><br><span class="line">	pmd <span class="string">"com.alibaba.p3c:p3c-pmd:$&#123;p3c&#125;"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2><span id="shi-yong">使用</span><a href="#shi-yong" class="header-anchor">#</a></h2><figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">apply <span class="attr">plugin:</span> <span class="string">&#x27;java&#x27;</span></span><br><span class="line">apply <span class="attr">plugin:</span> <span class="string">&#x27;pmd&#x27;</span></span><br><span class="line"></span><br><span class="line">ext &#123;</span><br><span class="line">	p3c = <span class="string">&quot;1.3.0&quot;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">pmd &#123;</span><br><span class="line">	consoleOutput = <span class="literal">true</span></span><br><span class="line">    reportsDir = file(<span class="string">&quot;build/reports/pmd&quot;</span>)</span><br><span class="line"></span><br><span class="line">	ruleSets = [</span><br><span class="line">		<span class="string">&quot;java-ali-comment&quot;</span></span><br><span class="line">	]</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">repositories &#123;</span><br><span class="line">   jcenter()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">dependencies &#123;</span><br><span class="line">	pmd <span class="string">&quot;com.alibaba.p3c:p3c-pmd:$&#123;p3c&#125;&quot;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>这里有几个需要注意的点</p>
 <ul>
 <li>gradle的pmd插件为<code>rule</code>都添加了默认的<code>java-</code>前缀,一定不要丢掉</li>
 <li>dependencies中依赖的范围是<code>pmd</code>,这样依赖才会加到<code>pmdClasspath</code>中为<code>pmd</code>所用</li>
-<li>关于本插件的一些其它配置可以查看 <a href="https://docs.gradle.org/current/dsl/org.gradle.api.plugins.quality.Pmd.html" target="_blank" rel="noopener"><code>pmd插件dsl手册</code></a></li>
+<li>关于本插件的一些其它配置可以查看 <a target="_blank" rel="noopener" href="https://docs.gradle.org/current/dsl/org.gradle.api.plugins.quality.Pmd.html"><code>pmd插件dsl手册</code></a></li>
 </ul>
 <h2><span id="yun-xing-jian-cha">运行检查</span><a href="#yun-xing-jian-cha" class="header-anchor">#</a></h2><p>该插件提供了如下几个任务</p>
 <table>
@@ -247,8 +248,7 @@
 <th>描述</th>
 </tr>
 </thead>
-<tbody>
-<tr>
+<tbody><tr>
 <td>pmdMain</td>
 <td>检查src/main/java下的代码</td>
 </tr>
@@ -264,11 +264,11 @@
 <td>check</td>
 <td>检查源码和单元测试代码</td>
 </tr>
-</tbody>
-</table>
-<p>可以按照需求运行对应任务进行代码检查。<br><figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//使用短写方式运行pmdMain任务</span></span><br><span class="line">gradle pM</span><br></pre></td></tr></table></figure></p>
+</tbody></table>
+<p>可以按照需求运行对应任务进行代码检查。</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//使用短写方式运行pmdMain任务</span></span><br><span class="line">gradle pM</span><br></pre></td></tr></table></figure>
 <p>输出的检测报告在我们定义的目录里可以找到<code>build/reports/pmd</code></p>
-<link href="/css/prism-dark.css" rel="stylesheet">
+
     
   </div>
 </article>

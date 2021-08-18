@@ -4,7 +4,7 @@
   <html class="dark page-post">
 
 
-<head><meta name="generator" content="Hexo 3.9.0">
+<head>
   <meta charset="utf-8">
   
   <title>installarchwithaui | 如是我闻</title>
@@ -12,21 +12,21 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
   
-    <meta name="keywords" content="Arch,">
+    <meta name="keywords" content="Arch," />
   
 
-  <meta name="description" content="最近在Github上发现一Arch脚本,可以极大简化Arch安装,今日已在实体机亲测,非常好使 archlinux安装脚本   先决条件# 1.网络畅通 2.以root用户登陆 如何获取#采用Git方式获取#•安装Git12345678910111213141516	pacman -Sy git  ```  •获取脚本```shell  	git clone git://github.com/he">
-<meta name="keywords" content="Arch">
+  <meta name="description" content="最近在Github上发现一Arch脚本,可以极大简化Arch安装,今日已在实体机亲测,非常好使 archlinux安装脚本   先决条件# 1.网络畅通 2.以root用户登陆 如何获取#采用Git方式获取#•安装Git 12345678910111213141516	pacman -Sy git  &#96;&#96;&#96;  •获取脚本&#96;&#96;&#96;shell  	git clone git:&#x2F;&#x2F;github.com&#x2F;h">
 <meta property="og:type" content="article">
 <meta property="og:title" content="installarchwithaui">
 <meta property="og:url" content="https://pkaq.org/2014/09/19/2014-09-18-installarchwithaui/index.html">
 <meta property="og:site_name" content="如是我闻">
-<meta property="og:description" content="最近在Github上发现一Arch脚本,可以极大简化Arch安装,今日已在实体机亲测,非常好使 archlinux安装脚本   先决条件# 1.网络畅通 2.以root用户登陆 如何获取#采用Git方式获取#•安装Git12345678910111213141516	pacman -Sy git  ```  •获取脚本```shell  	git clone git://github.com/he">
-<meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2016-09-01T08:34:13.992Z">
+<meta property="og:description" content="最近在Github上发现一Arch脚本,可以极大简化Arch安装,今日已在实体机亲测,非常好使 archlinux安装脚本   先决条件# 1.网络畅通 2.以root用户登陆 如何获取#采用Git方式获取#•安装Git 12345678910111213141516	pacman -Sy git  &#96;&#96;&#96;  •获取脚本&#96;&#96;&#96;shell  	git clone git:&#x2F;&#x2F;github.com&#x2F;h">
+<meta property="og:locale">
+<meta property="article:published_time" content="2014-09-18T22:03:54.000Z">
+<meta property="article:modified_time" content="2016-09-01T08:34:13.992Z">
+<meta property="article:author" content="PKAQ">
+<meta property="article:tag" content="Arch">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="installarchwithaui">
-<meta name="twitter:description" content="最近在Github上发现一Arch脚本,可以极大简化Arch安装,今日已在实体机亲测,非常好使 archlinux安装脚本   先决条件# 1.网络畅通 2.以root用户登陆 如何获取#采用Git方式获取#•安装Git12345678910111213141516	pacman -Sy git  ```  •获取脚本```shell  	git clone git://github.com/he">
 
   
 
@@ -38,7 +38,9 @@
 
 
   
-    <link rel="stylesheet" href="/css/fexo-theme.css">
+    
+<link rel="stylesheet" href="/css/fexo-theme.css">
+
   
 
   
@@ -64,10 +66,10 @@
     <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css">
   
 
-  <link href="//cdn.webfont.youziku.com/webfonts/nomal/97080/42410/5865c4e5f629db00cc915895.css" rel="stylesheet" type="text/css">
+  <link href='//cdn.webfont.youziku.com/webfonts/nomal/97080/42410/5865c4e5f629db00cc915895.css' rel='stylesheet' type='text/css' />
  
-</head>
-</html>
+<meta name="generator" content="Hexo 5.3.0"><link rel="stylesheet" href="/css/prism-dark.css" type="text/css"></head>
+
 <body>
 
 
@@ -160,7 +162,7 @@
 
   <div id="toc" class="toc-article">
     <strong class="toc-title">文章目录</strong>
-    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#null"><span class="toc-text">先决条件#</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#null"><span class="toc-text">如何获取#</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#null"><span class="toc-text">采用Git方式获取#</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#null"><span class="toc-text">如何使用#</span></a></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-text">先决条件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-text">如何获取</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link"><span class="toc-text">采用Git方式获取</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-text">如何使用</span></a></li></ol>
   </div>
 
 
@@ -211,12 +213,14 @@
 
   <div class="article-content">
     
-      <p>最近在Github上发现一Arch脚本,可以极大简化Arch安装,今日已在实体机亲测,非常好使<br> <a href="https://github.com/helmuthdu/aui" target="_blank" rel="noopener">archlinux安装脚本</a>  </p>
+      <p>最近在Github上发现一Arch脚本,可以极大简化Arch安装,今日已在实体机亲测,非常好使<br> <a target="_blank" rel="noopener" href="https://github.com/helmuthdu/aui">archlinux安装脚本</a>  </p>
 <h2><span id="xian-jue-tiao-jian">先决条件</span><a href="#xian-jue-tiao-jian" class="header-anchor">#</a></h2><p> 1.网络畅通<br> 2.以root用户登陆</p>
-<h2><span id="ru-he-huo-qu">如何获取</span><a href="#ru-he-huo-qu" class="header-anchor">#</a></h2><h3><span id="cai-yong-git-fang-shi-huo-qu">采用Git方式获取</span><a href="#cai-yong-git-fang-shi-huo-qu" class="header-anchor">#</a></h3><p>•安装Git<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">	pacman -Sy git  </span><br><span class="line">```  </span><br><span class="line">•获取脚本</span><br><span class="line">```shell  </span><br><span class="line">	git clone git://github.com/helmuthdu/aui   </span><br><span class="line">```  </span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span>## 采用非Git方式</span><br><span class="line"></span><br><span class="line">```shell  </span><br><span class="line">	wget --no-check-certificate https://github.com/helmuthdu/aui/tarball/master -O - | tar xz  </span><br><span class="line">```  </span><br><span class="line">或者采用短地址</span><br><span class="line">```shell  </span><br><span class="line">	wget --no-check-certificate http://bit.ly/NoUPC6 -O - | tar xz</span><br></pre></td></tr></table></figure></p>
-<p>或者采用更短的:)<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget ow.ly/wnFgh -o aui.zip</span><br></pre></td></tr></table></figure></p>
+<h2><span id="ru-he-huo-qu">如何获取</span><a href="#ru-he-huo-qu" class="header-anchor">#</a></h2><h3><span id="cai-yong-git-fang-shi-huo-qu">采用Git方式获取</span><a href="#cai-yong-git-fang-shi-huo-qu" class="header-anchor">#</a></h3><p>•安装Git</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">	pacman -Sy git  </span><br><span class="line">```  </span><br><span class="line">•获取脚本</span><br><span class="line">```shell  </span><br><span class="line">	git clone git://github.com/helmuthdu/aui   </span><br><span class="line">```  </span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment">## 采用非Git方式</span></span></span><br><span class="line"></span><br><span class="line">```shell  </span><br><span class="line">	wget --no-check-certificate https://github.com/helmuthdu/aui/tarball/master -O - | tar xz  </span><br><span class="line">```  </span><br><span class="line">或者采用短地址</span><br><span class="line">```shell  </span><br><span class="line">	wget --no-check-certificate http://bit.ly/NoUPC6 -O - | tar xz  </span><br></pre></td></tr></table></figure>
+<p>或者采用更短的:)  </p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget ow.ly/wnFgh -o aui.zip  </span><br></pre></td></tr></table></figure>
 <h2><span id="ru-he-shi-yong">如何使用</span><a href="#ru-he-shi-yong" class="header-anchor">#</a></h2><p>切换到脚本所在目录执行./fifo或者./lilo然后按提示步骤操作即可,关于两个脚本的区别请参阅github介绍.这里不再翻译.~~:},<br>如果采用fifo脚本安装可以再安装完成后自行安装图形界面等,具体可参考<a href="/2014/06/19/installarch">拥抱Arch Linux-安装配置小记</a><br>•FIFO [system base]:  cd <dir> &amp;&amp; ./fifo<br>•LILO [the rest…]:  cd <dir> &amp;&amp; ./lilo</dir></dir></p>
-<link href="/css/prism-dark.css" rel="stylesheet">
+
     
   </div>
 </article>

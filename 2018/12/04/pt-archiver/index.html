@@ -4,7 +4,7 @@
   <html class="dark page-post">
 
 
-<head><meta name="generator" content="Hexo 3.9.0">
+<head>
   <meta charset="utf-8">
   
   <title>使用pt-archiver进行数据归档 | 如是我闻</title>
@@ -12,21 +12,21 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
   
-    <meta name="keywords" content="mysql,">
+    <meta name="keywords" content="mysql," />
   
 
   <meta name="description" content="引言​    pt-archiver是percona工具集的一员 ,可以方便针对数据库数据不同场景进行清理\导出\合并等操作。">
-<meta name="keywords" content="mysql">
 <meta property="og:type" content="article">
 <meta property="og:title" content="使用pt-archiver进行数据归档">
 <meta property="og:url" content="https://pkaq.org/2018/12/04/pt-archiver/index.html">
 <meta property="og:site_name" content="如是我闻">
 <meta property="og:description" content="引言​    pt-archiver是percona工具集的一员 ,可以方便针对数据库数据不同场景进行清理\导出\合并等操作。">
-<meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-12-07T07:38:50.019Z">
+<meta property="og:locale">
+<meta property="article:published_time" content="2018-12-04T10:50:07.000Z">
+<meta property="article:modified_time" content="2018-12-07T07:38:50.019Z">
+<meta property="article:author" content="PKAQ">
+<meta property="article:tag" content="mysql">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="使用pt-archiver进行数据归档">
-<meta name="twitter:description" content="引言​    pt-archiver是percona工具集的一员 ,可以方便针对数据库数据不同场景进行清理\导出\合并等操作。">
 
   
 
@@ -38,7 +38,9 @@
 
 
   
-    <link rel="stylesheet" href="/css/fexo-theme.css">
+    
+<link rel="stylesheet" href="/css/fexo-theme.css">
+
   
 
   
@@ -64,10 +66,10 @@
     <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css">
   
 
-  <link href="//cdn.webfont.youziku.com/webfonts/nomal/97080/42410/5865c4e5f629db00cc915895.css" rel="stylesheet" type="text/css">
+  <link href='//cdn.webfont.youziku.com/webfonts/nomal/97080/42410/5865c4e5f629db00cc915895.css' rel='stylesheet' type='text/css' />
  
-</head>
-</html>
+<meta name="generator" content="Hexo 5.3.0"><link rel="stylesheet" href="/css/prism-dark.css" type="text/css"></head>
+
 <body>
 
 
@@ -160,7 +162,7 @@
 
   <div id="toc" class="toc-article">
     <strong class="toc-title">文章目录</strong>
-    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#null"><span class="toc-text">引言#</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#null"><span class="toc-text">版本#</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#null"><span class="toc-text">步骤#</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#null"><span class="toc-text">1.安装依赖#</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#null"><span class="toc-text">2.下载 安装pt-archiver#</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#null"><span class="toc-text">3.配置归档规则#</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#null"><span class="toc-text">定时归档#</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#null"><span class="toc-text">附录#</span></a></li></ol></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-text">引言</span></a></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-text">版本</span></a></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-text">步骤</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link"><span class="toc-text">1.安装依赖</span></a></li><li class="toc-item toc-level-3"><a class="toc-link"><span class="toc-text">2.下载 安装pt-archiver</span></a></li><li class="toc-item toc-level-3"><a class="toc-link"><span class="toc-text">3.配置归档规则</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-text">定时归档</span></a></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-text">附录</span></a></li></ol></li></ol>
   </div>
 
 
@@ -186,7 +188,7 @@
       
   <span class="article-category">
     <i class="icon-list"></i>
-    <a class="article-category-link" href="/categories/数据库/">数据库</a>
+    <a class="article-category-link" href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a>
   </span>
 
 
@@ -213,16 +215,19 @@
     
       <h1><span id="yin-yan">引言</span><a href="#yin-yan" class="header-anchor">#</a></h1><p>​    pt-archiver是percona工具集的一员 ,可以方便针对数据库数据不同场景进行清理\导出\合并等操作。</p>
 <a id="more"></a>
+
 <h1><span id="ban-ben">版本</span><a href="#ban-ben" class="header-anchor">#</a></h1><ul>
 <li>mysql: 5.7.22</li>
 <li>Percona Toolkit: 3.0.12<h1><span id="bu-zou">步骤</span><a href="#bu-zou" class="header-anchor">#</a></h1></li>
 </ul>
 <h3><span id="1-an-zhuang-yi-lai">1.安装依赖</span><a href="#1-an-zhuang-yi-lai" class="header-anchor">#</a></h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install -y perl perl-IO-Socket-SSL perl-DBD-MySQL perl-Time-HiRes perl-Digest-MD5 perl-ExtUtils-MakeMaker</span><br></pre></td></tr></table></figure>
-<h3><span id="2-xia-zai-an-zhuang-pt-archiver">2.下载 安装pt-archiver</span><a href="#2-xia-zai-an-zhuang-pt-archiver" class="header-anchor">#</a></h3><p><a href="https://www.percona.com/downloads/percona-toolkit/LATEST/" target="_blank" rel="noopener">下载Percona Toolkit</a>，选择与目标系统匹配的版本，下载相应rpm进行安装。</p>
+<h3><span id="2-xia-zai-an-zhuang-pt-archiver">2.下载 安装pt-archiver</span><a href="#2-xia-zai-an-zhuang-pt-archiver" class="header-anchor">#</a></h3><p><a target="_blank" rel="noopener" href="https://www.percona.com/downloads/percona-toolkit/LATEST/">下载Percona Toolkit</a>，选择与目标系统匹配的版本，下载相应rpm进行安装。</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rpm ivh percona-toolkit-3.0.12-1.el7.x86_64.rpm</span><br></pre></td></tr></table></figure>
-<h3><span id="3-pei-zhi-gui-dang-gui-ze">3.配置归档规则</span><a href="#3-pei-zhi-gui-dang-gui-ze" class="header-anchor">#</a></h3><p><code>pt-archiver</code>的基本用法如下</p>
+<h3><span id="3-pei-zhi-gui-dang-gui-ze">3.配置归档规则</span><a href="#3-pei-zhi-gui-dang-gui-ze" class="header-anchor">#</a></h3><p><code>pt-archiver </code>的基本用法如下</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">pt-archiver [OPTIONS] --source DSN [--dest DSN] --where WHERE</span><br><span class="line"></span><br><span class="line">DSN的详细参数：</span><br><span class="line">a:查询</span><br><span class="line">A:字符集</span><br><span class="line">b：true代表禁用binlog</span><br><span class="line">D：数据库</span><br><span class="line">u：数据库链接账号</span><br><span class="line">p：数据库链接密码</span><br><span class="line">h：主机IP</span><br><span class="line">F：配置文件位置</span><br><span class="line">i：是否使用某索引</span><br><span class="line">m：插件模块</span><br><span class="line">P：端口号</span><br><span class="line">S：socket文件</span><br><span class="line">t：表</span><br></pre></td></tr></table></figure>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">pt-archiver  \</span><br><span class="line">--source h=ip,P=3306,p='pwd!',D=dbname,t=tablename  \</span><br><span class="line">--charset=UTF8  \</span><br><span class="line">--where 'condition=curdate()-1'  \</span><br><span class="line">--progress 5000 --file "/opt/data/pt-archinver/%t-%Y%m%d.dat"  \</span><br><span class="line">--statistics --limit 5000 --txn-size 1000 --bulk-delete</span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">pt-archiver  \</span><br><span class="line">--source h=ip,P=3306,p=&#x27;pwd!&#x27;,D=dbname,t=tablename  \</span><br><span class="line">--charset=UTF8  \</span><br><span class="line">--where &#x27;condition=curdate()-1&#x27;  \</span><br><span class="line">--progress 5000 --file &quot;/opt/data/pt-archinver/%t-%Y%m%d.dat&quot;  \</span><br><span class="line">--statistics --limit 5000 --txn-size 1000 --bulk-delete</span><br></pre></td></tr></table></figure>
 <blockquote>
 <p>参数说明:</p>
 <p>–source : 来源数据, 子参数参见上文</p>
@@ -241,7 +246,7 @@
 <blockquote>
 <p><strong>–limit10000</strong>       每次取1000行数据用pt-archive处理，Number of rows to fetch and archive per statement.<br><strong>–txn-size  1000</strong>   设置1000行为一个事务提交一次，Number of rows pertransaction.<br><strong>–where‘id&lt;3000‘</strong>   设置操作条件<br><strong>–progress5000</strong>     每处理5000行输出一次处理信息<br><strong>–statistics</strong>       输出执行过程及最后的操作统计。（只要不加上–quiet，默认情况下pt-archive都会输出执行过程的）<br><strong>–charset=UTF8</strong>     指定字符集为UTF8<br><strong>–bulk-delete</strong>      批量删除source上的旧数据(例如每次1000行的批量删除操作)<br><strong>–bulk-insert</strong>      批量插入数据到dest主机 (看dest的general log发现它是通过在dest主机上LOAD DATA LOCAL INFILE插入数据的)<br><strong>–replace</strong>          将insert into 语句改成replace写入到dest库<br><strong>–sleep120</strong>         每次归档了limit个行记录后的休眠120秒（单位为秒）<br><strong>–file ‘/root/test.txt‘</strong>：数据存放的文件，最好指定绝对路径，文件名可以灵活地组合<br><strong>–purge</strong>             删除source数据库的相关匹配记录<br><strong>–header</strong>            输入列名称到首行（和–file一起使用）<br><strong>–no-check-charset</strong>  不指定字符集<br><strong>–check-columns</strong>    检验dest和source的表结构是否一致，不一致自动拒绝执行（不加这个参数也行。默认就是执行检查的）<br><strong>–no-check-columns</strong>    不检验dest和source的表结构是否一致，不一致也执行（会导致dest上的无法与source匹配的列值被置为null或者0）<br><strong>–chekc-interval</strong>      默认1s检查一次<br><strong>–local</strong>            不把optimize或analyze操作写入到binlog里面（防止造成主从延迟巨大）<br><strong>–retries</strong>         超时或者出现死锁的话，pt-archiver进行重试的间隔（默认1s）<br><strong>–no-version-check</strong>   目前为止，发现部分pt工具对阿里云RDS操作必须加这个参数<br><strong>–analyze=ds</strong>      操作结束后，优化表空间（d表示dest，s表示source）<br> 默认情况下，pt-archiver操作结束后，不会对source、dest表执行analyze或optimize操作，因为这种操作费时间，并且需要你提前预估有足够的磁盘空间用于拷贝表。一般建议也是pt-archiver操作结束后，在业务低谷手动执行analyze table用以回收表空间。</p>
 </blockquote>
-<link href="/css/prism-dark.css" rel="stylesheet">
+
     
   </div>
 </article>

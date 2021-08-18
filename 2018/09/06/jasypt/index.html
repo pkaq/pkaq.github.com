@@ -4,7 +4,7 @@
   <html class="dark page-post">
 
 
-<head><meta name="generator" content="Hexo 3.9.0">
+<head>
   <meta charset="utf-8">
   
   <title>使用Jasypt加密你的Spring Boot配置文件 | 如是我闻</title>
@@ -12,21 +12,24 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
   
-    <meta name="keywords" content="Java,Gradle,Spring Boot,Spring,">
+    <meta name="keywords" content="Java,Gradle,Spring Boot,Spring," />
   
 
   <meta name="description" content="引言#　　Jasypt 是一个Java库，允许开发人员以很简单的方式添加基本加密功能，而无需深入研究加密原理。利用它可以实现高安全性的，基于标准的加密技术，无论是单向和双向加密。加密密码，文本，数字，二进制文件。并且可集成到Spring应用程序中，与Spring Security集成，加密的应用程序（即数据源）的配置等信息。 版本# jasypt-spring-boot-starter ： 2.1">
-<meta name="keywords" content="Java,Gradle,Spring Boot,Spring">
 <meta property="og:type" content="article">
 <meta property="og:title" content="使用Jasypt加密你的Spring Boot配置文件">
 <meta property="og:url" content="https://pkaq.org/2018/09/06/jasypt/index.html">
 <meta property="og:site_name" content="如是我闻">
 <meta property="og:description" content="引言#　　Jasypt 是一个Java库，允许开发人员以很简单的方式添加基本加密功能，而无需深入研究加密原理。利用它可以实现高安全性的，基于标准的加密技术，无论是单向和双向加密。加密密码，文本，数字，二进制文件。并且可集成到Spring应用程序中，与Spring Security集成，加密的应用程序（即数据源）的配置等信息。 版本# jasypt-spring-boot-starter ： 2.1">
-<meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-09-07T00:49:55.494Z">
+<meta property="og:locale">
+<meta property="article:published_time" content="2018-09-06T15:44:31.000Z">
+<meta property="article:modified_time" content="2018-09-07T00:49:55.494Z">
+<meta property="article:author" content="PKAQ">
+<meta property="article:tag" content="Java">
+<meta property="article:tag" content="Gradle">
+<meta property="article:tag" content="Spring Boot">
+<meta property="article:tag" content="Spring">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="使用Jasypt加密你的Spring Boot配置文件">
-<meta name="twitter:description" content="引言#　　Jasypt 是一个Java库，允许开发人员以很简单的方式添加基本加密功能，而无需深入研究加密原理。利用它可以实现高安全性的，基于标准的加密技术，无论是单向和双向加密。加密密码，文本，数字，二进制文件。并且可集成到Spring应用程序中，与Spring Security集成，加密的应用程序（即数据源）的配置等信息。 版本# jasypt-spring-boot-starter ： 2.1">
 
   
 
@@ -38,7 +41,9 @@
 
 
   
-    <link rel="stylesheet" href="/css/fexo-theme.css">
+    
+<link rel="stylesheet" href="/css/fexo-theme.css">
+
   
 
   
@@ -64,10 +69,10 @@
     <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css">
   
 
-  <link href="//cdn.webfont.youziku.com/webfonts/nomal/97080/42410/5865c4e5f629db00cc915895.css" rel="stylesheet" type="text/css">
+  <link href='//cdn.webfont.youziku.com/webfonts/nomal/97080/42410/5865c4e5f629db00cc915895.css' rel='stylesheet' type='text/css' />
  
-</head>
-</html>
+<meta name="generator" content="Hexo 5.3.0"><link rel="stylesheet" href="/css/prism-dark.css" type="text/css"></head>
+
 <body>
 
 
@@ -160,7 +165,7 @@
 
   <div id="toc" class="toc-article">
     <strong class="toc-title">文章目录</strong>
-    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#null"><span class="toc-text">引言#</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#null"><span class="toc-text">版本#</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#null"><span class="toc-text">步骤#</span></a></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-text">引言</span></a></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-text">版本</span></a></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-text">步骤</span></a></li></ol>
   </div>
 
 
@@ -211,7 +216,7 @@
 
   <div class="article-content">
     
-      <h1><span id="yin-yan">引言</span><a href="#yin-yan" class="header-anchor">#</a></h1><p>　　<a href="http://jasypt.org/" target="_blank" rel="noopener">Jasypt</a> 是一个Java库，允许开发人员以很简单的方式添加基本加密功能，而无需深入研究加密原理。利用它可以实现高安全性的，基于标准的加密技术，无论是单向和双向加密。加密密码，文本，数字，二进制文件。并且可集成到Spring应用程序中，与Spring Security集成，加密的应用程序（即数据源）的配置等信息。</p>
+      <h1><span id="yin-yan">引言</span><a href="#yin-yan" class="header-anchor">#</a></h1><p>　　<a target="_blank" rel="noopener" href="http://jasypt.org/">Jasypt</a> 是一个Java库，允许开发人员以很简单的方式添加基本加密功能，而无需深入研究加密原理。利用它可以实现高安全性的，基于标准的加密技术，无论是单向和双向加密。加密密码，文本，数字，二进制文件。并且可集成到Spring应用程序中，与Spring Security集成，加密的应用程序（即数据源）的配置等信息。</p>
 <h1><span id="ban-ben">版本</span><a href="#ban-ben" class="header-anchor">#</a></h1><ul>
 <li>jasypt-spring-boot-starter ： 2.1.0</li>
 <li>Spring Boot : 2.0.4</li>
@@ -219,23 +224,18 @@
 </ul>
 <h1><span id="bu-zou">步骤</span><a href="#bu-zou" class="header-anchor">#</a></h1><p>　　借助<code>jasypt-spring-boot-starter</code>给<code>Spring boot</code>应用配置加密非常简单。   </p>
 <ol>
-<li><p>引入依赖</p>
-<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">compile <span class="string">"com.github.ulisesbocchio:jasypt-spring-boot-starter:$&#123;jasypt&#125;"</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>配置密码<br>　　在<code>application.yml</code>中配置加密需要使用的密钥。</p>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">jasypt:</span></span><br><span class="line">	<span class="attr">encryptor:</span></span><br><span class="line">  	<span class="attr">password:</span> <span class="string">eva</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>加密内容<br>　　编写一个单元测试加密你需要加密的内容。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">	<span class="meta">@Autowired</span></span><br><span class="line">StringEncryptor stringEncryptor;</span><br><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">encrypt</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    System.out.println(<span class="string">"PWD: "</span> + stringEncryptor.encrypt(<span class="string">"yourpassword"</span>));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>修改配置文件,使用<code>ENC</code>包裹加密得到的密文即可。</p>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">spring:</span></span><br><span class="line">  <span class="attr">datasource:</span></span><br><span class="line">    <span class="attr">type:</span> <span class="string">com.alibaba.druid.pool.DruidDataSource</span></span><br><span class="line">    <span class="attr">url:</span> <span class="string">jdbc:mysql://localhost:3306/jxc?useUnicode=true&amp;characterEncoding=UTF-8&amp;serverTimezone=UTC</span></span><br><span class="line">    <span class="attr">username:</span> <span class="string">ENC(dghf0DZZJA+vQ95xgHz5iA==)</span></span><br><span class="line">    <span class="attr">password:</span> <span class="string">ENC(TNbKfi0lHjpfPcdepEnR5oKHikoDfVr+/amPonxytqK5u+B8Pid7k4hmlGUOhv+6QxEuB3gjJPPn7L8ishuFYym/Gr59qRO6Uf5/XiyT+3FUTujtyybxUjTyo4CO1wKe+zubp27QVYM=)</span></span><br></pre></td></tr></table></figure>
+<li>引入依赖<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">compile <span class="string">&quot;com.github.ulisesbocchio:jasypt-spring-boot-starter:$&#123;jasypt&#125;&quot;</span></span><br></pre></td></tr></table></figure></li>
+<li>配置密码<br>　　在<code>application.yml</code>中配置加密需要使用的密钥。<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">jasypt:</span></span><br><span class="line">	<span class="attr">encryptor:</span></span><br><span class="line">  	<span class="attr">password:</span> <span class="string">eva</span></span><br></pre></td></tr></table></figure></li>
+<li>加密内容<br>　　编写一个单元测试加密你需要加密的内容。<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">	<span class="meta">@Autowired</span></span><br><span class="line">StringEncryptor stringEncryptor;</span><br><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">encrypt</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    System.out.println(<span class="string">&quot;PWD: &quot;</span> + stringEncryptor.encrypt(<span class="string">&quot;yourpassword&quot;</span>));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>修改配置文件,使用<code>ENC</code>包裹加密得到的密文即可。<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">spring:</span></span><br><span class="line">  <span class="attr">datasource:</span></span><br><span class="line">    <span class="attr">type:</span> <span class="string">com.alibaba.druid.pool.DruidDataSource</span></span><br><span class="line">    <span class="attr">url:</span> <span class="string">jdbc:mysql://localhost:3306/jxc?useUnicode=true&amp;characterEncoding=UTF-8&amp;serverTimezone=UTC</span></span><br><span class="line">    <span class="attr">username:</span> <span class="string">ENC(dghf0DZZJA+vQ95xgHz5iA==)</span></span><br><span class="line">    <span class="attr">password:</span> <span class="string">ENC(TNbKfi0lHjpfPcdepEnR5oKHikoDfVr+/amPonxytqK5u+B8Pid7k4hmlGUOhv+6QxEuB3gjJPPn7L8ishuFYym/Gr59qRO6Uf5/XiyT+3FUTujtyybxUjTyo4CO1wKe+zubp27QVYM=)</span></span><br></pre></td></tr></table></figure>
+
+
 </li>
 </ol>
 <blockquote>
-<p>参考: <a href="https://github.com/ulisesbocchio/jasypt-spring-boot" target="_blank" rel="noopener">https://github.com/ulisesbocchio/jasypt-spring-boot</a></p>
+<p>参考: <a target="_blank" rel="noopener" href="https://github.com/ulisesbocchio/jasypt-spring-boot">https://github.com/ulisesbocchio/jasypt-spring-boot</a></p>
 </blockquote>
-<link href="/css/prism-dark.css" rel="stylesheet">
+
     
   </div>
 </article>

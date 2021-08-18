@@ -4,7 +4,7 @@
   <html class="dark page-post">
 
 
-<head><meta name="generator" content="Hexo 3.9.0">
+<head>
   <meta charset="utf-8">
   
   <title>MongoDB 3.x 笔记 - 1：安装 | 如是我闻</title>
@@ -12,21 +12,21 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
   
-    <meta name="keywords" content="mongoDB,">
+    <meta name="keywords" content="mongoDB," />
   
 
   <meta name="description" content="MongoDB Version : 3.0.x   关于mongodb的好处，优点之类的这里就不说了，唯一要讲的一点就是mongodb中有三元素：数据库，集合，文档其中“集合”就是对应关系数据库中的“表”，“文档”对应“行”。 安装比较简单，比如 Arch下可通过pacman -Sy mongodb进行安装Windows下可下载msi进行安装 更多可以参考官网DOC有十分详细的说明，安装完成后把b">
-<meta name="keywords" content="mongoDB">
 <meta property="og:type" content="article">
 <meta property="og:title" content="MongoDB 3.x 笔记 - 1：安装">
 <meta property="og:url" content="https://pkaq.org/2015/10/24/mongo0/index.html">
 <meta property="og:site_name" content="如是我闻">
 <meta property="og:description" content="MongoDB Version : 3.0.x   关于mongodb的好处，优点之类的这里就不说了，唯一要讲的一点就是mongodb中有三元素：数据库，集合，文档其中“集合”就是对应关系数据库中的“表”，“文档”对应“行”。 安装比较简单，比如 Arch下可通过pacman -Sy mongodb进行安装Windows下可下载msi进行安装 更多可以参考官网DOC有十分详细的说明，安装完成后把b">
-<meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2016-09-01T08:50:30.360Z">
+<meta property="og:locale">
+<meta property="article:published_time" content="2015-10-24T11:47:01.000Z">
+<meta property="article:modified_time" content="2016-09-01T08:50:30.360Z">
+<meta property="article:author" content="PKAQ">
+<meta property="article:tag" content="mongoDB">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="MongoDB 3.x 笔记 - 1：安装">
-<meta name="twitter:description" content="MongoDB Version : 3.0.x   关于mongodb的好处，优点之类的这里就不说了，唯一要讲的一点就是mongodb中有三元素：数据库，集合，文档其中“集合”就是对应关系数据库中的“表”，“文档”对应“行”。 安装比较简单，比如 Arch下可通过pacman -Sy mongodb进行安装Windows下可下载msi进行安装 更多可以参考官网DOC有十分详细的说明，安装完成后把b">
 
   
 
@@ -38,7 +38,9 @@
 
 
   
-    <link rel="stylesheet" href="/css/fexo-theme.css">
+    
+<link rel="stylesheet" href="/css/fexo-theme.css">
+
   
 
   
@@ -64,10 +66,10 @@
     <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css">
   
 
-  <link href="//cdn.webfont.youziku.com/webfonts/nomal/97080/42410/5865c4e5f629db00cc915895.css" rel="stylesheet" type="text/css">
+  <link href='//cdn.webfont.youziku.com/webfonts/nomal/97080/42410/5865c4e5f629db00cc915895.css' rel='stylesheet' type='text/css' />
  
-</head>
-</html>
+<meta name="generator" content="Hexo 5.3.0"><link rel="stylesheet" href="/css/prism-dark.css" type="text/css"></head>
+
 <body>
 
 
@@ -205,16 +207,23 @@
 <p>  关于mongodb的好处，优点之类的这里就不说了，唯一要讲的一点就是mongodb中有三元素：数据库，集合，文档<br>其中“集合”就是对应关系数据库中的“表”，“文档”对应“行”。</p>
 <p>安装比较简单，比如</p>
 <p>Arch下可通过pacman -Sy mongodb进行安装<br>Windows下可下载msi进行安装</p>
-<p>更多可以参考官网DOC有十分详细的说明，安装完成后把bin目录加入path即可直接在命令行下调用mongo，mongod等命令了<br><a id="more"></a></p>
-<p>启动时可以通过指定yaml格式的参数文件设置一些参数<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mongod mongocfg/mongodb.conf</span><br></pre></td></tr></table></figure></p>
-<p>例如如下配置<br><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">systemLog:</span></span><br><span class="line">    <span class="attr">destination:</span> <span class="string">file</span></span><br><span class="line">    <span class="attr">path:</span> <span class="string">/opt/mongoHome/log/mongod.log</span></span><br><span class="line"><span class="attr">storage:</span></span><br><span class="line">    <span class="attr">dbPath:</span> <span class="string">/opt/mongoHome/db</span></span><br></pre></td></tr></table></figure></p>
-<p>Win下可以用如下命令将mongodb安装为系统服务<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mongod --config "mongod.cfg" --install</span><br></pre></td></tr></table></figure></p>
-<p>可以输入services.msc通过服务管理器启动或者使用如下命令启动<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">net start MongoDB</span><br></pre></td></tr></table></figure></p>
+<p>更多可以参考官网DOC有十分详细的说明，安装完成后把bin目录加入path即可直接在命令行下调用mongo，mongod等命令了</p>
+<a id="more"></a>
+
+<p>启动时可以通过指定yaml格式的参数文件设置一些参数</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mongod mongocfg/mongodb.conf</span><br></pre></td></tr></table></figure>
+<p>例如如下配置</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">systemLog:</span></span><br><span class="line">    <span class="attr">destination:</span> <span class="string">file</span></span><br><span class="line">    <span class="attr">path:</span> <span class="string">/opt/mongoHome/log/mongod.log</span></span><br><span class="line"><span class="attr">storage:</span></span><br><span class="line">    <span class="attr">dbPath:</span> <span class="string">/opt/mongoHome/db</span></span><br></pre></td></tr></table></figure>
+<p>Win下可以用如下命令将mongodb安装为系统服务</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mongod --config &quot;mongod.cfg&quot; --install</span><br></pre></td></tr></table></figure>
+<p>可以输入services.msc通过服务管理器启动或者使用如下命令启动</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">net start MongoDB</span><br></pre></td></tr></table></figure>
+
 <p>启动后可通过输入mongo（如果配置了环境变量），或者进入安装目录\bin下运行mongo进入mongo控制台</p>
 <p>输入help可以看到基本操作命令：<br>show dbs:显示数据库列表<br>show collections：显示当前数据库中的集合（类似关系数据库中的表）<br>show users：显示用户</p>
 <p>use <db name>：切换当前数据库，这和MS-SQL里面的意思一样<br>db.help()：显示数据库操作命令，里面有很多的命令<br>db.foo.help()：显示集合操作命令，同样有很多的命令，foo指的是当前数据库下，一个叫foo的集合，并非真正意义上的命令<br>db.foo.find()：对于当前数据库中的foo集合进行数据查找（由于没有条件，会列出所有数据）<br>db.foo.find( { a : 1 } )：对于当前数据库中的foo集合进行查找，条件是数据中有一个属性叫a，且a的值为1</db></p>
-<p>更多参数配置请参考官方文档(<a href="https://docs.mongodb.org/manual/reference/parameters/" target="_blank" rel="noopener">https://docs.mongodb.org/manual/reference/parameters/</a>)</p>
-<link href="/css/prism-dark.css" rel="stylesheet">
+<p>更多参数配置请参考官方文档(<a target="_blank" rel="noopener" href="https://docs.mongodb.org/manual/reference/parameters/">https://docs.mongodb.org/manual/reference/parameters/</a>)</p>
+
     
   </div>
 </article>

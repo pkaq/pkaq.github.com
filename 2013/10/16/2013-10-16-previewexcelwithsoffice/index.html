@@ -4,7 +4,7 @@
   <html class="dark page-post">
 
 
-<head><meta name="generator" content="Hexo 3.9.0">
+<head>
   <meta charset="utf-8">
   
   <title>借助Libreoffice/Openoffice实现Excel在线预览 | 如是我闻</title>
@@ -12,21 +12,21 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
   
-    <meta name="keywords" content="Java,">
+    <meta name="keywords" content="Java," />
   
 
-  <meta name="description" content="有时候你可能需要对客户上传的excel文件提供在线预览的方式,类似很多邮箱直接点击就可以在线查看.但很多第三方工具都是收费的而自己遍历excel重绘界面又比较麻烦;当然如果要求事先将excel另存为html然后上传直接显示是没问题的,但显然这不够科学;那如何才能实现科学预览呢.其实直接借助Libreoffice/Openoffice在点击预览后,后台悄悄把excel另存成html就好了;具体方式如">
-<meta name="keywords" content="Java">
+  <meta name="description" content="有时候你可能需要对客户上传的excel文件提供在线预览的方式,类似很多邮箱直接点击就可以在线查看.但很多第三方工具都是收费的而自己遍历excel重绘界面又比较麻烦;当然如果要求事先将excel另存为html然后上传直接显示是没问题的,但显然这不够科学;那如何才能实现科学预览呢.其实直接借助Libreoffice&#x2F;Openoffice在点击预览后,后台悄悄把excel另存成html就好了;具体方式如">
 <meta property="og:type" content="article">
 <meta property="og:title" content="借助Libreoffice&#x2F;Openoffice实现Excel在线预览">
 <meta property="og:url" content="https://pkaq.org/2013/10/16/2013-10-16-previewexcelwithsoffice/index.html">
 <meta property="og:site_name" content="如是我闻">
-<meta property="og:description" content="有时候你可能需要对客户上传的excel文件提供在线预览的方式,类似很多邮箱直接点击就可以在线查看.但很多第三方工具都是收费的而自己遍历excel重绘界面又比较麻烦;当然如果要求事先将excel另存为html然后上传直接显示是没问题的,但显然这不够科学;那如何才能实现科学预览呢.其实直接借助Libreoffice/Openoffice在点击预览后,后台悄悄把excel另存成html就好了;具体方式如">
-<meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2016-09-01T08:24:37.634Z">
+<meta property="og:description" content="有时候你可能需要对客户上传的excel文件提供在线预览的方式,类似很多邮箱直接点击就可以在线查看.但很多第三方工具都是收费的而自己遍历excel重绘界面又比较麻烦;当然如果要求事先将excel另存为html然后上传直接显示是没问题的,但显然这不够科学;那如何才能实现科学预览呢.其实直接借助Libreoffice&#x2F;Openoffice在点击预览后,后台悄悄把excel另存成html就好了;具体方式如">
+<meta property="og:locale">
+<meta property="article:published_time" content="2013-10-16T09:44:40.000Z">
+<meta property="article:modified_time" content="2016-09-01T08:24:37.634Z">
+<meta property="article:author" content="PKAQ">
+<meta property="article:tag" content="Java">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="借助Libreoffice&#x2F;Openoffice实现Excel在线预览">
-<meta name="twitter:description" content="有时候你可能需要对客户上传的excel文件提供在线预览的方式,类似很多邮箱直接点击就可以在线查看.但很多第三方工具都是收费的而自己遍历excel重绘界面又比较麻烦;当然如果要求事先将excel另存为html然后上传直接显示是没问题的,但显然这不够科学;那如何才能实现科学预览呢.其实直接借助Libreoffice/Openoffice在点击预览后,后台悄悄把excel另存成html就好了;具体方式如">
 
   
 
@@ -38,7 +38,9 @@
 
 
   
-    <link rel="stylesheet" href="/css/fexo-theme.css">
+    
+<link rel="stylesheet" href="/css/fexo-theme.css">
+
   
 
   
@@ -64,10 +66,10 @@
     <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css">
   
 
-  <link href="//cdn.webfont.youziku.com/webfonts/nomal/97080/42410/5865c4e5f629db00cc915895.css" rel="stylesheet" type="text/css">
+  <link href='//cdn.webfont.youziku.com/webfonts/nomal/97080/42410/5865c4e5f629db00cc915895.css' rel='stylesheet' type='text/css' />
  
-</head>
-</html>
+<meta name="generator" content="Hexo 5.3.0"><link rel="stylesheet" href="/css/prism-dark.css" type="text/css"></head>
+
 <body>
 
 
@@ -160,7 +162,7 @@
 
   <div id="toc" class="toc-article">
     <strong class="toc-title">文章目录</strong>
-    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#null"><span class="toc-text">1.安装桌面环境和office(如果已经安装的可以忽略此步骤)#</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#null"><span class="toc-text">2.启动openoffice 服务#</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#null"><span class="toc-text">3.程序调用#</span></a></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link"><span class="toc-text">1.安装桌面环境和office(如果已经安装的可以忽略此步骤)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link"><span class="toc-text">2.启动openoffice 服务</span></a></li><li class="toc-item toc-level-3"><a class="toc-link"><span class="toc-text">3.程序调用</span></a></li></ol>
   </div>
 
 
@@ -214,95 +216,103 @@
       <p>有时候你可能需要对客户上传的excel文件提供在线预览的方式,类似很多邮箱直接点击就可以在线查看.但很多第三方工具都是收费的而自己遍历excel重绘界面又比较麻烦;<br>当然如果要求事先将excel另存为html然后上传直接显示是没问题的,但显然这不够科学;那如何才能实现科学预览呢.其实直接借助Libreoffice/Openoffice在点击预览后,后台悄悄把excel另存成html就好了;具体方式如下</p>
 <p>以Centos 6.4为例;</p>
 <h3><span id="1-an-zhuang-zhuo-mian-huan-jing-he-office-ru-guo-yi-jing-an-zhuang-de-ke-yi-hu-lue-ci-bu-zou">1.安装桌面环境和office(如果已经安装的可以忽略此步骤)</span><a href="#1-an-zhuang-zhuo-mian-huan-jing-he-office-ru-guo-yi-jing-an-zhuang-de-ke-yi-hu-lue-ci-bu-zou" class="header-anchor">#</a></h3><p>如果没有安装桌面环境的话需要先执行如下命令安装</p>
-<p><strong>安装x window</strong><br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum groupinstall 'X Window System' -y</span><br></pre></td></tr></table></figure></p>
-<p><strong>安装桌面</strong><br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum groupinstall 'Desktop' -y</span><br></pre></td></tr></table></figure></p>
-<p><strong>安装office</strong><br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum groupinstall 'Office Suite and Productivity' -y</span><br></pre></td></tr></table></figure></p>
+<p><strong>安装x window</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum groupinstall &#x27;X Window System&#x27; -y </span><br></pre></td></tr></table></figure>
+<p><strong>安装桌面</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum groupinstall &#x27;Desktop&#x27; -y </span><br></pre></td></tr></table></figure>
+<p><strong>安装office</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum groupinstall &#x27;Office Suite and Productivity&#x27; -y </span><br></pre></td></tr></table></figure>
 <a id="more"></a>
+
 <p>P.S:不同版本的系统可能名称会有些许差异,这时可以用yum grouplist | more 来查看要安装的具体名称</p>
-<h3><span id="2-qi-dong-openoffice-fu-wu">2.启动openoffice 服务</span><a href="#2-qi-dong-openoffice-fu-wu" class="header-anchor">#</a></h3><p>进行这一步之前,如果你进行了步骤1,安装完成后需要startx 进入桌面环境,否则会报如下错误<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">/program/soffice.bin X11 error: Can't open display: </span><br><span class="line">  Set DISPLAY environment variable, use -display option </span><br><span class="line">  or check permissions of your X-Server </span><br><span class="line">  (See "man X" resp. "man xhost" for details)</span><br></pre></td></tr></table></figure></p>
-<p>可以修改/etc/inittab,设置默认从桌面启动<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vi /etc/inittab</span><br></pre></td></tr></table></figure></p>
-<p>找到里面的<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">id:3:initdefault:</span><br></pre></td></tr></table></figure></p>
+<h3><span id="2-qi-dong-openoffice-fu-wu">2.启动openoffice 服务</span><a href="#2-qi-dong-openoffice-fu-wu" class="header-anchor">#</a></h3><p>进行这一步之前,如果你进行了步骤1,安装完成后需要startx 进入桌面环境,否则会报如下错误</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">/program/soffice.bin X11 error: Can&#x27;t open display: </span><br><span class="line">  Set DISPLAY environment variable, use -display option </span><br><span class="line">  or check permissions of your X-Server </span><br><span class="line">  (See &quot;man X&quot; resp. &quot;man xhost&quot; for details) </span><br></pre></td></tr></table></figure>
+<p>可以修改/etc/inittab,设置默认从桌面启动</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vi /etc/inittab</span><br></pre></td></tr></table></figure>
+<p>找到里面的 </p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">id:3:initdefault:</span><br></pre></td></tr></table></figure>
 <p>将里面的3改成5,3是文本模式,5是桌面模式;</p>
-<p>运行如下命令启动openoffice服务<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">soffice --headless --accept="socket,host=127.0.0.1,port=8100;urp;" --nofirststartwizard &amp;</span><br></pre></td></tr></table></figure></p>
+<p>运行如下命令启动openoffice服务</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">soffice --headless --accept=&quot;socket,host=127.0.0.1,port=8100;urp;&quot; --nofirststartwizard &amp;</span><br></pre></td></tr></table></figure>
 <h3><span id="3-cheng-xu-diao-yong">3.程序调用</span><a href="#3-cheng-xu-diao-yong" class="header-anchor">#</a></h3><p>其实就是通过程序调用office服务,然后很猥琐的将excel偷偷转化成html输出到项目下的某个文件夹里,然后页面直接加载这个html文件就可以了,以下是我当前项目的调用示例,依赖的jar我放到网盘了 需要可以下载.</p>
-<p><a href="http://url.cn/MG3Lwn" target="_blank" rel="noopener">下载依赖jar</a></p>
-<pre class=" language-java">String fileID = <span class="keyword">this</span>.getRequest().getParameter(<span class="string"><code class="language-java">String fileID = <span class="keyword">this</span>.getRequest().getParameter(<span class="string">"fileID"</span>);
+<p><a target="_blank" rel="noopener" href="http://url.cn/MG3Lwn">下载依赖jar</a></p>
+<pre class=" language-java"><code class="language-java">        String fileID <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">getRequest</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">getParameter</span><span class="token punctuation">(</span><span class="token string">"fileID"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-FileUpDown fileUpDown = <span class="keyword">this</span>.fileUpDownManager.get(fileID);
+        FileUpDown fileUpDown <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span>fileUpDownManager<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span>fileID<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-String filePath = fileUpDown.getFilePath();
-String fileName = fileUpDown.getFileName();
+        String filePath <span class="token operator">=</span> fileUpDown<span class="token punctuation">.</span><span class="token function">getFilePath</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        String fileName <span class="token operator">=</span> fileUpDown<span class="token punctuation">.</span><span class="token function">getFileName</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-<span class="comment">//处理文件扩展名</span>
-String[] fileNameArr = fileName.split(<span class="string">"\\."</span>);
-String extendName = fileNameArr[fileNameArr.length-<span class="number">1</span>];
-extendName = extendName.toLowerCase();
+        <span class="token comment" spellcheck="true">//处理文件扩展名</span>
+        String<span class="token punctuation">[</span><span class="token punctuation">]</span> fileNameArr <span class="token operator">=</span> fileName<span class="token punctuation">.</span><span class="token function">split</span><span class="token punctuation">(</span><span class="token string">"\\."</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        String extendName <span class="token operator">=</span> fileNameArr<span class="token punctuation">[</span>fileNameArr<span class="token punctuation">.</span>length<span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+        extendName <span class="token operator">=</span> extendName<span class="token punctuation">.</span><span class="token function">toLowerCase</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-<span class="comment">/**浏览器支持格式*/</span>
-String[] browserFormatArr = {<span class="string">"txt"</span>,<span class="string">"jpg"</span>,<span class="string">"jpeg"</span>,<span class="string">"bmp"</span>,<span class="string">"gif"</span>,<span class="string">"png"</span>};
-<span class="comment">/**Openoffice支持格式*/</span>
-String[] officeFormatArr = {<span class="string">"doc"</span>,<span class="string">"docx"</span>,<span class="string">"xls"</span>,<span class="string">"xlsx"</span>,<span class="string">"ppt"</span>,<span class="string">"pptx"</span>};
+        <span class="token comment" spellcheck="true">/**浏览器支持格式*/</span>
+        String<span class="token punctuation">[</span><span class="token punctuation">]</span> browserFormatArr <span class="token operator">=</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span><span class="token string">"txt"</span><span class="token punctuation">,</span><span class="token string">"jpg"</span><span class="token punctuation">,</span><span class="token string">"jpeg"</span><span class="token punctuation">,</span><span class="token string">"bmp"</span><span class="token punctuation">,</span><span class="token string">"gif"</span><span class="token punctuation">,</span><span class="token string">"png"</span><span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span><span class="token punctuation">;</span>
+        <span class="token comment" spellcheck="true">/**Openoffice支持格式*/</span>
+        String<span class="token punctuation">[</span><span class="token punctuation">]</span> officeFormatArr <span class="token operator">=</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span><span class="token string">"doc"</span><span class="token punctuation">,</span><span class="token string">"docx"</span><span class="token punctuation">,</span><span class="token string">"xls"</span><span class="token punctuation">,</span><span class="token string">"xlsx"</span><span class="token punctuation">,</span><span class="token string">"ppt"</span><span class="token punctuation">,</span><span class="token string">"pptx"</span><span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span><span class="token punctuation">;</span>
 
-<span class="keyword">boolean</span> browserFormatFlag = <span class="keyword">false</span>;
-<span class="keyword">boolean</span> officeFormatFlag = <span class="keyword">false</span>;
-<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i<officeformatarr.length;i++){ <span class="keyword">if</officeformatarr.length;i++){></code></span>(extendName.equals(browserFormatArr[i])){
-        browserFormatFlag = <span class="keyword">true</span>;
-    }
-    <span class="keyword">if</span>(extendName.equals(officeFormatArr[i])){
-        officeFormatFlag = <span class="keyword">true</span>;
-    }
-}
+        <span class="token keyword">boolean</span> browserFormatFlag <span class="token operator">=</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+        <span class="token keyword">boolean</span> officeFormatFlag <span class="token operator">=</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+        <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span>i<span class="token operator">&lt;</span>officeFormatArr<span class="token punctuation">.</span>length<span class="token punctuation">;</span>i<span class="token operator">++</span><span class="token punctuation">)</span><span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+            <span class="token keyword">if</span><span class="token punctuation">(</span>extendName<span class="token punctuation">.</span><span class="token function">equals</span><span class="token punctuation">(</span>browserFormatArr<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+                browserFormatFlag <span class="token operator">=</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+            <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+            <span class="token keyword">if</span><span class="token punctuation">(</span>extendName<span class="token punctuation">.</span><span class="token function">equals</span><span class="token punctuation">(</span>officeFormatArr<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+                officeFormatFlag <span class="token operator">=</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+            <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+        <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
 
-<span class="comment">//处理输入的文件</span>
-String fullRelativePath = filePath+<span class="string">"/"</span>+fileName;
-String realPath = ServletActionContext.getServletContext().getRealPath(fullRelativePath);
-File inFile = <span class="keyword">new</span> File(realPath);
+        <span class="token comment" spellcheck="true">//处理输入的文件</span>
+        String fullRelativePath <span class="token operator">=</span> filePath<span class="token operator">+</span><span class="token string">"/"</span><span class="token operator">+</span>fileName<span class="token punctuation">;</span>
+        String realPath <span class="token operator">=</span> ServletActionContext<span class="token punctuation">.</span><span class="token function">getServletContext</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">getRealPath</span><span class="token punctuation">(</span>fullRelativePath<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        File inFile <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">File</span><span class="token punctuation">(</span>realPath<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-<span class="comment">//处理输出目录</span>
-UserView userView = (UserView) <span class="keyword">this</span>.getSession().getAttribute(Constants.USER_VIEW);
-String outFileParentRelativePath = <span class="string">"tmpUploadFile/preview/"</span>+userView.getId();
-String outFileParentRealPath = ServletActionContext.getServletContext().getRealPath(outFileParentRelativePath);
+        <span class="token comment" spellcheck="true">//处理输出目录</span>
+        UserView userView <span class="token operator">=</span> <span class="token punctuation">(</span>UserView<span class="token punctuation">)</span> <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">getSession</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">getAttribute</span><span class="token punctuation">(</span>Constants<span class="token punctuation">.</span>USER_VIEW<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        String outFileParentRelativePath <span class="token operator">=</span> <span class="token string">"tmpUploadFile/preview/"</span><span class="token operator">+</span>userView<span class="token punctuation">.</span><span class="token function">getId</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        String outFileParentRealPath <span class="token operator">=</span> ServletActionContext<span class="token punctuation">.</span><span class="token function">getServletContext</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">getRealPath</span><span class="token punctuation">(</span>outFileParentRelativePath<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-<span class="comment">//输出文件处理前  先清空输出目录</span>
-File outFileParent = <span class="keyword">new</span> File(outFileParentRealPath);
-<span class="keyword">if</span>(outFileParent.exists()){
-    deleteFiles(outFileParent);
-}
+        <span class="token comment" spellcheck="true">//输出文件处理前  先清空输出目录</span>
+        File outFileParent <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">File</span><span class="token punctuation">(</span>outFileParentRealPath<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">if</span><span class="token punctuation">(</span>outFileParent<span class="token punctuation">.</span><span class="token function">exists</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+            <span class="token function">deleteFiles</span><span class="token punctuation">(</span>outFileParent<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
 
-<span class="comment">//分辨文件类型  执行不同处理</span>
-<span class="keyword">if</span>(browserFormatFlag){                      <span class="comment">//浏览器可直接打开的文件，复制文件到预览目录并重命名为preview.(extendName)</span>
-    String outFileRelativePath = outFileParentRelativePath + <span class="string">"/preview"</span>+<span class="keyword">new</span> Date().getTime()+<span class="string">"."</span> + extendName ;
-    String outFileRealPath = ServletActionContext.getServletContext().getRealPath(outFileRelativePath);
-    File outFile = <span class="keyword">new</span> File(outFileRealPath);
+        <span class="token comment" spellcheck="true">//分辨文件类型  执行不同处理</span>
+        <span class="token keyword">if</span><span class="token punctuation">(</span>browserFormatFlag<span class="token punctuation">)</span><span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>                      <span class="token comment" spellcheck="true">//浏览器可直接打开的文件，复制文件到预览目录并重命名为preview.(extendName)</span>
+            String outFileRelativePath <span class="token operator">=</span> outFileParentRelativePath <span class="token operator">+</span> <span class="token string">"/preview"</span><span class="token operator">+</span><span class="token keyword">new</span> <span class="token class-name">Date</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">getTime</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">+</span><span class="token string">"."</span> <span class="token operator">+</span> extendName <span class="token punctuation">;</span>
+            String outFileRealPath <span class="token operator">=</span> ServletActionContext<span class="token punctuation">.</span><span class="token function">getServletContext</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">getRealPath</span><span class="token punctuation">(</span>outFileRelativePath<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            File outFile <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">File</span><span class="token punctuation">(</span>outFileRealPath<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-    <span class="keyword">if</span>(<span class="string">"txt"</span>.equals(extendName)){
-        <span class="comment">//文本文件要特殊处理一下   全部转换为web.xml中设置的编码格式  UTF-8   否则会乱码</span>
-        FileUtils.writeLines(outFile, <span class="string">"UTF-8"</span>, FileUtils.readLines(inFile, <span class="string">"GBK"</span>)); 
-    }<span class="keyword">else</span>{
-        FileUtils.copyFile(inFile, outFile);    
-    }
+            <span class="token keyword">if</span><span class="token punctuation">(</span><span class="token string">"txt"</span><span class="token punctuation">.</span><span class="token function">equals</span><span class="token punctuation">(</span>extendName<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+                <span class="token comment" spellcheck="true">//文本文件要特殊处理一下   全部转换为web.xml中设置的编码格式  UTF-8   否则会乱码</span>
+                FileUtils<span class="token punctuation">.</span><span class="token function">writeLines</span><span class="token punctuation">(</span>outFile<span class="token punctuation">,</span> <span class="token string">"UTF-8"</span><span class="token punctuation">,</span> FileUtils<span class="token punctuation">.</span><span class="token function">readLines</span><span class="token punctuation">(</span>inFile<span class="token punctuation">,</span> <span class="token string">"GBK"</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span> 
+            <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span><span class="token keyword">else</span><span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+                FileUtils<span class="token punctuation">.</span><span class="token function">copyFile</span><span class="token punctuation">(</span>inFile<span class="token punctuation">,</span> outFile<span class="token punctuation">)</span><span class="token punctuation">;</span>    
+            <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
 
-    <span class="keyword">this</span>.print(<span class="string">"{success:true,previewPath:'"</span>+outFileRelativePath+<span class="string">"'}"</span>);
-}<span class="keyword">else</span> <span class="keyword">if</span>(officeFormatFlag){     <span class="comment">//Office文档，使用Openoffice处理成html</span>
-    String outFileRealPath = outFileParentRealPath + <span class="string">"/preview.html"</span> ;
-    File outFile = <span class="keyword">new</span> File(outFileRealPath);
+            <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"&amp;#123;success:true,previewPath:'"</span><span class="token operator">+</span>outFileRelativePath<span class="token operator">+</span><span class="token string">"'&amp;#125;"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span><span class="token keyword">else</span> <span class="token keyword">if</span><span class="token punctuation">(</span>officeFormatFlag<span class="token punctuation">)</span><span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>     <span class="token comment" spellcheck="true">//Office文档，使用Openoffice处理成html</span>
+            String outFileRealPath <span class="token operator">=</span> outFileParentRealPath <span class="token operator">+</span> <span class="token string">"/preview.html"</span> <span class="token punctuation">;</span>
+            File outFile <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">File</span><span class="token punctuation">(</span>outFileRealPath<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-    <span class="keyword">if</span>(convertDocToHtml(inFile,outFile)){
-        <span class="comment">//更改扩展名html -> htm   原因：html已经被设置为struts的Action后缀名</span>
-        String jspFileRelativePath = outFileParentRelativePath + <span class="string">"/preview.htm"</span> ;
-        File jspFile = <span class="keyword">new</span> File(outFileParentRealPath + <span class="string">"/preview.htm"</span> );
-        outFile.renameTo(jspFile);
-        <span class="keyword">this</span>.print(<span class="string">"{success:true,previewPath:'"</span>+jspFileRelativePath+<span class="string">"'}"</span>);
-    }<span class="keyword">else</span>{
-        <span class="keyword">this</span>.print(<span class="string">"{success:false,msg:'文件转换出现错误，预览失败。'}"</span>);
-    }
-}<span class="keyword">else</span>{
-    <span class="keyword">this</span>.print(<span class="string">"{success:false,msg:'不支持的文件格式("</span>+extendName+<span class="string">")，请下载到本地计算机上预览。'}"</span>);
-}
+            <span class="token keyword">if</span><span class="token punctuation">(</span><span class="token function">convertDocToHtml</span><span class="token punctuation">(</span>inFile<span class="token punctuation">,</span>outFile<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+                <span class="token comment" spellcheck="true">//更改扩展名html -> htm   原因：html已经被设置为struts的Action后缀名</span>
+                String jspFileRelativePath <span class="token operator">=</span> outFileParentRelativePath <span class="token operator">+</span> <span class="token string">"/preview.htm"</span> <span class="token punctuation">;</span>
+                File jspFile <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">File</span><span class="token punctuation">(</span>outFileParentRealPath <span class="token operator">+</span> <span class="token string">"/preview.htm"</span> <span class="token punctuation">)</span><span class="token punctuation">;</span>
+                outFile<span class="token punctuation">.</span><span class="token function">renameTo</span><span class="token punctuation">(</span>jspFile<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"&amp;#123;success:true,previewPath:'"</span><span class="token operator">+</span>jspFileRelativePath<span class="token operator">+</span><span class="token string">"'&amp;#125;"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span><span class="token keyword">else</span><span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+                <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"&amp;#123;success:false,msg:'文件转换出现错误，预览失败。'&amp;#125;"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+        <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span><span class="token keyword">else</span><span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+            <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"&amp;#123;success:false,msg:'不支持的文件格式("</span><span class="token operator">+</span>extendName<span class="token operator">+</span><span class="token string">")，请下载到本地计算机上预览。'&amp;#125;"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
 
-<span class="keyword">return</span> NONE;
-</pre>
-<link href="/css/prism-dark.css" rel="stylesheet">
+        <span class="token keyword">return</span> NONE<span class="token punctuation">;</span></code></pre>
+
     
   </div>
 </article>

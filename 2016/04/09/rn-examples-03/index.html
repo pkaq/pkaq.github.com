@@ -4,7 +4,7 @@
   <html class="dark page-post">
 
 
-<head><meta name="generator" content="Hexo 3.9.0">
+<head>
   <meta charset="utf-8">
   
   <title>RN（react native）入坑指南-03,运行官方示例UIExplorer | 如是我闻</title>
@@ -12,21 +12,21 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
   
-    <meta name="keywords" content="React Native,">
+    <meta name="keywords" content="React Native," />
   
 
-  <meta name="description" content="学习RN，官方示例是必不可少的，研究和学习官方示例会带来许多帮助。在搭建好rn环境之后就可以着手尝试运行官方示例来看下RN的各类组件了。    先决条件 node npm RN Git Gradle ADK/SDK  开始首先下载RN代码Github: https://github.com/facebook/react-native下载成功后 命令行切换到目标目录 执行npm install安装所">
-<meta name="keywords" content="React Native">
+  <meta name="description" content="学习RN，官方示例是必不可少的，研究和学习官方示例会带来许多帮助。在搭建好rn环境之后就可以着手尝试运行官方示例来看下RN的各类组件了。    先决条件 node npm RN Git Gradle ADK&#x2F;SDK  开始首先下载RN代码Github: https:&#x2F;&#x2F;github.com&#x2F;facebook&#x2F;react-native下载成功后 命令行切换到目标目录 执行npm install安装所">
 <meta property="og:type" content="article">
 <meta property="og:title" content="RN（react native）入坑指南-03,运行官方示例UIExplorer">
 <meta property="og:url" content="https://pkaq.org/2016/04/09/rn-examples-03/index.html">
 <meta property="og:site_name" content="如是我闻">
-<meta property="og:description" content="学习RN，官方示例是必不可少的，研究和学习官方示例会带来许多帮助。在搭建好rn环境之后就可以着手尝试运行官方示例来看下RN的各类组件了。    先决条件 node npm RN Git Gradle ADK/SDK  开始首先下载RN代码Github: https://github.com/facebook/react-native下载成功后 命令行切换到目标目录 执行npm install安装所">
-<meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2016-04-12T08:11:17.499Z">
+<meta property="og:description" content="学习RN，官方示例是必不可少的，研究和学习官方示例会带来许多帮助。在搭建好rn环境之后就可以着手尝试运行官方示例来看下RN的各类组件了。    先决条件 node npm RN Git Gradle ADK&#x2F;SDK  开始首先下载RN代码Github: https:&#x2F;&#x2F;github.com&#x2F;facebook&#x2F;react-native下载成功后 命令行切换到目标目录 执行npm install安装所">
+<meta property="og:locale">
+<meta property="article:published_time" content="2016-04-09T10:36:07.000Z">
+<meta property="article:modified_time" content="2016-04-12T08:11:17.499Z">
+<meta property="article:author" content="PKAQ">
+<meta property="article:tag" content="React Native">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="RN（react native）入坑指南-03,运行官方示例UIExplorer">
-<meta name="twitter:description" content="学习RN，官方示例是必不可少的，研究和学习官方示例会带来许多帮助。在搭建好rn环境之后就可以着手尝试运行官方示例来看下RN的各类组件了。    先决条件 node npm RN Git Gradle ADK/SDK  开始首先下载RN代码Github: https://github.com/facebook/react-native下载成功后 命令行切换到目标目录 执行npm install安装所">
 
   
 
@@ -38,7 +38,9 @@
 
 
   
-    <link rel="stylesheet" href="/css/fexo-theme.css">
+    
+<link rel="stylesheet" href="/css/fexo-theme.css">
+
   
 
   
@@ -64,10 +66,10 @@
     <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css">
   
 
-  <link href="//cdn.webfont.youziku.com/webfonts/nomal/97080/42410/5865c4e5f629db00cc915895.css" rel="stylesheet" type="text/css">
+  <link href='//cdn.webfont.youziku.com/webfonts/nomal/97080/42410/5865c4e5f629db00cc915895.css' rel='stylesheet' type='text/css' />
  
-</head>
-</html>
+<meta name="generator" content="Hexo 5.3.0"><link rel="stylesheet" href="/css/prism-dark.css" type="text/css"></head>
+
 <body>
 
 
@@ -160,7 +162,7 @@
 
   <div id="toc" class="toc-article">
     <strong class="toc-title">文章目录</strong>
-    <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#null"><span class="toc-text">先决条件#</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#null"><span class="toc-text">开始#</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#null"><span class="toc-text">配置*DK#</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#null"><span class="toc-text">真机测试#</span></a></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link"><span class="toc-text">先决条件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link"><span class="toc-text">开始</span></a></li><li class="toc-item toc-level-4"><a class="toc-link"><span class="toc-text">配置*DK</span></a></li><li class="toc-item toc-level-4"><a class="toc-link"><span class="toc-text">真机测试</span></a></li></ol>
   </div>
 
 
@@ -220,17 +222,23 @@
 <li>Gradle</li>
 <li>ADK/SDK</li>
 </ul>
-<h4><span id="kai-shi">开始</span><a href="#kai-shi" class="header-anchor">#</a></h4><p>首先下载RN代码<br>Github: <a href="https://github.com/facebook/react-native" target="_blank" rel="noopener">https://github.com/facebook/react-native</a><br>下载成功后 命令行切换到目标目录 执行<code>npm install</code>安装所需依赖<br><a id="more"></a></p>
-<h4><span id="pei-zhi-dk">配置*DK</span><a href="#pei-zhi-dk" class="header-anchor">#</a></h4><p>这里有两种方式<br>法1：<br>　　切换到react-native目录, 新建local.properties<br><figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">sdk.dir</span>=absolute_path_to_android_sdk</span><br><span class="line"><span class="attr">ndk.dir</span>=absolute_path_to_android_ndk</span><br></pre></td></tr></table></figure></p>
-<p>法2:<br>　　环境变量添加ANDROID_NDK,ANDROID_SDK分别指向NDK和SDK的目录<br>更多说明请参考   <a href="https://facebook.github.io/react-native/docs/android-building-from-source.html" target="_blank" rel="noopener">关于SDK/NDK配置的官方文档</a></p>
+<h4><span id="kai-shi">开始</span><a href="#kai-shi" class="header-anchor">#</a></h4><p>首先下载RN代码<br>Github: <a target="_blank" rel="noopener" href="https://github.com/facebook/react-native">https://github.com/facebook/react-native</a><br>下载成功后 命令行切换到目标目录 执行<code>npm install</code>安装所需依赖   </p>
+<a id="more"></a>
+<h4><span id="pei-zhi-dk">配置*DK</span><a href="#pei-zhi-dk" class="header-anchor">#</a></h4><p>这里有两种方式<br>法1：<br>　　切换到react-native目录, 新建local.properties</p>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">sdk.dir</span>=absolute_path_to_android_sdk</span><br><span class="line"><span class="attr">ndk.dir</span>=absolute_path_to_android_ndk</span><br></pre></td></tr></table></figure>
+<p>法2:<br>　　环境变量添加ANDROID_NDK,ANDROID_SDK分别指向NDK和SDK的目录<br>更多说明请参考   <a target="_blank" rel="noopener" href="https://facebook.github.io/react-native/docs/android-building-from-source.html">关于SDK/NDK配置的官方文档</a></p>
 <h4><span id="zhen-ji-ce-shi">真机测试</span><a href="#zhen-ji-ce-shi" class="header-anchor">#</a></h4><p>　　如果是windows小伙伴，下面的命令建议用安装完git后自带的gitbash运行</p>
-<p>1.执行命令<br><figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./<span class="string">gradlew :</span><span class="string">ReactAndroid:</span>assembleDebug</span><br></pre></td></tr></table></figure></p>
-<p>2.然后执行<br><figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./<span class="string">gradlew :</span><span class="string">ReactAndroid:</span>installArchives</span><br></pre></td></tr></table></figure></p>
-<p>3.启动服务<br><figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">.<span class="regexp">/packager/</span>packager.sh</span><br></pre></td></tr></table></figure></p>
-<p>4.最后安装到你的手机<br><figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">../<span class="string">gradlew :</span><span class="string">Examples:</span><span class="string">UIExplorer:</span><span class="string">android:</span><span class="string">app:</span>installDebug</span><br></pre></td></tr></table></figure></p>
+<p>1.执行命令</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./<span class="selector-tag">gradlew</span> <span class="selector-pseudo">:ReactAndroid</span><span class="selector-pseudo">:assembleDebug</span></span><br></pre></td></tr></table></figure>
+<p>2.然后执行</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./<span class="selector-tag">gradlew</span> <span class="selector-pseudo">:ReactAndroid</span><span class="selector-pseudo">:installArchives</span></span><br></pre></td></tr></table></figure>
+<p>3.启动服务</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">.<span class="regexp">/packager/</span>packager.sh</span><br></pre></td></tr></table></figure>
+<p>4.最后安装到你的手机</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">../<span class="selector-tag">gradlew</span> <span class="selector-pseudo">:Examples</span><span class="selector-pseudo">:UIExplorer</span><span class="selector-pseudo">:android</span><span class="selector-pseudo">:app</span><span class="selector-pseudo">:installDebug</span></span><br></pre></td></tr></table></figure>
 <p>这个过程中请不要随意关闭packager运行窗口<br>5.设置ip<br>现在，打开UIExplorer项目，摇一摇你的手机，在弹出的菜单中选择<code>Dev settings</code>-&gt;<code>Debug server host &amp; port for device</code><br>设置一下你的无线IP 比如<code>192.168.1.1:8081</code>,注意：此处的8081一定要有的否则无法加载</p>
-<p>更多内容请参考<a href="http://facebook.github.io/react-native/docs/running-on-device-android.html#content" target="_blank" rel="noopener">官方的真机调试文档</a></p>
-<link href="/css/prism-dark.css" rel="stylesheet">
+<p>更多内容请参考<a target="_blank" rel="noopener" href="http://facebook.github.io/react-native/docs/running-on-device-android.html#content">官方的真机调试文档</a></p>
+
     
   </div>
 </article>

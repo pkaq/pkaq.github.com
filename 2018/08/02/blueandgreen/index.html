@@ -4,7 +4,7 @@
   <html class="dark page-post">
 
 
-<head><meta name="generator" content="Hexo 3.9.0">
+<head>
   <meta charset="utf-8">
   
   <title>基于nginx的简易蓝绿发布 | 如是我闻</title>
@@ -12,21 +12,23 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
   
-    <meta name="keywords" content="DevOps,nginx,tomcat,">
+    <meta name="keywords" content="DevOps,nginx,tomcat," />
   
 
-  <meta name="description" content="Blue/Green Deployment（蓝绿部署）,又称为蓝绿发布,是一种通过切换蓝绿环境的方式实现新版本的不停机发布手法.通过这种方式可以实现应用的不停机升级,快速回滚等诸多好处.当然弊端是切换的瞬间对于尚未来得及响应的请求会丢失响应.   具体的做法是      1.部署两套生产环境,我们称这两套环境分别为蓝色环境和绿色环境. 2.使用负载均衡指向其中一套环境(也可以都指向),当版本升级时">
-<meta name="keywords" content="DevOps,nginx,tomcat">
+  <meta name="description" content="Blue&#x2F;Green Deployment（蓝绿部署）,又称为蓝绿发布,是一种通过切换蓝绿环境的方式实现新版本的不停机发布手法.通过这种方式可以实现应用的不停机升级,快速回滚等诸多好处.当然弊端是切换的瞬间对于尚未来得及响应的请求会丢失响应.   具体的做法是      1.部署两套生产环境,我们称这两套环境分别为蓝色环境和绿色环境.  2.使用负载均衡指向其中一套环境(也可以都指向),当版本升级">
 <meta property="og:type" content="article">
 <meta property="og:title" content="基于nginx的简易蓝绿发布">
 <meta property="og:url" content="https://pkaq.org/2018/08/02/blueandgreen/index.html">
 <meta property="og:site_name" content="如是我闻">
-<meta property="og:description" content="Blue/Green Deployment（蓝绿部署）,又称为蓝绿发布,是一种通过切换蓝绿环境的方式实现新版本的不停机发布手法.通过这种方式可以实现应用的不停机升级,快速回滚等诸多好处.当然弊端是切换的瞬间对于尚未来得及响应的请求会丢失响应.   具体的做法是      1.部署两套生产环境,我们称这两套环境分别为蓝色环境和绿色环境. 2.使用负载均衡指向其中一套环境(也可以都指向),当版本升级时">
-<meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-08-03T01:06:56.214Z">
+<meta property="og:description" content="Blue&#x2F;Green Deployment（蓝绿部署）,又称为蓝绿发布,是一种通过切换蓝绿环境的方式实现新版本的不停机发布手法.通过这种方式可以实现应用的不停机升级,快速回滚等诸多好处.当然弊端是切换的瞬间对于尚未来得及响应的请求会丢失响应.   具体的做法是      1.部署两套生产环境,我们称这两套环境分别为蓝色环境和绿色环境.  2.使用负载均衡指向其中一套环境(也可以都指向),当版本升级">
+<meta property="og:locale">
+<meta property="article:published_time" content="2018-08-02T07:12:55.000Z">
+<meta property="article:modified_time" content="2018-08-03T01:06:56.214Z">
+<meta property="article:author" content="PKAQ">
+<meta property="article:tag" content="DevOps">
+<meta property="article:tag" content="nginx">
+<meta property="article:tag" content="tomcat">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="基于nginx的简易蓝绿发布">
-<meta name="twitter:description" content="Blue/Green Deployment（蓝绿部署）,又称为蓝绿发布,是一种通过切换蓝绿环境的方式实现新版本的不停机发布手法.通过这种方式可以实现应用的不停机升级,快速回滚等诸多好处.当然弊端是切换的瞬间对于尚未来得及响应的请求会丢失响应.   具体的做法是      1.部署两套生产环境,我们称这两套环境分别为蓝色环境和绿色环境. 2.使用负载均衡指向其中一套环境(也可以都指向),当版本升级时">
 
   
 
@@ -38,7 +40,9 @@
 
 
   
-    <link rel="stylesheet" href="/css/fexo-theme.css">
+    
+<link rel="stylesheet" href="/css/fexo-theme.css">
+
   
 
   
@@ -64,10 +68,10 @@
     <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css">
   
 
-  <link href="//cdn.webfont.youziku.com/webfonts/nomal/97080/42410/5865c4e5f629db00cc915895.css" rel="stylesheet" type="text/css">
+  <link href='//cdn.webfont.youziku.com/webfonts/nomal/97080/42410/5865c4e5f629db00cc915895.css' rel='stylesheet' type='text/css' />
  
-</head>
-</html>
+<meta name="generator" content="Hexo 5.3.0"><link rel="stylesheet" href="/css/prism-dark.css" type="text/css"></head>
+
 <body>
 
 
@@ -160,7 +164,7 @@
 
   <div id="toc" class="toc-article">
     <strong class="toc-title">文章目录</strong>
-    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#null"><span class="toc-text">1.环境准备#</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#null"><span class="toc-text">2.LB配置#</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#null"><span class="toc-text">3.发布切换#</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#null"><span class="toc-text">1    蓝绿部署#</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#null"><span class="toc-text">1.1    目的#</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#null"><span class="toc-text">1.2    前提#</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#null"><span class="toc-text">1.3    步骤#</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#null"><span class="toc-text">1.3.1    配置蓝绿环境#</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#null"><span class="toc-text">1.3.2    安装nginx#</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#null"><span class="toc-text">1.3.3    配置nginx#</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#null"><span class="toc-text">1.3.4    部署方式#</span></a></li></ol></li></ol></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-text">1.环境准备</span></a></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-text">2.LB配置</span></a></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-text">3.发布切换</span></a></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-text">1    蓝绿部署</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-text">1.1    目的</span></a></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-text">1.2    前提</span></a></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-text">1.3    步骤</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link"><span class="toc-text">1.3.1    配置蓝绿环境</span></a></li><li class="toc-item toc-level-3"><a class="toc-link"><span class="toc-text">1.3.2    安装nginx</span></a></li><li class="toc-item toc-level-3"><a class="toc-link"><span class="toc-text">1.3.3    配置nginx</span></a></li><li class="toc-item toc-level-3"><a class="toc-link"><span class="toc-text">1.3.4    部署方式</span></a></li></ol></li></ol></li></ol>
   </div>
 
 
@@ -214,12 +218,16 @@
       <p>Blue/Green Deployment（蓝绿部署）,又称为<code>蓝绿发布</code>,是一种通过切换蓝绿环境的方式实现新版本的不停机发布手法.通过这种方式可以实现应用的不停机升级,快速回滚等诸多好处.当然弊端是切换的瞬间对于尚未来得及响应的请求会丢失响应.</p>
 <p>  具体的做法是    </p>
 <ul>
-<li>1.部署两套生产环境,我们称这两套环境分别为<code>蓝色环境</code>和<code>绿色环境</code>.</li>
-<li>2.使用负载均衡指向其中一套环境(也可以都指向),当版本升级时 先将版本发布到备用环境中 ,进行有效性测试, 测试通过后,将需要升级的环境(如蓝色环境)流量全部导流到备用环境中,此时备用环境与原来的正式环境完成了一次角色互换.</li>
-<li>3.重新配置负载均衡.   </li>
+<li><p>1.部署两套生产环境,我们称这两套环境分别为<code>蓝色环境</code>和<code>绿色环境</code>.</p>
+</li>
+<li><p>2.使用负载均衡指向其中一套环境(也可以都指向),当版本升级时 先将版本发布到备用环境中 ,进行有效性测试, 测试通过后,将需要升级的环境(如蓝色环境)流量全部导流到备用环境中,此时备用环境与原来的正式环境完成了一次角色互换.</p>
+</li>
+<li><p>3.重新配置负载均衡.   </p>
+</li>
 <li><p>4.如需回滚将LB流量重新指向旧环境即可.</p>
 <p>当然,这里也可以让蓝绿两套环境同时支持线上, 思路是一样的, 核心的技术点仍然是通过<code>nginx</code>配置热加载完成导流实现.</p>
 <a id="more"></a>   
+
 </li>
 </ul>
 <h1><span id="1-huan-jing-zhun-bei">1.环境准备</span><a href="#1-huan-jing-zhun-bei" class="header-anchor">#</a></h1><ul>
@@ -228,23 +236,23 @@
 </ul>
 <h1><span id="2-lb-pei-zhi">2.LB配置</span><a href="#2-lb-pei-zhi" class="header-anchor">#</a></h1><p>  <code>nginx.conf</code>配置如下<br>  <figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">  # ... 省略</span><br><span class="line">  http &#123;</span><br><span class="line">  	# ... 前面省略</span><br><span class="line">    upstream nginx_blue_green &#123;</span><br><span class="line">     	#蓝色环境</span><br><span class="line">        #server <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span>:<span class="number">8081</span> down;</span><br><span class="line">        #server <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span>:<span class="number">8080</span> weight=<span class="number">100</span>;</span><br><span class="line">        #绿色环境</span><br><span class="line">        server <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span>:<span class="number">8080</span> down;</span><br><span class="line">        server <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span>:<span class="number">8081</span> weight=<span class="number">100</span>;</span><br><span class="line">     &#125;</span><br><span class="line">     # ... 中间省略</span><br><span class="line">	server &#123;</span><br><span class="line">		 location / &#123;</span><br><span class="line">       		 proxy_pass http://nginx_blue_green;</span><br><span class="line">    	&#125;</span><br><span class="line">    &#125;</span><br><span class="line">    # ... 后面省略</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <h1><span id="3-fa-bu-qie-huan">3.发布切换</span><a href="#3-fa-bu-qie-huan" class="header-anchor">#</a></h1><p>  发布时只需要编辑<code>nginx.conf</code>注释解注对应蓝绿环境,然后使用<code>nginx -s reload</code>重新加载配置即可实现蓝绿切换.</p>
-<p>————————————– <strong> 分割线 </strong> ————————————–   </p>
-<p><strong> 以下内容为word手册版 </strong></p>
+<p>————————————– ** 分割线 ** ————————————–   </p>
+<p>** 以下内容为word手册版 **</p>
 <h1><span id="1-lan-lu-bu-shu">1    蓝绿部署</span><a href="#1-lan-lu-bu-shu" class="header-anchor">#</a></h1><h2><span id="1-1-mu-de">1.1    目的</span><a href="#1-1-mu-de" class="header-anchor">#</a></h2><p>为实现在线服务新版本的不停机更新，可以采用蓝绿部署的方式实现版本的平滑升级。   </p>
 <h2><span id="1-2-qian-ti">1.2    前提</span><a href="#1-2-qian-ti" class="header-anchor">#</a></h2><p>实现蓝绿部署需要同时配置两套<code>tomca</code>作为蓝绿发布环境，同时配置<code>nginx</code>作为负载。   </p>
 <h2><span id="1-3-bu-zou">1.3    步骤</span><a href="#1-3-bu-zou" class="header-anchor">#</a></h2><h3><span id="1-3-1-pei-zhi-lan-lu-huan-jing">1.3.1    配置蓝绿环境</span><a href="#1-3-1-pei-zhi-lan-lu-huan-jing" class="header-anchor">#</a></h3><p>解压附件包中的蓝绿环境<code>tomcat</code>   </p>
 <h3><span id="1-3-2-an-zhuang-nginx">1.3.2    安装nginx</span><a href="#1-3-2-an-zhuang-nginx" class="header-anchor">#</a></h3><p>解压附件中的<code>nginx-1.15.2.tar.gz</code>并执行如下命令   </p>
 <h3><span id="1-3-3-pei-zhi-nginx">1.3.3    配置nginx</span><a href="#1-3-3-pei-zhi-nginx" class="header-anchor">#</a></h3><p>  使用whereis查看nginx安装的路径，通常在<code>/usr/local/nginx</code>下，修改nginx配置并使用如下配置替换原有配置内容    </p>
-<h3><span id="1-3-4-bu-shu-fang-shi">1.3.4    部署方式</span><a href="#1-3-4-bu-shu-fang-shi" class="header-anchor">#</a></h3><p><strong> 首次部署方式：</strong><br>只需要按照章节4步骤部署一套应用即可，这里假设部署到<code>tomcat-blue（8081）</code>，然后在<code>nginx</code>目录下使用 <code>./sbin/nginx</code>启动nginx即可。   </p>
-<p><strong> 版本更新方式：</strong>   </p>
+<h3><span id="1-3-4-bu-shu-fang-shi">1.3.4    部署方式</span><a href="#1-3-4-bu-shu-fang-shi" class="header-anchor">#</a></h3><p>** 首次部署方式：**<br>只需要按照章节4步骤部署一套应用即可，这里假设部署到<code>tomcat-blue（8081）</code>，然后在<code>nginx</code>目录下使用 <code>./sbin/nginx</code>启动nginx即可。   </p>
+<p>** 版本更新方式：**   </p>
 <ol>
-<li>将新版本发布到<code>绿色环境(tomcat-green)</code>，启动tomcat-green并验证是否可以访问，以及app是否可以正常使用。</li>
-<li>确认绿色环境测试通过，修改nginx配置放开绿色环境相关配置的注释，同时注释蓝色环境相关配置的注释</li>
-<li>使用 <code>nginx -s reload</code> 命令重新加载nginx配置完成蓝色环境到绿色环境的切换</li>
-<li>关闭蓝色环境tomcat，准备下次部署使用。</li>
-<li>如升级失败，修改nginx配置将负载重新指向<code>蓝色环境</code>即可。</li>
+<li>   将新版本发布到<code>绿色环境(tomcat-green)</code>，启动tomcat-green并验证是否可以访问，以及app是否可以正常使用。</li>
+<li>   确认绿色环境测试通过，修改nginx配置放开绿色环境相关配置的注释，同时注释蓝色环境相关配置的注释</li>
+<li>   使用 <code>nginx -s reload</code> 命令重新加载nginx配置完成蓝色环境到绿色环境的切换</li>
+<li>   关闭蓝色环境tomcat，准备下次部署使用。</li>
+<li>   如升级失败，修改nginx配置将负载重新指向<code>蓝色环境</code>即可。</li>
 </ol>
-<link href="/css/prism-dark.css" rel="stylesheet">
+
     
   </div>
 </article>

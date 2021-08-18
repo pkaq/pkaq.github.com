@@ -4,7 +4,7 @@
   <html class="dark page-post">
 
 
-<head><meta name="generator" content="Hexo 3.9.0">
+<head>
   <meta charset="utf-8">
   
   <title>不良的编程文化 | 如是我闻</title>
@@ -12,22 +12,22 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
   
-    <meta name="keywords" content="转载,">
+    <meta name="keywords" content="转载," />
   
 
   <meta name="description" content="“这代码真垃圾”，当我们翻查一些代码寻找一个特别讨厌的bug时，同事大声这样说。“是吗”，我回答到。 像 这样的谴责，以及其它一些类似的话，在办公室里经常会听到，而且频率在增加。而最令人不安的是，这代码并不是特别的糟糕。我这话是什么意思？不能把它们写 的更好吗？当然！大多数的代码都有改善的空间——只要有足够的时间和资源。垃圾代码确实有，我们都看得见，而且都是我们自己写的，但这并不是问题。 问题是我">
-<meta name="keywords" content="转载">
 <meta property="og:type" content="article">
 <meta property="og:title" content="不良的编程文化">
 <meta property="og:url" content="https://pkaq.org/2013/09/13/2013-09-13-codecultureproblem/index.html">
 <meta property="og:site_name" content="如是我闻">
 <meta property="og:description" content="“这代码真垃圾”，当我们翻查一些代码寻找一个特别讨厌的bug时，同事大声这样说。“是吗”，我回答到。 像 这样的谴责，以及其它一些类似的话，在办公室里经常会听到，而且频率在增加。而最令人不安的是，这代码并不是特别的糟糕。我这话是什么意思？不能把它们写 的更好吗？当然！大多数的代码都有改善的空间——只要有足够的时间和资源。垃圾代码确实有，我们都看得见，而且都是我们自己写的，但这并不是问题。 问题是我">
-<meta property="og:locale" content="default">
+<meta property="og:locale">
 <meta property="og:image" content="https://pkaq.org/images/2013/09/12073258_ufYN.jpg">
-<meta property="og:updated_time" content="2016-09-01T08:22:55.347Z">
+<meta property="article:published_time" content="2013-09-13T12:02:16.000Z">
+<meta property="article:modified_time" content="2016-09-01T08:22:55.347Z">
+<meta property="article:author" content="PKAQ">
+<meta property="article:tag" content="转载">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="不良的编程文化">
-<meta name="twitter:description" content="“这代码真垃圾”，当我们翻查一些代码寻找一个特别讨厌的bug时，同事大声这样说。“是吗”，我回答到。 像 这样的谴责，以及其它一些类似的话，在办公室里经常会听到，而且频率在增加。而最令人不安的是，这代码并不是特别的糟糕。我这话是什么意思？不能把它们写 的更好吗？当然！大多数的代码都有改善的空间——只要有足够的时间和资源。垃圾代码确实有，我们都看得见，而且都是我们自己写的，但这并不是问题。 问题是我">
 <meta name="twitter:image" content="https://pkaq.org/images/2013/09/12073258_ufYN.jpg">
 
   
@@ -40,7 +40,9 @@
 
 
   
-    <link rel="stylesheet" href="/css/fexo-theme.css">
+    
+<link rel="stylesheet" href="/css/fexo-theme.css">
+
   
 
   
@@ -66,10 +68,10 @@
     <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css">
   
 
-  <link href="//cdn.webfont.youziku.com/webfonts/nomal/97080/42410/5865c4e5f629db00cc915895.css" rel="stylesheet" type="text/css">
+  <link href='//cdn.webfont.youziku.com/webfonts/nomal/97080/42410/5865c4e5f629db00cc915895.css' rel='stylesheet' type='text/css' />
  
-</head>
-</html>
+<meta name="generator" content="Hexo 5.3.0"><link rel="stylesheet" href="/css/prism-dark.css" type="text/css"></head>
+
 <body>
 
 
@@ -162,7 +164,7 @@
 
   <div id="toc" class="toc-article">
     <strong class="toc-title">文章目录</strong>
-    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#null"><span class="toc-text">问题是我们有一个不良的“这代码真垃圾”文化。#</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#null"><span class="toc-text">生活规律：垃圾往下倒。#</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#null"><span class="toc-text">我们应该怎么做？#</span></a></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link"><span class="toc-text">问题是我们有一个不良的“这代码真垃圾”文化。</span></a></li><li class="toc-item toc-level-3"><a class="toc-link"><span class="toc-text">生活规律：垃圾往下倒。</span></a></li><li class="toc-item toc-level-3"><a class="toc-link"><span class="toc-text">我们应该怎么做？</span></a></li></ol>
   </div>
 
 
@@ -217,12 +219,14 @@
 <p>像 这样的谴责，以及其它一些类似的话，在办公室里经常会听到，而且频率在增加。而最令人不安的是，这代码并不是特别的糟糕。我这话是什么意思？不能把它们写 的更好吗？当然！大多数的代码都有改善的空间——只要有足够的时间和资源。垃圾代码确实有，我们都看得见，而且都是我们自己写的，但这并不是问题。</p>
 <h3><span id="wen-ti-shi-wo-men-you-yi-ge-bu-liang-de-zhe-dai-ma-zhen-la-ji-wen-hua">问题是我们有一个不良的“这代码真垃圾”文化。</span><a href="#wen-ti-shi-wo-men-you-yi-ge-bu-liang-de-zhe-dai-ma-zhen-la-ji-wen-hua" class="header-anchor">#</a></h3><p>这是一种我感觉在web开发社区中越来越常见的文化。接着上面的例子，我请同事解释一下，解释为什么这代码很垃圾，我得不到一个直接的答复。</p>
 <p>“这还不垃圾，你看这代码”，他回答说，那种趾高气扬我需要仰头才能看到他，紧邹的眉头就好象是说，如果不能看出这代码有多烂，那就是个傻子。结果你知道怎么着？我开始感觉有点傻了。我差点就忍不住开始跟着他一起嘲笑，认定这代码真的有多烂，多糟糕。</p>
-<p>在 我继续下面的内容之前，我发现上面的内容并没有在最好的光线下描绘我的同事。所以，让我弥补一下。他是个非常好的小伙。坦白的说，他是我见过的最和善的小 伙之一。他友善，有一个他很爱的家庭，他跑马拉松，乐于助人，聪明，等等等等。还有一点要说明：他是一个经验不多的新手。他还在学一些基础的开发知识。这 没什么好羞愧的，我们都经历过这个阶段。那么，为什么这样一个友善、聪明的小伙，在他参与的第一个大型web项目上，他的第一反应就是去指责一些代码很垃 圾？——他甚至还没有真正的去理解它。<br><a id="more"></a></p>
+<p>在 我继续下面的内容之前，我发现上面的内容并没有在最好的光线下描绘我的同事。所以，让我弥补一下。他是个非常好的小伙。坦白的说，他是我见过的最和善的小 伙之一。他友善，有一个他很爱的家庭，他跑马拉松，乐于助人，聪明，等等等等。还有一点要说明：他是一个经验不多的新手。他还在学一些基础的开发知识。这 没什么好羞愧的，我们都经历过这个阶段。那么，为什么这样一个友善、聪明的小伙，在他参与的第一个大型web项目上，他的第一反应就是去指责一些代码很垃 圾？——他甚至还没有真正的去理解它。</p>
+<a id="more"></a>
+
 <h3><span id="sheng-huo-gui-lu-la-ji-wang-xia-dao">生活规律：垃圾往下倒。</span><a href="#sheng-huo-gui-lu-la-ji-wang-xia-dao" class="header-anchor">#</a></h3><p>这个问题并不单独出现在程序员新手中。很多精明人士都有这 习惯。你也许是一个奇才，一个久经考验的程序员，但如果有这样一种习惯，整个团队和项目都会受到负面影响。因为新手们把你当作知识和经验的源泉。越多的人 拥抱这种“这代码真垃圾”文化，这种文化就会越被认可，越成为模仿的对象。很快，程序员开始变的不是积极在项目上出力，而是去贬低别人在项目上的贡献。最 大嘴、最反面的程序员很快就成了最受尊敬的人。所有人都受折磨，项目受影响，而一部分人却能能得到赞美，为倒是都是垃圾而感到心满意足。</p>
 <h3><span id="wo-men-ying-gai-zen-me-zuo">我们应该怎么做？</span><a href="#wo-men-ying-gai-zen-me-zuo" class="header-anchor">#</a></h3><p>没有人想显得愚蠢，没有人想自己的工作被认为劣质。一旦“这代码真垃圾”文化开始传播，唯一能确保自己在别人之上的办法就是贬低别人。最终，这变成了一种负能量，而不是想着去解决问题。</p>
 <p>那 么，对这样的一种特殊现象有什么解决方法？阻止它。不要不加思索的否定别人的代码——在没有原因、没有理解的情况下。有很多的方式可以处理那些看起来有问 题的代码。如果发现代码中有异味，想办法改进它。从理解这些代码开始，在此基础上修正。如果你发现项目中有一些不良风气，不要跟随。如果有人对你说“这代 码真垃圾”，问他为什么，然后了解查明，去做一些事情让它变的不垃圾。向最初写这些代码的人了解，也许他们这样写代码是有原因的。帮助他们，而不是诋毁他 们。</p>
 <p>下一次，当我发现从显示器里飘出可疑的异味时，我会转身问我的同事，“我们如何改进这段它？”因为，我们要面对它们，有时候代码会很垃圾，但这不意味着我们也去变成垃圾。</p>
-<link href="/css/prism-dark.css" rel="stylesheet">
+
     
   </div>
 </article>

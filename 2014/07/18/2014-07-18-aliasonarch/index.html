@@ -4,7 +4,7 @@
   <html class="dark page-post">
 
 
-<head><meta name="generator" content="Hexo 3.9.0">
+<head>
   <meta charset="utf-8">
   
   <title>ArchLinux配置alias | 如是我闻</title>
@@ -12,21 +12,21 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
   
-    <meta name="keywords" content="Arch,">
+    <meta name="keywords" content="Arch," />
   
 
-  <meta name="description" content="直接用如下命令可以设置alias,但此种方式重启后会丢失,可通过将如下命令加到profile文件的方式来使其永久生效12alias ll=&apos;ls -l&apos;alias ..=&apos;cd ..&apos; 编辑~/.bashrc,将所需alias添加到此文件中即可.另:有的发行版可以通过添加~/.bash_aliases文件来进行指定,在arch中没有进行尝试.不知道是否可行.   vim ~/.bashrc">
-<meta name="keywords" content="Arch">
+  <meta name="description" content="直接用如下命令可以设置alias,但此种方式重启后会丢失,可通过将如下命令加到profile文件的方式来使其永久生效 12alias ll&#x3D;&amp;#x27;ls -l&amp;#x27;alias ..&#x3D;&amp;#x27;cd ..&amp;#x27; 编辑&#x2F;.bashrc,将所需alias添加到此文件中即可.另:有的发行版可以通过添加&#x2F;.bash_aliases文件来进行指定,在arch中没有进行尝试.不知道是否可行.">
 <meta property="og:type" content="article">
 <meta property="og:title" content="ArchLinux配置alias">
 <meta property="og:url" content="https://pkaq.org/2014/07/18/2014-07-18-aliasonarch/index.html">
 <meta property="og:site_name" content="如是我闻">
-<meta property="og:description" content="直接用如下命令可以设置alias,但此种方式重启后会丢失,可通过将如下命令加到profile文件的方式来使其永久生效12alias ll=&apos;ls -l&apos;alias ..=&apos;cd ..&apos; 编辑~/.bashrc,将所需alias添加到此文件中即可.另:有的发行版可以通过添加~/.bash_aliases文件来进行指定,在arch中没有进行尝试.不知道是否可行.   vim ~/.bashrc">
-<meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2016-09-01T08:33:08.674Z">
+<meta property="og:description" content="直接用如下命令可以设置alias,但此种方式重启后会丢失,可通过将如下命令加到profile文件的方式来使其永久生效 12alias ll&#x3D;&amp;#x27;ls -l&amp;#x27;alias ..&#x3D;&amp;#x27;cd ..&amp;#x27; 编辑&#x2F;.bashrc,将所需alias添加到此文件中即可.另:有的发行版可以通过添加&#x2F;.bash_aliases文件来进行指定,在arch中没有进行尝试.不知道是否可行.">
+<meta property="og:locale">
+<meta property="article:published_time" content="2014-07-18T09:31:26.000Z">
+<meta property="article:modified_time" content="2016-09-01T08:33:08.674Z">
+<meta property="article:author" content="PKAQ">
+<meta property="article:tag" content="Arch">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="ArchLinux配置alias">
-<meta name="twitter:description" content="直接用如下命令可以设置alias,但此种方式重启后会丢失,可通过将如下命令加到profile文件的方式来使其永久生效12alias ll=&apos;ls -l&apos;alias ..=&apos;cd ..&apos; 编辑~/.bashrc,将所需alias添加到此文件中即可.另:有的发行版可以通过添加~/.bash_aliases文件来进行指定,在arch中没有进行尝试.不知道是否可行.   vim ~/.bashrc">
 
   
 
@@ -38,7 +38,9 @@
 
 
   
-    <link rel="stylesheet" href="/css/fexo-theme.css">
+    
+<link rel="stylesheet" href="/css/fexo-theme.css">
+
   
 
   
@@ -64,10 +66,10 @@
     <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css">
   
 
-  <link href="//cdn.webfont.youziku.com/webfonts/nomal/97080/42410/5865c4e5f629db00cc915895.css" rel="stylesheet" type="text/css">
+  <link href='//cdn.webfont.youziku.com/webfonts/nomal/97080/42410/5865c4e5f629db00cc915895.css' rel='stylesheet' type='text/css' />
  
-</head>
-</html>
+<meta name="generator" content="Hexo 5.3.0"><link rel="stylesheet" href="/css/prism-dark.css" type="text/css"></head>
+
 <body>
 
 
@@ -206,11 +208,11 @@
 
   <div class="article-content">
     
-      <p>直接用如下命令可以设置alias,但此种方式重启后会丢失,可通过将如下命令加到profile文件的方式来使其永久生效<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">alias ll='ls -l'</span><br><span class="line">alias ..='cd ..'</span><br></pre></td></tr></table></figure></p>
-<p>编辑~/.bashrc,将所需alias添加到此文件中即可.<br>另:有的发行版可以通过添加~/.bash_aliases文件来进行指定,在arch中没有进行尝试.不知道是否可行.  </p>
-<pre class=" language-shell"><code class="language-shell">vim ~/.bashrc  
-</code></pre>
-<link href="/css/prism-dark.css" rel="stylesheet">
+      <p>直接用如下命令可以设置alias,但此种方式重启后会丢失,可通过将如下命令加到profile文件的方式来使其永久生效</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">alias ll=&#x27;ls -l&#x27;</span><br><span class="line">alias ..=&#x27;cd ..&#x27;</span><br></pre></td></tr></table></figure>
+<p>编辑<del>/.bashrc,将所需alias添加到此文件中即可.<br>另:有的发行版可以通过添加</del>/.bash_aliases文件来进行指定,在arch中没有进行尝试.不知道是否可行.  </p>
+<pre class=" language-shell"><code class="language-shell">    vim ~/.bashrc  </code></pre>
+
     
   </div>
 </article>
