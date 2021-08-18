@@ -46,7 +46,7 @@ chmod a+x ./certbot-auto
 ### 证书申请
 
 ```bash
-./cerbot-auto -d yourdomain.com
+./certbot-auto -d yourdomain.com
 ```
 
 > 使用 -d 参数来指定你的域名
