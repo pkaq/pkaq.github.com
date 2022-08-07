@@ -10,7 +10,7 @@ avatar: /images/avatar.jpg
 favicon: /favicon.ico
 
 # For seo
-keywords: PKAQ,Gradle,Java,Spring boot,React native
+keywords: PKAQ,Gradle,Spring,React
 
 home_nav:
   - name: 博客

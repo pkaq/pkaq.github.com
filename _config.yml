@@ -16,6 +16,7 @@ url: https://pkaq.org
 root: /
 permalink: :year/:month/:day/:title/
 permalink_defaults:
+  trailing_index: true
 
 # Directory
 source_dir: source
@@ -30,6 +31,7 @@ skip_render: "now.json"
 # Writing
 new_post_name: :title.md # File name of new posts
 default_layout: post
+auto_spacing: true
 titlecase: false # Transform title into titlecase
 external_link: 
   enable: true# Open external links in new tab
