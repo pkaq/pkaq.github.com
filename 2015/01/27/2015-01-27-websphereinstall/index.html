@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+
+
+  <html class="dark page-post">
+
+
+<head>
+  <meta charset="utf-8">
+  
+  <title>WebSphere安装 | 如是我闻</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="PKAQ,Gradle,Spring,React" />
+  
+
+  <meta name="description" content="下载与安装首先需要下载install manager :https:&#x2F;&#x2F;jazz.net&#x2F;downloads&#x2F;ibm-installation-manager&#x2F; 然后下载webspherehttp:&#x2F;&#x2F;www.ibm.com&#x2F;developerworks&#x2F;cn&#x2F;downloads&#x2F;ws&#x2F;wasdevelopers&#x2F; 安装install manager后,解压WebSphere,通过install">
+<meta property="og:type" content="article">
+<meta property="og:title" content="WebSphere安装">
+<meta property="og:url" content="https://pkaq.org/2015/01/27/2015-01-27-websphereinstall/index.html">
+<meta property="og:site_name" content="如是我闻">
+<meta property="og:description" content="下载与安装首先需要下载install manager :https:&#x2F;&#x2F;jazz.net&#x2F;downloads&#x2F;ibm-installation-manager&#x2F; 然后下载webspherehttp:&#x2F;&#x2F;www.ibm.com&#x2F;developerworks&#x2F;cn&#x2F;downloads&#x2F;ws&#x2F;wasdevelopers&#x2F; 安装install manager后,解压WebSphere,通过install">
+<meta property="og:locale">
+<meta property="og:image" content="https://pkaq.org/images/2015/WebSphere/deploy.png">
+<meta property="og:image" content="https://pkaq.org/images/2015/WebSphere/1.png">
+<meta property="og:image" content="https://pkaq.org/images/2015/WebSphere/2.png">
+<meta property="og:image" content="https://pkaq.org/images/2015/WebSphere/3.png">
+<meta property="og:image" content="https://pkaq.org/images/2015/WebSphere/4.png">
+<meta property="og:image" content="https://pkaq.org/images/2015/WebSphere/5.png">
+<meta property="og:image" content="https://pkaq.org/images/2015/WebSphere/6.png">
+<meta property="og:image" content="https://pkaq.org/images/2015/WebSphere/7.png">
+<meta property="og:image" content="https://pkaq.org/images/2015/WebSphere/8.png">
+<meta property="og:image" content="https://pkaq.org/images/2015/WebSphere/9.png">
+<meta property="article:published_time" content="2015-01-27T10:59:53.000Z">
+<meta property="article:modified_time" content="2016-09-01T08:37:47.668Z">
+<meta property="article:author" content="PKAQ">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://pkaq.org/images/2015/WebSphere/deploy.png">
+
+  
+
+  
+    <link rel="icon" href="/favicon.ico">
+  
+
+  <link href="/css/styles.css?v=d671a41f" rel="stylesheet">
+
+
+  
+    
+<link rel="stylesheet" href="/css/fexo-theme.css">
+
+  
+
+  
+
+  
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?cd1f06c6f057506d537ab11e9f1693be";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+  
+    <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  
+
+  
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  
+
+  <link href='//cdn.webfont.youziku.com/webfonts/nomal/97080/42410/5865c4e5f629db00cc915895.css' rel='stylesheet' type='text/css' />
+ 
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+<body>
+
+
+  
+    <span id="toolbox-mobile" class="toolbox-mobile">　</span>
+  
+
+  <div class="post-header CENTER">
+   
+  <div class="toolbox">
+    <a class="toolbox-entry" href="/">
+      <span class="toolbox-entry-text">　</span>
+      <i class="icon-angle-down"></i>
+      <i class="icon-home"></i>
+    </a>
+    <ul class="list-toolbox">
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE toolbox_color_0"
+            href="/archives/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            博客
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE toolbox_color_1"
+            href="/category/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            分类
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE toolbox_color_2"
+            href="/tag/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            标签
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE toolbox_color_3"
+            href="/link/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            友链
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE toolbox_color_4"
+            href="/atom.xml"
+            rel="noopener noreferrer"
+            target="_blank"
+            >
+            RSS
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE toolbox_color_5"
+            href="/search/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+</div>
+
+
+  <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%8B%E8%BD%BD%E4%B8%8E%E5%AE%89%E8%A3%85"><span class="toc-text">下载与安装</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%83%A8%E7%BD%B2"><span class="toc-text">部署</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%85%8D%E7%BD%AESSL"><span class="toc-text">配置SSL</span></a></li></ol>
+  </div>
+
+
+
+<div class="content content-post CENTER">
+   <article id="post-2015-01-27-websphereinstall" class="article article-type-post" itemprop="blogPost">
+  <header class="article-header">
+    <h1 class="post-title">WebSphere安装</h1>
+
+    <div class="article-meta">
+      <span>
+        <i class="icon-calendar"></i>
+        <span>2015.01.27</span>
+      </span>
+
+      
+        <span class="article-author">
+          <i class="icon-user"></i>
+          <span>PKAQ</span>
+        </span>
+      
+
+      
+
+
+      
+
+      
+      <i class="fa fa-eye"></i> 
+        <span id="busuanzi_container_page_pv">
+           &nbsp热度 <span id="busuanzi_value_page_pv">
+           <i class="fa fa-spinner fa-spin"></i></span>℃
+        </span>
+      
+
+      
+        <i class="icon-comment"></i> 
+        共 <a class="ds-thread-count" id="uyan_count_unit" su="WebSphere安装" href="https://pkaq.org/2015/01/27/2015-01-27-websphereinstall/index.html"></a>
+      
+      
+    </div>
+  </header>
+
+  <div class="article-content">
+    
+      <h3 id="下载与安装"><a href="#下载与安装" class="headerlink" title="下载与安装"></a>下载与安装</h3><p>首先需要下载install manager :<br><a target="_blank" rel="noopener" href="https://jazz.net/downloads/ibm-installation-manager/">https://jazz.net/downloads/ibm-installation-manager/</a></p>
+<p>然后下载websphere<br><a target="_blank" rel="noopener" href="http://www.ibm.com/developerworks/cn/downloads/ws/wasdevelopers/">http://www.ibm.com/developerworks/cn/downloads/ws/wasdevelopers/</a></p>
+<p>安装install manager后,解压WebSphere,通过install manager选择WebSphere解压目录作为安装源,根据向导安装完成即可.</p>
+<span id="more"></span>
+<h3 id="部署"><a href="#部署" class="headerlink" title="部署"></a>部署</h3><p>安装完毕后会启动一个toolbox向导,创建一个应用服务器的概要文件即可,启动与停止可以通过webaphere application server控制台窗口进行控制<br>具体部署应用可通过应用程序-&gt;新建应用程序,按照向导提示进行部署<br><img src="/images/2015/WebSphere/deploy.png" alt="项目部署"> </p>
+<h3 id="配置SSL"><a href="#配置SSL" class="headerlink" title="配置SSL"></a>配置SSL</h3><p>我们这里介绍的WAS SSL配置是基于WAS的Application Server基础之上，如果要基于WAS的Http Server请参考其它章节。这里介绍的是在已安装好的WAS Application Server上配置SSL，因为WAS提供了完善的可视化配置界面，所以整个配置过程相比Tomcat要简单和直观很多，具体配置步骤如下。<br>1.首先进入WAS的管理控制台，展开左边菜单当中”安全性一栏”，点击其中的”证书和密钥管理”，如下图所示：<br><img src="/images/2015/WebSphere/1.png" alt="项目部署"><br>点击之后，在右边出现的页面当中点击”管理端点安全配置”，如下图所示：<br><img src="/images/2015/WebSphere/2.png" alt="项目部署"><br>在出现的”管理端点安全配置”出现的配置页面当中，我们首先选择”入站”配置，点击如下图所示的链接：<br><img src="/images/2015/WebSphere/3.png" alt="项目部署"><br>在当前节点配置页面当中，点击”管理证书”按钮，将我们创建的名为server.keystore的证书文件添加到WAS当中。如下图所示：<br><img src="/images/2015/WebSphere/4.png" alt="项目部署"><br>在出现的证书管理窗口当中，通过点击”导入”按钮，将我们创建的名为server.keystore证书文件导入到证书库中。<br><img src="/images/2015/WebSphere/5.png" alt="项目部署"><br>当然，如果您没有这个server.keystore文件，也可以通过这个窗口当中的提供的名为”创建自签署证书”按钮来创建一个新的证书，可以看到，这个创建界面与JDK当中提供的功能相同，只是它是以可视化的方式供我们创建一个证书。<br>选择导入证书后，我们可以看到如下图所示界面：<br><img src="/images/2015/WebSphere/6.png" alt="项目部署"><br>密钥文件名：是指包含完整路径的本地和server.keystore的位置，比如：E:\cas\server.keystore等<br>类型:我们的server.keystore加密类型为JKS，所以需要从下拉框中选择JKS即可。<br>密钥文件密码:我们在生成这个server.keystore证书时使用的密码，我们这里是changeit，所以输入changeit即可。<br>一旦这三个属性输入完成，可以点击”密钥文件密码”属性边上的”获取密钥文件别名”按钮，如果我们前三个属性输入正确，就可以在下面的”要导入的证书别名”属性列表中看到server.keystore证书的别名，我们这里为”tomcat”，最后点击确定保存即可，输入好的信息如下图所示：<br><img src="/images/2015/WebSphere/7.png" alt="项目部署"><br>返回到”管理端点安全配置”窗口，点击入站Node节点，进入到该节点的具体配置界面，将其”密钥库中的证书别名”属性值修改为我们之前添加的server.keystore证书，它的别名为tomcat，如下图所示：<br><img src="/images/2015/WebSphere/8.png" alt="项目部署"><br>再次回到”管理端点安全配置”窗口，点击出站Node节点，进入到该节点的具体配置界面,同样将其”密钥库中的证书别名”属性值修改为我们之前添加的server.keystore证书，它的别名为tomcat，这些工作做完之后，我们就将当前WAS Application Server的SSL采用的证书修改成我们自定义的名为server.keystore的证书。<br>WAS Application Server证书配置完成之后，为了验证当前证书配置的正确性，可以点击浏览器的地址栏中的证书信息进行查看，如下图所示：<br><img src="/images/2015/WebSphere/9.png" alt="项目部署"><br>最后可以将我们的CAS Server部署到WAS application Server当中，并配置好相应的应用客户端，测试其运行是否正常。</p>
+
+    
+  </div>
+</article>
+
+</div>
+
+
+  <div class="text-center donation">
+    <div class="inner-donation">
+      <span class="btn-donation">支持一下</span>
+      <div class="donation-body">
+        <div class="tip text-center">您得支持,是我前进的动力.</div>
+        <ul class="theme.donation.items.length">
+        
+          <li class="item">
+            <img src="/css/qr-donate.jpg" alt="">
+          </li>
+        
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+
+
+  <a id="backTop" class="back-top">
+    <i class="icon-angle-up"></i>
+  </a>
+
+
+
+
+  <div class="modal" id="modal">
+  <span id="cover" class="cover hide"></span>
+  <div id="modal-dialog" class="modal-dialog hide-dialog">
+    <div class="modal-header">
+      <span id="close" class="btn-close">关闭</span>
+    </div>
+    <hr>
+    <div class="modal-body">
+      <ul class="list-toolbox">
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/archives/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              博客
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/category/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              分类
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/tag/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              标签
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/link/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              友链
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/atom.xml"
+              rel="noopener noreferrer"
+              target="_blank"
+              >
+              RSS
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/search/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              搜索
+            </a>
+          </li>
+        
+      </ul>
+
+    </div>
+  </div>
+</div>
+
+
+
+  
+      <div class="fexo-comments comments-post">
+    
+
+    
+  <section class="duoshuo-comments">
+
+    <!-- UY BEGIN -->
+    <div id="uyan_frame"></div>
+    <script async type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid=2144561">
+    <!-- UY END -->
+  </section>
+
+  <script type="text/javascript">
+	var uyan_config = {
+	     'su':"WebSphere安装" 
+	};
+	</script>
+
+
+
+  </div>
+
+  
+
+  <script type="text/javascript">
+  function loadScript(url, callback) {
+    var script = document.createElement('script')
+    script.type = 'text/javascript';
+
+    if (script.readyState) { //IE
+      script.onreadystatechange = function() {
+        if (script.readyState == 'loaded' ||
+          script.readyState == 'complete') {
+          script.onreadystatechange = null;
+          callback();
+        }
+      };
+    } else { //Others
+      script.onload = function() {
+        callback();
+      };
+    }
+
+    script.src = url;
+    document.getElementsByTagName('head')[0].appendChild(script);
+  }
+
+  window.onload = function() {
+    loadScript('/js/bundle.js?235683', function() {
+      // load success
+    });
+  }
+</script>
+
+</body>
+</html>

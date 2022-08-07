@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+
+
+  <html class="dark page-post">
+
+
+<head>
+  <meta charset="utf-8">
+  
+  <title>基于注解的控制器：Spring Web/WebFlux 和 测试 | 如是我闻</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="Spring Boot,Spring cloud,Spring," />
+  
+
+  <meta name="description" content="Spring Web和Spring WebFlux两个名字看上去很相似，那么进行测试时是否也类似呢？下面就让我们了解一下它们在进行测试时的不同。原文链接：https:&#x2F;&#x2F;dzone.com&#x2F;articles&#x2F;annotated-controllers-spring-webwebflux-and-testin 作者：Biju Kunjummen ，2017-12-05  发布于 Java Zone">
+<meta property="og:type" content="article">
+<meta property="og:title" content="基于注解的控制器：Spring Web&#x2F;WebFlux 和 测试">
+<meta property="og:url" content="https://pkaq.org/2018/05/21/annotated-controllers-spring-webwebflux-and-testin/index.html">
+<meta property="og:site_name" content="如是我闻">
+<meta property="og:description" content="Spring Web和Spring WebFlux两个名字看上去很相似，那么进行测试时是否也类似呢？下面就让我们了解一下它们在进行测试时的不同。原文链接：https:&#x2F;&#x2F;dzone.com&#x2F;articles&#x2F;annotated-controllers-spring-webwebflux-and-testin 作者：Biju Kunjummen ，2017-12-05  发布于 Java Zone">
+<meta property="og:locale">
+<meta property="article:published_time" content="2018-05-21T12:53:09.000Z">
+<meta property="article:modified_time" content="2018-05-21T12:57:04.479Z">
+<meta property="article:author" content="PKAQ">
+<meta property="article:tag" content="Spring Boot">
+<meta property="article:tag" content="Spring cloud">
+<meta property="article:tag" content="Spring">
+<meta name="twitter:card" content="summary">
+
+  
+
+  
+    <link rel="icon" href="/favicon.ico">
+  
+
+  <link href="/css/styles.css?v=d671a41f" rel="stylesheet">
+
+
+  
+    
+<link rel="stylesheet" href="/css/fexo-theme.css">
+
+  
+
+  
+
+  
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?cd1f06c6f057506d537ab11e9f1693be";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+  
+    <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  
+
+  
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  
+
+  <link href='//cdn.webfont.youziku.com/webfonts/nomal/97080/42410/5865c4e5f629db00cc915895.css' rel='stylesheet' type='text/css' />
+ 
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+<body>
+
+
+  
+    <span id="toolbox-mobile" class="toolbox-mobile">　</span>
+  
+
+  <div class="post-header CENTER">
+   
+  <div class="toolbox">
+    <a class="toolbox-entry" href="/">
+      <span class="toolbox-entry-text">　</span>
+      <i class="icon-angle-down"></i>
+      <i class="icon-home"></i>
+    </a>
+    <ul class="list-toolbox">
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE toolbox_color_0"
+            href="/archives/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            博客
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE toolbox_color_1"
+            href="/category/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            分类
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE toolbox_color_2"
+            href="/tag/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            标签
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE toolbox_color_3"
+            href="/link/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            友链
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE toolbox_color_4"
+            href="/atom.xml"
+            rel="noopener noreferrer"
+            target="_blank"
+            >
+            RSS
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE toolbox_color_5"
+            href="/search/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+</div>
+
+
+  <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-text"></span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Spring-Web%E5%92%8CSpring-WebFlux%E4%B8%A4%E4%B8%AA%E5%90%8D%E5%AD%97%E7%9C%8B%E4%B8%8A%E5%8E%BB%E5%BE%88%E7%9B%B8%E4%BC%BC%EF%BC%8C%E9%82%A3%E4%B9%88%E8%BF%9B%E8%A1%8C%E6%B5%8B%E8%AF%95%E6%97%B6%E6%98%AF%E5%90%A6%E4%B9%9F%E7%B1%BB%E4%BC%BC%E5%91%A2%EF%BC%9F%E4%B8%8B%E9%9D%A2%E5%B0%B1%E8%AE%A9%E6%88%91%E4%BB%AC%E4%BA%86%E8%A7%A3%E4%B8%80%E4%B8%8B%E5%AE%83%E4%BB%AC%E5%9C%A8%E8%BF%9B%E8%A1%8C%E6%B5%8B%E8%AF%95%E6%97%B6%E7%9A%84%E4%B8%8D%E5%90%8C%E3%80%82"><span class="toc-text">Spring Web和Spring WebFlux两个名字看上去很相似，那么进行测试时是否也类似呢？下面就让我们了解一下它们在进行测试时的不同。</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Endpoint%E7%A4%BA%E4%BE%8B"><span class="toc-text">Endpoint示例</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Spring-Web%E7%9A%84%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95"><span class="toc-text">Spring Web的单元测试</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Spring-WebFlux%E7%9A%84%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95"><span class="toc-text">Spring WebFlux的单元测试</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%93%E8%AE%BA"><span class="toc-text">结论</span></a></li></ol></li></ol>
+  </div>
+
+
+
+<div class="content content-post CENTER">
+   <article id="post-annotated-controllers-spring-webwebflux-and-testin" class="article article-type-post" itemprop="blogPost">
+  <header class="article-header">
+    <h1 class="post-title">基于注解的控制器：Spring Web/WebFlux 和 测试</h1>
+
+    <div class="article-meta">
+      <span>
+        <i class="icon-calendar"></i>
+        <span>2018.05.21</span>
+      </span>
+
+      
+        <span class="article-author">
+          <i class="icon-user"></i>
+          <span>PKAQ</span>
+        </span>
+      
+
+      
+  <span class="article-category">
+    <i class="icon-list"></i>
+    <a class="article-category-link" href="/categories/Spring/">Spring</a>
+  </span>
+
+
+
+      
+
+      
+      <i class="fa fa-eye"></i> 
+        <span id="busuanzi_container_page_pv">
+           &nbsp热度 <span id="busuanzi_value_page_pv">
+           <i class="fa fa-spinner fa-spin"></i></span>℃
+        </span>
+      
+
+      
+        <i class="icon-comment"></i> 
+        共 <a class="ds-thread-count" id="uyan_count_unit" su="基于注解的控制器：Spring Web/WebFlux 和 测试" href="https://pkaq.org/2018/05/21/annotated-controllers-spring-webwebflux-and-testin/index.html"></a>
+      
+      
+    </div>
+  </header>
+
+  <div class="article-content">
+    
+      <h1 id=""><a href="#" class="headerlink" title=""></a></h1><h3 id="Spring-Web和Spring-WebFlux两个名字看上去很相似，那么进行测试时是否也类似呢？下面就让我们了解一下它们在进行测试时的不同。"><a href="#Spring-Web和Spring-WebFlux两个名字看上去很相似，那么进行测试时是否也类似呢？下面就让我们了解一下它们在进行测试时的不同。" class="headerlink" title="Spring Web和Spring WebFlux两个名字看上去很相似，那么进行测试时是否也类似呢？下面就让我们了解一下它们在进行测试时的不同。"></a>Spring Web和Spring WebFlux两个名字看上去很相似，那么进行测试时是否也类似呢？下面就让我们了解一下它们在进行测试时的不同。</h3><p>原文链接：<a target="_blank" rel="noopener" href="https://dzone.com/articles/annotated-controllers-spring-webwebflux-and-testin">https://dzone.com/articles/annotated-controllers-spring-webwebflux-and-testin</a></p>
+<p>作者：Biju Kunjummen ，2017-12-05  发布于 Java Zone   </p>
+<p>译者：<a href="http://pkaq.org/">PKAQ</a> , 2018-05-20 发布于 Spring4All    </p>
+<p><a target="_blank" rel="noopener" href="https://docs.spring.io/spring/docs/current/spring-framework-reference/web-reactive.html#spring-webflux">Spring WebFlux</a> 和 <a target="_blank" rel="noopener" href="https://docs.spring.io/spring/docs/current/spring-framework-reference/web.html#spring-web">Spring Web </a> 采用的是两个完全不同的技术栈。不过， Spring Webflux 依旧支持基于注解的编程模型。  </p>
+<p>二者定义<code>endpoint(功能性端点)</code>的方式是类似的，但是对<code>endpoint(功能性端点)</code>进行单元测试时有着明显的不同。你必须明确所选用的技术栈来编写不同的单元测试方法。  </p>
+<h2 id="Endpoint示例"><a href="#Endpoint示例" class="headerlink" title="Endpoint示例"></a>Endpoint示例</h2><p>一个基于注解的<code>endpoint</code>示例:   </p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.PostMapping</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.RequestBody</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.RequestMapping</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.RestController</span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line">data <span class="keyword">class</span> <span class="title class_">Greeting</span>(val message: String)</span><br><span class="line"> </span><br><span class="line"><span class="meta">@RestController</span></span><br><span class="line"><span class="meta">@RequestMapping(&quot;/web&quot;)</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">GreetingController</span> &#123;</span><br><span class="line">     </span><br><span class="line">    <span class="meta">@PostMapping(&quot;/greet&quot;)</span></span><br><span class="line">    fun <span class="title function_">handleGreeting</span><span class="params">(<span class="meta">@RequestBody</span> greeting: Greeting)</span>: Greeting &#123;</span><br><span class="line">        <span class="keyword">return</span> Greeting(<span class="string">&quot;Thanks: $&#123;greeting.message&#125;&quot;</span>)</span><br><span class="line">    &#125;</span><br><span class="line">     </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Spring-Web的单元测试"><a href="#Spring-Web的单元测试" class="headerlink" title="Spring Web的单元测试"></a>Spring Web的单元测试</h2><p>如果采用基于<code>Spring Web</code>的starter创建应用，那么可以按如下方式在<code>Gradle</code>配置文件中引入依赖。   </p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">compile(<span class="string">&#x27;org.springframework.boot:spring-boot-starter-web&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+<p>接下来采用 <a target="_blank" rel="noopener" href="https://docs.spring.io/spring/docs/current/spring-framework-reference/testing.html#spring-mvc-test-framework">Mock MVC </a>来对上面的<code>endpoint(功能性端点)</code>执行一个模拟的web测试。   </p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> org.junit.Test</span><br><span class="line"><span class="keyword">import</span> org.junit.runner.RunWith</span><br><span class="line"><span class="keyword">import</span> org.springframework.beans.factory.annotation.Autowired</span><br><span class="line"><span class="keyword">import</span> org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest</span><br><span class="line"><span class="keyword">import</span> org.springframework.test.context.junit4.SpringRunner</span><br><span class="line"><span class="keyword">import</span> org.springframework.test.web.servlet.MockMvc</span><br><span class="line"><span class="keyword">import</span> org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post</span><br><span class="line"><span class="keyword">import</span> org.springframework.test.web.servlet.result.MockMvcResultMatchers.content</span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line"><span class="meta">@RunWith(SpringRunner::class)</span></span><br><span class="line"><span class="meta">@WebMvcTest(GreetingController::class)</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">GreetingControllerMockMvcTest</span> &#123;</span><br><span class="line"> </span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    lateinit <span class="keyword">var</span> mockMvc: MockMvc</span><br><span class="line"> </span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    fun <span class="title function_">testHandleGreetings</span><span class="params">()</span> &#123;</span><br><span class="line">        mockMvc</span><br><span class="line">                .perform(</span><br><span class="line">                        post(<span class="string">&quot;/web/greet&quot;</span>)</span><br><span class="line">                                .content(<span class="string">&quot;&quot;&quot; </span></span><br><span class="line"><span class="string">                                |&#123;</span></span><br><span class="line"><span class="string">                                |&quot;message&quot;: &quot;Hello Web&quot;</span></span><br><span class="line"><span class="string">                                |&#125;</span></span><br><span class="line"><span class="string">                            &quot;&quot;&quot;</span>.trimMargin())</span><br><span class="line">                ).andExpect(content().json(<span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">                    |&#123;</span></span><br><span class="line"><span class="string">                    |&quot;message&quot;: &quot;Thanks: Hello Web&quot;</span></span><br><span class="line"><span class="string">                    |&#125;</span></span><br><span class="line"><span class="string">                &quot;&quot;&quot;</span>.trimMargin()))</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Spring-WebFlux的单元测试"><a href="#Spring-WebFlux的单元测试" class="headerlink" title="Spring WebFlux的单元测试"></a>Spring WebFlux的单元测试</h2><p>首先，像上面一样，采用如下方式引入<code>Spring-WebFlux</code>相关依赖</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">compile(<span class="string">&#x27;org.springframework.boot:spring-boot-starter-webflux&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+<p>然后，可以使用 <a target="_blank" rel="noopener" href="https://docs.spring.io/spring/docs/current/spring-framework-reference/testing.html#webtestclient">WebTestClient</a> 类对上面的<code>endpoint</code>编写单元测试。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> org.junit.Test</span><br><span class="line"><span class="keyword">import</span> org.junit.runner.RunWith</span><br><span class="line"><span class="keyword">import</span> org.springframework.beans.factory.annotation.Autowired</span><br><span class="line"><span class="keyword">import</span> org.springframework.boot.test.autoconfigure.web.reactive.WebFluxTest</span><br><span class="line"><span class="keyword">import</span> org.springframework.http.HttpHeaders</span><br><span class="line"><span class="keyword">import</span> org.springframework.test.context.junit4.SpringRunner</span><br><span class="line"><span class="keyword">import</span> org.springframework.test.web.reactive.server.WebTestClient</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.reactive.function.BodyInserters</span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line"><span class="meta">@RunWith(SpringRunner::class)</span></span><br><span class="line"><span class="meta">@WebFluxTest(GreetingController::class)</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">GreetingControllerTest</span> &#123;</span><br><span class="line"> </span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    lateinit <span class="keyword">var</span> webTestClient: WebTestClient</span><br><span class="line"> </span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    fun <span class="title function_">testHandleGreetings</span><span class="params">()</span> &#123;</span><br><span class="line">        webTestClient.post()</span><br><span class="line">                .uri(<span class="string">&quot;/web/greet&quot;</span>)</span><br><span class="line">                .header(HttpHeaders.CONTENT_TYPE, <span class="string">&quot;application/json&quot;</span>)</span><br><span class="line">                .body(BodyInserters</span><br><span class="line">                        .fromObject(<span class="string">&quot;&quot;&quot; </span></span><br><span class="line"><span class="string">                                |&#123;</span></span><br><span class="line"><span class="string">                                |   &quot;message&quot;: &quot;Hello Web&quot;</span></span><br><span class="line"><span class="string">                                |&#125;</span></span><br><span class="line"><span class="string">                            &quot;&quot;&quot;</span>.trimMargin()))</span><br><span class="line">                 <span class="comment">//使用exchange（）方法来检索响应           </span></span><br><span class="line">                .exchange()</span><br><span class="line">                .expectStatus().isOk</span><br><span class="line">                .expectBody()</span><br><span class="line">                .json(<span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">                    |&#123;</span></span><br><span class="line"><span class="string">                    |   &quot;message&quot;: &quot;Thanks: Hello Web&quot;</span></span><br><span class="line"><span class="string">                    |&#125;</span></span><br><span class="line"><span class="string">                &quot;&quot;&quot;</span>.trimMargin())</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h2><p>显而易见，<code>Spring Web</code>和<code>Spring WebFlux</code>两者的编码方式十分相似，并且<code>Spirng WebFlux</code>也延续了<code>Spring  Web</code>的测试方式。但是，作为一名开发者，应该注意到它们之间潜在的不同并根据实际情况编写测试代码。希望你通过这篇文章能了解到来如何编写不同的用例代码。</p>
+
+    
+  </div>
+</article>
+
+</div>
+
+
+  <div class="text-center donation">
+    <div class="inner-donation">
+      <span class="btn-donation">支持一下</span>
+      <div class="donation-body">
+        <div class="tip text-center">您得支持,是我前进的动力.</div>
+        <ul class="theme.donation.items.length">
+        
+          <li class="item">
+            <img src="/css/qr-donate.jpg" alt="">
+          </li>
+        
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+
+
+  <a id="backTop" class="back-top">
+    <i class="icon-angle-up"></i>
+  </a>
+
+
+
+
+  <div class="modal" id="modal">
+  <span id="cover" class="cover hide"></span>
+  <div id="modal-dialog" class="modal-dialog hide-dialog">
+    <div class="modal-header">
+      <span id="close" class="btn-close">关闭</span>
+    </div>
+    <hr>
+    <div class="modal-body">
+      <ul class="list-toolbox">
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/archives/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              博客
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/category/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              分类
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/tag/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              标签
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/link/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              友链
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/atom.xml"
+              rel="noopener noreferrer"
+              target="_blank"
+              >
+              RSS
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/search/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              搜索
+            </a>
+          </li>
+        
+      </ul>
+
+    </div>
+  </div>
+</div>
+
+
+
+  
+      <div class="fexo-comments comments-post">
+    
+
+    
+  <section class="duoshuo-comments">
+
+    <!-- UY BEGIN -->
+    <div id="uyan_frame"></div>
+    <script async type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid=2144561">
+    <!-- UY END -->
+  </section>
+
+  <script type="text/javascript">
+	var uyan_config = {
+	     'su':"基于注解的控制器：Spring Web/WebFlux 和 测试" 
+	};
+	</script>
+
+
+
+  </div>
+
+  
+
+  <script type="text/javascript">
+  function loadScript(url, callback) {
+    var script = document.createElement('script')
+    script.type = 'text/javascript';
+
+    if (script.readyState) { //IE
+      script.onreadystatechange = function() {
+        if (script.readyState == 'loaded' ||
+          script.readyState == 'complete') {
+          script.onreadystatechange = null;
+          callback();
+        }
+      };
+    } else { //Others
+      script.onload = function() {
+        callback();
+      };
+    }
+
+    script.src = url;
+    document.getElementsByTagName('head')[0].appendChild(script);
+  }
+
+  window.onload = function() {
+    loadScript('/js/bundle.js?235683', function() {
+      // load success
+    });
+  }
+</script>
+
+</body>
+</html>
