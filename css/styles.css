@@ -320,6 +320,36 @@
 	-webkit-text-size-adjust: 100%
 }
 
+@font-face {
+	font-family: "iconfont"; /* Project id  */
+	src: url('/fonts/iconfont.ttf?t=1659872368134') format('truetype');
+  }
+  
+  .iconfont {
+	font-family: "iconfont" !important;
+	font-size: 16px;
+	font-style: normal;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+  }
+  
+  .icon-Left-:before {
+	content: "\e744";
+  }
+  
+  .icon-Right-:before {
+	content: "\eb9e";
+  }
+  
+  .icon-angle-right:before {
+	content: "\e607";
+  }
+  
+  .icon-angle-left:before {
+	content: "\e608";
+  }
+  
+
 body {
 	margin: 0
 }
@@ -686,8 +716,17 @@ figure.highlight {
 	display: block
 }
 
+.pk-page-header{
+	display: flex;
+	height:30vh;
+	background: #1e1e1e;
+	padding-left: 20%;
+	padding-right:20%;
+	align-items: center;
+}
+
 .content {
-	width: 500px;
+	width: 60%;
 	margin: 40px auto 80px;
 	border-left: 4px solid #f9f9f9
 }
@@ -866,7 +905,7 @@ html.bg {
 	font-size: 16px;
 	font-weight: 200;
 	margin-bottom: 26px;
-	color: #666
+	color: #efefef
 }
 
 .content-home .nav {
@@ -1007,7 +1046,7 @@ html.dark .content-home .nav .item a:hover {
 
 @media screen and (min-width: 768px) {
 	.content.content-about {
-		width: 500px
+		width: 60%;
 	}
 }
 
@@ -1046,7 +1085,7 @@ html.dark .content-home .nav .item a:hover {
 	background: #f0f0f0;
 	height: 36px;
 	border-radius: 36px;
-	width: 400px;
+	width: 60%;
 	overflow: hidden
 }
 
@@ -1130,7 +1169,7 @@ html.dark .content-home .nav .item a:hover {
 
 @media screen and (min-width: 768px) {
 	.content.content-search {
-		width: 500px
+		width: 60%;
 	}
 }
 
@@ -1253,7 +1292,7 @@ html.dark .content-home .nav .item a:hover {
 
 @media screen and (min-width: 768px) {
 	.content.content-post {
-		width: 760px;
+		width: 60%;
 		margin-top: 60px
 	}
 }
@@ -1359,7 +1398,7 @@ html.dark .content-home .nav .item a:hover {
 
 @media screen and (min-width: 768px) {
 	.content.content-link {
-		width: 500px
+		width: 60%;
 	}
 
 	.content.content-link hr {
@@ -1449,7 +1488,7 @@ html.dark .content-home .nav .item a:hover {
 
 @media screen and (min-width: 768px) {
 	.content.content-project {
-		width: 500px
+		width: 60%;
 	}
 }
 
@@ -1506,12 +1545,17 @@ table td,table th {
 }
 
 .page-header .box-blog-info {
-	display: block
+	
+    display: flex;
+	
 }
 
 .page-header .box-blog-info .avatar,.page-header .box-blog-info .info {
 	display: inline-block;
-	vertical-align: middle
+	vertical-align: middle;
+	margin-left: 60px;
+    height: 80px;
+    line-height: 40px;
 }
 
 .page-header .box-blog-info img {
@@ -1528,12 +1572,12 @@ table td,table th {
 	font-size: 24px;
 	font-weight: bold;
 	margin: 0;
-	color: #000
+	color: #eee
 }
 
 .page-header .box-blog-info .info .slogan {
 	display: inline-block;
-	color: #999
+	color: #EEEEEE;
 }
 
 @media screen and (min-width: 768px) {
@@ -1546,8 +1590,7 @@ table td,table th {
 	}
 
 	.page-header .box-blog-info {
-		display: block;
-		margin-left: -30px
+		display: flex;
 	}
 }
 
@@ -1577,7 +1620,7 @@ table td,table th {
 	}
 
 	.page-header .box-blog-info .info {
-		display: inline-block
+		display: inline-block;
 	}
 
 	.page-header .box-blog-info .info .name {
@@ -1615,13 +1658,13 @@ table td,table th {
 }
 
 .pagination .page-nav .extend {
-	font-size: 20px;
+	font-size: 16px;
 	line-height: 25px;
 	display: inline-block;
 	width: 28px;
 	height: 28px;
 	text-align: center;
-	color: #444;
+	color: #666;
 	border-radius: 50%;
 	-webkit-transition-duration: .5s;
 	transition-duration: .5s;
@@ -1653,26 +1696,6 @@ table td,table th {
 	margin-left: -5px;
 	content: ' ';
 	border-radius: 50%
-}
-
-.item-title.item-title-0:before {
-	background: #1abc9c
-}
-
-.item-title.item-title-1:before {
-	background: #3498db
-}
-
-.item-title.item-title-2:before {
-	background: #9b59b6
-}
-
-.item-title.item-title-3:before {
-	background: #e67e22
-}
-
-.item-title.item-title-4:before {
-	background: #e74c3c
 }
 
 .item-post {
@@ -1766,105 +1789,30 @@ table td,table th {
 .toolbox {
 	position: relative;
 	width: 60px;
-	height: 40px;
+	height: 60px;
 	border-radius: 20px;
-	background: transparent
+	background: transparent;
+	color: #ccc;
 }
 
-.toolbox:hover {
-	width: 200px
-}
-
-.toolbox:hover .toolbox-entry .icon-angle-down {
-	display: none
-}
-
-.toolbox:hover .toolbox-entry .toolbox-entry-text {
-	display: inline-block
-}
-
-.toolbox:hover .list-toolbox {
-	display: block
-}
-
-.toolbox:hover .list-toolbox li a {
-	-webkit-animation-duration: .8s;
-	animation-duration: .8s;
-	-webkit-animation-fill-mode: both;
-	animation-fill-mode: both
-}
-
-.toolbox:hover .list-toolbox li:nth-child(1) a {
-	-webkit-animation-name: fadeIn;
-	animation-name: fadeIn
-}
-
-.toolbox:hover .list-toolbox li:nth-child(2) a {
-	-webkit-animation-name: fadeIn;
-	animation-name: fadeIn;
-	-webkit-animation-delay: .1s;
-	animation-delay: .1s
-}
-
-.toolbox:hover .list-toolbox li:nth-child(3) a {
-	-webkit-animation-name: fadeIn;
-	animation-name: fadeIn;
-	-webkit-animation-delay: .2s;
-	animation-delay: .2s
-}
-
-.toolbox:hover .list-toolbox li:nth-child(4) a {
-	-webkit-animation-name: fadeIn;
-	animation-name: fadeIn;
-	-webkit-animation-delay: .3s;
-	animation-delay: .3s
-}
-
-.toolbox:hover .list-toolbox li:nth-child(5) a {
-	-webkit-animation-name: fadeIn;
-	animation-name: fadeIn;
-	-webkit-animation-delay: .4s;
-	animation-delay: .4s
-}
-
-.toolbox:hover .list-toolbox li:nth-child(6) a {
-	-webkit-animation-name: fadeIn;
-	animation-name: fadeIn;
-	-webkit-animation-delay: .5s;
-	animation-delay: .5s
-}
-
-.toolbox:hover .list-toolbox li:nth-child(7) a {
-	-webkit-animation-name: fadeIn;
-	animation-name: fadeIn;
-	-webkit-animation-delay: .6s;
-	animation-delay: .6s
-}
-
-.toolbox:hover .list-toolbox li:nth-child(8) a {
-	-webkit-animation-name: fadeIn;
-	animation-name: fadeIn;
-	-webkit-animation-delay: .7s;
-	animation-delay: .7s
-}
 .toolbox .toolbox-entry {
 	position: relative;
 	font-size: 13px;
-	line-height: 40px;
+	line-height: 60px;
 	display: block;
-	width: 40px;
-	height: 40px;
+	width: 80px;
+	height: 80px;
 	margin-bottom: 20px;
 	-webkit-transition-duration: .5s;
 	transition-duration: .5s;
 	text-align: center;
 	color: #555;
-	border-radius: 50%;
+	border-radius: 20%;
 	background: url('../images/pkaq.jpg');
 	background-repeat:no-repeat; 
 	background-size:100% 100%;
 	-moz-background-size:100% 100%;
-	transition-propety: background-color
+	transition-propety: background-color;
 }
 
 .toolbox .toolbox-entry .icon-angle-down {
@@ -1883,23 +1831,12 @@ table td,table th {
 
 .toolbox .toolbox-entry:hover {
 	cursor: pointer;
-	background: #dfdfdf
-}
-
-.toolbox .toolbox-entry:hover .icon-angle-down,.toolbox .toolbox-entry:hover .toolbox-entry-text {
-	display: none
-}
-
-.toolbox .toolbox-entry:hover .icon-home {
-	display: inline-block
 }
 
 .toolbox .list-toolbox {
-	position: absolute;
-	top: -17px;
-	left: 46px;
-	display: none;
-	width: 500px
+	position: relative;
+	/* display: none; */
+	width: 100vw;
 }
 
 .toolbox .list-toolbox .item-toolbox {
@@ -1907,21 +1844,22 @@ table td,table th {
 }
 
 .toolbox .list-toolbox .item-toolbox a {
-	font-size: 13px;
-	line-height: 40px;
+	font-weight: bold;
+	font-size: 15px;
+	line-height: 30px;
+	padding-left: 8px ;
+	padding-right: 8px ;
 	display: inline-block;
-	height: 40px;
 	margin-bottom: 20px;
 	-webkit-transition-duration: .5s;
 	transition-duration: .5s;
 	text-align: center;
-	color: #555;
-	border-radius: 20px;
+	color: #ececec;
 	transition-propety: background-color
 }
 
 .toolbox .list-toolbox .item-toolbox a.CIRCLE {
-	width: 40px
+	width: 60px
 }
 
 .toolbox .list-toolbox .item-toolbox a.ROUND_RECT {
@@ -1929,7 +1867,9 @@ table td,table th {
 }
 
 .toolbox .list-toolbox .item-toolbox a:hover {
-	background: #dfdfdf
+	background: #FFF;
+	width: 100px;
+	color: #333;
 }
 
 @media screen and (max-width: 767px) {
@@ -1940,10 +1880,10 @@ table td,table th {
 
 .toolbox-mobile {
 	font-size: 13px;
-	line-height: 40px;
+	line-height: 60px;
 	display: block;
-	width: 40px;
-	height: 40px;
+	width: 60px;
+	height: 60px;
 	-webkit-transition-duration: .5s;
 	transition-duration: .5s;
 	text-align: center;
@@ -2068,9 +2008,9 @@ table td,table th {
 
 .toc-article {
 	position: absolute;
-	left: 50%;
+	left: 60%;
 	margin-left: 400px;
-	top: 200px;
+	top: calc(30vh + 150px);
 	font-size: 13px
 }
 
@@ -2368,9 +2308,9 @@ a.back-top:hover i {
 
 .modal-body .list-toolbox .item-toolbox a {
 	font-size: 13px;
-	line-height: 40px;
+	line-height: 60px;
 	display: inline-block;
-	height: 40px;
+	height: 60px;
 	margin: 5px 2px;
 	-webkit-transition-duration: .5s;
 	transition-duration: .5s;
@@ -2381,7 +2321,7 @@ a.back-top:hover i {
 }
 
 .modal-body .list-toolbox .item-toolbox a.CIRCLE {
-	width: 40px
+	width: 60px
 }
 
 .modal-body .list-toolbox .item-toolbox a.ROUND_RECT {
