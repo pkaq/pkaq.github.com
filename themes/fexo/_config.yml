@@ -50,7 +50,7 @@ page_nav_style: CIRCLE  # CIRCLE|ROUND_RECT
 
 # 面包屑
 breadcrumb:
-  isShow: true # true|fase
+  isShow: false # true|fase
 
 # 盒子
 toolbox:

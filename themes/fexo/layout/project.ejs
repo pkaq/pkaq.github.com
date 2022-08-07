@@ -1,5 +1,8 @@
+<div class="pk-page-header">	
+  <%- partial('_partial/component/page-header', {location: __('location.categories')}) %>
+</div>
+
 <div class="content content-project">
-  <%- partial('_partial/component/page-header', {location: __('location.projects')}) %>
 
   <ul class="project-list">
     <% theme.project.forEach(function(item, i){ %>

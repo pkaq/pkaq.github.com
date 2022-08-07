@@ -1,4 +1,4 @@
-<div class="page-header">
+<div class="page-header" >
 
   <% if(theme.breadcrumb && theme.breadcrumb.isShow == true) { %>
     <div class="breadcrumb">
@@ -7,12 +7,12 @@
     </div>
   <% } %>
 
-  <%- partial('toolbox') %>
+
 
   <div class="box-blog-info">
-    <a class="avatar" href="/">
-      <img src="<%= theme.avatar %>" alt="" />
-    </a>
+   
+    <%- partial('toolbox') %>
+    
     <div class="info">
       <h3 class="name" style="font-family: <%= theme.blog_name_font_familiy || 'calligraffittiregular' %>">
         <%= theme.blog_name %>

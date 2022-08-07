@@ -1,6 +1,10 @@
+<div class="pk-page-header">	
+	<%- partial('_partial/component/page-header', {location: __('location.blog')}) %>
+</div>
+  
 <div class="content content-archive">
-  <%- partial('_partial/component/page-header', {location: __('location.blog')}) %>
 
+  
   <div class="post-list-box archive-body">
     <%- getPostListsDom(page.posts) %>
   </div>

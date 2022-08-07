@@ -1,5 +1,9 @@
-<div class="content content-category">
+<div class="pk-page-header">	
   <%- partial('_partial/component/page-header', {location: __('location.categories')}) %>
+</div>
+
+<div class="content content-category">
+
   <%- partial('_partial/component/category-box') %>
   <%- getPostListsDom(site.categories.sort('name')) %>
 </div>
