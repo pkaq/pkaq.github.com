@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+
+
+  <html class="dark page-post">
+
+
+<head>
+  <meta charset="utf-8">
+  
+  <title>使用Renovate更新项目依赖 | 如是我闻</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="build tools," />
+  
+
+  <meta name="description" content="概述  Renovate是一款依赖管理工具，用于“保持一切处于最新状态”。Renovate于2019年11月被WhiteSource收购，通过帮助软件项目中的依赖项更新实现自动化以节约开发者时间、降低安全风险。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="使用Renovate更新项目依赖">
+<meta property="og:url" content="https://pkaq.org/2021/08/07/renovate/index.html">
+<meta property="og:site_name" content="如是我闻">
+<meta property="og:description" content="概述  Renovate是一款依赖管理工具，用于“保持一切处于最新状态”。Renovate于2019年11月被WhiteSource收购，通过帮助软件项目中的依赖项更新实现自动化以节约开发者时间、降低安全风险。">
+<meta property="og:locale">
+<meta property="article:published_time" content="2021-08-07T04:36:07.000Z">
+<meta property="article:modified_time" content="2022-08-08T22:50:49.370Z">
+<meta property="article:author" content="PKAQ">
+<meta property="article:tag" content="build tools">
+<meta name="twitter:card" content="summary">
+
+  
+
+  
+    <link rel="icon" href="/favicon.ico">
+  
+
+  <link href="/css/styles.css?v=d671a41f" rel="stylesheet">
+
+
+  
+    
+<link rel="stylesheet" href="/css/fexo-theme.css">
+
+  
+
+  
+
+  
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?cd1f06c6f057506d537ab11e9f1693be";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+  
+    <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  
+
+  
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  
+
+  <link href='//cdn.webfont.youziku.com/webfonts/nomal/97080/42410/5865c4e5f629db00cc915895.css' rel='stylesheet' type='text/css' />
+ 
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+<body>
+
+
+  
+    <span id="toolbox-mobile" class="toolbox-mobile">　</span>
+  
+
+  <div class="pk-page-header">	
+   <div class="page-header" >
+
+  
+
+
+
+  <div class="box-blog-info">
+   
+    
+  <div class="toolbox">
+    <a class="toolbox-entry" href="/">
+      <span class="toolbox-entry-text">　</span>
+      <i class="icon-angle-down"></i>
+      <i class="icon-home"></i>
+    </a>
+    <ul class="list-toolbox">
+      /
+      
+        <li class="item-toolbox">
+        
+          <a
+            href="/archives/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            博客
+          </a>
+          /
+        </li>
+      
+        <li class="item-toolbox">
+        
+          <a
+            href="/category/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            分类
+          </a>
+          /
+        </li>
+      
+        <li class="item-toolbox">
+        
+          <a
+            href="/tag/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            标签
+          </a>
+          /
+        </li>
+      
+        <li class="item-toolbox">
+        
+          <a
+            href="/link/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            友链
+          </a>
+          /
+        </li>
+      
+        <li class="item-toolbox">
+        
+          <a
+            href="/atom.xml"
+            rel="noopener noreferrer"
+            target="_blank"
+            >
+            RSS
+          </a>
+          /
+        </li>
+      
+        <li class="item-toolbox">
+        
+          <a
+            href="/search/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            搜索
+          </a>
+          /
+        </li>
+      
+    </ul>
+  </div>
+
+
+    
+    <div class="info">
+      <h3 class="name" style="font-family: calligraffittiregular">
+        如是我闻
+      </h3>
+      <div class="slogan">
+        万物皆虚 万事皆允
+      </div>
+    </div>
+  </div>
+
+</div>
+
+ </div>
+
+
+  <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%A6%82%E8%BF%B0"><span class="toc-text">概述</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%AE%89%E8%A3%85-renovate"><span class="toc-text">安装 renovate</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE-renovate"><span class="toc-text">配置 renovate</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Pin-Dependencies"><span class="toc-text">Pin Dependencies</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Update-Dependencies"><span class="toc-text">Update Dependencies</span></a></li></ol>
+  </div>
+
+
+
+<div class="content content-post CENTER">
+   <article id="post-renovate" class="article article-type-post" itemprop="blogPost">
+  <header class="article-header">
+    <h1 class="post-title">使用Renovate更新项目依赖</h1>
+
+    <div class="article-meta">
+      <span>
+        <i class="icon-calendar"></i>
+        <span>2021.08.07</span>
+      </span>
+
+      
+        <span class="article-author">
+          <i class="icon-user"></i>
+          <span>PKAQ</span>
+        </span>
+      
+
+      
+  <span class="article-category">
+    <i class="icon-list"></i>
+    <a class="article-category-link" href="/categories/build-tools/">build tools</a>
+  </span>
+
+
+
+      
+
+      
+      <i class="fa fa-eye"></i> 
+        <span id="busuanzi_container_page_pv">
+           &nbsp热度 <span id="busuanzi_value_page_pv">
+           <i class="fa fa-spinner fa-spin"></i></span>℃
+        </span>
+      
+
+      
+        <i class="icon-comment"></i> 
+        共 <a class="ds-thread-count" id="uyan_count_unit" su="使用Renovate更新项目依赖" href="https://pkaq.org/2021/08/07/renovate/index.html"></a>
+      
+      
+    </div>
+  </header>
+
+  <div class="article-content">
+    
+      <h1 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h1><p>  Renovate是一款依赖管理工具，用于“保持一切处于最新状态”。Renovate于2019年11月被WhiteSource收购，通过帮助软件项目中的依赖项更新实现自动化以节约开发者时间、降低安全风险。</p>
+<span id="more"></span>
+
+<h1 id="安装-renovate"><a href="#安装-renovate" class="headerlink" title="安装 renovate"></a>安装 renovate</h1><p>与常见的 Github Apps 一样，首先在 Github Market place 搜索 renovate 并进行安装，按需授予权限。</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/marketplace/renovate">https://github.com/marketplace/renovate</a></p>
+<h1 id="配置-renovate"><a href="#配置-renovate" class="headerlink" title="配置 renovate"></a>配置 renovate</h1><p>安装 renovate 之后无须手动操作，等待即可。</p>
+<p>此时 renovate 将会扫描你授予权限的仓库，做一些简要分析，分析你的各个项目主力语言、依赖管理方式，之后将会对哪些可以被通过 renovate 管控更新依赖的仓库，分别提交一份 Pull Request.</p>
+<p>这个 Pull Request 的标题叫做 <strong>Configure Renovate，</strong>中间附带了一个文件更变，他会在项目的更目录下添加 renovate 的配置文件，名为 renovate.json 。</p>
+<p>这个配置文件描述了一些 renovate 管理此仓库依赖的相关选项，默认生成的 config:base 已经能够满足日常需要。</p>
+<p>如果开发者很不爽在项目根目录增添这样一个 json 配置文件，可以按照他们官方配置发现的目录查找顺序，移入到 .github 目录下。(具体查找规则，官方有较为详细的说明文档)</p>
+<h1 id="Pin-Dependencies"><a href="#Pin-Dependencies" class="headerlink" title="Pin Dependencies"></a>Pin Dependencies</h1><p>配置完之后，不久就会收到第二个初始化类型的 PR: Pin Dependencies。</p>
+<p>顾名思义，这里的意思是锁定目前的依赖版本，且为以后持续接受依赖更新做准备。</p>
+<p>以 Node 类型仓库来讲，这个 PR 的具体内容，便是先在每个 package.json 内容中，将依赖的版本无损更新到最新版本号 (指符合 semver versioning 的更新规则) 之后，去除 package.json 中每项依赖版本号之前的 ^ 和 ~ ，以将模糊的 semver versioning 版本监控行为变成确定的版本号。</p>
+<h1 id="Update-Dependencies"><a href="#Update-Dependencies" class="headerlink" title="Update Dependencies"></a>Update Dependencies</h1><p>接下来的就是日常的监控依赖更新了。</p>
+<p>每当依赖的新版本发布时，他会针对单条依赖的更新提交 PR，如果依赖中有符合标准的 CHANGELOG 也会直接加入到 PR 的 description 中。</p>
+<p>其中，他们也会对发布到 registry 的依赖文件内容，进行 diff，以生成 renovate 自己分析的的”依赖构建产物” diff，以供查看。</p>
+<p>在对项目的依赖描述文件扫描、分析更新这部分依赖。<br>对于非私有依赖， renovate 都能逐个帮你进行监控，并在版本更新的时候及时提出 PR。</p>
+<p>意外惊喜<br>惊喜的是，在 merge PR 时，renovate 还会增加一个 conventional commit 的检测: 如果你在项目中显式地配置了主流的 commit lint 以及 commit message 风格检测，他会按照这些常见的风格来修改 PR 的标题.</p>
+<p>在使用了一段时间 renovate 之后，发现 renovate 已经提供了很多 automerge 的判断条件，以减少人工合并这种机械化请求的次数。</p>
+<p>我个人来讲，目前使用如下配置，来做到:</p>
+<p>不管项目是否使用了的 semantic-release，bot 的 PR 风格 commit 也会自带 semantic-release 风格<br>在 dependencies 非 major 更新时，所有 checking pass 之后，自动 merge<br>在 devDependencies 有依赖版本更新时，所有 checking pass 之后，自动 merge</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;semanticCommits&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;packageRules&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">    <span class="punctuation">&#123;</span></span><br><span class="line">      <span class="attr">&quot;updateTypes&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span><span class="string">&quot;minor&quot;</span><span class="punctuation">,</span> <span class="string">&quot;patch&quot;</span><span class="punctuation">,</span> <span class="string">&quot;pin&quot;</span><span class="punctuation">,</span> <span class="string">&quot;digest&quot;</span><span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;automerge&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span></span><br><span class="line">    <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="punctuation">&#123;</span></span><br><span class="line">      <span class="attr">&quot;depTypeList&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span><span class="string">&quot;devDependencies&quot;</span><span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;automerge&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span></span><br><span class="line">    <span class="punctuation">&#125;</span></span><br><span class="line">  <span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;extends&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span><span class="string">&quot;config:base&quot;</span><span class="punctuation">]</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+    
+  </div>
+</article>
+
+</div>
+
+
+  <div class="text-center donation">
+    <div class="inner-donation">
+      <span class="btn-donation">支持一下</span>
+      <div class="donation-body">
+        <div class="tip text-center">您得支持,是我前进的动力.</div>
+        <ul class="theme.donation.items.length">
+        
+          <li class="item">
+            <img src="/css/qr-donate.jpg" alt="">
+          </li>
+        
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+
+
+  <a id="backTop" class="back-top">
+    <i class="icon-angle-up"></i>
+  </a>
+
+
+
+
+  <div class="modal" id="modal">
+  <span id="cover" class="cover hide"></span>
+  <div id="modal-dialog" class="modal-dialog hide-dialog">
+    <div class="modal-header">
+      <span id="close" class="btn-close">关闭</span>
+    </div>
+    <hr>
+    <div class="modal-body">
+      <ul class="list-toolbox">
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/archives/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              博客
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/category/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              分类
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/tag/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              标签
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/link/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              友链
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/atom.xml"
+              rel="noopener noreferrer"
+              target="_blank"
+              >
+              RSS
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/search/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              搜索
+            </a>
+          </li>
+        
+      </ul>
+
+    </div>
+  </div>
+</div>
+
+
+
+  
+      <div class="fexo-comments comments-post">
+    
+
+    
+  <section class="duoshuo-comments">
+
+    <!-- UY BEGIN -->
+    <div id="uyan_frame"></div>
+    <script async type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid=2144561">
+    <!-- UY END -->
+  </section>
+
+  <script type="text/javascript">
+	var uyan_config = {
+	     'su':"使用Renovate更新项目依赖" 
+	};
+	</script>
+
+
+
+  </div>
+
+  
+
+  <script type="text/javascript">
+  function loadScript(url, callback) {
+    var script = document.createElement('script')
+    script.type = 'text/javascript';
+
+    if (script.readyState) { //IE
+      script.onreadystatechange = function() {
+        if (script.readyState == 'loaded' ||
+          script.readyState == 'complete') {
+          script.onreadystatechange = null;
+          callback();
+        }
+      };
+    } else { //Others
+      script.onload = function() {
+        callback();
+      };
+    }
+
+    script.src = url;
+    document.getElementsByTagName('head')[0].appendChild(script);
+  }
+
+  window.onload = function() {
+    loadScript('/js/bundle.js?235683', function() {
+      // load success
+    });
+  }
+</script>
+
+</body>
+</html>
