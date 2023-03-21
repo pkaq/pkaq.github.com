@@ -48,11 +48,7 @@ https://github.com/marketplace/renovate
 
 在使用了一段时间 renovate 之后，发现 renovate 已经提供了很多 automerge 的判断条件，以减少人工合并这种机械化请求的次数。
 
-我个人来讲，目前使用如下配置，来做到:
-
-不管项目是否使用了的 semantic-release，bot 的 PR 风格 commit 也会自带 semantic-release 风格
-在 dependencies 非 major 更新时，所有 checking pass 之后，自动 merge
-在 devDependencies 有依赖版本更新时，所有 checking pass 之后，自动 merge
+在 devDependencies 有依赖版本更新时，所有 checking pass 之后，自动 merge（当然，这里还需要你在github的仓库setting中打开`Allow auto-merge `以及`Automatically delete head branches `选项才能生效）
 ```json
 {
   "semanticCommits": true,
