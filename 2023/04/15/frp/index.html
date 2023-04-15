@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+
+
+  <html class="dark page-post">
+
+
+<head>
+  <meta charset="utf-8">
+  
+  <title>使用Frp实现内网穿透访问 | 如是我闻</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="Linux,Frp,Docker," />
+  
+
+  <meta name="description" content="引言  frp 是一个可用于内网穿透的高性能的反向代理应用，支持 tcp, udp 协议，为 http 和 https 应用协议提供了额外的能力，且尝试性支持了点对点穿透。    详细文档请参考：https:&#x2F;&#x2F;github.com&#x2F;fatedier&#x2F;frp&#x2F;blob&#x2F;master&#x2F;README_zh.md   frp 支持 macOS, freebsd, windows,linux x64,li">
+<meta property="og:type" content="article">
+<meta property="og:title" content="使用Frp实现内网穿透访问">
+<meta property="og:url" content="https://pkaq.org/2023/04/15/frp/index.html">
+<meta property="og:site_name" content="如是我闻">
+<meta property="og:description" content="引言  frp 是一个可用于内网穿透的高性能的反向代理应用，支持 tcp, udp 协议，为 http 和 https 应用协议提供了额外的能力，且尝试性支持了点对点穿透。    详细文档请参考：https:&#x2F;&#x2F;github.com&#x2F;fatedier&#x2F;frp&#x2F;blob&#x2F;master&#x2F;README_zh.md   frp 支持 macOS, freebsd, windows,linux x64,li">
+<meta property="og:locale">
+<meta property="article:published_time" content="2023-04-15T05:33:24.000Z">
+<meta property="article:modified_time" content="2023-04-15T08:39:50.010Z">
+<meta property="article:author" content="PKAQ">
+<meta property="article:tag" content="Linux">
+<meta property="article:tag" content="Frp">
+<meta property="article:tag" content="Docker">
+<meta name="twitter:card" content="summary">
+
+  
+
+  
+    <link rel="icon" href="/favicon.ico">
+  
+
+  <link href="/css/styles.css?v=d671a41f" rel="stylesheet">
+
+
+  
+    
+<link rel="stylesheet" href="/css/fexo-theme.css">
+
+  
+
+  
+
+  
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?cd1f06c6f057506d537ab11e9f1693be";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+  
+    <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  
+
+  
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  
+
+  <link href='//cdn.webfont.youziku.com/webfonts/nomal/97080/42410/5865c4e5f629db00cc915895.css' rel='stylesheet' type='text/css' />
+ 
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+<body>
+
+
+  
+    <span id="toolbox-mobile" class="toolbox-mobile">　</span>
+  
+
+  <div class="pk-page-header">	
+   <div class="page-header" >
+
+  
+
+
+
+  <div class="box-blog-info">
+   
+    
+  <div class="toolbox">
+    <a class="toolbox-entry" href="/">
+      <span class="toolbox-entry-text">　</span>
+      <i class="icon-angle-down"></i>
+      <i class="icon-home"></i>
+    </a>
+    <ul class="list-toolbox">
+      /
+      
+        <li class="item-toolbox">
+        
+          <a
+            href="/archives/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            博客
+          </a>
+          /
+        </li>
+      
+        <li class="item-toolbox">
+        
+          <a
+            href="/category/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            分类
+          </a>
+          /
+        </li>
+      
+        <li class="item-toolbox">
+        
+          <a
+            href="/tag/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            标签
+          </a>
+          /
+        </li>
+      
+        <li class="item-toolbox">
+        
+          <a
+            href="/link/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            友链
+          </a>
+          /
+        </li>
+      
+        <li class="item-toolbox">
+        
+          <a
+            href="/project"
+            rel="noopener noreferrer"
+            target="_blank"
+            >
+            Project
+          </a>
+          /
+        </li>
+      
+        <li class="item-toolbox">
+        
+          <a
+            href="/search/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            搜索
+          </a>
+          /
+        </li>
+      
+    </ul>
+  </div>
+
+
+    
+    <div class="info">
+      <h3 class="name" style="font-family: calligraffittiregular">
+        如是我闻
+      </h3>
+      <div class="slogan">
+        万物皆虚 万事皆允
+      </div>
+    </div>
+  </div>
+
+</div>
+
+ </div>
+
+
+  <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%BC%95%E8%A8%80"><span class="toc-text">引言</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%AD%A5%E9%AA%A4"><span class="toc-text">步骤</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%AB%AF%E9%85%8D%E7%BD%AE"><span class="toc-text">1.服务器端配置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E5%AE%A2%E6%88%B7%E7%AB%AF%E9%85%8D%E7%BD%AE"><span class="toc-text">2.客户端配置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E5%9F%9F%E5%90%8D%E9%85%8D%E7%BD%AE"><span class="toc-text">3.域名配置</span></a></li></ol></li></ol>
+  </div>
+
+
+
+<div class="content content-post CENTER">
+   <article id="post-frp" class="article article-type-post" itemprop="blogPost">
+  <header class="article-header">
+    <h1 class="post-title">使用Frp实现内网穿透访问</h1>
+
+    <div class="article-meta">
+      <span>
+        <i class="icon-calendar"></i>
+        <span>2023.04.15</span>
+      </span>
+
+      
+        <span class="article-author">
+          <i class="icon-user"></i>
+          <span>PKAQ</span>
+        </span>
+      
+
+      
+  <span class="article-category">
+    <i class="icon-list"></i>
+    <a class="article-category-link" href="/categories/Linux/">Linux</a>
+  </span>
+
+
+
+      
+
+      
+      <i class="fa fa-eye"></i> 
+        <span id="busuanzi_container_page_pv">
+           &nbsp热度 <span id="busuanzi_value_page_pv">
+           <i class="fa fa-spinner fa-spin"></i></span>℃
+        </span>
+      
+
+      
+        <i class="icon-comment"></i> 
+        共 <a class="ds-thread-count" id="uyan_count_unit" su="使用Frp实现内网穿透访问" href="https://pkaq.org/2023/04/15/frp/index.html"></a>
+      
+      
+    </div>
+  </header>
+
+  <div class="article-content">
+    
+      <h1 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h1><p>  frp 是一个可用于内网穿透的高性能的反向代理应用，支持 tcp, udp 协议，为 http 和 https 应用协议提供了额外的能力，且尝试性支持了点对点穿透。 </p>
+<p>  详细文档请参考：<a target="_blank" rel="noopener" href="https://github.com/fatedier/frp/blob/master/README_zh.md">https://github.com/fatedier/frp/blob/master/README_zh.md</a></p>
+<p>  frp 支持 macOS, freebsd, windows,linux x64,linux i386, linux arm,Linux arm64, Mips 等不同的系统和 CPU 架构，并分别打包了文件。</p>
+<p> 因此，为了方便在不同的系统中安装和配置 frp，我基于 docker 对 frp 进行了封装和打包。</p>
+<p>  但是由于 docker 的限制，目前只支持(amd64, arm32v6, arm32v70, arm64v8, i386)</p>
+<span id="more"></span>
+
+<h1 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h1><p><strong>必要条件</strong></p>
+<ul>
+<li>公网ip服务器一台（可以用各大厂商的学生机，带宽决定速度</li>
+<li>域名（可选）</li>
+<li>frp配置</li>
+</ul>
+<h2 id="1-服务器端配置"><a href="#1-服务器端配置" class="headerlink" title="1.服务器端配置"></a>1.服务器端配置</h2><p>  可以直接使用frp的docker镜像，这里需要提前设置好宿主机的目录，并且配置好<code>frps.ini</code>，直接创建docker会把<code>frps.ini</code>映射成目录。</p>
+<p><em>frps.ini</em></p>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">[common]</span></span><br><span class="line"><span class="attr">bind_port</span> = <span class="number">7000</span></span><br><span class="line"></span><br><span class="line"><span class="attr">dashboard_port</span> = <span class="number">7500</span></span><br><span class="line"><span class="comment"># 设置仪表盘访问的用户名密码</span></span><br><span class="line"><span class="attr">dashboard_user</span> = admin</span><br><span class="line"><span class="attr">dashboard_pwd</span> = admin</span><br></pre></td></tr></table></figure>
+
+<p><em>docker command</em></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run  --network host -d -v /opt/docker_data/frp/frps.ini:/etc/frp/frps.ini --name frps snowdreamtech/frps</span><br></pre></td></tr></table></figure>
+
+
+<p>  容器启动成功后，通过<code>http://你的ip:7500</code>访问，可正常登录控制台则为安装成功。</p>
+<h2 id="2-客户端配置"><a href="#2-客户端配置" class="headerlink" title="2.客户端配置"></a>2.客户端配置</h2><p>  客户端同样可以借助docker镜像配置，步骤与服务器端一致。</p>
+<p><em>frpc.ini</em></p>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">[common]</span></span><br><span class="line"><span class="attr">server_addr</span> = 你的公网服务器IP</span><br><span class="line"><span class="attr">server_port</span> = <span class="number">7000</span></span><br><span class="line"></span><br><span class="line"><span class="section">[ssh]</span>                 <span class="comment"># 别名</span></span><br><span class="line"><span class="attr">type</span> = tcp            <span class="comment"># 类型</span></span><br><span class="line"><span class="attr">local_ip</span> = <span class="number">127.0</span>.<span class="number">0.1</span>  <span class="comment"># 本地ip</span></span><br><span class="line"><span class="attr">local_port</span> = <span class="number">22</span>       <span class="comment"># 需要穿透访问的本地端口 </span></span><br><span class="line"><span class="attr">remote_port</span> = <span class="number">18022</span>   <span class="comment"># 远程映射的端口，这里不要与服务器上已有的端口冲突</span></span><br><span class="line"></span><br><span class="line"><span class="section">[another]</span>             <span class="comment"># 与上面一样 ，可以配置多个</span></span><br><span class="line"><span class="attr">type</span> = tcp</span><br><span class="line"><span class="attr">local_ip</span> = <span class="number">127.0</span>.<span class="number">0.1</span></span><br><span class="line"><span class="attr">local_port</span> = <span class="number">10082</span></span><br><span class="line"><span class="attr">remote_port</span> = <span class="number">10082</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#外界通过  公网IP + remote_port  ---访问---&gt;  local_ip + local_port </span></span><br><span class="line"><span class="comment">#如：访问1.2.3.4:18022 实质访问 127.0.0.1:22 </span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p><em>docker command</em></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run  --network host -d -v /opt/docker_data/frp/frpc.ini:/etc/frp/frpc.ini --name frpc snowdreamtech/frpc</span><br></pre></td></tr></table></figure>
+
+<p>  启动成功后，查看容器日志可见<code>[ssh] start proxy success</code>, 此时可通过<code>公网ip:端口</code>尝试访问内网服务器进行测试。</p>
+<h2 id="3-域名配置"><a href="#3-域名配置" class="headerlink" title="3.域名配置"></a>3.域名配置</h2><p>  如果有域名可以新建一个二级域名，A记录解析到公网服务器IP即可通过域名进行穿透访问。</p>
+
+    
+  </div>
+</article>
+
+</div>
+
+
+  <div class="text-center donation">
+    <div class="inner-donation">
+      <span class="btn-donation">支持一下</span>
+      <div class="donation-body">
+        <div class="tip text-center">您得支持,是我前进的动力.</div>
+        <ul class="theme.donation.items.length">
+        
+          <li class="item">
+            <img src="/css/qr-donate.jpg" alt="">
+          </li>
+        
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+
+
+  <a id="backTop" class="back-top">
+    <i class="icon-angle-up"></i>
+  </a>
+
+
+
+
+  <div class="modal" id="modal">
+  <span id="cover" class="cover hide"></span>
+  <div id="modal-dialog" class="modal-dialog hide-dialog">
+    <div class="modal-header">
+      <span id="close" class="btn-close">关闭</span>
+    </div>
+    <hr>
+    <div class="modal-body">
+      <ul class="list-toolbox">
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/archives/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              博客
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/category/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              分类
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/tag/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              标签
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/link/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              友链
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/project"
+              rel="noopener noreferrer"
+              target="_blank"
+              >
+              Project
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/search/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              搜索
+            </a>
+          </li>
+        
+      </ul>
+
+    </div>
+  </div>
+</div>
+
+
+
+  
+      <div class="fexo-comments comments-post">
+    
+
+    
+  <section class="duoshuo-comments">
+
+    <!-- UY BEGIN -->
+    <div id="uyan_frame"></div>
+    <script async type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid=2144561">
+    <!-- UY END -->
+  </section>
+
+  <script type="text/javascript">
+	var uyan_config = {
+	     'su':"使用Frp实现内网穿透访问" 
+	};
+	</script>
+
+
+
+  </div>
+
+  
+
+  <script type="text/javascript">
+  function loadScript(url, callback) {
+    var script = document.createElement('script')
+    script.type = 'text/javascript';
+
+    if (script.readyState) { //IE
+      script.onreadystatechange = function() {
+        if (script.readyState == 'loaded' ||
+          script.readyState == 'complete') {
+          script.onreadystatechange = null;
+          callback();
+        }
+      };
+    } else { //Others
+      script.onload = function() {
+        callback();
+      };
+    }
+
+    script.src = url;
+    document.getElementsByTagName('head')[0].appendChild(script);
+  }
+
+  window.onload = function() {
+    loadScript('/js/bundle.js?235683', function() {
+      // load success
+    });
+  }
+</script>
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/assets/hijiki.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true},"log":false});</script></body>
+</html>
