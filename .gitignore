@@ -8,3 +8,5 @@ public/
 /yarn.lock
 /package-lock.json
 **/.history
+/Resource
+/.obsidian
