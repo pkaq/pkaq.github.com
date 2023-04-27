@@ -23,7 +23,7 @@
 <meta property="og:description" content="简介Loki是受Prometheus启发由Grafana Labs团队开源的水平可扩展，高度可用的多租户日志聚合系统。使用标签来作为索引，而不是对全文进行检索，也就是说，通过这些标签既可以查询日志的内容也可以查询到监控的数据签，极大地降低了日志索引的存储。系统架构十分简单，由以下3个部分组成 ：   Loki：负责存储日志和处理查询。 Promtail：负责收集日志并将其发送给loki。 Graf">
 <meta property="og:locale">
 <meta property="article:published_time" content="2023-04-27T07:11:47.000Z">
-<meta property="article:modified_time" content="2023-04-27T07:13:57.592Z">
+<meta property="article:modified_time" content="2023-04-27T07:14:46.262Z">
 <meta property="article:author" content="PKAQ">
 <meta property="article:tag" content="Spring Boot">
 <meta property="article:tag" content="Spring">
@@ -250,6 +250,8 @@
 <li><strong>Promtail</strong>：负责收集日志并将其发送给loki。</li>
 <li><strong>Grafana</strong>： 用于 UI 展示。</li>
 </ul>
+<span id="more"></span>
+
 <h2 id="配置准备"><a href="#配置准备" class="headerlink" title="配置准备"></a>配置准备</h2><p>准备<code>loki.yml</code>、<code>promtail.yml</code>、<code>docker-compose.yml</code><br>可以去<a target="_blank" rel="noopener" href="https://github.com/grafana/loki">https://github.com/grafana/loki</a>下载最新的配置文件</p>
 <p>Loki路径： cmd/loki/loki-local-config.yaml<br>Promtail路径：clients/cmd/promtail/promtail-local-config.yaml<br>Docker-pompose路径：production/docker-compose.yaml</p>
 <p>loki.yml和promtail.yml使用默认配置即可。下载完成后在服务器放置loki和promtail的配置文件。这里放置的目录要与loki和promtail的volumes中挂载配置文件的目录以及Promtail的volumes挂载日志的目录一致。</p>
