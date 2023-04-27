@@ -7,27 +7,24 @@
 <head>
   <meta charset="utf-8">
   
-  <title>使用Frp实现内网穿透访问 | 如是我闻</title>
+  <title>frp | 如是我闻</title>
 
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
   
-    <meta name="keywords" content="Linux,Frp,Docker," />
+    <meta name="keywords" content="PKAQ,Gradle,Spring,React" />
   
 
-  <meta name="description" content="引言  frp 是一个可用于内网穿透的高性能的反向代理应用，支持 tcp, udp 协议，为 http 和 https 应用协议提供了额外的能力，且尝试性支持了点对点穿透。    详细文档请参考：https:&#x2F;&#x2F;github.com&#x2F;fatedier&#x2F;frp&#x2F;blob&#x2F;master&#x2F;README_zh.md   frp 支持 macOS, freebsd, windows,linux x64,li">
+  <meta name="description" content="title: 使用Frp实现内网穿透访问author: PKAQdate: 2023-04-15 13:33:24tags: [‘Frp’,’Docker’,’Linux’]categories: [‘Linux’]  引言  frp 是一个可用于内网穿透的高性能的反向代理应用，支持 tcp, udp 协议，为 http 和 https 应用协议提供了额外的能力，且尝试性支持了点对点穿透。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="使用Frp实现内网穿透访问">
-<meta property="og:url" content="https://pkaq.org/2023/04/15/frp/index.html">
+<meta property="og:title" content="frp">
+<meta property="og:url" content="https://pkaq.org/2023/04/19/frp/index.html">
 <meta property="og:site_name" content="如是我闻">
-<meta property="og:description" content="引言  frp 是一个可用于内网穿透的高性能的反向代理应用，支持 tcp, udp 协议，为 http 和 https 应用协议提供了额外的能力，且尝试性支持了点对点穿透。    详细文档请参考：https:&#x2F;&#x2F;github.com&#x2F;fatedier&#x2F;frp&#x2F;blob&#x2F;master&#x2F;README_zh.md   frp 支持 macOS, freebsd, windows,linux x64,li">
+<meta property="og:description" content="title: 使用Frp实现内网穿透访问author: PKAQdate: 2023-04-15 13:33:24tags: [‘Frp’,’Docker’,’Linux’]categories: [‘Linux’]  引言  frp 是一个可用于内网穿透的高性能的反向代理应用，支持 tcp, udp 协议，为 http 和 https 应用协议提供了额外的能力，且尝试性支持了点对点穿透。">
 <meta property="og:locale">
-<meta property="article:published_time" content="2023-04-15T05:33:24.000Z">
-<meta property="article:modified_time" content="2023-04-15T08:39:50.010Z">
+<meta property="article:published_time" content="2023-04-19T11:26:46.000Z">
+<meta property="article:modified_time" content="2023-04-19T11:26:47.428Z">
 <meta property="article:author" content="PKAQ">
-<meta property="article:tag" content="Linux">
-<meta property="article:tag" content="Frp">
-<meta property="article:tag" content="Docker">
 <meta name="twitter:card" content="summary">
 
   
@@ -200,12 +197,12 @@
 <div class="content content-post CENTER">
    <article id="post-frp" class="article article-type-post" itemprop="blogPost">
   <header class="article-header">
-    <h1 class="post-title">使用Frp实现内网穿透访问</h1>
+    <h1 class="post-title">frp</h1>
 
     <div class="article-meta">
       <span>
         <i class="icon-calendar"></i>
-        <span>2023.04.15</span>
+        <span>2023.04.19</span>
       </span>
 
       
@@ -216,11 +213,6 @@
       
 
       
-  <span class="article-category">
-    <i class="icon-list"></i>
-    <a class="article-category-link" href="/categories/Linux/">Linux</a>
-  </span>
-
 
 
       
@@ -235,7 +227,7 @@
 
       
         <i class="icon-comment"></i> 
-        共 <a class="ds-thread-count" id="uyan_count_unit" su="使用Frp实现内网穿透访问" href="https://pkaq.org/2023/04/15/frp/index.html"></a>
+        共 <a class="ds-thread-count" id="uyan_count_unit" su="frp" href="https://pkaq.org/2023/04/19/frp/index.html"></a>
       
       
     </div>
@@ -243,7 +235,9 @@
 
   <div class="article-content">
     
-      <h1 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h1><p>  frp 是一个可用于内网穿透的高性能的反向代理应用，支持 tcp, udp 协议，为 http 和 https 应用协议提供了额外的能力，且尝试性支持了点对点穿透。 </p>
+      <p>title: 使用Frp实现内网穿透访问<br>author: PKAQ<br>date: 2023-04-15 13:33:24<br>tags: [‘Frp’,’Docker’,’Linux’]<br>categories: [‘Linux’]</p>
+<hr>
+<h1 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h1><p>  frp 是一个可用于内网穿透的高性能的反向代理应用，支持 tcp, udp 协议，为 http 和 https 应用协议提供了额外的能力，且尝试性支持了点对点穿透。 </p>
 <p>  详细文档请参考：<a target="_blank" rel="noopener" href="https://github.com/fatedier/frp/blob/master/README_zh.md">https://github.com/fatedier/frp/blob/master/README_zh.md</a></p>
 <p>  frp 支持 macOS, freebsd, windows,linux x64,linux i386, linux arm,Linux arm64, Mips 等不同的系统和 CPU 架构，并分别打包了文件。</p>
 <p> 因此，为了方便在不同的系统中安装和配置 frp，我基于 docker 对 frp 进行了封装和打包。</p>
@@ -407,7 +401,7 @@
 
   <script type="text/javascript">
 	var uyan_config = {
-	     'su':"使用Frp实现内网穿透访问" 
+	     'su':"frp" 
 	};
 	</script>
 
