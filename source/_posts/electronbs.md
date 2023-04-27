@@ -101,7 +101,7 @@ yarn global add electron-packager
 ```   
 执行打包   
 ```bash
-electron-packager . Evatron 
+npx electron-packager . Evatron 
 	--win --out=release 
     --arch=x64 
     --version=1.0.0 
