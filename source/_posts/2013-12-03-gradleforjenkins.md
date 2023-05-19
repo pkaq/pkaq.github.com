@@ -1,4 +1,4 @@
-title: Jenkins+Gradle搭建CI环境
+title: Jenkins+Gradle搭建CI环境（过时）
 date: 2013-12-03 09:52:39
 tags: ['Jenkins','Gradle']
 categories: ['Build Tools','DevOps']
