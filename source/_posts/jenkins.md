@@ -36,7 +36,7 @@ docker run --name jenkins -d --privileged=true -v /etc/localtime:/etc/localtime:
   - 凭证配置
 
 **JDK**：如果版本需求不是很高的话可以选择内置的。否则可以自行下载后放置在容器挂载目录配置也可以。
-![JDK](jdk.png)
+![JDK](JDK.png)
 
 **Gradle**：选择版本直接安装，这里需要特别说明的是: gradle默认只会使用512内存，容易打包时爆出内存不足的异常。所以要在`Dashboard --> 系统管理 --> 系统配置`中添加`GRADLE_OPTS`的环境变量
 ![JDK](gradle.png)
