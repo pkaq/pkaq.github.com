@@ -22,21 +22,21 @@
 <meta property="og:site_name" content="如是我闻">
 <meta property="og:description" content="版本说明 jenkins 2.405 docker 23.0.3">
 <meta property="og:locale">
-<meta property="og:image" content="https://pkaq.org/2023/05/19/jenkins/jdk.png">
+<meta property="og:image" content="https://pkaq.org/2023/05/19/jenkins/JDK.png">
 <meta property="og:image" content="https://pkaq.org/2023/05/19/jenkins/gradle.png">
 <meta property="og:image" content="https://pkaq.org/2023/05/19/jenkins/gradle2.png">
 <meta property="og:image" content="https://pkaq.org/2023/05/19/jenkins/GIT.png">
 <meta property="og:image" content="https://pkaq.org/2023/05/19/jenkins/ssh.png">
 <meta property="og:image" content="https://pkaq.org/2023/05/19/jenkins/job.png">
 <meta property="article:published_time" content="2023-05-19T07:44:12.000Z">
-<meta property="article:modified_time" content="2023-05-19T08:41:01.605Z">
+<meta property="article:modified_time" content="2023-05-19T08:48:28.118Z">
 <meta property="article:author" content="PKAQ">
 <meta property="article:tag" content="Java">
 <meta property="article:tag" content="Gradle">
 <meta property="article:tag" content="Spring Boot">
 <meta property="article:tag" content="Spring">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://pkaq.org/2023/05/19/jenkins/jdk.png">
+<meta name="twitter:image" content="https://pkaq.org/2023/05/19/jenkins/JDK.png">
 
   
 
@@ -270,7 +270,7 @@
 <li>插件安装</li>
 <li>凭证配置</li>
 </ul>
-<p><strong>JDK</strong>：如果版本需求不是很高的话可以选择内置的。否则可以自行下载后放置在容器挂载目录配置也可以。<br><img src="jdk.png" alt="JDK"></p>
+<p><strong>JDK</strong>：如果版本需求不是很高的话可以选择内置的。否则可以自行下载后放置在容器挂载目录配置也可以。<br><img src="JDK.png" alt="JDK"></p>
 <p><strong>Gradle</strong>：选择版本直接安装，这里需要特别说明的是: gradle默认只会使用512内存，容易打包时爆出内存不足的异常。所以要在<code>Dashboard --&gt; 系统管理 --&gt; 系统配置</code>中添加<code>GRADLE_OPTS</code>的环境变量<br><img src="gradle.png" alt="JDK"><br><img src="gradle2.png" alt="JDK"><br><strong>Git</strong>: 选择版本直接安装<br><img src="GIT.png" alt="JDK"></p>
 <p><strong>插件安装</strong>：主要是 Publish Over SSH ，用来发布到宿主机。安装后同样需要到<code>Dashboard --&gt; 系统管理 --&gt; 系统配置</code>进行配置<br><img src="ssh.png" alt="JDK"></p>
 <p><strong>凭证配置</strong>: 我使用的是SSH协议拉取项目，可以在<code>Dashboard --&gt; 系统管理 --&gt; 凭据</code>中配置一个SSH 私钥，这里需要注意的是jenkins需要的私钥格式为pem类型，如果是用puttyGen生成的私钥，生成完选择Conversions-&gt;Export OpenSSHkey即可。如果是命令行生成的可以使用如下命令</p>
