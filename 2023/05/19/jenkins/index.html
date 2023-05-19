@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+
+
+  <html class="dark page-post">
+
+
+<head>
+  <meta charset="utf-8">
+  
+  <title>使用jenkins镜像实现spring boot应用的自动发布 | 如是我闻</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="Java,Gradle,Spring Boot,Spring," />
+  
+
+  <meta name="description" content="版本说明 jenkins 2.405 docker 23.0.3">
+<meta property="og:type" content="article">
+<meta property="og:title" content="使用jenkins镜像实现spring boot应用的自动发布">
+<meta property="og:url" content="https://pkaq.org/2023/05/19/jenkins/index.html">
+<meta property="og:site_name" content="如是我闻">
+<meta property="og:description" content="版本说明 jenkins 2.405 docker 23.0.3">
+<meta property="og:locale">
+<meta property="og:image" content="https://pkaq.org/2023/05/19/jenkins/jdk.png">
+<meta property="og:image" content="https://pkaq.org/2023/05/19/jenkins/gradle.png">
+<meta property="og:image" content="https://pkaq.org/2023/05/19/jenkins/gradle2.png">
+<meta property="og:image" content="https://pkaq.org/2023/05/19/jenkins/GIT.png">
+<meta property="og:image" content="https://pkaq.org/2023/05/19/jenkins/ssh.png">
+<meta property="og:image" content="https://pkaq.org/2023/05/19/jenkins/job.png">
+<meta property="article:published_time" content="2023-05-19T07:44:12.000Z">
+<meta property="article:modified_time" content="2023-05-19T08:41:01.605Z">
+<meta property="article:author" content="PKAQ">
+<meta property="article:tag" content="Java">
+<meta property="article:tag" content="Gradle">
+<meta property="article:tag" content="Spring Boot">
+<meta property="article:tag" content="Spring">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://pkaq.org/2023/05/19/jenkins/jdk.png">
+
+  
+
+  
+    <link rel="icon" href="/favicon.ico">
+  
+
+  <link href="/css/styles.css?v=d671a41f" rel="stylesheet">
+
+
+  
+    
+<link rel="stylesheet" href="/css/fexo-theme.css">
+
+  
+
+  
+
+  
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?cd1f06c6f057506d537ab11e9f1693be";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+  
+    <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  
+
+  
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  
+
+  <link href='//cdn.webfont.youziku.com/webfonts/nomal/97080/42410/5865c4e5f629db00cc915895.css' rel='stylesheet' type='text/css' />
+ 
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+<body>
+
+
+  
+    <span id="toolbox-mobile" class="toolbox-mobile">　</span>
+  
+
+  <div class="pk-page-header">	
+   <div class="page-header" >
+
+  
+
+
+
+  <div class="box-blog-info">
+   
+    
+  <div class="toolbox">
+    <a class="toolbox-entry" href="/">
+      <span class="toolbox-entry-text">　</span>
+      <i class="icon-angle-down"></i>
+      <i class="icon-home"></i>
+    </a>
+    <ul class="list-toolbox">
+      /
+      
+        <li class="item-toolbox">
+        
+          <a
+            href="/archives/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            博客
+          </a>
+          /
+        </li>
+      
+        <li class="item-toolbox">
+        
+          <a
+            href="/category/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            分类
+          </a>
+          /
+        </li>
+      
+        <li class="item-toolbox">
+        
+          <a
+            href="/tag/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            标签
+          </a>
+          /
+        </li>
+      
+        <li class="item-toolbox">
+        
+          <a
+            href="/link/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            友链
+          </a>
+          /
+        </li>
+      
+        <li class="item-toolbox">
+        
+          <a
+            href="/project"
+            rel="noopener noreferrer"
+            target="_blank"
+            >
+            Project
+          </a>
+          /
+        </li>
+      
+        <li class="item-toolbox">
+        
+          <a
+            href="/search/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            搜索
+          </a>
+          /
+        </li>
+      
+    </ul>
+  </div>
+
+
+    
+    <div class="info">
+      <h3 class="name" style="font-family: calligraffittiregular">
+        如是我闻
+      </h3>
+      <div class="slogan">
+        万物皆虚 万事皆允
+      </div>
+    </div>
+  </div>
+
+</div>
+
+ </div>
+
+
+  <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%89%88%E6%9C%AC%E8%AF%B4%E6%98%8E"><span class="toc-text">版本说明</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA"><span class="toc-text">环境搭建</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E6%8B%89%E5%8F%96%E9%95%9C%E5%83%8F"><span class="toc-text">1.拉取镜像</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E5%88%9B%E5%BB%BA%E5%AE%B9%E5%99%A8"><span class="toc-text">2.创建容器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E9%85%8D%E7%BD%AE"><span class="toc-text">3.配置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE"><span class="toc-text">4.环境配置</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%BB%E5%8A%A1%E5%88%9B%E5%BB%BA"><span class="toc-text">任务创建</span></a></li></ol>
+  </div>
+
+
+
+<div class="content content-post CENTER">
+   <article id="post-jenkins" class="article article-type-post" itemprop="blogPost">
+  <header class="article-header">
+    <h1 class="post-title">使用jenkins镜像实现spring boot应用的自动发布</h1>
+
+    <div class="article-meta">
+      <span>
+        <i class="icon-calendar"></i>
+        <span>2023.05.19</span>
+      </span>
+
+      
+        <span class="article-author">
+          <i class="icon-user"></i>
+          <span>PKAQ</span>
+        </span>
+      
+
+      
+  <span class="article-category">
+    <i class="icon-list"></i>
+    <a class="article-category-link" href="/categories/Devops/">Devops</a>
+  </span>
+
+
+
+      
+
+      
+      <i class="fa fa-eye"></i> 
+        <span id="busuanzi_container_page_pv">
+           &nbsp热度 <span id="busuanzi_value_page_pv">
+           <i class="fa fa-spinner fa-spin"></i></span>℃
+        </span>
+      
+
+      
+        <i class="icon-comment"></i> 
+        共 <a class="ds-thread-count" id="uyan_count_unit" su="使用jenkins镜像实现spring boot应用的自动发布" href="https://pkaq.org/2023/05/19/jenkins/index.html"></a>
+      
+      
+    </div>
+  </header>
+
+  <div class="article-content">
+    
+      <h2 id="版本说明"><a href="#版本说明" class="headerlink" title="版本说明"></a>版本说明</h2><ul>
+<li>jenkins 2.405</li>
+<li>docker 23.0.3</li>
+</ul>
+<span id="more"></span>
+
+<h2 id="环境搭建"><a href="#环境搭建" class="headerlink" title="环境搭建"></a>环境搭建</h2><h3 id="1-拉取镜像"><a href="#1-拉取镜像" class="headerlink" title="1.拉取镜像"></a>1.拉取镜像</h3><figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">docker</span> pull jenkins\jenkins:<span class="number">2</span>.<span class="number">405</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="2-创建容器"><a href="#2-创建容器" class="headerlink" title="2.创建容器"></a>2.创建容器</h3><figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run --name jenkins -d --privileged=<span class="keyword">true</span> -v <span class="regexp">/etc/</span>localtime:<span class="regexp">/etc/</span>localtime:ro -p <span class="number">16080</span>:<span class="number">8080</span> -p <span class="number">50000</span>:<span class="number">50000</span> -v <span class="regexp">/opt/</span>docker_data<span class="regexp">/jenkins:/</span>var<span class="regexp">/jenkins_home jenkins/</span>jenkins:<span class="number">2.405</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="3-配置"><a href="#3-配置" class="headerlink" title="3.配置"></a>3.配置</h3><p>  容器启动后，容器控制台会打印Jenkins的初始密码。可以借助portainer或者docker log从控制台获得该密码。获得密码后访问：<code>http://yourip:16080</code> 进行初始化设置即可。</p>
+<h3 id="4-环境配置"><a href="#4-环境配置" class="headerlink" title="4.环境配置"></a>4.环境配置</h3><p>  这里需要配置的环境有 主要都在  <code>Dashboard --&gt; 系统管理 --&gt; 全局工具配置</code>中配置</p>
+<ul>
+<li>JDK</li>
+<li>Gradle 或 Maven</li>
+<li>Git</li>
+<li>插件安装</li>
+<li>凭证配置</li>
+</ul>
+<p><strong>JDK</strong>：如果版本需求不是很高的话可以选择内置的。否则可以自行下载后放置在容器挂载目录配置也可以。<br><img src="jdk.png" alt="JDK"></p>
+<p><strong>Gradle</strong>：选择版本直接安装，这里需要特别说明的是: gradle默认只会使用512内存，容易打包时爆出内存不足的异常。所以要在<code>Dashboard --&gt; 系统管理 --&gt; 系统配置</code>中添加<code>GRADLE_OPTS</code>的环境变量<br><img src="gradle.png" alt="JDK"><br><img src="gradle2.png" alt="JDK"><br><strong>Git</strong>: 选择版本直接安装<br><img src="GIT.png" alt="JDK"></p>
+<p><strong>插件安装</strong>：主要是 Publish Over SSH ，用来发布到宿主机。安装后同样需要到<code>Dashboard --&gt; 系统管理 --&gt; 系统配置</code>进行配置<br><img src="ssh.png" alt="JDK"></p>
+<p><strong>凭证配置</strong>: 我使用的是SSH协议拉取项目，可以在<code>Dashboard --&gt; 系统管理 --&gt; 凭据</code>中配置一个SSH 私钥，这里需要注意的是jenkins需要的私钥格式为pem类型，如果是用puttyGen生成的私钥，生成完选择Conversions-&gt;Export OpenSSHkey即可。如果是命令行生成的可以使用如下命令</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -m PEM -t rsa -f &lt;yourfile&gt;</span><br></pre></td></tr></table></figure>
+
+<h2 id="任务创建"><a href="#任务创建" class="headerlink" title="任务创建"></a>任务创建</h2><p>环境配置好之后就可以创建打包任务了，这里可以创建一个自由风格的任务。这里比较简单按需配置即可。</p>
+<p>需要注意的地方就是构建后步骤里<code>Send build artifacts over SSH</code>这边。参数说明如下</p>
+<ul>
+<li>SSH Server Name： 前面配置的SSH Server</li>
+<li>Transfer Set Source files: 项目构建后的目录（以本项目为根路径）</li>
+<li>Remove prefix: 需要去除的前缀</li>
+<li> Remote directoty 发布的目录（前缀为系统设置里配置Publish over SSH的Remote Directory）</li>
+<li> Exec command 发布完执行的命令 ， 这里需要提前在宿主机或者远程服务器准备好两个文件<code>Dockerfile</code>和docker.sh，具体内容如下<br>Dockerfile<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 基于哪个镜像</span></span><br><span class="line"><span class="keyword">FROM</span> mcr.microsoft.com/java/jre:<span class="number">17</span>-zulu-alpine</span><br><span class="line"><span class="comment">#FROM mcr.microsoft.com/java/jre-headless:17u1-zulu-alpine</span></span><br><span class="line"><span class="comment">#FROM azul/zulu-openjdk-alpine:17</span></span><br><span class="line"><span class="comment"># 映射/tmp到主机</span></span><br><span class="line"><span class="keyword">VOLUME</span><span class="language-bash"> /tmp</span></span><br><span class="line"><span class="comment">#将打包好的spring程序拷贝到容器中的指定位置</span></span><br><span class="line"><span class="keyword">COPY</span><span class="language-bash"> *.jar /opt/app.jar</span></span><br><span class="line"><span class="comment">#容器对外暴露9019</span></span><br><span class="line"><span class="keyword">EXPOSE</span> <span class="number">9019</span></span><br><span class="line"><span class="comment"># 容器启动后执行的命令</span></span><br><span class="line"><span class="keyword">ENTRYPOINT</span><span class="language-bash"> [<span class="string">&quot;java&quot;</span>,<span class="string">&quot;-Djava.security.egd=file:/dev/./urandom&quot;</span>,<span class="string">&quot;-jar&quot;</span>,<span class="string">&quot;/opt/app.jar&quot;</span>]</span></span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
+</ul>
+<p>docker.sh</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">!/bin/bash</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">构建<span class="built_in">id</span>号</span></span><br><span class="line">Build_id=`date &#x27;+%Y%m%d%H%M&#x27;`</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">容器名</span></span><br><span class="line">Container_name=xmc-api</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">端口号</span></span><br><span class="line">Port=9019</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">镜像名</span></span><br><span class="line">IMAGE_NAME=$Container_name:$Build_id</span><br><span class="line">echo `================构建镜像$IMAGE_NAME==================`</span><br><span class="line">docker build -t $IMAGE_NAME .</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">下面的<span class="keyword">if</span>判断删除现有正在运行的容器</span></span><br><span class="line">echo &#x27;================获取容器id==================&#x27;</span><br><span class="line">container_id=`docker ps -a | grep $Container_name | awk -F &quot; &quot; &#x27;&#123;print $1&#125;&#x27;`</span><br><span class="line">if [ -n &quot;$container_id&quot; ];then</span><br><span class="line">  echo &quot;存在容器&quot;</span><br><span class="line">  echo $container_id | wc -L</span><br><span class="line">  docker stop $container_id</span><br><span class="line">  docker rm $container_id</span><br><span class="line">fi</span><br><span class="line"></span><br><span class="line">echo &#x27;================启动容器==================&#x27;</span><br><span class="line">docker run -d -p $Port:$Port --name $Container_name $IMAGE_NAME</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>总体配置如下图</p>
+<p><img src="job.png" alt="JDK"></p>
+
+    
+  </div>
+</article>
+
+</div>
+
+
+  <div class="text-center donation">
+    <div class="inner-donation">
+      <span class="btn-donation">支持一下</span>
+      <div class="donation-body">
+        <div class="tip text-center">您得支持,是我前进的动力.</div>
+        <ul class="theme.donation.items.length">
+        
+          <li class="item">
+            <img src="/css/qr-donate.jpg" alt="">
+          </li>
+        
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+
+
+  <a id="backTop" class="back-top">
+    <i class="icon-angle-up"></i>
+  </a>
+
+
+
+
+  <div class="modal" id="modal">
+  <span id="cover" class="cover hide"></span>
+  <div id="modal-dialog" class="modal-dialog hide-dialog">
+    <div class="modal-header">
+      <span id="close" class="btn-close">关闭</span>
+    </div>
+    <hr>
+    <div class="modal-body">
+      <ul class="list-toolbox">
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/archives/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              博客
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/category/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              分类
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/tag/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              标签
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/link/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              友链
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/project"
+              rel="noopener noreferrer"
+              target="_blank"
+              >
+              Project
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/search/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              搜索
+            </a>
+          </li>
+        
+      </ul>
+
+    </div>
+  </div>
+</div>
+
+
+
+  
+      <div class="fexo-comments comments-post">
+    
+
+    
+  <section class="duoshuo-comments">
+
+    <!-- UY BEGIN -->
+    <div id="uyan_frame"></div>
+    <script async type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid=2144561">
+    <!-- UY END -->
+  </section>
+
+  <script type="text/javascript">
+	var uyan_config = {
+	     'su':"使用jenkins镜像实现spring boot应用的自动发布" 
+	};
+	</script>
+
+
+
+  </div>
+
+  
+
+  <script type="text/javascript">
+  function loadScript(url, callback) {
+    var script = document.createElement('script')
+    script.type = 'text/javascript';
+
+    if (script.readyState) { //IE
+      script.onreadystatechange = function() {
+        if (script.readyState == 'loaded' ||
+          script.readyState == 'complete') {
+          script.onreadystatechange = null;
+          callback();
+        }
+      };
+    } else { //Others
+      script.onload = function() {
+        callback();
+      };
+    }
+
+    script.src = url;
+    document.getElementsByTagName('head')[0].appendChild(script);
+  }
+
+  window.onload = function() {
+    loadScript('/js/bundle.js?235683', function() {
+      // load success
+    });
+  }
+</script>
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/assets/hijiki.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true},"log":false});</script></body>
+</html>
