@@ -1,9 +1,9 @@
 ---
-title: 使用jenkins镜像实现spring boot应用的自动发布
+title: 为Nginx添加https支持
+date: 2023-06-18 11:04:56
+tags: ['Nginx']
+categories: 操作系统
 author: PKAQ
-date: 2023-05-19 15:44:12
-tags: ['Spring Boot','Gradle','Spring','Java']
-categories: ['Devops']
 ---
 
 ## 版本说明
