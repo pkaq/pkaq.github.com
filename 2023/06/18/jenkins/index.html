@@ -7,36 +7,33 @@
 <head>
   <meta charset="utf-8">
   
-  <title>使用jenkins镜像实现spring boot应用的自动发布 | 如是我闻</title>
+  <title>为Nginx添加https支持 | 如是我闻</title>
 
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
   
-    <meta name="keywords" content="Java,Gradle,Spring Boot,Spring," />
+    <meta name="keywords" content="Nginx," />
   
 
   <meta name="description" content="版本说明 jenkins 2.405 docker 23.0.3">
 <meta property="og:type" content="article">
-<meta property="og:title" content="使用jenkins镜像实现spring boot应用的自动发布">
-<meta property="og:url" content="https://pkaq.org/2023/05/19/jenkins/index.html">
+<meta property="og:title" content="为Nginx添加https支持">
+<meta property="og:url" content="https://pkaq.org/2023/06/18/jenkins/index.html">
 <meta property="og:site_name" content="如是我闻">
 <meta property="og:description" content="版本说明 jenkins 2.405 docker 23.0.3">
 <meta property="og:locale">
-<meta property="og:image" content="https://pkaq.org/2023/05/19/jenkins/JDK.png">
-<meta property="og:image" content="https://pkaq.org/2023/05/19/jenkins/gradle.png">
-<meta property="og:image" content="https://pkaq.org/2023/05/19/jenkins/gradle2.png">
-<meta property="og:image" content="https://pkaq.org/2023/05/19/jenkins/GIT.png">
-<meta property="og:image" content="https://pkaq.org/2023/05/19/jenkins/ssh.png">
-<meta property="og:image" content="https://pkaq.org/2023/05/19/jenkins/job.png">
-<meta property="article:published_time" content="2023-05-19T07:44:12.000Z">
-<meta property="article:modified_time" content="2023-05-19T08:48:28.118Z">
+<meta property="og:image" content="https://pkaq.org/2023/06/18/jenkins/JDK.png">
+<meta property="og:image" content="https://pkaq.org/2023/06/18/jenkins/gradle.png">
+<meta property="og:image" content="https://pkaq.org/2023/06/18/jenkins/gradle2.png">
+<meta property="og:image" content="https://pkaq.org/2023/06/18/jenkins/GIT.png">
+<meta property="og:image" content="https://pkaq.org/2023/06/18/jenkins/ssh.png">
+<meta property="og:image" content="https://pkaq.org/2023/06/18/jenkins/job.png">
+<meta property="article:published_time" content="2023-06-18T03:04:56.000Z">
+<meta property="article:modified_time" content="2023-06-28T08:18:17.022Z">
 <meta property="article:author" content="PKAQ">
-<meta property="article:tag" content="Java">
-<meta property="article:tag" content="Gradle">
-<meta property="article:tag" content="Spring Boot">
-<meta property="article:tag" content="Spring">
+<meta property="article:tag" content="Nginx">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://pkaq.org/2023/05/19/jenkins/JDK.png">
+<meta name="twitter:image" content="https://pkaq.org/2023/06/18/jenkins/JDK.png">
 
   
 
@@ -208,12 +205,12 @@
 <div class="content content-post CENTER">
    <article id="post-jenkins" class="article article-type-post" itemprop="blogPost">
   <header class="article-header">
-    <h1 class="post-title">使用jenkins镜像实现spring boot应用的自动发布</h1>
+    <h1 class="post-title">为Nginx添加https支持</h1>
 
     <div class="article-meta">
       <span>
         <i class="icon-calendar"></i>
-        <span>2023.05.19</span>
+        <span>2023.06.18</span>
       </span>
 
       
@@ -226,7 +223,7 @@
       
   <span class="article-category">
     <i class="icon-list"></i>
-    <a class="article-category-link" href="/categories/Devops/">Devops</a>
+    <a class="article-category-link" href="/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">操作系统</a>
   </span>
 
 
@@ -243,7 +240,7 @@
 
       
         <i class="icon-comment"></i> 
-        共 <a class="ds-thread-count" id="uyan_count_unit" su="使用jenkins镜像实现spring boot应用的自动发布" href="https://pkaq.org/2023/05/19/jenkins/index.html"></a>
+        共 <a class="ds-thread-count" id="uyan_count_unit" su="为Nginx添加https支持" href="https://pkaq.org/2023/06/18/jenkins/index.html"></a>
       
       
     </div>
@@ -423,7 +420,7 @@
 
   <script type="text/javascript">
 	var uyan_config = {
-	     'su':"使用jenkins镜像实现spring boot应用的自动发布" 
+	     'su':"为Nginx添加https支持" 
 	};
 	</script>
 
