@@ -1,5 +1,5 @@
 ---
-title: 为Nginx添加https支持
+title: 使用Jenkins自动打包发布Spring boot应用
 date: 2023-06-18 11:04:56
 tags: ['Nginx']
 categories: 操作系统
