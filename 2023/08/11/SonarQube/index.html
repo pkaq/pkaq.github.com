@@ -15,28 +15,28 @@
     <meta name="keywords" content="jenkins,sonar,gradle," />
   
 
-  <meta name="description" content="有效版本 Jenkins： 2.418 sonarqube： 9.2.4 gradle： 8.1准备工作  1、搭建sonar环境直接利用docker镜像先拉起postgreSQL然后拉起sonarqube即可。 注意：  sonar最新版本已经不支持mysql 启动时如果报空间不足执行下面的命令1234sysctl -w vm.max_map_count&#x3D;524288sysctl -w fs.f">
+  <meta name="description" content="有效版本 Jenkins： 2.418 sonarqube： 9.2.4 gradle： 8.1">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Jenkins集成Sonarqube管理代码质量">
-<meta property="og:url" content="https://pkaq.org/2023/08/11/sonar/index.html">
+<meta property="og:url" content="https://pkaq.org/2023/08/11/SonarQube/index.html">
 <meta property="og:site_name" content="如是我闻">
-<meta property="og:description" content="有效版本 Jenkins： 2.418 sonarqube： 9.2.4 gradle： 8.1准备工作  1、搭建sonar环境直接利用docker镜像先拉起postgreSQL然后拉起sonarqube即可。 注意：  sonar最新版本已经不支持mysql 启动时如果报空间不足执行下面的命令1234sysctl -w vm.max_map_count&#x3D;524288sysctl -w fs.f">
+<meta property="og:description" content="有效版本 Jenkins： 2.418 sonarqube： 9.2.4 gradle： 8.1">
 <meta property="og:locale">
-<meta property="og:image" content="https://pkaq.org/2023/08/11/sonar/a.png">
-<meta property="og:image" content="https://pkaq.org/2023/08/11/sonar/b.png">
-<meta property="og:image" content="https://pkaq.org/2023/08/11/sonar/c.png">
-<meta property="og:image" content="https://pkaq.org/2023/08/11/sonar/d.png">
-<meta property="og:image" content="https://pkaq.org/2023/08/11/sonar/e.png">
-<meta property="og:image" content="https://pkaq.org/2023/08/11/sonar/f.png">
-<meta property="og:image" content="https://pkaq.org/2023/08/11/sonar/g.png">
+<meta property="og:image" content="https://pkaq.org/2023/08/11/SonarQube/a.png">
+<meta property="og:image" content="https://pkaq.org/2023/08/11/SonarQube/b.png">
+<meta property="og:image" content="https://pkaq.org/2023/08/11/SonarQube/c.png">
+<meta property="og:image" content="https://pkaq.org/2023/08/11/SonarQube/d.png">
+<meta property="og:image" content="https://pkaq.org/2023/08/11/SonarQube/e.png">
+<meta property="og:image" content="https://pkaq.org/2023/08/11/SonarQube/f.png">
+<meta property="og:image" content="https://pkaq.org/2023/08/11/SonarQube/g.png">
 <meta property="article:published_time" content="2023-08-11T08:33:41.000Z">
-<meta property="article:modified_time" content="2023-08-11T08:57:46.718Z">
+<meta property="article:modified_time" content="2023-08-11T09:01:32.043Z">
 <meta property="article:author" content="PKAQ">
 <meta property="article:tag" content="jenkins">
 <meta property="article:tag" content="sonar">
 <meta property="article:tag" content="gradle">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://pkaq.org/2023/08/11/sonar/a.png">
+<meta name="twitter:image" content="https://pkaq.org/2023/08/11/SonarQube/a.png">
 
   
 
@@ -206,7 +206,7 @@
 
 
 <div class="content content-post CENTER">
-   <article id="post-sonar" class="article article-type-post" itemprop="blogPost">
+   <article id="post-SonarQube" class="article article-type-post" itemprop="blogPost">
   <header class="article-header">
     <h1 class="post-title">Jenkins集成Sonarqube管理代码质量</h1>
 
@@ -243,7 +243,7 @@
 
       
         <i class="icon-comment"></i> 
-        共 <a class="ds-thread-count" id="uyan_count_unit" su="Jenkins集成Sonarqube管理代码质量" href="https://pkaq.org/2023/08/11/sonar/index.html"></a>
+        共 <a class="ds-thread-count" id="uyan_count_unit" su="Jenkins集成Sonarqube管理代码质量" href="https://pkaq.org/2023/08/11/SonarQube/index.html"></a>
       
       
     </div>
@@ -254,9 +254,11 @@
       <h2 id="有效版本"><a href="#有效版本" class="headerlink" title="有效版本"></a>有效版本</h2><ul>
 <li>Jenkins： 2.418</li>
 <li>sonarqube： 9.2.4</li>
-<li>gradle： 8.1<h2 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h2></li>
+<li>gradle： 8.1</li>
 </ul>
-<h2 id="1、搭建sonar环境"><a href="#1、搭建sonar环境" class="headerlink" title="1、搭建sonar环境"></a>1、搭建sonar环境</h2><p>直接利用docker镜像先拉起postgreSQL然后拉起sonarqube即可。</p>
+<span id="more"></span>
+
+<h2 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h2><h2 id="1、搭建sonar环境"><a href="#1、搭建sonar环境" class="headerlink" title="1、搭建sonar环境"></a>1、搭建sonar环境</h2><p>直接利用docker镜像先拉起postgreSQL然后拉起sonarqube即可。</p>
 <p>注意：</p>
 <ul>
 <li>sonar最新版本已经不支持mysql</li>
