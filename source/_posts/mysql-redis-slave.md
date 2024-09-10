@@ -24,6 +24,12 @@ redis-server /usr/local/etc/redis/redis.conf --appendonly yes
 1.主节点配置文件调整
 ```cnf
 [mysqld]
+# 主从配置
+# 指定要进行主从同步的库
+binlog-do-db=xmc
+binlog-do-db=xmc_test
+binlog-do-db=eva
+# 开启binlog
 log-bin=mysql-bin
 server-id=1
 ```
@@ -42,6 +48,12 @@ SHOW MASTER STATUS;
 ```conf
 [mysqld]
 server-id=2
+relay-log=relay-bin
+log-bin=off
+# 主从配置
+replicate-do-db=xmc
+replicate-do-db=xmc test
+replicate-do-db=eva
 ```
 
 4.从节点配置
@@ -49,6 +61,7 @@ server-id=2
 STOP SLAVE;
 CHANGE MASTER TO
     MASTER_HOST='192.168.10.16',
+    MASTER_PORT='12306'
     MASTER_USER='replica_user',
     MASTER_PASSWORD='password',
     MASTER_LOG_FILE='mysql-bin.000001',  -- 主节点的 File 值
@@ -61,7 +74,7 @@ SHOW SLAVE STATUS;
 
 **注意**：
 
-1.先保证两边结构一致性
+1.先保证两边结构一致性,也可以用mysqldump
 ```shell
 pt-table-sync --execute --sync-to-master \
   --user=<master_user> --password=<master_password> \
