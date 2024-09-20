@@ -22,15 +22,15 @@
 <meta property="og:site_name" content="如是我闻">
 <meta property="og:description" content="概述　　随着项目规模的扩展和功能的增加，任何一个简单的项目基本都会进行模块的拆分独立，然后通过项目之间的依赖进行重新整合。 　　项目拆分带来的好处也显而易见。拆分可以是项目结构更加清晰，职责划分更加明确，相关模块的负责人只需专注于自己负责的子模块而无需对整个项目进行一次构建。　　 　　如果不采用构建工具或许最原始的方式无非于将一些相对独立的和公共的模块代码拆分成独立项目，通过手工打jar包替换">
 <meta property="og:locale">
-<meta property="og:image" content="https://pkaq.org/2016/12/13/gradle-multi/structure.jpg">
-<meta property="og:image" content="https://pkaq.org/2016/12/13/gradle-multi/structure-flat.jpg">
-<meta property="og:image" content="https://pkaq.org/2016/12/13/gradle-multi/multi.jpg">
+<meta property="og:image" content="https://pkaq.org/structure.jpg">
+<meta property="og:image" content="https://pkaq.org/structure-flat.jpg">
+<meta property="og:image" content="https://pkaq.org/multi.jpg">
 <meta property="article:published_time" content="2016-12-13T02:31:40.000Z">
 <meta property="article:modified_time" content="2017-10-19T01:49:22.051Z">
 <meta property="article:author" content="PKAQ">
 <meta property="article:tag" content="Gradle">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://pkaq.org/2016/12/13/gradle-multi/structure.jpg">
+<meta name="twitter:image" content="https://pkaq.org/structure.jpg">
 
   
 
@@ -262,7 +262,7 @@
 <blockquote>
 <p>关于多项目和多模块的分歧无法溯源，或许是由于<code>eclipse</code>和<code>idea</code>不同定义而起吧。在<code>eclipse</code>中不存在模块概念，走的是<code>workspace - working set - project</code>路线，而在<code>idea</code>中，则是按<code>project - module</code>进行组织项目。自从转为<code>idea</code>党之后，私以为<code>idea</code>的路子更科学，所以这里按<code>idea</code>的套路进行描述。   </p>
 </blockquote>
-<p>下面展示了分层布局和水平布局的两种多模块项目结构<br><img src="structure.jpg" alt="多模块项目结构">　　　　<br><img src="structure-flat.jpg" alt="多模块项目结构">　　</p>
+<p>下面展示了分层布局和水平布局的两种多模块项目结构<br><img src="/structure.jpg" alt="多模块项目结构">　　　　<br><img src="/structure-flat.jpg" alt="多模块项目结构">　　</p>
 <p>　　为了更加直观，这里项目结构采用了分层布局的方式。这也是Gradle默认的布局方式。这里根项目是必不可少的，尽管在分层布局中它看上去更像是一个顶级的<code>working set</code>。其中根项目下的<code>build.gradle</code>文件可以对一些公共属性、插件、依赖等进行统一配置，<code>setting.gradle</code>则是描述项目关系的文件。<br>　　或许你已经注意到，在水平布局的示例图中子项目下没有<code>build.gradle</code>脚本文件,这是由于在构建多模块项目时 Gradle 允许你自由的选用集中化配置和分开式配置。在水平布局的结构图中，所画的即是采用集中化配置的结构。</p>
 <h3 id="settings文件"><a href="#settings文件" class="headerlink" title="settings文件"></a>settings文件</h3><p>　　我们了解到一个典型的多模块项目需要有一个根模块项目以及模块描述文件(默认为<code>settings.gradle</code>)，下面我们将通过一个 <a target="_blank" rel="noopener" href="https://github.com/GradleCN/GradleSide/tree/master/17-multi-project-central">多项目示例</a> 来对多模块项目的结构以及脚本进行更深入的了解。</p>
 <p>如果要让 <code>Gradle</code> 支持多<br>构建，只需为你的项目确定一个 根模块项目 并且在根模块项目下添加 <code>settings.gradle</code> 文件用以描述模块（项目）关系</p>
@@ -305,13 +305,14 @@
 <h3 id="分离配置"><a href="#分离配置" class="headerlink" title="分离配置"></a>分离配置</h3><p>　　当项目足够复杂的时候，采用集中化配置显然不是一个好计谋，尤其是如果你有几十个模块的的时候，当你打开一个几百行的脚本无疑会感到一种不由自主的恶心在背后拍拍你的肩膀说:”兄弟 吐吧”….<br>　　此时，将不同项目的定制行为分离到各自的脚本里无疑会显著的减轻你的饱腹感。这不仅可以是项目结构看起来更加清晰，脚本更加易读，分离化的配置还可以让你更好的关注子模块的特定行为。<br>　　要分离模块配置只需要很简单的两步：</p>
 <ol>
 <li>在子模块建立 <code>build.gradle</code> 文件</li>
-<li>将原来的 <code>project(&#39;:xxx&#39;)&#123;&#125;</code> 内的脚本移动到上面建立的文件中去　　下面的图展示了一个稍微复杂一点的<code>分层布局的</code>、<code>多模块的</code>、<code>分离配置的</code> 的多模块项目示例，其中所有的二级模块都依赖<code>base</code>，最终的<code>weball</code>又依赖于所有的二级模块。<br>具体代码可以查看 <a target="_blank" rel="noopener" href="https://github.com/GradleCN/GradleSide/tree/master/01-multi-project">&gt; 就是这里 &lt;</a><br><img src="multi.jpg"></li>
+<li>将原来的 <code>project(&#39;:xxx&#39;)&#123;&#125;</code> 内的脚本移动到上面建立的文件中去</li>
 </ol>
+<p>　　下面的图展示了一个稍微复杂一点的<code>分层布局的</code>、<code>多模块的</code>、<code>分离配置的</code> 的多模块项目示例，其中所有的二级模块都依赖<code>base</code>，最终的<code>weball</code>又依赖于所有的二级模块。<br> 具体代码可以查看 <a target="_blank" rel="noopener" href="https://github.com/GradleCN/GradleSide/tree/master/01-multi-project">&gt; 就是这里 &lt;</a><br><img src="/multi.jpg"></p>
 <h3 id="水平布局和分层布局"><a href="#水平布局和分层布局" class="headerlink" title="水平布局和分层布局"></a>水平布局和分层布局</h3><p>　　如果你阅读了前面的内容，那么你已经掌握了分层布局。没错，Gradle 默认即是采用的分层布局。只需要正确的配置 <code>settings</code> 文件即可。<br>　　某些情况下，若是出于一些不可描述的原因需要进行水平布局，那么 Gradle 也提供了良好的支持。如果你之前曾经翻阅过 <code>Settings</code> 接口的手册，那么或许你已经发现<code>Settintgs</code>接口提供了一个<code>includeFlat</code>方法，借助此方法即可实现水平布局的多模块项目。<br>  <figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">includeFlat  <span class="string">&#x27;base&#x27;</span></span><br></pre></td></tr></table></figure></p>
 <p>由于此处<code>main</code>即是根项目，所以无需再包含<code>main</code></p>
 <p>完整示例 -&gt;　<a target="_blank" rel="noopener" href="https://github.com/GradleCN/GradleSide/tree/master/16-multi-project-flat"> &gt; 水平布局的多模块项目示例 &lt; </a></p>
 <p>心法在于两点:</p>
-<p> 1.根项目与被依赖的项目(在水平意义上的子项目,视觉上根项目的兄弟项目)保持平级。<br> 2.配置根项目的  setting.gradle  ， 采用  includeFlat  来描述子项目路径(由于采用的是水平布局,默认根路径就是当前根项目的上级路径,所以无需用../上跳)</p>
+<p> 1.根项目与被依赖的项目(在水平意义上的子项目,视觉上根项目的兄弟项目)保持平级。<br> 2.配置根项目的  setting.gradle  ， 采用  includeFlat  来描述子项目路径(由于采用的是水平布局,默认根路径就是当前根项目的上级路径,所以无需用..&#x2F;上跳)</p>
 
     
   </div>

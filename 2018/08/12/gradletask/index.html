@@ -262,7 +262,7 @@
 <p>常用的action有两个，<code>doFirst</code>和<code>doLast</code>，通过这两个见名知意的<code>action</code>可以用来定置化你的任务行为。</p>
 <ul>
 <li>一个Task包含若干<code>Action</code>。所以，Task有<code>doFirst</code>和<code>doLast</code>两个函数，用于添加需要最先执行的<code>Action</code>和需要和需要最后执行的<code>Action</code>。<code>Action</code>就是一个闭包。</li>
-<li> Task创建的时候可以指定Type，通过<em>type:名字</em>表达。这是什么意思呢？其实就是告诉<code>Gradle</code>，这个新建的Task对象会从哪个基类Task派生。比如，Gradle本身提供了一些通用的Task，最常见的有Copy 任务。Copy是Gradle中的一个类。当我们：<code>*task myTask(type:Copy)*</code>的时候，创建的Task就是一个Copy Task。</li>
+<li>Task创建的时候可以指定Type，通过<em>type:名字</em>表达。这是什么意思呢？其实就是告诉<code>Gradle</code>，这个新建的Task对象会从哪个基类Task派生。比如，Gradle本身提供了一些通用的Task，最常见的有Copy 任务。Copy是Gradle中的一个类。当我们：<code>*task myTask(type:Copy)*</code>的时候，创建的Task就是一个Copy Task。</li>
 <li>当我们使用 <code>task myTask&#123; xxx&#125;</code>的时候。花括号是一个<code>closure</code>。这会导致gradle在创建这个Task之后，返回给用户之前，会先执行closure的内容。</li>
 </ul>
 <p>当用户执行test任务时，执行以下步骤：  </p>
@@ -272,13 +272,13 @@
 <li>每个任务都有一个队列一个栈，一个是依赖队列，一个是first栈，一个是last队列；  </li>
 <li>遇到doFirst函数，该函数接受一个闭包作为参数，doFirst函数会把闭包参数放入first栈； </li>
 <li>遇到doLast函数，同理doFirst函数，闭包参数会被放入last队列；  </li>
-<li>然后遇到<code>println &#39;hello.&#39;</code>，执行该指令//1；  </li>
+<li>然后遇到<code>println &#39;hello.&#39;</code>，执行该指令&#x2F;&#x2F;1；  </li>
 <li>至此初始化过程完成。 </li>
 <li>开始执行test任务前，先检查是否任务依赖，如果有，先把依赖的任务都执行完。 </li>
 <li>然后开始执行test任务；  </li>
 <li>执行时，首先执行test任务的任务体，即<code>println &#39;:test&#39;</code>；  </li>
-<li>然后执行test任务的first栈//2和last队列//3；  </li>
-<li>任务执行结束。 </li>
+<li>然后执行test任务的first栈&#x2F;&#x2F;2和last队列&#x2F;&#x2F;3；  </li>
+<li>任务执行结束。</li>
 </ol>
 <h2 id="三、Task中属性的应用"><a href="#三、Task中属性的应用" class="headerlink" title="三、Task中属性的应用"></a>三、Task中属性的应用</h2><h3 id="分组"><a href="#分组" class="headerlink" title="分组"></a>分组</h3><p>　 <code>DeafultTask</code>提供了很多方便的属性，灵活运用这些属性可以让你更加灵活的配置自己的<code>Task</code>。如：在<code>IDEA</code>等编辑器中我们查看<code>Gradle</code>任务时，任务都是放在各个任务组下面的，这便是借助任务属性中的<code>group</code>属性实现的。如果在创建任务时没指定这个属性，那么任务会默认分配到<code>other tasks</code>分组。</p>
 <figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">task mytask&#123;</span><br><span class="line">    <span class="symbol">group:</span> <span class="string">&#x27;build&#x27;</span></span><br><span class="line">     doLast &#123;</span><br><span class="line">        println <span class="string">&quot;Hello World&quot;</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>

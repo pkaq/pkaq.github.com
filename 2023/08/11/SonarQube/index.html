@@ -22,13 +22,13 @@
 <meta property="og:site_name" content="如是我闻">
 <meta property="og:description" content="有效版本 Jenkins： 2.418 sonarqube： 9.2.4 gradle： 8.1">
 <meta property="og:locale">
-<meta property="og:image" content="https://pkaq.org/2023/08/11/SonarQube/a.png">
-<meta property="og:image" content="https://pkaq.org/2023/08/11/SonarQube/b.png">
-<meta property="og:image" content="https://pkaq.org/2023/08/11/SonarQube/c.png">
-<meta property="og:image" content="https://pkaq.org/2023/08/11/SonarQube/d.png">
-<meta property="og:image" content="https://pkaq.org/2023/08/11/SonarQube/e.png">
-<meta property="og:image" content="https://pkaq.org/2023/08/11/SonarQube/f.png">
-<meta property="og:image" content="https://pkaq.org/2023/08/11/SonarQube/g.png">
+<meta property="og:image" content="https://pkaq.org/a.png">
+<meta property="og:image" content="https://pkaq.org/b.png">
+<meta property="og:image" content="https://pkaq.org/c.png">
+<meta property="og:image" content="https://pkaq.org/d.png">
+<meta property="og:image" content="https://pkaq.org/e.png">
+<meta property="og:image" content="https://pkaq.org/f.png">
+<meta property="og:image" content="https://pkaq.org/g.png">
 <meta property="article:published_time" content="2023-08-11T08:33:41.000Z">
 <meta property="article:modified_time" content="2023-08-11T09:01:32.043Z">
 <meta property="article:author" content="PKAQ">
@@ -36,7 +36,7 @@
 <meta property="article:tag" content="sonar">
 <meta property="article:tag" content="gradle">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://pkaq.org/2023/08/11/SonarQube/a.png">
+<meta name="twitter:image" content="https://pkaq.org/a.png">
 
   
 
@@ -267,9 +267,9 @@
 <p>Docker镜像启动</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">docker run -d --name postgres -p 5432:5432 \</span><br><span class="line">	-v /opt/docker_data/postgres/postgresql:/var/lib/postgresql \</span><br><span class="line">	-v /opt/docker_data/postgres/data:/var/lib/postgresql/data \</span><br><span class="line">	-v /etc/localtime:/etc/localtime:ro \</span><br><span class="line">	-e POSTGRES_USER=sonar \</span><br><span class="line">	-e POSTGRES_PASSWORD=sonar \</span><br><span class="line">	-e POSTGRES_DB=sonar \</span><br><span class="line">	-e TZ=Asia/Shanghai \</span><br><span class="line">	--restart always \</span><br><span class="line">	--privileged=<span class="literal">true</span> \</span><br><span class="line">postgres</span><br><span class="line"></span><br><span class="line">docker run \</span><br><span class="line">	-d \</span><br><span class="line">	--<span class="built_in">link</span> postgres \</span><br><span class="line">	--name sonarqube \</span><br><span class="line">	-p 16090:9000 \</span><br><span class="line">	-p 16092:9092 \</span><br><span class="line">	-v /opt/docker_data/sonar/logs:/opt/sonarqube/logs \</span><br><span class="line">	-v /opt/docker_data/sonar/conf:/opt/sonarqube/conf \</span><br><span class="line">	-v /opt/docker_data/sonar/data:/opt/sonarqube/data \</span><br><span class="line">	-v /opt/docker_data/sonar/extensions:/opt/sonarqube/extensions \</span><br><span class="line">	-e TZ=Asia/Shanghai \</span><br><span class="line">	-e SONARQUBE_JDBC_USERNAME=sonar \</span><br><span class="line">	-e SONARQUBE_JDBC_PASSWORD=sonar \</span><br><span class="line">	-e SONARQUBE_JDBC_URL=<span class="string">&quot;jdbc:postgresql://postgres:5432/sonar?useUnicode=true&amp;characterEncoding=utf8&amp;rewriteBatchedStatements=true&amp;useConfigs=maxPerformance&amp;useSSL=false&quot;</span> \</span><br><span class="line">	--restart always \</span><br><span class="line">	--privileged=<span class="literal">true</span> \</span><br><span class="line">sonarqube</span><br></pre></td></tr></table></figure>
 
-<h2 id="2、配置"><a href="#2、配置" class="headerlink" title="2、配置"></a>2、配置</h2><p>启动后访问<code>16090</code>端口，使用默认的用户名密码登录<code>(admin/admin)</code>，登陆后创建项目即可-&gt;创建令牌-&gt;按照说明配置项目即可。<br><img src="a.png" alt="JDK"><br><img src="b.png" alt="JDK"><br><img src="c.png" alt="JDK"><br><img src="d.png" alt="JDK"></p>
+<h2 id="2、配置"><a href="#2、配置" class="headerlink" title="2、配置"></a>2、配置</h2><p>启动后访问<code>16090</code>端口，使用默认的用户名密码登录<code>(admin/admin)</code>，登陆后创建项目即可-&gt;创建令牌-&gt;按照说明配置项目即可。<br><img src="/a.png" alt="JDK"><br><img src="/b.png" alt="JDK"><br><img src="/c.png" alt="JDK"><br><img src="/d.png" alt="JDK"></p>
 <p>完成这一步之后，可以通过你得构建工具进行分析测试了。我这里用的gradle，执行sonar任务一段时间后会在管理页面刷新检测报告。</p>
-<h2 id="3、Jenkins配置"><a href="#3、Jenkins配置" class="headerlink" title="3、Jenkins配置"></a>3、Jenkins配置</h2><p>Jenkins方面主要是安装`[SonarQube Scanner for Jenkins]插件,安装后按照如图的配置配置即可。<br><img src="e.png" alt="JDK"><br><img src="f.png" alt="JDK"><br><img src="g.png" alt="JDK"></p>
+<h2 id="3、Jenkins配置"><a href="#3、Jenkins配置" class="headerlink" title="3、Jenkins配置"></a>3、Jenkins配置</h2><p>Jenkins方面主要是安装&#96;[SonarQube Scanner for Jenkins]插件,安装后按照如图的配置配置即可。<br><img src="/e.png" alt="JDK"><br><img src="/f.png" alt="JDK"><br><img src="/g.png" alt="JDK"></p>
 
     
   </div>

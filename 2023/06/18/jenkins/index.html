@@ -22,18 +22,18 @@
 <meta property="og:site_name" content="如是我闻">
 <meta property="og:description" content="版本说明 jenkins 2.405 docker 23.0.3">
 <meta property="og:locale">
-<meta property="og:image" content="https://pkaq.org/2023/06/18/jenkins/JDK.png">
-<meta property="og:image" content="https://pkaq.org/2023/06/18/jenkins/gradle.png">
-<meta property="og:image" content="https://pkaq.org/2023/06/18/jenkins/gradle2.png">
-<meta property="og:image" content="https://pkaq.org/2023/06/18/jenkins/GIT.png">
-<meta property="og:image" content="https://pkaq.org/2023/06/18/jenkins/ssh.png">
-<meta property="og:image" content="https://pkaq.org/2023/06/18/jenkins/job.png">
+<meta property="og:image" content="https://pkaq.org/JDK.png">
+<meta property="og:image" content="https://pkaq.org/gradle.png">
+<meta property="og:image" content="https://pkaq.org/gradle2.png">
+<meta property="og:image" content="https://pkaq.org/GIT.png">
+<meta property="og:image" content="https://pkaq.org/ssh.png">
+<meta property="og:image" content="https://pkaq.org/job.png">
 <meta property="article:published_time" content="2023-06-18T03:04:56.000Z">
 <meta property="article:modified_time" content="2023-06-28T08:42:34.582Z">
 <meta property="article:author" content="PKAQ">
 <meta property="article:tag" content="Nginx">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://pkaq.org/2023/06/18/jenkins/JDK.png">
+<meta name="twitter:image" content="https://pkaq.org/JDK.png">
 
   
 
@@ -256,7 +256,7 @@
 
 <h2 id="环境搭建"><a href="#环境搭建" class="headerlink" title="环境搭建"></a>环境搭建</h2><h3 id="1-拉取镜像"><a href="#1-拉取镜像" class="headerlink" title="1.拉取镜像"></a>1.拉取镜像</h3><figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">docker</span> pull jenkins\jenkins:<span class="number">2</span>.<span class="number">405</span></span><br></pre></td></tr></table></figure>
 
-<h3 id="2-创建容器"><a href="#2-创建容器" class="headerlink" title="2.创建容器"></a>2.创建容器</h3><figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run --name jenkins -d --privileged=<span class="keyword">true</span> -v <span class="regexp">/etc/</span>localtime:<span class="regexp">/etc/</span>localtime:ro -p <span class="number">16080</span>:<span class="number">8080</span> -p <span class="number">50000</span>:<span class="number">50000</span> -v <span class="regexp">/opt/</span>docker_data<span class="regexp">/jenkins:/</span>var<span class="regexp">/jenkins_home jenkins/</span>jenkins:<span class="number">2.405</span></span><br></pre></td></tr></table></figure>
+<h3 id="2-创建容器"><a href="#2-创建容器" class="headerlink" title="2.创建容器"></a>2.创建容器</h3><figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker <span class="keyword">run</span><span class="language-bash"> --name jenkins -d --privileged=<span class="literal">true</span> -v /etc/localtime:/etc/localtime:ro -p 16080:8080 -p 50000:50000 -v /opt/docker_data/jenkins:/var/jenkins_home jenkins/jenkins:2.405</span></span><br></pre></td></tr></table></figure>
 
 <h3 id="3-配置"><a href="#3-配置" class="headerlink" title="3.配置"></a>3.配置</h3><p>  容器启动后，容器控制台会打印Jenkins的初始密码。可以借助portainer或者docker log从控制台获得该密码。获得密码后访问：<code>http://yourip:16080</code> 进行初始化设置即可。</p>
 <h3 id="4-环境配置"><a href="#4-环境配置" class="headerlink" title="4.环境配置"></a>4.环境配置</h3><p>  这里需要配置的环境有 主要都在  <code>Dashboard --&gt; 系统管理 --&gt; 全局工具配置</code>中配置</p>
@@ -267,9 +267,9 @@
 <li>插件安装</li>
 <li>凭证配置</li>
 </ul>
-<p><strong>JDK</strong>：如果版本需求不是很高的话可以选择内置的。否则可以自行下载后放置在容器挂载目录配置也可以。<br><img src="JDK.png" alt="JDK"></p>
-<p><strong>Gradle</strong>：选择版本直接安装，这里需要特别说明的是: gradle默认只会使用512内存，容易打包时爆出内存不足的异常。所以要在<code>Dashboard --&gt; 系统管理 --&gt; 系统配置</code>中添加<code>GRADLE_OPTS</code>的环境变量<br><img src="gradle.png" alt="JDK"><br><img src="gradle2.png" alt="JDK"><br><strong>Git</strong>: 选择版本直接安装<br><img src="GIT.png" alt="JDK"></p>
-<p><strong>插件安装</strong>：主要是 Publish Over SSH ，用来发布到宿主机。安装后同样需要到<code>Dashboard --&gt; 系统管理 --&gt; 系统配置</code>进行配置<br><img src="ssh.png" alt="JDK"></p>
+<p><strong>JDK</strong>：如果版本需求不是很高的话可以选择内置的。否则可以自行下载后放置在容器挂载目录配置也可以。<br><img src="/JDK.png" alt="JDK"></p>
+<p><strong>Gradle</strong>：选择版本直接安装，这里需要特别说明的是: gradle默认只会使用512内存，容易打包时爆出内存不足的异常。所以要在<code>Dashboard --&gt; 系统管理 --&gt; 系统配置</code>中添加<code>GRADLE_OPTS</code>的环境变量<br><img src="/gradle.png" alt="JDK"><br><img src="/gradle2.png" alt="JDK"><br><strong>Git</strong>: 选择版本直接安装<br><img src="/GIT.png" alt="JDK"></p>
+<p><strong>插件安装</strong>：主要是 Publish Over SSH ，用来发布到宿主机。安装后同样需要到<code>Dashboard --&gt; 系统管理 --&gt; 系统配置</code>进行配置<br><img src="/ssh.png" alt="JDK"></p>
 <p><strong>凭证配置</strong>: 我使用的是SSH协议拉取项目，可以在<code>Dashboard --&gt; 系统管理 --&gt; 凭据</code>中配置一个SSH 私钥，这里需要注意的是jenkins需要的私钥格式为pem类型，如果是用puttyGen生成的私钥，生成完选择Conversions-&gt;Export OpenSSHkey即可。如果是命令行生成的可以使用如下命令</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -m PEM -t rsa -f &lt;yourfile&gt;</span><br></pre></td></tr></table></figure>
 
@@ -279,14 +279,14 @@
 <li>SSH Server Name： 前面配置的SSH Server</li>
 <li>Transfer Set Source files: 项目构建后的目录（以本项目为根路径）</li>
 <li>Remove prefix: 需要去除的前缀</li>
-<li> Remote directoty 发布的目录（前缀为系统设置里配置Publish over SSH的Remote Directory）</li>
-<li> Exec command 发布完执行的命令 ， 这里需要提前在宿主机或者远程服务器准备好两个文件<code>Dockerfile</code>和docker.sh，具体内容如下<br>Dockerfile<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 基于哪个镜像</span></span><br><span class="line"><span class="keyword">FROM</span> mcr.microsoft.com/java/jre:<span class="number">17</span>-zulu-alpine</span><br><span class="line"><span class="comment">#FROM mcr.microsoft.com/java/jre-headless:17u1-zulu-alpine</span></span><br><span class="line"><span class="comment">#FROM azul/zulu-openjdk-alpine:17</span></span><br><span class="line"><span class="comment"># 映射/tmp到主机</span></span><br><span class="line"><span class="keyword">VOLUME</span><span class="language-bash"> /tmp</span></span><br><span class="line"><span class="comment">#将打包好的spring程序拷贝到容器中的指定位置</span></span><br><span class="line"><span class="keyword">COPY</span><span class="language-bash"> *.jar /opt/app.jar</span></span><br><span class="line"><span class="comment">#容器对外暴露9019</span></span><br><span class="line"><span class="keyword">EXPOSE</span> <span class="number">9019</span></span><br><span class="line"><span class="comment"># 容器启动后执行的命令</span></span><br><span class="line"><span class="keyword">ENTRYPOINT</span><span class="language-bash"> [<span class="string">&quot;java&quot;</span>,<span class="string">&quot;-Djava.security.egd=file:/dev/./urandom&quot;</span>,<span class="string">&quot;-jar&quot;</span>,<span class="string">&quot;/opt/app.jar&quot;</span>]</span></span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
+<li>Remote directoty 发布的目录（前缀为系统设置里配置Publish over SSH的Remote Directory）</li>
+<li>Exec command 发布完执行的命令 ， 这里需要提前在宿主机或者远程服务器准备好两个文件<code>Dockerfile</code>和docker.sh，具体内容如下<br>Dockerfile<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 基于哪个镜像</span></span><br><span class="line"><span class="keyword">FROM</span> mcr.microsoft.com/java/jre:<span class="number">17</span>-zulu-alpine</span><br><span class="line"><span class="comment">#FROM mcr.microsoft.com/java/jre-headless:17u1-zulu-alpine</span></span><br><span class="line"><span class="comment">#FROM azul/zulu-openjdk-alpine:17</span></span><br><span class="line"><span class="comment"># 映射/tmp到主机</span></span><br><span class="line"><span class="keyword">VOLUME</span><span class="language-bash"> /tmp</span></span><br><span class="line"><span class="comment">#将打包好的spring程序拷贝到容器中的指定位置</span></span><br><span class="line"><span class="keyword">COPY</span><span class="language-bash"> *.jar /opt/app.jar</span></span><br><span class="line"><span class="comment">#容器对外暴露9019</span></span><br><span class="line"><span class="keyword">EXPOSE</span> <span class="number">9019</span></span><br><span class="line"><span class="comment"># 容器启动后执行的命令</span></span><br><span class="line"><span class="keyword">ENTRYPOINT</span><span class="language-bash"> [<span class="string">&quot;java&quot;</span>,<span class="string">&quot;-Djava.security.egd=file:/dev/./urandom&quot;</span>,<span class="string">&quot;-jar&quot;</span>,<span class="string">&quot;/opt/app.jar&quot;</span>]</span></span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
 </ul>
 <p>docker.sh</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">!/bin/bash</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">构建<span class="built_in">id</span>号</span></span><br><span class="line">Build_id=`date &#x27;+%Y%m%d%H%M&#x27;`</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">容器名</span></span><br><span class="line">Container_name=xmc-api</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">端口号</span></span><br><span class="line">Port=9019</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">镜像名</span></span><br><span class="line">IMAGE_NAME=$Container_name:$Build_id</span><br><span class="line">echo `================构建镜像$IMAGE_NAME==================`</span><br><span class="line">docker build -t $IMAGE_NAME .</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">下面的<span class="keyword">if</span>判断删除现有正在运行的容器</span></span><br><span class="line">echo &#x27;================获取容器id==================&#x27;</span><br><span class="line">container_id=`docker ps -a | grep $Container_name | awk -F &quot; &quot; &#x27;&#123;print $1&#125;&#x27;`</span><br><span class="line">if [ -n &quot;$container_id&quot; ];then</span><br><span class="line">  echo &quot;存在容器&quot;</span><br><span class="line">  echo $container_id | wc -L</span><br><span class="line">  docker stop $container_id</span><br><span class="line">  docker rm $container_id</span><br><span class="line">fi</span><br><span class="line"></span><br><span class="line">echo &#x27;================启动容器==================&#x27;</span><br><span class="line">docker run -d -p $Port:$Port --name $Container_name $IMAGE_NAME</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
 <p>总体配置如下图</p>
-<p><img src="job.png" alt="JDK"></p>
+<p><img src="/job.png" alt="JDK"></p>
 
     
   </div>

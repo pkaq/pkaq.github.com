@@ -282,7 +282,7 @@
 <p>Eureka通过“自我保护模式”来解决这个问题——当Eureka Server节点在短时间内丢失过多客户端时（可能发生了网络分区故障），那么这个节点就会进入自我保护模式。一旦进入该模式，<code>Eureka Server</code>就会保护服务注册表中的信息，不再删除服务注册表中的数据（也就是不会注销任何微服务）。当网络故障恢复后，该<code>Eureka Server</code>节点会自动退出自我保护模式。</p>
 <p>综上，自我保护模式是一种应对网络异常的安全保护措施。它的架构哲学是宁可同时保留所有微服务（健康的微服务和不健康的微服务都会保留），也不盲目注销任何健康的微服务。使用自我保护模式，可以让<code>Eureka</code>集群更加的健壮、稳定。</p>
 <p>在Spring Cloud中，可以使用<code>eureka.server.enable-self-preservation = false</code> 禁用自我保护模式。</p>
-<p>2.<code>unavailable-replicas</code><br>在配置文件中如果不使用域名的方式，而指定localhost或者ip(127.0.0.1/外网ip)，服务能够正常启动，但分片服务总显示在<code>unavailable-replicas</code>中，因此在host中指定了相应的域名做服务区分</p>
+<p>2.<code>unavailable-replicas</code><br>在配置文件中如果不使用域名的方式，而指定localhost或者ip(127.0.0.1&#x2F;外网ip)，服务能够正常启动，但分片服务总显示在<code>unavailable-replicas</code>中，因此在host中指定了相应的域名做服务区分</p>
 <p>** 参考 **</p>
 <ul>
 <li><a target="_blank" rel="noopener" href="http://www.cnblogs.com/ityouknow/p/6854805.html">http://www.cnblogs.com/ityouknow/p/6854805.html</a></li>

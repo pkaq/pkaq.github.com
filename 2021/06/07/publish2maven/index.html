@@ -22,19 +22,19 @@
 <meta property="og:site_name" content="如是我闻">
 <meta property="og:description" content="概述由于Jcenter已经停止了服务，之前发布到Jcenter的构件需要转移到Maven仓库中。在开始之前，先对OSSRH做下了解是很必要的，因为一开始，我并不知道这是个啥玩儿意。我想和我一样的人应该还是有很多的。OSSRH：Sonatype Open Source Software Repository Hosting Service，为开源软件提供maven仓库托管服务。你可以在上面部署sna">
 <meta property="og:locale">
-<meta property="og:image" content="https://pkaq.org/2021/06/07/publish2maven/1.png">
-<meta property="og:image" content="https://pkaq.org/2021/06/07/publish2maven/2.png">
-<meta property="og:image" content="https://pkaq.org/2021/06/07/publish2maven/3.png">
-<meta property="og:image" content="https://pkaq.org/2021/06/07/publish2maven/4.png">
-<meta property="og:image" content="https://pkaq.org/2021/06/07/publish2maven/5.png">
-<meta property="og:image" content="https://pkaq.org/2021/06/07/publish2maven/6.png">
+<meta property="og:image" content="https://pkaq.org/1.png">
+<meta property="og:image" content="https://pkaq.org/2.png">
+<meta property="og:image" content="https://pkaq.org/3.png">
+<meta property="og:image" content="https://pkaq.org/4.png">
+<meta property="og:image" content="https://pkaq.org/5.png">
+<meta property="og:image" content="https://pkaq.org/6.png">
 <meta property="article:published_time" content="2021-06-07T01:33:24.000Z">
 <meta property="article:modified_time" content="2021-08-18T11:57:06.196Z">
 <meta property="article:author" content="PKAQ">
 <meta property="article:tag" content="Gradle">
 <meta property="article:tag" content="Maven">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://pkaq.org/2021/06/07/publish2maven/1.png">
+<meta name="twitter:image" content="https://pkaq.org/1.png">
 
   
 
@@ -258,16 +258,16 @@
 <p>网址：<a target="_blank" rel="noopener" href="https://issues.sonatype.org/">https://issues.sonatype.org/</a></p>
 <p>无非就是填写下注册信息，没有什么特别的</p>
 <ol start="2">
-<li><strong>创建一个Issue</strong><br>填写资料<br>可以在头部看到一个Create的按钮<br><img src="1.png" alt="1"><br>sonatype-create-issue-button</li>
+<li><strong>创建一个Issue</strong><br>填写资料<br>可以在头部看到一个Create的按钮<br><img src="/1.png" alt="1"><br>sonatype-create-issue-button</li>
 </ol>
-<p>会弹出Create Issue表单<br><img src="2.png" alt="2"><br>sonatype-create-issue-form</p>
+<p>会弹出Create Issue表单<br><img src="/2.png" alt="2"><br>sonatype-create-issue-form</p>
 <ul>
 <li><p>Project：选择Community Support - Open Source Project Repository Hosting (OSSRH)</p>
 </li>
 <li><p>Issue Type：选择New Project</p>
 </li>
 <li><p>Summary：写个标题做个简单概述你要做啥。真不知道写什么，直接把项目名称写上就行，我就这么干了哈。<br>  Group Id：<br>  自己有域名<br>  可以使用子域名作为Group Id 。例：我的项目叫paladin2，那么就用org.pkaq作为Group Id</p>
-<p>  注意：不能瞎编一个，因为后面审核人员会来审核你是否是该域名的拥有者<br>  自己没域名<br>  可以借助github，例：我的用户名为michaelzx，那么就用com.github.pkaq.eva作为作为Group Id<br>  Project URL：要与Group Id一定关联性<br>  例：<br>  Project URL=<a target="_blank" rel="noopener" href="https://github.com/pkaq/eva">https://github.com/pkaq/eva</a><br>  Group Id=com.github.pkaq.eva</p>
+<p>  注意：不能瞎编一个，因为后面审核人员会来审核你是否是该域名的拥有者<br>  自己没域名<br>  可以借助github，例：我的用户名为michaelzx，那么就用com.github.pkaq.eva作为作为Group Id<br>  Project URL：要与Group Id一定关联性<br>  例：<br>  Project URL&#x3D;<a target="_blank" rel="noopener" href="https://github.com/pkaq/eva">https://github.com/pkaq/eva</a><br>  Group Id&#x3D;com.github.pkaq.eva</p>
 </li>
 <li><p>SCM url：版本仓库的拉取地址</p>
 </li>
@@ -275,7 +275,7 @@
 <ol start="3">
 <li><strong>等待回复</strong><br>如果有问题，老外在评论中把问题给你指出来，可以在原有的issue把资料改正确</li>
 </ol>
-<p>审核人员要处理的issue很多，你可能要耐心等待一会，不要急<br>我之前急了，就重新提交了2个新的issue，最后管理员还是耐心的把重复的issue关闭<br>如果一切顺利，那么你会收到审核人员，这样的一个评论：<br><img src="3.png" alt="3"></p>
+<p>审核人员要处理的issue很多，你可能要耐心等待一会，不要急<br>我之前急了，就重新提交了2个新的issue，最后管理员还是耐心的把重复的issue关闭<br>如果一切顺利，那么你会收到审核人员，这样的一个评论：<br><img src="/3.png" alt="3"></p>
 <p>这里我使用了自己的域名，如果使用自己的域名，需要解析一个TXT记录到你提交的这个issue来证明你是这个域名的持有人即可。</p>
 <h1 id="二、准备工作"><a href="#二、准备工作" class="headerlink" title="二、准备工作"></a>二、准备工作</h1><p>为了确保中央存储库中可用组件的质量水平，OSSRH对提交的文件有明确的要求。</p>
 <p>一个基础的提交，应该包含一下文件：</p>
@@ -283,7 +283,7 @@
 
 <p>除了jar包和pom文件，Javadoc和Sources是必须的，后面会说到用Gradle的一些插件来生成<br>每个文件都有一个对应的asc文件，这是GPG签名文件，可以用于校验文件</p>
 <p><strong>GPG</strong><br>Windows下如果使用了cmder那么,cmder已经集成了gpg命令工具</p>
-<p><strong>公钥、私钥、签名</strong><br>GPG的默认秘钥类型是RSA，这里涉及涉及几个概念公钥（public-key）、私钥（secret-key）、签名(sign/signature)</p>
+<p><strong>公钥、私钥、签名</strong><br>GPG的默认秘钥类型是RSA，这里涉及涉及几个概念公钥（public-key）、私钥（secret-key）、签名(sign&#x2F;signature)</p>
 <ul>
 <li>公钥和私钥是成对</li>
 <li>公钥加密，私钥解密。</li>
@@ -294,7 +294,7 @@
 <p>创建的时候，会让你输入密码，别输了以后忘记了，后面gradle插件中会用到。</p>
 <p><strong>查看已经生成的密钥</strong></p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gpg -k</span><br></pre></td></tr></table></figure>
-<p><img src="4.png" alt="4"></p>
+<p><img src="/4.png" alt="4"></p>
 <ul>
 <li>pub下面第二行, 936DDBCE5B649E51D37464283F199C01AE4240A5，这个叫做密钥指纹(应该是用来做唯一识别)</li>
 <li>后面8位DF855F85,叫做标识或KEY ID，在后面需要加到Gradle插件配置中</li>
@@ -334,8 +334,8 @@
 <p>但是提交成功，并不代表发布成功, 上传完成后去你之前提的 ISSUE 中回复一下官方人员 告诉他你已经上传好了, 之后他会给你审核,并且告诉你一个地址</p>
 <figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">I have already completed <span class="keyword">the</span> <span class="keyword">first</span> release.</span><br></pre></td></tr></table></figure>
 
-<h1 id="五、构件发布"><a href="#五、构件发布" class="headerlink" title="五、构件发布"></a>五、构件发布</h1><p>用你之前注册的账号密码，登录官方人员给你的回复里的地址<br><img src="5.png" alt="5"><br>登录后查看左侧的Build Promotion-&gt;Staging Repositories</p>
-<p>你的提交，会出现在最下面. Staging Repositories 中😂<br><img src="6.png" alt="6"></p>
+<h1 id="五、构件发布"><a href="#五、构件发布" class="headerlink" title="五、构件发布"></a>五、构件发布</h1><p>用你之前注册的账号密码，登录官方人员给你的回复里的地址<br><img src="/5.png" alt="5"><br>登录后查看左侧的Build Promotion-&gt;Staging Repositories</p>
+<p>你的提交，会出现在最下面. Staging Repositories 中😂<br><img src="/6.png" alt="6"></p>
 <p><strong>Close</strong><br>你的提交在未处理前，是open状态，然后点击Close按钮。</p>
 <p>一开始不太明白这个Close是啥意思，后来看了下，主要按照中央仓库的要求来验证下你上传到文件<br>签名就是其中一个步骤，会去公钥服务器拉取公钥，然后来验证你所有的文件<br>需要等待一会，等它执行完毕，状态会从open变成closed</p>
 <p>如果碰到错误的话，仔细看下Activity选项卡，执行了什么步骤，那个步骤出现了什么错误，很清晰的<br><strong>Release</strong><br>一般情况下，感觉如果顺利close后，再次选中点击Release，耐心等待一会，就大功告成了！</p>

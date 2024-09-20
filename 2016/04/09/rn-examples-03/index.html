@@ -15,12 +15,12 @@
     <meta name="keywords" content="React Native," />
   
 
-  <meta name="description" content="学习RN，官方示例是必不可少的，研究和学习官方示例会带来许多帮助。在搭建好rn环境之后就可以着手尝试运行官方示例来看下RN的各类组件了。    先决条件 node npm RN Git Gradle ADK&#x2F;SDK  开始首先下载RN代码Github: https:&#x2F;&#x2F;github.com&#x2F;facebook&#x2F;react-native下载成功后 命令行切换到目标目录 执行npm install安">
+  <meta name="description" content="学习RN，官方示例是必不可少的，研究和学习官方示例会带来许多帮助。在搭建好rn环境之后就可以着手尝试运行官方示例来看下RN的各类组件了。    先决条件 node npm RN Git Gradle ADK&#x2F;SDK  开始首先下载RN代码Github: https:&#x2F;&#x2F;github.com&#x2F;facebook&#x2F;react-native下载成功后 命令行切换到目标目录 执行npm ins">
 <meta property="og:type" content="article">
 <meta property="og:title" content="RN（react native）入坑指南-03,运行官方示例UIExplorer">
 <meta property="og:url" content="https://pkaq.org/2016/04/09/rn-examples-03/index.html">
 <meta property="og:site_name" content="如是我闻">
-<meta property="og:description" content="学习RN，官方示例是必不可少的，研究和学习官方示例会带来许多帮助。在搭建好rn环境之后就可以着手尝试运行官方示例来看下RN的各类组件了。    先决条件 node npm RN Git Gradle ADK&#x2F;SDK  开始首先下载RN代码Github: https:&#x2F;&#x2F;github.com&#x2F;facebook&#x2F;react-native下载成功后 命令行切换到目标目录 执行npm install安">
+<meta property="og:description" content="学习RN，官方示例是必不可少的，研究和学习官方示例会带来许多帮助。在搭建好rn环境之后就可以着手尝试运行官方示例来看下RN的各类组件了。    先决条件 node npm RN Git Gradle ADK&#x2F;SDK  开始首先下载RN代码Github: https:&#x2F;&#x2F;github.com&#x2F;facebook&#x2F;react-native下载成功后 命令行切换到目标目录 执行npm ins">
 <meta property="og:locale">
 <meta property="article:published_time" content="2016-04-09T10:36:07.000Z">
 <meta property="article:modified_time" content="2016-04-12T08:11:17.499Z">
@@ -248,13 +248,13 @@
 <li>RN</li>
 <li>Git</li>
 <li>Gradle</li>
-<li>ADK/SDK</li>
+<li>ADK&#x2F;SDK</li>
 </ul>
 <h4 id="开始"><a href="#开始" class="headerlink" title="开始"></a>开始</h4><p>首先下载RN代码<br>Github: <a target="_blank" rel="noopener" href="https://github.com/facebook/react-native">https://github.com/facebook/react-native</a><br>下载成功后 命令行切换到目标目录 执行<code>npm install</code>安装所需依赖   </p>
 <span id="more"></span>
 <h4 id="配置-DK"><a href="#配置-DK" class="headerlink" title="配置*DK"></a>配置*DK</h4><p>这里有两种方式<br>法1：<br>　　切换到react-native目录, 新建local.properties</p>
 <figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">sdk.dir</span>=absolute_path_to_android_sdk</span><br><span class="line"><span class="attr">ndk.dir</span>=absolute_path_to_android_ndk</span><br></pre></td></tr></table></figure>
-<p>法2:<br>　　环境变量添加ANDROID_NDK,ANDROID_SDK分别指向NDK和SDK的目录<br>更多说明请参考   <a target="_blank" rel="noopener" href="https://facebook.github.io/react-native/docs/android-building-from-source.html">关于SDK/NDK配置的官方文档</a></p>
+<p>法2:<br>　　环境变量添加ANDROID_NDK,ANDROID_SDK分别指向NDK和SDK的目录<br>更多说明请参考   <a target="_blank" rel="noopener" href="https://facebook.github.io/react-native/docs/android-building-from-source.html">关于SDK&#x2F;NDK配置的官方文档</a></p>
 <h4 id="真机测试"><a href="#真机测试" class="headerlink" title="真机测试"></a>真机测试</h4><p>　　如果是windows小伙伴，下面的命令建议用安装完git后自带的gitbash运行</p>
 <p>1.执行命令</p>
 <figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./gradlew <span class="symbol">:ReactAndroid</span><span class="symbol">:assembleDebug</span></span><br></pre></td></tr></table></figure>

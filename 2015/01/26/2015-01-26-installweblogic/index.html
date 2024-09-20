@@ -15,12 +15,12 @@
     <meta name="keywords" content="webloigc," />
   
 
-  <meta name="description" content="安装0.从oracle官网下载webloigc的zip包&#x2F;jar安装文件   a.jar安装方式    此种方式比较简单直接执行java -jar fmw_xxx.jar即可    p.s:默认情况下java命令调用的是jre下面的,需要显示指定jdk&#x2F;bin目录下的java程序来执行此jar文件才可以,具体安装过程有图形界面基本都是下一步之类的操作,这里不再赘述.   b.zip安装方式">
+  <meta name="description" content="安装0.从oracle官网下载webloigc的zip包&#x2F;jar安装文件   a.jar安装方式    此种方式比较简单直接执行java -jar fmw_xxx.jar即可    p.s:默认情况下java命令调用的是jre下面的,需要显示指定jdk&#x2F;bin目录下的java程序来执行此jar文件才可以,具体安装过程有图形界面基本都是下一步之类的操作,这里不再赘述.   b.z">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Webloigc 12 zip安装">
 <meta property="og:url" content="https://pkaq.org/2015/01/26/2015-01-26-installweblogic/index.html">
 <meta property="og:site_name" content="如是我闻">
-<meta property="og:description" content="安装0.从oracle官网下载webloigc的zip包&#x2F;jar安装文件   a.jar安装方式    此种方式比较简单直接执行java -jar fmw_xxx.jar即可    p.s:默认情况下java命令调用的是jre下面的,需要显示指定jdk&#x2F;bin目录下的java程序来执行此jar文件才可以,具体安装过程有图形界面基本都是下一步之类的操作,这里不再赘述.   b.zip安装方式">
+<meta property="og:description" content="安装0.从oracle官网下载webloigc的zip包&#x2F;jar安装文件   a.jar安装方式    此种方式比较简单直接执行java -jar fmw_xxx.jar即可    p.s:默认情况下java命令调用的是jre下面的,需要显示指定jdk&#x2F;bin目录下的java程序来执行此jar文件才可以,具体安装过程有图形界面基本都是下一步之类的操作,这里不再赘述.   b.z">
 <meta property="og:locale">
 <meta property="og:image" content="https://pkaq.org/images/2015/weblogic/1.png">
 <meta property="og:image" content="https://pkaq.org/images/2015/weblogic/2.png">
@@ -252,17 +252,17 @@
 
   <div class="article-content">
     
-      <h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><p>0.从oracle官网下载webloigc的zip包/jar安装文件  </p>
-<p>a.jar安装方式<br>    此种方式比较简单直接执行java -jar fmw_xxx.jar即可<br>    p.s:默认情况下java命令调用的是jre下面的,需要显示指定jdk/bin目录下的java程序来执行此jar文件才可以,具体安装过程有图形界面基本都是下一步之类的操作,这里不再赘述.  </p>
+      <h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><p>0.从oracle官网下载webloigc的zip包&#x2F;jar安装文件  </p>
+<p>a.jar安装方式<br>    此种方式比较简单直接执行java -jar fmw_xxx.jar即可<br>    p.s:默认情况下java命令调用的是jre下面的,需要显示指定jdk&#x2F;bin目录下的java程序来执行此jar文件才可以,具体安装过程有图形界面基本都是下一步之类的操作,这里不再赘述.  </p>
 <p>b.zip安装方式<br>    1.解压zip包到一个路径下,并指定MW_HOME为该解出目录<br>    2.运行configure.sh,此时会进入安装程序,中间过程会询问是否创建新的domain,可以按照步骤进行创建    </p>
 <p><img src="/images/2015/weblogic/1.png" alt="创建domain">  </p>
 <span id="more"></span>  
 
 <p><img src="/images/2015/weblogic/2.png" alt="启动">  </p>
-<p>3.安装成功后如图,访问<br><a target="_blank" rel="noopener" href="http://localhost:7001/console">http://localhost:7001/console</a><br>用中途创建的用户名/密码登陆即可<br> <img src="/images/2015/weblogic/3.png" alt="登陆界面"><br> <img src="/images/2015/weblogic/4.png" alt="登陆成功"> </p>
+<p>3.安装成功后如图,访问<br><a target="_blank" rel="noopener" href="http://localhost:7001/console">http://localhost:7001/console</a><br>用中途创建的用户名&#x2F;密码登陆即可<br> <img src="/images/2015/weblogic/3.png" alt="登陆界面"><br> <img src="/images/2015/weblogic/4.png" alt="登陆成功"> </p>
 <p>p.s: 安装过程中请保证你所有用到的路径中不要有中文或者空格</p>
-<h2 id="启动与停止"><a href="#启动与停止" class="headerlink" title="启动与停止"></a>启动与停止</h2><p>访问你的domain目录,执行startWeblogic.sh即可;<br>domain目录在 $MW_HOME/user_projects/domain/domain_name</p>
-<h2 id="项目发布"><a href="#项目发布" class="headerlink" title="项目发布"></a>项目发布</h2><p>可以直接将war包保存到$MW_HOME/user_projects/domain/domain_name/autodeploy下会自动部署<br>或者通过控制面板-&gt;部署-&gt;安装,按照界面提示操作</p>
+<h2 id="启动与停止"><a href="#启动与停止" class="headerlink" title="启动与停止"></a>启动与停止</h2><p>访问你的domain目录,执行startWeblogic.sh即可;<br>domain目录在 $MW_HOME&#x2F;user_projects&#x2F;domain&#x2F;domain_name</p>
+<h2 id="项目发布"><a href="#项目发布" class="headerlink" title="项目发布"></a>项目发布</h2><p>可以直接将war包保存到$MW_HOME&#x2F;user_projects&#x2F;domain&#x2F;domain_name&#x2F;autodeploy下会自动部署<br>或者通过控制面板-&gt;部署-&gt;安装,按照界面提示操作</p>
 <h2 id="SSL配置"><a href="#SSL配置" class="headerlink" title="SSL配置"></a>SSL配置</h2><p>以参考此文章:<br><a target="_blank" rel="noopener" href="http://www.wosign.com/Docdownload/WeblogicSSL%E8%AF%81%E4%B9%A6%E9%83%A8%E7%BD%B2%E6%8C%87%E5%8D%97.pdf">http://www.wosign.com/Docdownload/WeblogicSSL证书部署指南.pdf</a></p>
 <p>此文档给出的是weblogic 9的中文版配置,为了方便中文不好的同学,下面我复述一下 weblogic 12 英文版的配置</p>
 <h3 id="进入配置"><a href="#进入配置" class="headerlink" title="进入配置"></a>进入配置</h3><p>0.登陆 Weblogic 成功后，来到此页面点击“environment”中的“servers”<br><img src="/images/2015/weblogic/0-ssl1.png" alt="登陆服务器"> </p>

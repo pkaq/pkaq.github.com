@@ -241,11 +241,11 @@
 <blockquote>
 <p>es6语法说明 …Obj ,三个点遍历对象所有属性并赋值给xx,举个例子</p>
 <figure class="highlight abnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">var Obj <span class="operator">=</span> &#123;&#125;<span class="comment">;</span></span><br><span class="line">Obj.foo<span class="operator">=</span><span class="string">&quot;1&quot;</span><span class="comment">;</span></span><br><span class="line">Obj.bar<span class="operator">=</span><span class="string">&quot;2&quot;</span><span class="comment">;</span></span><br><span class="line"></span><br><span class="line">&lt;H1 &#123;...Obj&#125; foo<span class="operator">=</span><span class="string">&quot;2&quot;</span>&gt;&lt;/H1&gt;</span><br></pre></td></tr></table></figure>
-<p>这里{…Obj}会遍历Obj的所有属性给H1,同时由于后面再次制定了foo=”2” 所以这里会覆盖前面的foo=”1”</p>
+<p>这里{…Obj}会遍历Obj的所有属性给H1,同时由于后面再次制定了foo&#x3D;”2” 所以这里会覆盖前面的foo&#x3D;”1”</p>
 </blockquote>
 <p>箭头函数</p>
 <blockquote>
-<p>(a)=&gt;{alert(“a”)}<br>相当于<br>function(a) {<br>    alert(“a”);<br>}</p>
+<p>(a)&#x3D;&gt;{alert(“a”)}<br>相当于<br>function(a) {<br>    alert(“a”);<br>}</p>
 </blockquote>
 <p><strong>3.JSX语法</strong> : <a target="_blank" rel="noopener" href="http://reactjs.cn/react/docs/jsx-in-depth.html">深入了解JSX语法</a><br>还是补充说明</p>
 <blockquote>
@@ -257,7 +257,7 @@
 </blockquote>
 <p><strong>5.关于事件</strong></p>
 <blockquote>
-<p>事件绑定 比如onClick={_onclickHandler.bind(this,”a”)},这里接受两个参数,第一个设定作用域,第二个接收一个参数,同时onClick必须符合驼峰命名规则</p>
+<p>事件绑定 比如onClick&#x3D;{_onclickHandler.bind(this,”a”)},这里接受两个参数,第一个设定作用域,第二个接收一个参数,同时onClick必须符合驼峰命名规则</p>
 </blockquote>
 <p>下一步我们就可以开始熟悉组件使用,redux等更多内容了.</p>
 
