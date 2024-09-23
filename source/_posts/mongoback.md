@@ -134,7 +134,7 @@ BACKUP_DIR="/opt/backup/mongo"
 mkdir -p "$BACKUP_DIR"
 
 # 在容器中执行 mongodump 备份整个数据库
-docker exec "$CONTAINER_NAME" /usr/bin/mongodump --username oplog_back --password '7u8i9o0p' --authenticationDatabase admin --out /data/db/backup/incremental
+docker exec "$CONTAINER_NAME" /usr/bin/mongodump --username oplog_back --password '7u8i9o0p' --authenticationDatabase admin --out /data/db/backup/incremental --oplog
 
 # 移动备份到指定目录
 mv /opt/docker_data/mongodb/data/backup/incremental "$BACKUP_DIR"
