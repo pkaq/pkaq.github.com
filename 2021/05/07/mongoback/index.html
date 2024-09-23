@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+
+
+  <html class="dark page-post">
+
+
+<head>
+  <meta charset="utf-8">
+  
+  <title>Mongo全量备份和增量备份 | 如是我闻</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="devops,docker,mongodb," />
+  
+
+  <meta name="description" content="一、基础准备创建一个用户备份的用户12345678910use admin;db.createUser(&#123;  user: &quot;oplog_back&quot;,  pwd: &quot;7u8i9o0p&quot;,   roles: [    &#123; role: &quot;readWrite&quot;, db: &quot;xmc&quot; &#125;,    &amp;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Mongo全量备份和增量备份">
+<meta property="og:url" content="https://pkaq.org/2021/05/07/mongoback/index.html">
+<meta property="og:site_name" content="如是我闻">
+<meta property="og:description" content="一、基础准备创建一个用户备份的用户12345678910use admin;db.createUser(&#123;  user: &quot;oplog_back&quot;,  pwd: &quot;7u8i9o0p&quot;,   roles: [    &#123; role: &quot;readWrite&quot;, db: &quot;xmc&quot; &#125;,    &amp;">
+<meta property="og:locale">
+<meta property="article:published_time" content="2021-05-07T01:33:24.000Z">
+<meta property="article:modified_time" content="2024-09-23T11:26:20.988Z">
+<meta property="article:author" content="PKAQ">
+<meta property="article:tag" content="devops">
+<meta property="article:tag" content="docker">
+<meta property="article:tag" content="mongodb">
+<meta name="twitter:card" content="summary">
+
+  
+
+  
+    <link rel="icon" href="/favicon.ico">
+  
+
+  <link href="/css/styles.css?v=d671a41f" rel="stylesheet">
+
+
+  
+    
+<link rel="stylesheet" href="/css/fexo-theme.css">
+
+  
+
+  
+
+  
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?cd1f06c6f057506d537ab11e9f1693be";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+  
+    <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  
+
+  
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  
+
+  <link href='//cdn.webfont.youziku.com/webfonts/nomal/97080/42410/5865c4e5f629db00cc915895.css' rel='stylesheet' type='text/css' />
+ 
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body>
+
+
+  
+    <span id="toolbox-mobile" class="toolbox-mobile">　</span>
+  
+
+  <div class="pk-page-header">	
+   <div class="page-header" >
+
+  
+
+
+
+  <div class="box-blog-info">
+   
+    
+  <div class="toolbox">
+    <a class="toolbox-entry" href="/">
+      <span class="toolbox-entry-text">　</span>
+      <i class="icon-angle-down"></i>
+      <i class="icon-home"></i>
+    </a>
+    <ul class="list-toolbox">
+      /
+      
+        <li class="item-toolbox">
+        
+          <a
+            href="/archives/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            博客
+          </a>
+          /
+        </li>
+      
+        <li class="item-toolbox">
+        
+          <a
+            href="/category/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            分类
+          </a>
+          /
+        </li>
+      
+        <li class="item-toolbox">
+        
+          <a
+            href="/tag/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            标签
+          </a>
+          /
+        </li>
+      
+        <li class="item-toolbox">
+        
+          <a
+            href="/link/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            友链
+          </a>
+          /
+        </li>
+      
+        <li class="item-toolbox">
+        
+          <a
+            href="/project"
+            rel="noopener noreferrer"
+            target="_blank"
+            >
+            Project
+          </a>
+          /
+        </li>
+      
+        <li class="item-toolbox">
+        
+          <a
+            href="/search/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            搜索
+          </a>
+          /
+        </li>
+      
+    </ul>
+  </div>
+
+
+    
+    <div class="info">
+      <h3 class="name" style="font-family: calligraffittiregular">
+        如是我闻
+      </h3>
+      <div class="slogan">
+        万物皆虚 万事皆允
+      </div>
+    </div>
+  </div>
+
+</div>
+
+ </div>
+
+
+  <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E5%9F%BA%E7%A1%80%E5%87%86%E5%A4%87"><span class="toc-text">一、基础准备</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E4%B8%80%E4%B8%AA%E7%94%A8%E6%88%B7%E5%A4%87%E4%BB%BD%E7%9A%84%E7%94%A8%E6%88%B7"><span class="toc-text">创建一个用户备份的用户</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E5%85%A8%E9%87%8F%E5%A4%87%E4%BB%BD"><span class="toc-text">二、全量备份</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E7%BC%96%E5%86%99%E5%A4%87%E4%BB%BD%E8%84%9A%E6%9C%AC"><span class="toc-text">1. 编写备份脚本</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E5%88%9B%E5%BB%BA%E5%AE%9A%E6%97%B6%E4%BB%BB%E5%8A%A1"><span class="toc-text">2.创建定时任务</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%89%E3%80%81%E5%A2%9E%E9%87%8F%E5%A4%87%E4%BB%BD"><span class="toc-text">三、增量备份</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E4%BB%A5%E5%89%AF%E6%9C%AC%E9%9B%86%E6%A8%A1%E5%BC%8F%E8%BF%90%E8%A1%8Cmongo"><span class="toc-text">1.以副本集模式运行mongo</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E5%88%9D%E5%A7%8B%E5%8C%96%E5%89%AF%E6%9C%AC%E9%9B%86"><span class="toc-text">2.初始化副本集</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2-1-%E8%BF%9E%E6%8E%A5%E5%88%B0%E4%B8%BB%E8%8A%82%E7%82%B9%EF%BC%9A"><span class="toc-text">2.1 连接到主节点：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-2-%E5%88%9D%E5%A7%8B%E5%8C%96%E5%89%AF%E6%9C%AC%E9%9B%86%EF%BC%9A"><span class="toc-text">2.2 初始化副本集：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-3-%E6%B7%BB%E5%8A%A0%E4%BB%8E%E8%8A%82%E7%82%B9"><span class="toc-text">2.3 添加从节点</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-4-%E6%A3%80%E6%9F%A5%E5%90%8C%E6%AD%A5%E7%8A%B6%E6%80%81"><span class="toc-text">2.4 检查同步状态</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-5-%E5%88%9B%E5%BB%BA%E5%90%8C%E6%AD%A5%E8%84%9A%E6%9C%AC"><span class="toc-text">2.5 创建同步脚本</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-6-%E5%88%9B%E5%BB%BA%E5%AE%9A%E6%97%B6%E4%BB%BB%E5%8A%A1"><span class="toc-text">2.6 创建定时任务</span></a></li></ol></li></ol></li></ol>
+  </div>
+
+
+
+<div class="content content-post CENTER">
+   <article id="post-mongoback" class="article article-type-post" itemprop="blogPost">
+  <header class="article-header">
+    <h1 class="post-title">Mongo全量备份和增量备份</h1>
+
+    <div class="article-meta">
+      <span>
+        <i class="icon-calendar"></i>
+        <span>2021.05.07</span>
+      </span>
+
+      
+        <span class="article-author">
+          <i class="icon-user"></i>
+          <span>PKAQ</span>
+        </span>
+      
+
+      
+  <span class="article-category">
+    <i class="icon-list"></i>
+    <a class="article-category-link" href="/categories/Database/">Database</a>
+  </span>
+
+
+
+      
+
+      
+      <i class="fa fa-eye"></i> 
+        <span id="busuanzi_container_page_pv">
+           &nbsp热度 <span id="busuanzi_value_page_pv">
+           <i class="fa fa-spinner fa-spin"></i></span>℃
+        </span>
+      
+
+      
+        <i class="icon-comment"></i> 
+        共 <a class="ds-thread-count" id="uyan_count_unit" su="Mongo全量备份和增量备份" href="https://pkaq.org/2021/05/07/mongoback/index.html"></a>
+      
+      
+    </div>
+  </header>
+
+  <div class="article-content">
+    
+      <h2 id="一、基础准备"><a href="#一、基础准备" class="headerlink" title="一、基础准备"></a>一、基础准备</h2><h3 id="创建一个用户备份的用户"><a href="#创建一个用户备份的用户" class="headerlink" title="创建一个用户备份的用户"></a>创建一个用户备份的用户</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">use admin;</span><br><span class="line">db.createUser(&#123;</span><br><span class="line">  user: &quot;oplog_back&quot;,</span><br><span class="line">  pwd: &quot;7u8i9o0p&quot;, </span><br><span class="line">  roles: [</span><br><span class="line">    &#123; role: &quot;readWrite&quot;, db: &quot;xmc&quot; &#125;,</span><br><span class="line">    &#123; role: &quot;read&quot;, db: &quot;config&quot; &#125;,</span><br><span class="line">    &#123; role: &quot;read&quot;, db: &quot;local&quot; &#125;</span><br><span class="line">  ]</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<span id="more"></span>
+<h2 id="二、全量备份"><a href="#二、全量备份" class="headerlink" title="二、全量备份"></a>二、全量备份</h2><h3 id="1-编写备份脚本"><a href="#1-编写备份脚本" class="headerlink" title="1. 编写备份脚本"></a>1. 编写备份脚本</h3><p>使用mongodump即可</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">!/bin/bash</span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">备份日期</span></span><br><span class="line">DATE=$(date +%Y-%m-%d)</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">Docker 容器名称或 ID</span></span><br><span class="line">CONTAINER_NAME=&quot;mongo&quot;</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">备份目录</span></span><br><span class="line">BACKUP_DIR=&quot;/opt/backup/mongo&quot;</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">创建备份目录</span></span><br><span class="line">mkdir -p &quot;$BACKUP_DIR&quot;</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">在容器中执行 mongodump 备份整个数据库</span></span><br><span class="line">docker exec &quot;$CONTAINER_NAME&quot; /usr/bin/mongodump --username oplog_back --password &#x27;7u8i9o0p&#x27; --authenticationDatabase admin --out /data/db/backup/full</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">移动备份到指定目录</span></span><br><span class="line">mv /opt/docker_data/mongodb/data/backup/full &quot;$BACKUP_DIR&quot;</span><br><span class="line"></span><br><span class="line">cd &quot;$BACKUP_DIR&quot;</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">压缩备份为 ZIP</span></span><br><span class="line">zip -r &quot;$DATE.zip&quot; full</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">删除原始备份目录</span></span><br><span class="line">rm -rf xmc</span><br><span class="line"></span><br><span class="line">echo &quot;Backup for MongoDB completed and saved as /opt/backup/mongo/$DATE.zip.&quot;</span><br></pre></td></tr></table></figure>
+
+
+<h3 id="2-创建定时任务"><a href="#2-创建定时任务" class="headerlink" title="2.创建定时任务"></a>2.创建定时任务</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">0 1 * * * /opt/backup/mongoback.sh</span><br></pre></td></tr></table></figure>
+
+<h2 id="三、增量备份"><a href="#三、增量备份" class="headerlink" title="三、增量备份"></a>三、增量备份</h2><p>增量备份使用的是oplog，需要以副本集的形式运行mongo且至少运行两个节点。</p>
+<h3 id="1-以副本集模式运行mongo"><a href="#1-以副本集模式运行mongo" class="headerlink" title="1.以副本集模式运行mongo"></a>1.以副本集模式运行mongo</h3><p>mongo的启动参数添加 replSet, 注意这里 keyFile 密码只可包含字母数字下划线，并且要保证每个副本集密码、keyfile、 名称相同</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#x27;--auth&#x27; &#x27;--replSet&#x27; &#x27;rs0&#x27; &#x27;--keyFile&#x27; &#x27;/data/db/keyfile&#x27;</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-初始化副本集"><a href="#2-初始化副本集" class="headerlink" title="2.初始化副本集"></a>2.初始化副本集</h3><h4 id="2-1-连接到主节点："><a href="#2-1-连接到主节点：" class="headerlink" title="2.1 连接到主节点："></a>2.1 连接到主节点：</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mongo --host localhost --port 27017 -u admin -p yourpassword --authenticationDatabase admin</span><br></pre></td></tr></table></figure>
+
+<h4 id="2-2-初始化副本集："><a href="#2-2-初始化副本集：" class="headerlink" title="2.2 初始化副本集："></a>2.2 初始化副本集：</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rs.initiate()</span><br></pre></td></tr></table></figure>
+
+<h4 id="2-3-添加从节点"><a href="#2-3-添加从节点" class="headerlink" title="2.3 添加从节点"></a>2.3 添加从节点</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rs.add(&quot;&lt;从节点的IP地址&gt;:27017&quot;)</span><br></pre></td></tr></table></figure>
+
+<h4 id="2-4-检查同步状态"><a href="#2-4-检查同步状态" class="headerlink" title="2.4 检查同步状态"></a>2.4 检查同步状态</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rs.status()</span><br></pre></td></tr></table></figure>
+
+<p>如果身份验证正确并且网络连接正常，从节点应该会成功加入并开始同步</p>
+<p>主节点（Primary Node）默认是可读写的。只有主节点允许写操作，而从节点（Secondary Nodes）默认情况下只允许读取操作（只读）。</p>
+<p>详细解释：<br>主节点（Primary Node）：</p>
+<p>默认支持读写操作：主节点接收所有写操作，并将数据复制到从节点。<br>应用程序发送的写入操作（insert、update、delete）只能通过主节点进行。<br>主节点也支持读操作。<br>从节点（Secondary Nodes）：</p>
+<p>默认只读：从节点同步主节点的数据，默认情况下不允许写入操作。<br>读取操作：从节点在默认配置下不允许读取数据，除非启用了“读偏好”（readPreference）选项。</p>
+<h4 id="2-5-创建同步脚本"><a href="#2-5-创建同步脚本" class="headerlink" title="2.5 创建同步脚本"></a>2.5 创建同步脚本</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">!/bin/bash</span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">备份日期</span></span><br><span class="line">DATE=$(date +%Y-%m-%d)</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">Docker 容器名称或 ID</span></span><br><span class="line">CONTAINER_NAME=&quot;mongo&quot;</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">备份目录</span></span><br><span class="line">BACKUP_DIR=&quot;/opt/backup/mongo&quot;</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">创建备份目录</span></span><br><span class="line">mkdir -p &quot;$BACKUP_DIR&quot;</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">在容器中执行 mongodump 备份整个数据库</span></span><br><span class="line">docker exec &quot;$CONTAINER_NAME&quot; /usr/bin/mongodump --username oplog_back --password &#x27;7u8i9o0p&#x27; --authenticationDatabase admin --out /data/db/backup/incremental</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">移动备份到指定目录</span></span><br><span class="line">mv /opt/docker_data/mongodb/data/backup/incremental &quot;$BACKUP_DIR&quot;</span><br><span class="line"></span><br><span class="line">cd &quot;$BACKUP_DIR&quot;</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">压缩备份为 ZIP</span></span><br><span class="line">zip -r &quot;$DATE.zip&quot; incremental</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">删除原始备份目录</span></span><br><span class="line">rm -rf incremental</span><br><span class="line"></span><br><span class="line">echo &quot;Backup for MongoDB completed and saved as /opt/backup/mongo/$DATE.zip.&quot;</span><br></pre></td></tr></table></figure>
+
+<h4 id="2-6-创建定时任务"><a href="#2-6-创建定时任务" class="headerlink" title="2.6 创建定时任务"></a>2.6 创建定时任务</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">0 * * * * /path/to/your/backup_script.sh</span><br></pre></td></tr></table></figure>
+    
+  </div>
+</article>
+
+</div>
+
+
+  <div class="text-center donation">
+    <div class="inner-donation">
+      <span class="btn-donation">支持一下</span>
+      <div class="donation-body">
+        <div class="tip text-center">您得支持,是我前进的动力.</div>
+        <ul class="theme.donation.items.length">
+        
+          <li class="item">
+            <img src="/css/qr-donate.jpg" alt="">
+          </li>
+        
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+
+
+  <a id="backTop" class="back-top">
+    <i class="icon-angle-up"></i>
+  </a>
+
+
+
+
+  <div class="modal" id="modal">
+  <span id="cover" class="cover hide"></span>
+  <div id="modal-dialog" class="modal-dialog hide-dialog">
+    <div class="modal-header">
+      <span id="close" class="btn-close">关闭</span>
+    </div>
+    <hr>
+    <div class="modal-body">
+      <ul class="list-toolbox">
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/archives/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              博客
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/category/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              分类
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/tag/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              标签
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/link/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              友链
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/project"
+              rel="noopener noreferrer"
+              target="_blank"
+              >
+              Project
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/search/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              搜索
+            </a>
+          </li>
+        
+      </ul>
+
+    </div>
+  </div>
+</div>
+
+
+
+  
+      <div class="fexo-comments comments-post">
+    
+
+    
+  <section class="duoshuo-comments">
+
+    <!-- UY BEGIN -->
+    <div id="uyan_frame"></div>
+    <script async type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid=2144561">
+    <!-- UY END -->
+  </section>
+
+  <script type="text/javascript">
+	var uyan_config = {
+	     'su':"Mongo全量备份和增量备份" 
+	};
+	</script>
+
+
+
+  </div>
+
+  
+
+  <script type="text/javascript">
+  function loadScript(url, callback) {
+    var script = document.createElement('script')
+    script.type = 'text/javascript';
+
+    if (script.readyState) { //IE
+      script.onreadystatechange = function() {
+        if (script.readyState == 'loaded' ||
+          script.readyState == 'complete') {
+          script.onreadystatechange = null;
+          callback();
+        }
+      };
+    } else { //Others
+      script.onload = function() {
+        callback();
+      };
+    }
+
+    script.src = url;
+    document.getElementsByTagName('head')[0].appendChild(script);
+  }
+
+  window.onload = function() {
+    loadScript('/js/bundle.js?235683', function() {
+      // load success
+    });
+  }
+</script>
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/assets/hijiki.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true},"log":false});</script></body>
+</html>
